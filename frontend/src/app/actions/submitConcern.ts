@@ -1,14 +1,118 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
+
+// ── Types ──────────────────────────────────────────────────────────────────
 
 export type SubmitConcernResult =
   | { success: true; trackingToken: string }
   | { success: false; error: string };
 
+export interface SemanticMatch {
+  id: string;
+  content: string;
+  similarity: number;
+  result_type: 'concern' | 'politician' | 'department' | 'court' | 'activity';
+}
+
+export interface SemanticMatchResult {
+  matches: SemanticMatch[];
+  error?: string;
+}
+
+// ── OpenAI Embedding via native fetch ─────────────────────────────────────
+
 /**
- * Server action — inserts an anonymous concern into the `concerns` table.
+ * Calls the OpenAI Embeddings API using native `fetch`.
+ * Model: text-embedding-3-small (1536 dimensions, lower cost than ada-002).
+ *
+ * @param text  The text to embed.
+ * @returns     A flat array of 1536 floats, or null on failure.
+ */
+async function generateEmbedding(text: string): Promise<number[] | null> {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    console.warn('[generateEmbedding] OPENAI_API_KEY not set — skipping embedding.');
+    return null;
+  }
+
+  try {
+    const response = await fetch('https://api.openai.com/v1/embeddings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'text-embedding-3-small',
+        input: text.slice(0, 8000), // model max context safeguard
+      }),
+    });
+
+    if (!response.ok) {
+      const err = await response.text();
+      console.error('[generateEmbedding] OpenAI API error:', response.status, err);
+      return null;
+    }
+
+    const json = (await response.json()) as {
+      data: Array<{ embedding: number[] }>;
+    };
+    return json.data[0]?.embedding ?? null;
+  } catch (err) {
+    console.error('[generateEmbedding] fetch error:', err);
+    return null;
+  }
+}
+
+// ── Server Actions ─────────────────────────────────────────────────────────
+
+/**
+ * Server action — generates an embedding for `content` and calls the
+ * `match_concerns` Supabase RPC to surface semantically similar concerns
+ * and related government entities in real time during user submission.
+ *
+ * Non-blocking: if the OpenAI API is unavailable the action returns an
+ * empty match list rather than an error.
+ *
+ * @param content  The draft concern text typed by the user.
+ * @returns        Up to 8 semantic matches with similarity scores.
+ */
+export async function getSemanticMatches(
+  content: string
+): Promise<SemanticMatchResult> {
+  const trimmed = content?.trim();
+  if (!trimmed || trimmed.length < 10) {
+    return { matches: [] };
+  }
+
+  // 1. Generate embedding
+  const embedding = await generateEmbedding(trimmed);
+  if (!embedding) {
+    // Graceful degradation — no matches without an embedding
+    return { matches: [], error: 'Embedding unavailable; showing no suggestions.' };
+  }
+
+  // 2. Call the match_concerns RPC
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.rpc('match_concerns', {
+    query_embedding: embedding,
+    match_threshold: 0.55,
+    match_count: 6,
+  });
+
+  if (error) {
+    console.error('[getSemanticMatches] RPC error:', error);
+    return { matches: [], error: 'Could not retrieve matches.' };
+  }
+
+  return { matches: (data as SemanticMatch[]) ?? [] };
+}
+
+/**
+ * Server action — validates, optionally embeds, then inserts an anonymous
+ * concern into the `concerns` table and returns the tracking_token UUID.
  *
  * @param content  The raw text of the citizen's concern.
  * @returns        The `tracking_token` UUID so the caller can redirect to /track/[uuid].
@@ -32,11 +136,20 @@ export async function submitConcern(
     };
   }
 
+  // Generate embedding for the concern (best-effort — non-blocking)
+  const embedding = await generateEmbedding(trimmed);
+
   const supabase = await createClient();
+
+  const insertPayload: Record<string, unknown> = { content: trimmed };
+  if (embedding) {
+    // Insert as a JSON-serialised array; Supabase casts to vector(1536)
+    insertPayload.embedding = JSON.stringify(embedding);
+  }
 
   const { data, error } = await supabase
     .from('concerns')
-    .insert({ content: trimmed })
+    .insert(insertPayload)
     .select('tracking_token')
     .single();
 
