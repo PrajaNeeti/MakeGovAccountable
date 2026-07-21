@@ -1,8 +1,267 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { submitConcern } from '@/app/actions/submitConcern';
+import { submitConcern, getSemanticMatches, SemanticMatch } from '@/app/actions/submitConcern';
+
+// ── Similarity badge colour ────────────────────────────────────────────────
+
+function SimilarityBadge({ score }: { score: number }) {
+  const pct = Math.round(score * 100);
+  // colour ranges: green ≥70, amber 55–69
+  const colour =
+    pct >= 70
+      ? { bg: 'oklch(0.95 0.06 145)', text: 'oklch(0.3 0.1 145)' }
+      : { bg: 'oklch(0.96 0.08 60)', text: 'oklch(0.45 0.14 60)' };
+
+  return (
+    <span
+      style={{
+        backgroundColor: colour.bg,
+        color: colour.text,
+        fontSize: '11px',
+        fontWeight: 600,
+        padding: '2px 8px',
+        borderRadius: '100px',
+        whiteSpace: 'nowrap',
+        flexShrink: 0,
+      }}
+    >
+      {pct}% match
+    </span>
+  );
+}
+
+// ── Entity type label ──────────────────────────────────────────────────────
+
+const ENTITY_LABELS: Record<string, string> = {
+  concern: 'Similar Concern',
+  politician: 'Politician',
+  department: 'Department',
+  court: 'Court',
+  activity: 'Gov. Activity',
+};
+
+// ── Semantic Match Panel ──────────────────────────────────────────────────
+
+interface MatchPanelProps {
+  matches: SemanticMatch[];
+  isLoading: boolean;
+}
+
+function MatchPanel({ matches, isLoading }: MatchPanelProps) {
+  if (isLoading) {
+    return (
+      <div
+        aria-live="polite"
+        aria-label="Finding similar concerns…"
+        style={{
+          marginTop: '24px',
+          padding: '16px',
+          borderRadius: '12px',
+          border: '1px solid oklch(0.922 0 0)',
+          backgroundColor: 'oklch(0.985 0 0)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+        }}
+      >
+        <span
+          className="inline-block rounded-full border-2 animate-spin"
+          style={{
+            width: '14px',
+            height: '14px',
+            borderColor: 'oklch(0.7 0 0)',
+            borderTopColor: 'oklch(0.3 0 0)',
+            flexShrink: 0,
+          }}
+          aria-hidden="true"
+        />
+        <span style={{ fontSize: '13px', color: 'oklch(0.556 0 0)' }}>
+          Scanning for similar concerns…
+        </span>
+      </div>
+    );
+  }
+
+  if (matches.length === 0) return null;
+
+  const concerns = matches.filter((m) => m.result_type === 'concern');
+  const entities = matches.filter((m) => m.result_type !== 'concern');
+
+  return (
+    <div
+      role="region"
+      aria-label="Similar concerns found"
+      style={{ marginTop: '24px' }}
+    >
+      {/* Section header */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          marginBottom: '12px',
+        }}
+      >
+        <span
+          style={{
+            display: 'inline-block',
+            width: '6px',
+            height: '6px',
+            borderRadius: '50%',
+            backgroundColor: 'oklch(0.5 0.18 145)',
+            flexShrink: 0,
+          }}
+        />
+        <span
+          style={{
+            fontSize: '12px',
+            fontWeight: 600,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            color: 'oklch(0.439 0 0)',
+          }}
+        >
+          Similar concerns already on record
+        </span>
+      </div>
+
+      {/* Concern cards */}
+      {concerns.length > 0 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: entities.length > 0 ? '16px' : 0 }}>
+          {concerns.map((m) => (
+            <div
+              key={m.id}
+              style={{
+                padding: '12px 16px',
+                borderRadius: '10px',
+                border: '1px solid oklch(0.922 0 0)',
+                backgroundColor: 'oklch(0.99 0 0)',
+                display: 'flex',
+                gap: '12px',
+                alignItems: 'flex-start',
+                transition: 'border-color 0.15s',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'oklch(0.7 0 0)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'oklch(0.922 0 0)';
+              }}
+            >
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <p
+                  style={{
+                    fontSize: '14px',
+                    color: 'oklch(0.205 0 0)',
+                    lineHeight: '1.5',
+                    margin: 0,
+                    overflow: 'hidden',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                  }}
+                >
+                  {m.content}
+                </p>
+                <p
+                  style={{
+                    fontSize: '11px',
+                    color: 'oklch(0.6 0 0)',
+                    margin: '4px 0 0',
+                  }}
+                >
+                  {ENTITY_LABELS[m.result_type] ?? m.result_type}
+                </p>
+              </div>
+              <SimilarityBadge score={m.similarity} />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Entity cards (government context) */}
+      {entities.length > 0 && (
+        <>
+          <p
+            style={{
+              fontSize: '12px',
+              fontWeight: 600,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: 'oklch(0.439 0 0)',
+              marginBottom: '8px',
+            }}
+          >
+            Related government context
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            {entities.map((m) => (
+              <div
+                key={m.id}
+                style={{
+                  padding: '10px 14px',
+                  borderRadius: '8px',
+                  border: '1px solid oklch(0.922 0 0)',
+                  backgroundColor: 'oklch(0.975 0 0)',
+                  display: 'flex',
+                  gap: '10px',
+                  alignItems: 'center',
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: '10px',
+                    fontWeight: 700,
+                    letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                    color: 'oklch(0.556 0 0)',
+                    whiteSpace: 'nowrap',
+                    backgroundColor: 'oklch(0.93 0 0)',
+                    padding: '2px 7px',
+                    borderRadius: '4px',
+                    flexShrink: 0,
+                  }}
+                >
+                  {ENTITY_LABELS[m.result_type] ?? m.result_type}
+                </span>
+                <p
+                  style={{
+                    fontSize: '13px',
+                    color: 'oklch(0.3 0 0)',
+                    margin: 0,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    flex: 1,
+                  }}
+                >
+                  {m.content}
+                </p>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* Non-blocking note */}
+      <p
+        style={{
+          fontSize: '12px',
+          color: 'oklch(0.65 0 0)',
+          marginTop: '10px',
+          lineHeight: '1.5',
+        }}
+      >
+        These are existing concerns and government actions that may overlap with
+        yours. You can still submit — your concern will be published regardless.
+      </p>
+    </div>
+  );
+}
+
+// ── Page ──────────────────────────────────────────────────────────────────
 
 export default function SubmitPage() {
   const router = useRouter();
@@ -11,7 +270,43 @@ export default function SubmitPage() {
   const [error, setError] = useState<string | null>(null);
   const [charCount, setCharCount] = useState(0);
 
+  // Semantic match state
+  const [matches, setMatches] = useState<SemanticMatch[]>([]);
+  const [isMatchLoading, setIsMatchLoading] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const MAX_CHARS = 5000;
+
+  // ── Debounced semantic search ────────────────────────────────────────────
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    // Only search when there's enough text
+    if (content.trim().length < 20) {
+      setMatches([]);
+      setIsMatchLoading(false);
+      return;
+    }
+
+    setIsMatchLoading(true);
+
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const result = await getSemanticMatches(content);
+        setMatches(result.matches);
+      } catch {
+        setMatches([]);
+      } finally {
+        setIsMatchLoading(false);
+      }
+    }, 800);
+
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [content]);
+
+  // ── Handlers ─────────────────────────────────────────────────────────────
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     const val = e.target.value;
@@ -33,6 +328,8 @@ export default function SubmitPage() {
       router.push(`/track/${result.trackingToken}`);
     });
   }
+
+  // ── Render ────────────────────────────────────────────────────────────────
 
   return (
     <main className="min-h-screen bg-[oklch(1_0_0)]">
@@ -151,6 +448,9 @@ export default function SubmitPage() {
                 {charCount} / {MAX_CHARS.toLocaleString()}
               </span>
             </div>
+
+            {/* ── Semantic match panel (non-blocking) ──────────────── */}
+            <MatchPanel matches={matches} isLoading={isMatchLoading} />
 
             {/* Submit button */}
             <div style={{ marginTop: '32px' }}>
