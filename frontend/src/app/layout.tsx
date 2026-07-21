@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { OmnibarSearch } from "@/components/OmnibarSearch";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +24,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <header className="w-full border-b flex items-center justify-between p-4 bg-background">
+          <div className="font-bold text-xl">MakeGovAccountable</div>
+          <OmnibarSearch />
+        </header>
+        <main>
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
