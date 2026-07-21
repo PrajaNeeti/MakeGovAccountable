@@ -3,6 +3,9 @@
 import { useState, useTransition, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { submitConcern, getSemanticMatches, SemanticMatch } from '@/app/actions/submitConcern';
+import { signConcern } from '@/app/actions/signConcern';
+import { createClient } from '@/lib/supabase/client';
+import { State, City } from 'country-state-city';
 
 // ── Similarity badge colour ────────────────────────────────────────────────
 
@@ -47,9 +50,10 @@ const ENTITY_LABELS: Record<string, string> = {
 interface MatchPanelProps {
   matches: SemanticMatch[];
   isLoading: boolean;
+  onSign: (id: string) => void;
 }
 
-function MatchPanel({ matches, isLoading }: MatchPanelProps) {
+function MatchPanel({ matches, isLoading, onSign }: MatchPanelProps) {
   if (isLoading) {
     return (
       <div
@@ -165,15 +169,33 @@ function MatchPanel({ matches, isLoading }: MatchPanelProps) {
                 >
                   {m.content}
                 </p>
-                <p
-                  style={{
-                    fontSize: '11px',
-                    color: 'oklch(0.6 0 0)',
-                    margin: '4px 0 0',
-                  }}
-                >
-                  {ENTITY_LABELS[m.result_type] ?? m.result_type}
-                </p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
+                  <p
+                    style={{
+                      fontSize: '11px',
+                      color: 'oklch(0.6 0 0)',
+                      margin: 0,
+                    }}
+                  >
+                    {ENTITY_LABELS[m.result_type] ?? m.result_type}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => onSign(m.id)}
+                    style={{
+                      fontSize: '11px',
+                      fontWeight: 600,
+                      color: 'oklch(0.985 0 0)',
+                      backgroundColor: 'oklch(0.205 0 0)',
+                      padding: '4px 10px',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      border: 'none',
+                    }}
+                  >
+                    Add My Voice
+                  </button>
+                </div>
               </div>
               <SimilarityBadge score={m.similarity} />
             </div>
@@ -267,8 +289,13 @@ export default function SubmitPage() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [content, setContent] = useState('');
+  const [stateCode, setStateCode] = useState('');
+  const [location, setLocation] = useState({ state: '', city: '', area: '' });
   const [error, setError] = useState<string | null>(null);
   const [charCount, setCharCount] = useState(0);
+
+  const indianStates = State.getStatesOfCountry('IN');
+  const citiesInState = stateCode ? City.getCitiesOfState('IN', stateCode) : [];
 
   // Semantic match state
   const [matches, setMatches] = useState<SemanticMatch[]>([]);
@@ -315,12 +342,51 @@ export default function SubmitPage() {
     if (error) setError(null);
   }
 
+  function handleLocationChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setLocation(prev => ({ ...prev, [name]: value }));
+  }
+
+  function handleStateChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const code = e.target.value;
+    setStateCode(code);
+    const stateObj = indianStates.find(s => s.isoCode === code);
+    setLocation(prev => ({ ...prev, state: stateObj ? stateObj.name : '', city: '' }));
+  }
+
+  function handleCityChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const city = e.target.value;
+    setLocation(prev => ({ ...prev, city }));
+  }
+
+  async function handleSign(concernId: string) {
+    // 1. Try to sign
+    const res = await signConcern(concernId);
+    if (res.success) {
+      router.push(`/track/${concernId}`);
+    } else if (res.requiresAuth) {
+      // 2. Redirect to Google login if required
+      const supabase = createClient();
+      await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/track/${concernId}`,
+        },
+      });
+    } else {
+      setError(res.error);
+    }
+  }
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
 
     startTransition(async () => {
-      const result = await submitConcern(content);
+      // Here we would normally grab the reCAPTCHA token, e.g. from a ref
+      const captchaToken = 'mock-token'; // Mocked for now
+
+      const result = await submitConcern(content, location, captchaToken);
       if (!result.success) {
         setError(result.error);
         return;
@@ -377,6 +443,53 @@ export default function SubmitPage() {
                 civic in nature — relate to government actions, policies,
                 spending, or inaction.
               </p>
+            </div>
+
+            {/* Location Fields */}
+            <div style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
+              <div style={{ flex: 1 }}>
+                <label className="block font-semibold text-[oklch(0.205_0_0)]" style={{ fontSize: '13px', marginBottom: '6px' }}>State</label>
+                <select
+                  name="stateCode"
+                  value={stateCode}
+                  onChange={handleStateChange}
+                  className="w-full rounded-lg border border-[oklch(0.922_0_0)] bg-white px-3 py-2 text-[14px]"
+                  style={{ outline: 'none' }}
+                >
+                  <option value="">Select State</option>
+                  {indianStates.map(s => (
+                    <option key={s.isoCode} value={s.isoCode}>{s.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div style={{ flex: 1 }}>
+                <label className="block font-semibold text-[oklch(0.205_0_0)]" style={{ fontSize: '13px', marginBottom: '6px' }}>City</label>
+                <select
+                  name="city"
+                  value={location.city}
+                  onChange={handleCityChange}
+                  disabled={!stateCode}
+                  className="w-full rounded-lg border border-[oklch(0.922_0_0)] bg-white px-3 py-2 text-[14px] disabled:opacity-50"
+                  style={{ outline: 'none' }}
+                >
+                  <option value="">Select City</option>
+                  {citiesInState.map(c => (
+                    <option key={c.name} value={c.name}>{c.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div style={{ flex: 1 }}>
+                <label className="block font-semibold text-[oklch(0.205_0_0)]" style={{ fontSize: '13px', marginBottom: '6px' }}>Area (Optional)</label>
+                <input
+                  type="text"
+                  name="area"
+                  value={location.area}
+                  onChange={handleLocationChange}
+                  placeholder="e.g. Bandra"
+                  className="w-full rounded-lg border border-[oklch(0.922_0_0)] bg-white px-3 py-2 text-[14px]"
+                  style={{ outline: 'none' }}
+                />
+              </div>
             </div>
 
             {/* Label */}
@@ -450,7 +563,7 @@ export default function SubmitPage() {
             </div>
 
             {/* ── Semantic match panel (non-blocking) ──────────────── */}
-            <MatchPanel matches={matches} isLoading={isMatchLoading} />
+            <MatchPanel matches={matches} isLoading={isMatchLoading} onSign={handleSign} />
 
             {/* Submit button */}
             <div style={{ marginTop: '32px' }}>

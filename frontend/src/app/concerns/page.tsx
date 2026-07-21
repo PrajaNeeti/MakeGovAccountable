@@ -11,6 +11,10 @@ interface Concern {
   content: string;
   status: string;
   created_at: string;
+  state?: string;
+  city?: string;
+  area?: string;
+  signatures_count?: number;
 }
 
 const STATUS_LABELS: Record<string, string> = {
@@ -90,6 +94,13 @@ function ConcernCard({ concern }: { concern: Concern }) {
         </span>
       </div>
 
+      {/* Location */}
+      {(concern.city || concern.state) && (
+        <p style={{ fontSize: '12px', color: 'oklch(0.556 0 0)', marginBottom: '8px', fontWeight: 600 }}>
+          📍 {[concern.area, concern.city, concern.state].filter(Boolean).join(', ')}
+        </p>
+      )}
+
       {/* Content */}
       <p
         className="text-[oklch(0.205_0_0)] group-hover:text-[oklch(0.145_0_0)] transition-colors"
@@ -99,12 +110,20 @@ function ConcernCard({ concern }: { concern: Concern }) {
       </p>
 
       {/* Footer */}
-      <p
-        className="text-[oklch(0.708_0_0)]"
-        style={{ fontSize: '12px' }}
-      >
-        {formatRelativeDate(concern.created_at)}
-      </p>
+      <div className="flex items-center justify-between">
+        <p
+          className="text-[oklch(0.708_0_0)]"
+          style={{ fontSize: '12px' }}
+        >
+          {formatRelativeDate(concern.created_at)}
+        </p>
+        <p
+          className="text-[oklch(0.205_0_0)] font-semibold"
+          style={{ fontSize: '13px' }}
+        >
+          🗣️ {concern.signatures_count || 1} Voice{(concern.signatures_count || 1) !== 1 ? 's' : ''}
+        </p>
+      </div>
     </Link>
   );
 }
@@ -115,12 +134,29 @@ function ConcernCard({ concern }: { concern: Concern }) {
 
 export const revalidate = 60; // ISR: revalidate every 60 seconds
 
-export default async function ConcernsPage() {
+export default async function ConcernsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const supabase = await createClient();
+  const resolvedParams = await searchParams;
+  const state = resolvedParams.state as string | undefined;
+  const city = resolvedParams.city as string | undefined;
 
-  const { data: concerns, error } = await supabase
+  let query = supabase
     .from('concerns')
-    .select('id, tracking_token, content, status, created_at')
+    .select('id, tracking_token, content, status, created_at, state, city, area, signatures_count');
+    
+  if (state) {
+    query = query.ilike('state', `%${state}%`);
+  }
+  if (city) {
+    query = query.ilike('city', `%${city}%`);
+  }
+
+  const { data: concerns, error } = await query
+    .order('signatures_count', { ascending: false, nullsFirst: false })
     .order('created_at', { ascending: false })
     .limit(100);
 
@@ -163,21 +199,47 @@ export default async function ConcernsPage() {
             </div>
 
             {/* CTA */}
-            <Link
-              href="/submit"
-              id="new-concern-cta"
-              className="inline-flex items-center justify-center rounded-lg font-semibold whitespace-nowrap transition-all"
-              style={{
-                backgroundColor: 'oklch(0.205 0 0)',
-                color: 'oklch(0.985 0 0)',
-                padding: '13px 28px',
-                fontSize: '15px',
-                textDecoration: 'none',
-                flexShrink: 0,
-              }}
-            >
-              Submit Concern
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 items-center">
+              <form action="/concerns" method="GET" className="flex gap-2">
+                <input
+                  type="text"
+                  name="state"
+                  placeholder="State"
+                  defaultValue={state || ''}
+                  className="rounded-lg border border-[oklch(0.922_0_0)] px-3 py-2 text-[14px]"
+                  style={{ outline: 'none' }}
+                />
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  defaultValue={city || ''}
+                  className="rounded-lg border border-[oklch(0.922_0_0)] px-3 py-2 text-[14px]"
+                  style={{ outline: 'none' }}
+                />
+                <button
+                  type="submit"
+                  className="rounded-lg bg-[oklch(0.922_0_0)] px-3 py-2 text-[14px] font-semibold"
+                >
+                  Filter
+                </button>
+              </form>
+              <Link
+                href="/submit"
+                id="new-concern-cta"
+                className="inline-flex items-center justify-center rounded-lg font-semibold whitespace-nowrap transition-all"
+                style={{
+                  backgroundColor: 'oklch(0.205 0 0)',
+                  color: 'oklch(0.985 0 0)',
+                  padding: '13px 28px',
+                  fontSize: '15px',
+                  textDecoration: 'none',
+                  flexShrink: 0,
+                }}
+              >
+                Submit Concern
+              </Link>
+            </div>
           </div>
 
           {/* Stats bar */}

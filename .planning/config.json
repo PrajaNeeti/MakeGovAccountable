@@ -3,5 +3,8 @@
   "ai_model": "Gemini 3.1 Pro (High)",
   "framework": "Next.js",
   "styling": "TailwindCSS",
-  "database": "PostgreSQL"
+  "database": "PostgreSQL",
+  "workflow": {
+    "nyquist_validation": false
+  }
 }

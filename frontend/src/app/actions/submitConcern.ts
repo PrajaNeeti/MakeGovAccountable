@@ -118,7 +118,9 @@ export async function getSemanticMatches(
  * @returns        The `tracking_token` UUID so the caller can redirect to /track/[uuid].
  */
 export async function submitConcern(
-  content: string
+  content: string,
+  location?: { state?: string; city?: string; area?: string },
+  captchaToken?: string
 ): Promise<SubmitConcernResult> {
   // Basic validation
   const trimmed = content?.trim();
@@ -136,12 +138,38 @@ export async function submitConcern(
     };
   }
 
+  // Basic CAPTCHA verification (mocked if no secret is provided)
+  const captchaSecret = process.env.RECAPTCHA_SECRET_KEY;
+  if (captchaSecret && captchaToken) {
+    try {
+      const verifyRes = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `secret=${captchaSecret}&response=${captchaToken}`,
+      });
+      const verifyJson = await verifyRes.json();
+      if (!verifyJson.success) {
+        return { success: false, error: 'CAPTCHA verification failed. Please try again.' };
+      }
+    } catch (e) {
+      console.error('[submitConcern] CAPTCHA verification error:', e);
+      return { success: false, error: 'Failed to verify CAPTCHA. Please try again.' };
+    }
+  } else if (captchaSecret && !captchaToken) {
+    return { success: false, error: 'CAPTCHA token is required.' };
+  }
+
   // Generate embedding for the concern (best-effort — non-blocking)
   const embedding = await generateEmbedding(trimmed);
 
   const supabase = await createClient();
 
-  const insertPayload: Record<string, unknown> = { content: trimmed };
+  const insertPayload: Record<string, unknown> = { 
+    content: trimmed,
+    state: location?.state || null,
+    city: location?.city || null,
+    area: location?.area || null,
+  };
   if (embedding) {
     // Insert as a JSON-serialised array; Supabase casts to vector(1536)
     insertPayload.embedding = JSON.stringify(embedding);

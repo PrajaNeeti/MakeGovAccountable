@@ -1,0 +1,23 @@
+{
+  "name": "makegovaccountable",
+  "version": "1.0.0",
+  "description": "To whoever is reading this,",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PrajaNeeti/MakeGovAccountable.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PrajaNeeti/MakeGovAccountable/issues"
+  },
+  "homepage": "https://github.com/PrajaNeeti/MakeGovAccountable#readme",
+  "dependencies": {
+    "pg": "^8.22.0"
+  }
+}
