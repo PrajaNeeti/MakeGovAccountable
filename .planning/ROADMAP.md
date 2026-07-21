@@ -2,22 +2,22 @@
 
 ## Phase 1: Foundation & Data Ingestion Skeleton
 **Wave 1**
-- [ ] Initialize Next.js project with styling and authentication middleware.
-- [ ] Set up database schema for tracking government entities (Politicians, Departments, Courts).
+- [x] Initialize Next.js project with styling and authentication middleware.
+- [x] Set up database schema for tracking government entities (Politicians, Departments, Courts).
 
 **Wave 2 *(blocked on Wave 1 completion)***
-- [ ] Implement a basic AI data ingestion script (hybrid scraper/API client) for a single test source.
-- [ ] Build the core API routes to serve this data.
+- [x] Implement a basic AI data ingestion script (hybrid scraper/API client) for a single test source.
+- [x] Build the core API routes to serve this data.
 
 ## Phase 2: Citizen Dashboards & Search
-- [ ] Build the frontend dashboards for Executive, Legislative, and Judicial branches.
-- [ ] Implement global search and filtering capabilities.
-- [ ] Design and integrate data visualizations for spending and activities.
+- [x] Build the frontend dashboards for Executive, Legislative, and Judicial branches.
+- [x] Implement global search and filtering capabilities.
+- [x] Design and integrate data visualizations for spending and activities.
 
 ## Phase 3: Concern Pooling & AI Matching
-- [ ] Develop the user submission flow for concerns and petitions.
+- [x] Develop the user submission flow for concerns and petitions.
 - [ ] Implement the AI matching logic to connect user concerns with database entities.
-- [ ] Build user profile pages to track submitted concerns.
+- [x] Build user profile pages to track submitted concerns.
 
 ## Phase 4: Community Forums & Transparency Portal
 - [ ] Create discussion forums tied to specific government actions.
