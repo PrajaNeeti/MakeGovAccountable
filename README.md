@@ -1,22 +1,35 @@
-# Make Government Accountable
+# PrajaNeeti
 
 ### An open letter
 
 To whoever is reading this,
 
-I did not start this project to gain something from a movement, or to speak for a cause I've only recently discovered. I've watched protests take shape in this country since the CAA/NRC years, and I know my own involvement is short and shallow next to people who have spent years — or lifetimes — choosing to stay politically engaged. I don't claim to know more than they do. I claim only to have noticed something worth trying to fix.
+I didn't start this project to gain something from a movement, or to speak for a cause I've only recently discovered. Over the years I've watched people protest for all kinds of reasons, from different sides of the political spectrum. My own involvement is nowhere near that of people who've spent years—or even their whole lives—staying politically engaged. I don't think I know more than they do. I just think I've noticed something worth trying to fix.
 
-What I've noticed is a pattern: a protest starts because people genuinely want change, and before long it gets pulled into a tug-of-war — a party trying to ride the moment into power, or the party already in charge spending its energy defending itself instead of doing its job. Somewhere in that struggle, the original demand gets lost. I think most real progress happens when the people running things are actually allowed to run things, while still being watched closely enough that they have to stay honest about how it's going.
+The pattern I keep seeing is simple. People ask for change because they genuinely want it. Then, before long, the conversation stops being about the problem and starts being about politics. The opposition wants to turn it into an issue against the government. The government wants to defend itself. Everyone argues over who should get blamed or who should get credit, and the original issue slowly fades into the background.
 
-Most of us have worked under someone — a boss, a manager, a system — and know exactly what it feels like to be micromanaged instead of trusted. I don't want to build another version of that for the country. I want something closer to accountability without suffocation: a way to track whether the people we've put in charge are actually doing the work, without turning every disagreement into another fight for power.
+I don't think it has to work that way.
 
-There's a line often attributed to Krishna in the Bhagavad Gita, about doing your own dharma rather than someone else's, imperfectly if you must, rather than not at all. I think of this project in that spirit. Instead of every side treating the other as an obstacle, I'd rather we each do the part we're suited for — building, reporting, verifying, organizing — and let the results speak instead of the noise.
+I think governments should be allowed to govern. At the same time, they should be answerable for what they promised and what they actually delivered. Those two things aren't opposites. Accountability doesn't have to mean constantly getting in the way. It can simply mean keeping an honest record that anyone can look at.
 
-This is for the uncle who sits down after a long day, watches the news, and says someone should have done something differently — here's a way to actually do something. This is for the citizen who doesn't feel heard by anyone claiming to represent them. This is for the privileged person who's found their own workaround to a broken system and quietly stopped noticing it's broken. And this is for the person with none of that — no workaround, no access, no one asking what they need.
+Most of us have worked under someone before. We know the difference between accountability and micromanagement. One helps people do their job better. The other just gets in the way. I don't want this project to become another source of noise. I want it to quietly keep track of whether the people we've elected are actually doing what they said they would, whoever they happen to be.
 
-Chanakya wrote about this too, long before any of us. In the *Chanakya Neeti*, he argued that a state doesn't depend on the strength of its ruler so much as the condition of its people — a kingdom can more or less run itself, even without strong leadership at the top, as long as its subjects are prosperous and secure. A poor, unheard population, on the other hand, turns on itself. He went as far as to call the people's fury the greatest fury a ruler can face, and said the ruler's first duty is simply to keep his people content — because a satisfied population is a state's real strength, more than any army or any single leader. That's the same instinct behind this project: a well-informed, well-off, and heard citizenry does more for a country's stability than any protest or any politician ever could.
+There's an idea in the *Bhagavad Gita* that I like. Krishna tells Arjuna that it's better to do your own dharma imperfectly than someone else's well. I'm not bringing it up as religious advice. I just think it's a good principle. I'd rather spend my time building something useful than arguing about who should build it. Some people are good at investigating. Some are good at organizing information. Some write. Some code. If everyone simply does their part, the result is usually better than another argument.
 
-That's why I'm building **Make Government Accountable** — a platform whose purpose is exactly what its name says. It exists to track what's promised, what's delivered, and what's still pending, in plain and public terms — not to score points for any party, not to be a mouthpiece for any ideology, just to be a record anyone can check. It's open source on purpose. I don't want this to depend on me, or to stay limited by what one person can build or verify. I want it extended — more data, more regions, more accountability metrics, more features — by anyone willing to put in the work.
+This project is for the uncle who comes home after work, watches the news and says, "Someone should do something." Here's one thing that can actually be done. It's for the person who voted for change and the person who voted for stability, and ended up disappointed either way. It's for people who don't feel represented by anyone. It's for people who've found ways around broken systems and slowly stopped noticing they're broken. And it's for people who never had those options to begin with.
 
-If any of this makes sense to you — whether you're a developer, a researcher, a journalist, a data person, or just someone who wants to keep an eye on their own city or state — I'd genuinely welcome your help. Not another protest. Not another argument. Just people doing the work, and letting that work speak for itself.
+Chanakya wrote something that stuck with me. In the *Chanakya Neeti*, he argues that the strength of a kingdom doesn't really come from its ruler. It comes from its people. If people are secure, prosperous and heard, the state remains stable even through weak leadership. If they aren't, no ruler stays strong for long. Whether or not you agree with everything he wrote, I think that idea still makes sense. A country works better when its citizens know what's happening and have a way to hold those in power accountable.
 
+That's why I'm building **PrajaNeeti**.
+
+The name comes from two simple ideas: *Praja*—the people—and *Neeti*—governance, policy, or the principles by which a state is run. The goal is straightforward: keep track of what's promised, what's completed and what's still pending in a way that's public and easy to verify. Not to campaign for a party. Not to attack one either. Just to keep a record that anyone can look at and make up their own mind.
+
+It's open source because I don't want it to depend on me. One person can't track an entire country, and they shouldn't have to. If the project is useful, other people should be able to improve it, add data, verify information, build new features and take it further than I ever could alone.
+
+If any of this makes sense to you—whether you're a developer, researcher, journalist, designer, someone who likes working with data, or just someone who wants to pay closer attention to your own city or state—I'd love your help.
+
+Not another protest.
+
+Not another political fight.
+
+Just people doing the work.
