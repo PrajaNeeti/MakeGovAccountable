@@ -10,7 +10,7 @@ export type FeedFilter = {
 };
 
 export async function getUnifiedFeed(page: number, limit: number, filters?: FeedFilter) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const offset = (page - 1) * limit;
 
   // We fetch from both tables and combine them since Supabase doesn't support UNION natively in the JS client
@@ -20,9 +20,9 @@ export async function getUnifiedFeed(page: number, limit: number, filters?: Feed
   let spendingQuery = supabase.from('spending').select('*').order('date', { ascending: false }).range(offset, offset + limit - 1);
 
   if (filters?.keyword) {
-    const pattern = \%\%\;
-    activitiesQuery = activitiesQuery.or(\	itle.ilike.\,description.ilike.\\);
-    spendingQuery = spendingQuery.or(\category.ilike.\,description.ilike.\\);
+    const pattern = `%${filters.keyword}%`;
+    activitiesQuery = activitiesQuery.or(`title.ilike.${pattern},description.ilike.${pattern}`);
+    spendingQuery = spendingQuery.or(`category.ilike.${pattern},description.ilike.${pattern}`);
   }
 
   // Branch and other filters would normally require joining with entities or using a view. 

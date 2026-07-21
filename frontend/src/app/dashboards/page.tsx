@@ -6,7 +6,7 @@ export default async function DashboardsPage(props: { searchParams: Promise<any>
   const searchParams = await props.searchParams;
   const initialFilters = searchParams || {};
   
-  const initialItems = await getUnifiedFeed(initialFilters);
+  const initialItems = await getUnifiedFeed(1, 20, initialFilters);
   const chartData = [
     { name: "Jan", amount: 400 },
     { name: "Feb", amount: 300 },

@@ -7,14 +7,16 @@ export function UnifiedFeed({ initialItems, initialFilters }: { initialItems: an
   const [items, setItems] = useState(initialItems);
   const [filters, setFilters] = useState(initialFilters);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(2);
 
   useEffect(() => {
     // Basic IntersectionObserver for infinite scroll simulation
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && !loading) {
         setLoading(true);
-        getUnifiedFeed(filters).then(newItems => {
+        getUnifiedFeed(page, 20, filters).then(newItems => {
           setItems(prev => [...prev, ...newItems.map(item => ({...item, id: Math.random().toString()}))]);
+          setPage(p => p + 1);
           setLoading(false);
         });
       }
@@ -26,13 +28,14 @@ export function UnifiedFeed({ initialItems, initialFilters }: { initialItems: an
     }
 
     return () => observer.disconnect();
-  }, [filters, loading]);
+  }, [filters, loading, page]);
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newFilters = { ...filters, department: e.target.value };
     setFilters(newFilters);
+    setPage(2);
     // Fetch new initial items for new filters
-    getUnifiedFeed(newFilters).then(setItems);
+    getUnifiedFeed(1, 20, newFilters).then(setItems);
   };
 
   return (

@@ -12,8 +12,8 @@ export type SearchResult = {
 export async function globalSearch(query: string): Promise<SearchResult[]> {
   if (!query) return [];
   
-  const supabase = createClient();
-  const searchPattern = \%\%\;
+  const supabase = await createClient();
+  const searchPattern = `%${query}%`;
 
   const [
     { data: politicians },
@@ -23,7 +23,7 @@ export async function globalSearch(query: string): Promise<SearchResult[]> {
     supabase
       .from('politicians')
       .select('id, first_name, last_name')
-      .or(\irst_name.ilike.\,last_name.ilike.\\)
+      .or(`first_name.ilike.${searchPattern},last_name.ilike.${searchPattern}`)
       .eq('public', true)
       .limit(5),
     supabase
@@ -46,9 +46,9 @@ export async function globalSearch(query: string): Promise<SearchResult[]> {
     results.push(
       ...politicians.map((p: any) => ({
         id: p.id,
-        name: \\ \\,
+        name: `${p.first_name} ${p.last_name}`,
         type: 'politician' as const,
-        url: \/politicians/\\
+        url: `/politicians/${p.id}`
       }))
     );
   }
@@ -59,7 +59,7 @@ export async function globalSearch(query: string): Promise<SearchResult[]> {
         id: d.id,
         name: d.name,
         type: 'department' as const,
-        url: \/departments/\\
+        url: `/departments/${d.id}`
       }))
     );
   }
@@ -70,7 +70,7 @@ export async function globalSearch(query: string): Promise<SearchResult[]> {
         id: c.id,
         name: c.name,
         type: 'court' as const,
-        url: \/courts/\\
+        url: `/courts/${c.id}`
       }))
     );
   }
