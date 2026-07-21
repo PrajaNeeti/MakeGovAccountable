@@ -16,8 +16,9 @@
 
 ## Phase 3: Concern Pooling & AI Matching
 - [x] Develop the user submission flow for concerns and petitions.
-- [ ] Implement the AI matching logic to connect user concerns with database entities.
+- [x] Implement the AI matching logic to connect user concerns with database entities.
 - [x] Build user profile pages to track submitted concerns.
+- [x] Build moderation dashboard for AI-suggested concern groups.
 
 ## Phase 4: Community Forums & Transparency Portal
 - [ ] Create discussion forums tied to specific government actions.
