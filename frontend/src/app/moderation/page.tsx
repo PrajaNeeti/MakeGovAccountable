@@ -2,6 +2,8 @@ import { cookies } from 'next/headers';
 import { createClient } from '@/lib/supabase/server';
 import { GroupActionButtons } from './GroupActionButtons';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import { ForumReportsList } from '@/components/moderation/ForumReportsList';
+
 
 export default async function ModerationPage() {
   const cookieStore = await cookies();
@@ -29,8 +31,30 @@ export default async function ModerationPage() {
     console.error('Error fetching concern groups:', groupsError);
   }
 
+  // Fetch pending moderation reports
+  const { data: reports, error: reportsError } = await supabase
+    .from('moderation_reports')
+    .select('*, forum_posts(content)')
+    .eq('status', 'pending')
+    .order('created_at', { ascending: false });
+
+  if (reportsError) {
+    console.error('Error fetching moderation reports:', reportsError);
+  }
+
+  // Fetch AI flagged posts
+  const { data: flaggedPosts, error: flaggedPostsError } = await supabase
+    .from('forum_posts')
+    .select('*')
+    .eq('is_flagged', true)
+    .order('created_at', { ascending: false });
+
+  if (flaggedPostsError) {
+    console.error('Error fetching flagged posts:', flaggedPostsError);
+  }
+
   // Fetch associated concerns and entities for these groups
-  let links: any[] = [];
+  let links: { concern_id: string, entity_type: string, entity_id: string, concerns: unknown }[] = [];
   if (groups && groups.length > 0) {
     const groupIds = groups.map(g => g.id);
     const { data: linkData, error: linkError } = await supabase
@@ -56,7 +80,7 @@ export default async function ModerationPage() {
       {(!groups || groups.length === 0) ? (
         <div className="text-center py-24 bg-white border border-gray-200 rounded-lg">
           <h2 className="text-3xl font-serif font-bold mb-4">No Pending Groups</h2>
-          <p className="text-gray-500 text-lg">The AI hasn't suggested any concern groupings yet.<br />Check back after more concerns are submitted.</p>
+          <p className="text-gray-500 text-lg">The AI hasn&apos;t suggested any concern groupings yet.<br />Check back after more concerns are submitted.</p>
         </div>
       ) : (
         <div className="grid gap-8">
@@ -75,15 +99,16 @@ export default async function ModerationPage() {
                   <div>
                     <h3 className="font-bold text-lg mb-4 text-gray-700">Included Concerns ({uniqueConcerns.length})</h3>
                     <ul className="space-y-3">
-                      {uniqueConcerns.map((c: any, i) => {
-                        const content = c?.content || '';
+                      {uniqueConcerns.map((c: unknown, i) => {
+                        const content = (c as { content: string })?.content || '';
+                        const tracking_token = (c as { tracking_token: string })?.tracking_token || '';
                         const snippet = content.length > 120 ? content.substring(0, 120) + '...' : content;
                         return (
                           <li key={i} className="text-sm bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm">
                             <span className="font-mono text-xs text-gray-400 block mb-2 uppercase tracking-wide">
-                              ID: {c?.tracking_token?.substring(0, 8)}
+                              ID: {tracking_token.substring(0, 8)}
                             </span>
-                            "{snippet}"
+                            &quot;{snippet}&quot;
                           </li>
                         );
                       })}
@@ -98,6 +123,9 @@ export default async function ModerationPage() {
           })}
         </div>
       )}
+
+      <ForumReportsList reports={reports || []} flaggedPosts={flaggedPosts || []} />
     </div>
   );
 }
+

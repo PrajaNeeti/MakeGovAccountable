@@ -343,7 +343,7 @@ export default function SubmitPage() {
             className="text-[14px] font-medium tracking-widest uppercase text-[oklch(0.556_0_0)]"
             style={{ marginBottom: '16px' }}
           >
-            PrajaNeeti · MakeGovAccountable
+            PRAJA NEETI
           </p>
           <h1
             className="font-serif font-bold leading-tight text-[oklch(0.145_0_0)]"

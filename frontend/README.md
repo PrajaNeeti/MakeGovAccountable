@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PrajaNeeti (formerly MakeGovAccountable)
+
+**PrajaNeeti** is a civic technology platform designed to bring transparency, accountability, and public discourse to government actions. Built with a "Modern Editorial" aesthetic, the platform treats government oversight with the seriousness of a financial newspaper.
+
+## Core Pillars
+
+1. **Information First**
+   - A unified feed tracking government activities, legislative changes, and executive actions.
+   - Organized by department, allowing citizens to filter and find exactly what they care about.
+
+2. **Data & Oversight (Transparency Ledger)**
+   - An open ledger tracking government spending, financial allocations, and audited records.
+   - Designed for easy search, pagination, and sorting of official financial data.
+
+3. **Letters & Discourse (Public Forums)**
+   - A modern take on "Letters to the Editor."
+   - Citizens can submit concerns and discuss ongoing government activities in a highly readable, typography-focused forum.
+   - Includes semantic matching to connect similar concerns and related government context.
+
+## Design System: "Modern Editorial"
+
+The UI is built to evoke the feeling of a trusted broadsheet newspaper:
+- **Colors**: Uses a warm newspaper off-white (`#F5F5F1`) and a faded charcoal ink (`#383838`) instead of harsh pure black and white.
+- **Typography**: 
+  - *Playfair Display* for massive mastheads and leading headlines.
+  - *Source Sans 3* for highly legible article body text.
+  - *Archivo Narrow* for uppercase metadata, tags, and small utility text.
+- **Layout**: Complete absence of rounded corners (`0px` border radius). Elements are separated by 1px solid black hairline borders, creating a structured, columnar masonry grid.
+- **No Gradients/Shadows**: Flat, stark, and analytical.
+
+## Tech Stack
+
+- **Framework**: Next.js (App Router)
+- **Styling**: Tailwind CSS v4 (with strict CSS variables for the editorial theme)
+- **Database / Auth**: Supabase
+- **Components**: Shadcn UI (heavily modified to remove styling and enforce the editorial look)
+- **Typography**: `next/font/google` (Playfair Display, Source Sans 3, Archivo Narrow)
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
