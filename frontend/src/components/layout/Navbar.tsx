@@ -24,15 +24,9 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isHeaderVisible = isScrolled || isOpen;
-
   return (
     <header 
-      className={`w-full fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out border-b-2 border-primary bg-background/95 backdrop-blur-md shadow-md ${
-        isHeaderVisible 
-          ? "translate-y-0 opacity-100 pointer-events-auto" 
-          : "-translate-y-full opacity-0 pointer-events-none"
-      }`}
+      className="w-full sticky top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out border-b-2 border-primary bg-background/95 backdrop-blur-md shadow-md"
     >
       <div className="flex items-center justify-between px-4 md:px-8 py-3 max-w-7xl mx-auto">
         {/* Brand Logo & 3 Main Pillars */}
@@ -51,11 +45,18 @@ export function Navbar() {
             </Link>
 
             <Link 
-              href="/forums" 
+              href="/concerns" 
               className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1"
             >
               <MessageSquare className="w-3.5 h-3.5 text-primary" />
               Concerns
+            </Link>
+
+            <Link 
+              href="/forums" 
+              className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1"
+            >
+              Forums
             </Link>
 
             <Link 

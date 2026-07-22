@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS public.mp_legislative_stats (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     politician_id UUID REFERENCES public.politicians(id) ON DELETE SET NULL,
     mp_name TEXT NOT NULL,
-    house TEXT NOT NULL CHECK (house IN ('Lok Sabha', 'Rajya Sabha')),
+    house TEXT NOT NULL CHECK (house IN ('Lok Sabha', 'Rajya Sabha', 'Vidhan Sabha', 'Vidhan Parishad')),
     attendance_pct NUMERIC DEFAULT 0,
     questions_asked INT DEFAULT 0,
     debates_participated INT DEFAULT 0,
@@ -121,10 +121,23 @@ ALTER TABLE public.mlalad_schemes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.judicial_aggregates ENABLE ROW LEVEL SECURITY;
 
 -- Public Read Policies
+DROP POLICY IF EXISTS "Public read politician_affidavits" ON public.politician_affidavits;
 CREATE POLICY "Public read politician_affidavits" ON public.politician_affidavits FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read mp_legislative_stats" ON public.mp_legislative_stats;
 CREATE POLICY "Public read mp_legislative_stats" ON public.mp_legislative_stats FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read department_mandates" ON public.department_mandates;
 CREATE POLICY "Public read department_mandates" ON public.department_mandates FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read ias_officers" ON public.ias_officers;
 CREATE POLICY "Public read ias_officers" ON public.ias_officers FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read entity_aliases" ON public.entity_aliases;
 CREATE POLICY "Public read entity_aliases" ON public.entity_aliases FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read mlalad_schemes" ON public.mlalad_schemes;
 CREATE POLICY "Public read mlalad_schemes" ON public.mlalad_schemes FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read judicial_aggregates" ON public.judicial_aggregates;
 CREATE POLICY "Public read judicial_aggregates" ON public.judicial_aggregates FOR SELECT USING (true);
