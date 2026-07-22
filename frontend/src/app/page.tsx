@@ -1,15 +1,36 @@
 import { getUnifiedFeed } from "./actions/feed";
+import { getDepartmentMandatesAndOfficers } from "./actions/departments";
+import { getJudicialAggregates } from "./actions/judicial";
 import { UnifiedFeed } from "@/components/UnifiedFeed";
+import { DashboardCharts } from "@/components/DashboardCharts";
+import { DepartmentMandateCard } from "@/components/executive/DepartmentMandateCard";
+import { IASRosterCard } from "@/components/executive/IASRosterCard";
+import { NJDGStatCard } from "@/components/judicial/NJDGStatCard";
 import Image from "next/image";
 import Link from "next/link";
-import { Scale, MessageSquare, Database, PlusCircle, ArrowRight, ShieldCheck, Landmark, UserCheck, Layers, FileSpreadsheet } from "lucide-react";
+import { Scale, MessageSquare, Database, PlusCircle, ArrowRight, ShieldCheck, Landmark, UserCheck, Layers, FileSpreadsheet, LayoutDashboard } from "lucide-react";
 import { getMpladsData } from "@/lib/mplads-data";
 
 export const dynamic = 'force-dynamic';
 
-export default async function Home() {
-  const initialItems = await getUnifiedFeed(1, 10);
+export default async function Home(props: { searchParams: Promise<any> }) {
+  const searchParams = await props.searchParams;
+  const initialFilters = searchParams || {};
+
+  const [initialItems, { mandates, officers }, judicialStats] = await Promise.all([
+    getUnifiedFeed(1, 20, initialFilters),
+    getDepartmentMandatesAndOfficers(),
+    getJudicialAggregates()
+  ]);
+
   const { overview } = getMpladsData();
+
+  const chartData = [
+    { name: "Lok Sabha 2024", amount: 543 },
+    { name: "High Courts", amount: 25 },
+    { name: "Union Depts", amount: 91 },
+    { name: "IAS Cadres", amount: 26 }
+  ];
 
   return (
     <div className="container mx-auto px-4 md:px-8 max-w-7xl pb-20 space-y-16">
@@ -43,11 +64,18 @@ export default async function Home() {
             <PlusCircle className="w-4 h-4" /> Raise a Concern
           </Link>
 
-          <Link
-            href="/transparency"
+          <a
+            href="#governance-dashboard"
             className="inline-flex items-center gap-2 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground px-6 py-3 font-narrow text-sm font-bold uppercase tracking-widest transition-all"
           >
-            Explore Data Hub <ArrowRight className="w-4 h-4" />
+            <LayoutDashboard className="w-4 h-4" /> View Oversight Dashboard
+          </a>
+
+          <Link
+            href="/politicians"
+            className="inline-flex items-center gap-2 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground px-6 py-3 font-narrow text-sm font-bold uppercase tracking-widest transition-all"
+          >
+            Track MPs <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </header>
@@ -87,8 +115,78 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Main Integrated Governance Oversight Dashboard Section */}
+      <section id="governance-dashboard" className="space-y-12 scroll-mt-20">
+        <div className="border-b-2 border-primary pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <span className="font-narrow text-xs font-bold uppercase tracking-widest text-muted-foreground border-b border-primary pb-0.5">
+              Live Governance Oversight Center
+            </span>
+            <h2 className="text-3xl md:text-5xl font-black font-serif uppercase tracking-tight text-primary mt-2">
+              Governance Oversight Dashboard
+            </h2>
+            <p className="text-muted-foreground text-sm max-w-3xl mt-1">
+              Real-time multi-branch feeds across Executive Mandates, Senior IAS Civil Servants, Judicial Backlog Metrics, and Public Feed Activity.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <Link
+              href="/transparency"
+              className="inline-flex items-center gap-1 font-narrow text-xs font-bold uppercase tracking-widest border border-primary bg-primary text-primary-foreground px-4 py-2 hover:bg-transparent hover:text-primary transition-all whitespace-nowrap"
+            >
+              Open Data Hub &rarr;
+            </Link>
+          </div>
+        </div>
+
+        {/* Executive Mandates & IAS Civil Servants Cards */}
+        <div className="space-y-6">
+          <h3 className="text-2xl font-black font-serif uppercase tracking-tight border-b border-primary/40 pb-2">
+            Executive Pillar — Mandates & Senior IAS Roster
+          </h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <DepartmentMandateCard mandates={mandates} />
+            <IASRosterCard officers={officers} />
+          </div>
+        </div>
+
+        {/* Judicial Backlog Section */}
+        <div className="space-y-6">
+          <h3 className="text-2xl font-black font-serif uppercase tracking-tight border-b border-primary/40 pb-2">
+            Judicial Pillar — NJDG Court Pendency & Backlog
+          </h3>
+          <NJDGStatCard stats={judicialStats} />
+        </div>
+
+        {/* Unified Activity Feed & Analytics Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
+          <div>
+            <h3 className="text-2xl font-black font-serif uppercase tracking-tight mb-4">Unified Governance Activity Feed</h3>
+            <UnifiedFeed initialItems={initialItems} initialFilters={initialFilters} />
+          </div>
+          <div className="space-y-6">
+            <h3 className="text-2xl font-black font-serif uppercase tracking-tight mb-4">Branch Data Coverage Index</h3>
+            <DashboardCharts data={chartData} />
+            
+            <div className="border border-primary bg-card p-6 space-y-4">
+              <h4 className="font-serif font-bold text-lg uppercase text-primary">Parliamentary & Electoral Data Sourcing</h4>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Aggregating election disclosures from <strong>MyNeta / ADR</strong> (assets, liabilities, criminal cases), legislative metrics from <strong>PRS Legislative Research</strong>, and public works spending under <strong>MPLADS / e-SAKSHI</strong>.
+              </p>
+              <Link
+                href="/politicians"
+                className="inline-flex items-center gap-1 font-narrow text-xs font-bold uppercase tracking-widest border border-primary bg-primary text-primary-foreground px-3 py-2 hover:bg-transparent hover:text-primary transition-all"
+              >
+                View Politician Profiles &rarr;
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* The 3 Pillars Interactive Gateways */}
-      <section className="space-y-6">
+      <section className="space-y-6 pt-6">
         <div className="border-b-2 border-primary pb-3">
           <h2 className="font-serif text-3xl font-bold uppercase text-primary">The 3 Pillars of PrajaNeeti</h2>
           <p className="font-narrow text-xs font-bold uppercase tracking-wider text-muted-foreground mt-1">
@@ -165,152 +263,15 @@ export default async function Home() {
                 Data Hub
               </Link>
               <Link
-                href="/dashboards"
-                className="inline-flex items-center gap-1 font-narrow text-xs font-bold uppercase tracking-widest border border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground px-3 py-2 transition-all"
-              >
-                Dashboards
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Multi-Branch Governance Intelligence Grid */}
-      <section className="space-y-6">
-        <div className="border-b-2 border-primary pb-3 flex flex-col md:flex-row md:items-center justify-between gap-2">
-          <div>
-            <h2 className="font-serif text-3xl font-bold uppercase text-primary">Multi-Branch Governance Intelligence</h2>
-            <p className="font-narrow text-xs font-bold uppercase tracking-wider text-muted-foreground mt-1">
-              Direct pathways to newly integrated data pipelines across Executive, Legislative, and Judicial pillars
-            </p>
-          </div>
-          <Link
-            href="/milestones"
-            className="text-xs font-narrow font-bold uppercase tracking-wider text-primary hover:underline"
-          >
-            View Data Milestones Ledger &rarr;
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="border border-primary bg-card p-6 flex flex-col justify-between">
-            <div className="space-y-2">
-              <span className="font-narrow text-xs font-bold uppercase text-muted-foreground">Legislative Pillar</span>
-              <h3 className="font-serif text-xl font-bold uppercase text-primary">Candidate Affidavits & PRS Performance</h3>
-              <p className="text-xs text-muted-foreground">483 Lok Sabha winner affidavits (wealth, criminal cases, education) + PRS attendance & questions.</p>
-            </div>
-            <Link
-              href="/politicians"
-              className="mt-4 inline-flex items-center gap-1 font-narrow text-xs font-bold uppercase tracking-widest border border-primary bg-primary text-primary-foreground px-3 py-2 hover:bg-transparent hover:text-primary transition-all w-fit"
-            >
-              Track MP Affidavits &rarr;
-            </Link>
-          </div>
-
-          <div className="border border-primary bg-card p-6 flex flex-col justify-between">
-            <div className="space-y-2">
-              <span className="font-narrow text-xs font-bold uppercase text-muted-foreground">Executive Pillar</span>
-              <h3 className="font-serif text-xl font-bold uppercase text-primary">AoB Mandates & Senior IAS Rosters</h3>
-              <p className="text-xs text-muted-foreground">Cabinet Secretariat Allocation of Business rules + DoPT e-Civil List senior civil servant postings.</p>
-            </div>
-            <Link
-              href="/dashboards"
-              className="mt-4 inline-flex items-center gap-1 font-narrow text-xs font-bold uppercase tracking-widest border border-primary bg-primary text-primary-foreground px-3 py-2 hover:bg-transparent hover:text-primary transition-all w-fit"
-            >
-              View Executive Dashboards &rarr;
-            </Link>
-          </div>
-
-          <div className="border border-primary bg-card p-6 flex flex-col justify-between">
-            <div className="space-y-2">
-              <span className="font-narrow text-xs font-bold uppercase text-muted-foreground">Judicial & State Funds</span>
-              <h3 className="font-serif text-xl font-bold uppercase text-primary">NJDG Backlog & State MLALAD Pilot</h3>
-              <p className="text-xs text-muted-foreground">High Court case pendency & 10+ year delays + Gujarat state Assembly constituency fund spending.</p>
-            </div>
-            <div className="flex gap-2 mt-4">
-              <Link
-                href="/dashboards"
-                className="inline-flex items-center gap-1 font-narrow text-xs font-bold uppercase tracking-widest border border-primary bg-primary text-primary-foreground px-3 py-2 hover:bg-transparent hover:text-primary transition-all"
-              >
-                NJDG Pendency
-              </Link>
-              <Link
-                href="/mplads"
-                className="inline-flex items-center gap-1 font-narrow text-xs font-bold uppercase tracking-widest border border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground px-3 py-2 transition-all"
-              >
-                MLALAD Pilot
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Content Grid: Hero Article & Unified Activity Feed */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-6">
-        <div className="lg:col-span-9 flex flex-col gap-10">
-          <article className="border-b-2 border-primary pb-10">
-            <div className="w-full relative aspect-[21/9] mb-6 overflow-hidden border border-primary">
-              <Image 
-                src="/indian_parliament.jpg" 
-                alt="Indian Parliament Building - Sansad Bhavan" 
-                fill 
-                className="object-cover grayscale contrast-125" 
-                priority
-              />
-            </div>
-            <h2 className="text-3xl md:text-5xl font-black font-serif tracking-tight leading-tight mb-4">
-              Audit of Union Expenditures & Parliamentary Allocations
-            </h2>
-            <p className="font-sans text-xl text-muted-foreground mb-6">
-              Examine the latest public records on government spending, compare state utilization rates, and participate in constructive civic discourse.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link 
-                href="/mplads"
-                className="inline-flex items-center justify-center font-narrow font-bold transition-all uppercase tracking-wider text-xs border-2 border-primary bg-primary text-primary-foreground hover:bg-transparent hover:text-primary px-5 py-2.5"
-              >
-                MPLADS Oversight
-              </Link>
-              <Link 
                 href="/politicians"
-                className="inline-flex items-center justify-center font-narrow font-bold transition-all uppercase tracking-wider text-xs border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground px-5 py-2.5"
+                className="inline-flex items-center gap-1 font-narrow text-xs font-bold uppercase tracking-widest border border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground px-3 py-2 transition-all"
               >
-                Track Politicians
+                Politicians
               </Link>
-              <Link 
-                href="/dashboards"
-                className="inline-flex items-center justify-center font-narrow font-bold transition-all uppercase tracking-wider text-xs border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground px-5 py-2.5"
-              >
-                View Dashboards
-              </Link>
-            </div>
-          </article>
-
-          <UnifiedFeed initialItems={initialItems} initialFilters={{}} />
-        </div>
-        
-        <aside className="lg:col-span-3 border-l border-primary pl-8 hidden lg:block">
-          <div className="sticky top-24 space-y-6">
-            <h2 className="font-serif text-2xl font-bold border-b border-primary pb-2 uppercase">Public Audit Summary</h2>
-            <div className="flex flex-col gap-6">
-              <div>
-                <p className="font-narrow text-sm font-bold text-muted-foreground uppercase tracking-wider">Audited MPLADS Funds</p>
-                <p className="font-serif text-3xl font-bold">₹11,538 Cr</p>
-              </div>
-              <div className="w-full h-px bg-primary/20"></div>
-              <div>
-                <p className="font-narrow text-sm font-bold text-muted-foreground uppercase tracking-wider">Candidate Affidavits</p>
-                <p className="font-serif text-3xl font-bold">483 MPs</p>
-              </div>
-              <div className="w-full h-px bg-primary/20"></div>
-              <div>
-                <p className="font-narrow text-sm font-bold text-muted-foreground uppercase tracking-wider">Judicial Backlog</p>
-                <p className="font-serif text-3xl font-bold">6.18M Cases</p>
-              </div>
             </div>
           </div>
-        </aside>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }

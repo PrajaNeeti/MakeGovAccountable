@@ -140,7 +140,7 @@ export function Navbar() {
                 </Link>
 
                 <Link 
-                  href="/dashboards" 
+                  href="/#governance-dashboard" 
                   className={`text-xs font-narrow uppercase font-bold tracking-widest transition-colors ${
                     pathname === '/dashboards' ? 'text-primary border-b-2 border-primary' : 'text-foreground hover:text-muted-foreground'
                   }`}
