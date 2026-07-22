@@ -41,34 +41,48 @@ export function Navbar() {
             PRAJA NEETI.
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-5">
             <Link 
               href="/vision" 
-              className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1.5"
+              className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1"
             >
               <Scale className="w-3.5 h-3.5 text-primary" />
-              1. Vision
+              Vision
             </Link>
 
             <Link 
               href="/forums" 
-              className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1.5"
+              className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1"
             >
               <MessageSquare className="w-3.5 h-3.5 text-primary" />
-              2. Concerns
+              Concerns
             </Link>
 
             <Link 
               href="/transparency" 
-              className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1.5"
+              className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1"
             >
               <Database className="w-3.5 h-3.5 text-primary" />
-              3. Data
+              Data Hub
+            </Link>
+
+            <Link 
+              href="/dashboards" 
+              className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1"
+            >
+              Dashboards
+            </Link>
+
+            <Link 
+              href="/politicians" 
+              className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1"
+            >
+              Politicians
             </Link>
 
             <Link 
               href="/milestones" 
-              className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1.5 border-l border-primary/30 pl-4"
+              className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1 border-l border-primary/30 pl-3"
             >
               Milestones
             </Link>
