@@ -48,6 +48,16 @@ export function IASRosterCard({ officers }: { officers: IASOfficer[] }) {
             </div>
           ))}
         </div>
+
+        {/* Coming Soon Indicator Banner */}
+        <div className="mt-6 p-4 border-2 border-dashed border-sky-500/50 bg-sky-500/10 rounded-lg text-center space-y-1">
+          <span className="font-narrow text-xs font-bold uppercase tracking-widest text-sky-700 dark:text-sky-300 flex items-center justify-center gap-1.5">
+            ⌛ IPS (Police) & IFS (Foreign Service) Civil Lists — Scheduled Sourcing Coming Soon
+          </span>
+          <p className="text-xs text-muted-foreground max-w-2xl mx-auto">
+            Current roster indexes IAS (Administrative Service) Level 17 apex appointments. Scrapers for Indian Police Service (MHA) and Foreign Service (MEA) rosters are queued for Phase 6.
+          </p>
+        </div>
       </CardContent>
     </Card>
   );

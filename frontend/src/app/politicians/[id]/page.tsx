@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { AffidavitCard } from "@/components/politicians/AffidavitCard";
 import { LegislativeStatsCard } from "@/components/politicians/LegislativeStatsCard";
+import StartDiscussionButton from "@/components/forums/StartDiscussionButton";
 import Link from "next/link";
 
 export default async function PoliticianProfilePage(props: { params: Promise<{ id: string }> }) {
@@ -19,11 +20,16 @@ export default async function PoliticianProfilePage(props: { params: Promise<{ i
         &larr; Back to Politician Directory
       </Link>
       
-      <div className="border-b-2 border-primary pb-6">
-        <h1 className="text-4xl md:text-5xl font-black font-serif tracking-tight text-primary uppercase mb-3">
-          {politician.first_name} {politician.last_name}
-        </h1>
-        <p className="text-xl text-muted-foreground">{politician.bio}</p>
+      <div className="border-b-2 border-primary pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-4xl md:text-5xl font-black font-serif tracking-tight text-primary uppercase mb-3">
+            {politician.first_name} {politician.last_name}
+          </h1>
+          <p className="text-xl text-muted-foreground">{politician.bio}</p>
+        </div>
+        <div>
+          <StartDiscussionButton entityId={politician.id} entityType="politician" entityName={`${politician.first_name} ${politician.last_name}`} />
+        </div>
       </div>
 
       {/* Affidavit Disclosures Card */}

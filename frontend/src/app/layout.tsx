@@ -22,8 +22,11 @@ export const metadata: Metadata = {
   title: "PrajaNeeti — Governance Accountability Ledger",
   description: "Track Indian government activities, candidate affidavits, MP legislative performance, department mandates, senior IAS rosters, and judicial backlog metrics.",
   icons: {
-    icon: "/favicon.jpg",
-    apple: "/logo.jpg"
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    apple: "/apple-icon.png"
   },
   openGraph: {
     title: "PrajaNeeti — Governance Accountability Ledger",

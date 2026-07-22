@@ -4,17 +4,81 @@ import { createClient } from '@/lib/supabase/server';
 
 export async function getPoliticians() {
   const supabase = await createClient();
-  const { data, error } = await supabase.from('politicians').select('*').order('first_name', { ascending: true });
+  const { data: pols, error } = await supabase.from('politicians').select('*').order('first_name', { ascending: true });
   
-  if (error || !data || data.length === 0) {
-    // Fallback sample data if empty
+  const { data: affidavits } = await supabase.from('politician_affidavits').select('*');
+  const { data: stats } = await supabase.from('mp_legislative_stats').select('*');
+
+  const affidavitMap = new Map((affidavits || []).map(a => [a.politician_id, a]));
+  const statsMap = new Map((stats || []).map(s => [s.politician_id, s]));
+
+  if (error || !pols || pols.length === 0) {
+    // Fallback sample data with rich affidavit and legislative stats
     return [
-      { id: 'pol-1', first_name: 'Narendra', last_name: 'Modi', bio: 'Prime Minister of India & MP from Varanasi constituency, Uttar Pradesh (Lok Sabha). [Sample Data]', is_mock: true },
-      { id: 'pol-2', first_name: 'Rahul', last_name: 'Gandhi', bio: 'Leader of Opposition in Lok Sabha & MP from Wayanad / Rae Bareli. [Sample Data]', is_mock: true },
-      { id: 'pol-3', first_name: 'Shashi', last_name: 'Tharoor', bio: 'MP from Thiruvananthapuram, Kerala (Lok Sabha) & former UN Under-Secretary-General. [Sample Data]', is_mock: true }
+      {
+        id: 'pol-1',
+        first_name: 'Narendra',
+        last_name: 'Modi',
+        bio: 'Prime Minister of India & MP from Varanasi constituency, Uttar Pradesh (Lok Sabha).',
+        house: 'Lok Sabha',
+        state: 'Uttar Pradesh',
+        constituency: 'Varanasi',
+        party: 'BJP',
+        total_assets: 30200000,
+        criminal_cases_count: 0,
+        attendance_pct: 88,
+        questions_asked: 0,
+        is_mock: true
+      },
+      {
+        id: 'pol-2',
+        first_name: 'Rahul',
+        last_name: 'Gandhi',
+        bio: 'Leader of Opposition in Lok Sabha & MP from Wayanad / Rae Bareli.',
+        house: 'Lok Sabha',
+        state: 'Kerala',
+        constituency: 'Wayanad',
+        party: 'INC',
+        total_assets: 200000000,
+        criminal_cases_count: 18,
+        attendance_pct: 68,
+        questions_asked: 110,
+        is_mock: true
+      },
+      {
+        id: 'pol-3',
+        first_name: 'Shashi',
+        last_name: 'Tharoor',
+        bio: 'MP from Thiruvananthapuram, Kerala (Lok Sabha) & former UN Under-Secretary-General.',
+        house: 'Lok Sabha',
+        state: 'Kerala',
+        constituency: 'Thiruvananthapuram',
+        party: 'INC',
+        total_assets: 350000000,
+        criminal_cases_count: 2,
+        attendance_pct: 92,
+        questions_asked: 340,
+        is_mock: true
+      }
     ];
   }
-  return data;
+
+  return pols.map((pol: any) => {
+    const aff = affidavitMap.get(pol.id);
+    const st = statsMap.get(pol.id);
+    return {
+      ...pol,
+      house: aff?.house || st?.house || 'Lok Sabha',
+      state: aff?.state || st?.state || 'India',
+      constituency: aff?.constituency || st?.constituency || 'Constituency',
+      party: aff?.party || 'Independent',
+      total_assets: aff?.total_assets ?? 0,
+      criminal_cases_count: aff?.criminal_cases_count ?? 0,
+      attendance_pct: st?.attendance_pct ?? 0,
+      questions_asked: st?.questions_asked ?? 0,
+      is_mock: false
+    };
+  });
 }
 
 export async function getPoliticianDetails(id: string) {

@@ -61,6 +61,16 @@ export function MLALADTab({ schemes }: { schemes: MLALADScheme[] }) {
             );
           })}
         </div>
+
+        {/* Coming Soon Pipeline Banner */}
+        <div className="mt-6 p-4 border-2 border-dashed border-amber-500/50 bg-amber-500/10 rounded-lg text-center space-y-1">
+          <span className="font-narrow text-xs font-bold uppercase tracking-widest text-amber-700 dark:text-amber-300 flex items-center justify-center gap-1.5">
+            ⌛ 27 State Assembly Portals Ingesting — Pipeline Sourcing Coming Soon
+          </span>
+          <p className="text-xs text-muted-foreground max-w-2xl mx-auto">
+            Current pilot covers Gujarat Vidhan Sabha. MLALAD data pipelines for Maharashtra, Uttar Pradesh, Bihar, Tamil Nadu, Rajasthan, and 22 other State Assembly portals are scheduled for Phase 6 ingestion.
+          </p>
+        </div>
       </CardContent>
     </Card>
   );

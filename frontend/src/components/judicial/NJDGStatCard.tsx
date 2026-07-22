@@ -60,6 +60,16 @@ export function NJDGStatCard({ stats }: { stats: JudicialStat[] }) {
             );
           })}
         </div>
+
+        {/* Coming Soon Indicator Banner */}
+        <div className="mt-6 p-4 border-2 border-dashed border-purple-500/50 bg-purple-500/10 rounded-lg text-center space-y-1">
+          <span className="font-narrow text-xs font-bold uppercase tracking-widest text-purple-700 dark:text-purple-300 flex items-center justify-center gap-1.5">
+            ⌛ eCourts Individual Case-Level Search & Litigant Lookups — Phase 6 High-Caution Pipeline
+          </span>
+          <p className="text-xs text-muted-foreground max-w-2xl mx-auto">
+            Currently aggregates High Court and National court pendency metrics. Case-level search (CNR number & party name lookup) is undergoing CAPTCHA rate-limit verification before deployment.
+          </p>
+        </div>
       </CardContent>
     </Card>
   );
