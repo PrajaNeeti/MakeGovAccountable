@@ -19,8 +19,24 @@ const archivoNarrow = Archivo_Narrow({
 });
 
 export const metadata: Metadata = {
-  title: "PrajaNeeti",
-  description: "Track government activities, spending, and join the discussion.",
+  title: "PrajaNeeti — Governance Accountability Ledger",
+  description: "Track Indian government activities, candidate affidavits, MP legislative performance, department mandates, senior IAS rosters, and judicial backlog metrics.",
+  icons: {
+    icon: "/favicon.jpg",
+    apple: "/logo.jpg"
+  },
+  openGraph: {
+    title: "PrajaNeeti — Governance Accountability Ledger",
+    description: "Audited public ledgers across Executive, Legislative, and Judicial pillars.",
+    images: [
+      {
+        url: "/thumbnail.jpg",
+        width: 1200,
+        height: 630,
+        alt: "PrajaNeeti Platform Preview"
+      }
+    ]
+  }
 };
 
 export default function RootLayout({
