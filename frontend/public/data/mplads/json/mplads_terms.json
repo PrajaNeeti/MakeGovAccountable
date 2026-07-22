@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "data": [
+    {
+      "lsTerm": 17,
+      "mps": 543,
+      "allocations": 543,
+      "expenditures": 137053,
+      "worksCompleted": 55192,
+      "worksRecommended": 39962
+    },
+    {
+      "lsTerm": 18,
+      "mps": 543,
+      "allocations": 543,
+      "expenditures": 75796,
+      "worksCompleted": 22813,
+      "worksRecommended": 75661
+    }
+  ],
+  "cached": true,
+  "cache_timestamp": "2026-07-22T13:23:37.592Z"
+}

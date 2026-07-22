@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { submitConcern, getSemanticMatches, SemanticMatch } from '@/app/actions/submitConcern';
 import { signConcern } from '@/app/actions/signConcern';
 import { createClient } from '@/lib/supabase/client';
-import { State, City } from 'country-state-city';
 
 // ── Similarity badge colour ────────────────────────────────────────────────
 
@@ -289,13 +288,9 @@ export default function SubmitPage() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [content, setContent] = useState('');
-  const [stateCode, setStateCode] = useState('');
   const [location, setLocation] = useState({ state: '', city: '', area: '' });
   const [error, setError] = useState<string | null>(null);
   const [charCount, setCharCount] = useState(0);
-
-  const indianStates = State.getStatesOfCountry('IN');
-  const citiesInState = stateCode ? City.getCitiesOfState('IN', stateCode) : [];
 
   // Semantic match state
   const [matches, setMatches] = useState<SemanticMatch[]>([]);
@@ -345,18 +340,6 @@ export default function SubmitPage() {
   function handleLocationChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setLocation(prev => ({ ...prev, [name]: value }));
-  }
-
-  function handleStateChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const code = e.target.value;
-    setStateCode(code);
-    const stateObj = indianStates.find(s => s.isoCode === code);
-    setLocation(prev => ({ ...prev, state: stateObj ? stateObj.name : '', city: '' }));
-  }
-
-  function handleCityChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const city = e.target.value;
-    setLocation(prev => ({ ...prev, city }));
   }
 
   async function handleSign(concernId: string) {
@@ -449,34 +432,27 @@ export default function SubmitPage() {
             <div style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
               <div style={{ flex: 1 }}>
                 <label className="block font-semibold text-[oklch(0.205_0_0)]" style={{ fontSize: '13px', marginBottom: '6px' }}>State</label>
-                <select
-                  name="stateCode"
-                  value={stateCode}
-                  onChange={handleStateChange}
+                <input
+                  type="text"
+                  name="state"
+                  value={location.state}
+                  onChange={handleLocationChange}
+                  placeholder="e.g. Maharashtra"
                   className="w-full rounded-lg border border-[oklch(0.922_0_0)] bg-white px-3 py-2 text-[14px]"
                   style={{ outline: 'none' }}
-                >
-                  <option value="">Select State</option>
-                  {indianStates.map(s => (
-                    <option key={s.isoCode} value={s.isoCode}>{s.name}</option>
-                  ))}
-                </select>
+                />
               </div>
               <div style={{ flex: 1 }}>
                 <label className="block font-semibold text-[oklch(0.205_0_0)]" style={{ fontSize: '13px', marginBottom: '6px' }}>City</label>
-                <select
+                <input
+                  type="text"
                   name="city"
                   value={location.city}
-                  onChange={handleCityChange}
-                  disabled={!stateCode}
-                  className="w-full rounded-lg border border-[oklch(0.922_0_0)] bg-white px-3 py-2 text-[14px] disabled:opacity-50"
+                  onChange={handleLocationChange}
+                  placeholder="e.g. Mumbai"
+                  className="w-full rounded-lg border border-[oklch(0.922_0_0)] bg-white px-3 py-2 text-[14px]"
                   style={{ outline: 'none' }}
-                >
-                  <option value="">Select City</option>
-                  {citiesInState.map(c => (
-                    <option key={c.name} value={c.name}>{c.name}</option>
-                  ))}
-                </select>
+                />
               </div>
               <div style={{ flex: 1 }}>
                 <label className="block font-semibold text-[oklch(0.205_0_0)]" style={{ fontSize: '13px', marginBottom: '6px' }}>Area (Optional)</label>

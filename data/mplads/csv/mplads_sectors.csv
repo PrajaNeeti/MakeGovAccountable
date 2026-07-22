@@ -1,0 +1,5 @@
+name,expenditure,works
+"Normal/Others","{""total"":0,""transactions"":0,""average"":0}","{""count"":49446,""totalCost"":23102747805,""avgCost"":467231.88539012254}"
+"Repair and Renovation","{""total"":0,""transactions"":0,""average"":0}","{""count"":375,""totalCost"":199866876,""avgCost"":532978.336}"
+"Trust and Society","{""total"":0,""transactions"":0,""average"":0}","{""count"":162,""totalCost"":118203226,""avgCost"":729649.5432098765}"
+"N/A","{""total"":0,""transactions"":0,""average"":0}","{""count"":17,""totalCost"":14973450,""avgCost"":880791.1764705882}"

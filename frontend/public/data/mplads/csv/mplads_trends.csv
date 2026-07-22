@@ -1,0 +1,5 @@
+year,expenditure,works
+"2023","{""total"":322266530.01,""transactions"":776,""average"":415291.9201159794,""activeMPs"":24}","{""completed"":650,""totalCost"":259810374,""avgCost"":399708.2676923077}"
+"2024","{""total"":2944317675.49,""transactions"":6351,""average"":463599.0671532042,""activeMPs"":185}","{""completed"":1517,""totalCost"":1032258285,""avgCost"":680460.3065260382}"
+"2025","{""total"":18313072410.64,""transactions"":49547,""average"":369610.11586251436,""activeMPs"":641}","{""completed"":11579,""totalCost"":6565934315,""avgCost"":567055.3860436998}"
+"2026","{""total"":15025762085,""transactions"":42564,""average"":353015.7429987783,""activeMPs"":687}","{""completed"":16872,""totalCost"":9077701065,""avgCost"":538033.49128734}"
