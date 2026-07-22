@@ -1,0 +1,61 @@
+{
+  "updated_at": "2026-07-22T14:52:10.884152+00:00",
+  "sources": {
+    "myneta_mps": {
+      "name": "myneta_mps",
+      "target_url": "https://myneta.info/LokSabha2024/index.php?action=show_winners&sort=default",
+      "status": "success",
+      "records_ingested": 483,
+      "last_run": "2026-07-22T20:21:14.000Z",
+      "error": null
+    },
+    "prs_legislative": {
+      "name": "prs_legislative",
+      "target_url": "https://prsindia.org/mptrack",
+      "status": "success",
+      "records_ingested": 7,
+      "last_run": "2026-07-22T20:21:14.000Z",
+      "error": null
+    },
+    "aob_rules": {
+      "name": "aob_rules",
+      "target_url": "https://cabsec.gov.in/righttoinformation/organizationchart/",
+      "status": "success",
+      "records_ingested": 4,
+      "last_run": "2026-07-22T20:21:14.000Z",
+      "error": null
+    },
+    "ias_civil_list": {
+      "name": "ias_civil_list",
+      "target_url": "https://iascivillist.dopt.gov.in/Home/ViewList",
+      "status": "success",
+      "records_ingested": 4,
+      "last_run": "2026-07-22T20:21:15.000Z",
+      "error": null
+    },
+    "entity_matcher": {
+      "name": "entity_matcher",
+      "target_url": "internal://entity-resolution",
+      "status": "success",
+      "records_ingested": 3,
+      "last_run": "2026-07-22T20:21:15.000Z",
+      "error": null
+    },
+    "mlalad_gujarat": {
+      "name": "mlalad_gujarat",
+      "target_url": "https://gujarat.gov.in/mlalad-scheme-summary",
+      "status": "success",
+      "records_ingested": 3,
+      "last_run": "2026-07-22T14:52:10.049002+00:00",
+      "error": null
+    },
+    "njdg_judicial": {
+      "name": "njdg_judicial",
+      "target_url": "https://njdg.ecourts.gov.in",
+      "status": "success",
+      "records_ingested": 4,
+      "last_run": "2026-07-22T14:52:10.884186+00:00",
+      "error": null
+    }
+  }
+}

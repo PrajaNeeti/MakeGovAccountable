@@ -33,3 +33,27 @@ Not another protest.
 Not another political fight.
 
 Just people doing the work.
+
+---
+
+## 🛠️ Data Sourcing & Scraper Architecture
+
+PrajaNeeti includes an automated Python data ingestion suite located under `backend/app/scrapers/`.
+
+### Run All Scrapers
+```bash
+cd backend
+python -m app.scrapers.cli --target all
+```
+
+### Supported Data Targets
+- `myneta`: Scrapes Lok Sabha candidate affidavits (assets, liabilities, criminal cases, education).
+- `prs`: Scrapes MP legislative performance (attendance %, questions asked, debates, bills).
+- `aob`: Parses Cabinet Secretariat Allocation of Business Rules PDF into department mandates.
+- `ias`: Scrapes DoPT e-Civil List for senior IAS officer rosters and postings.
+- `match`: Runs fuzzy string resolution to map raw posting titles to canonical department UUIDs.
+- `mlalad`: Scrapes state-level assembly constituency allocation & expenditure (Gujarat pilot).
+- `njdg`: Scrapes National Judicial Data Grid (NJDG) High Court case pendency and backlog stats.
+
+### Tracking Progress
+Track platform engineering and data ingestion milestones live on the web app at **`/milestones`** or in **`MILESTONES.md`**.

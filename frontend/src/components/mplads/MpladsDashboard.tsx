@@ -7,12 +7,15 @@ import {
   CheckCircle2, TrendingUp, RefreshCw, UserCheck, Briefcase, FileSpreadsheet, Layers, Filter
 } from 'lucide-react';
 
+import { MLALADTab, MLALADScheme } from './MLALADTab';
+
 interface MpladsDashboardProps {
   overview: MpladsOverview | null;
   states: StateSummary[];
   mps: MpSummary[];
   sectors: SectorSummaryItem[];
   completedWorks: CompletedWorkItem[];
+  mlaladSchemes?: MLALADScheme[];
 }
 
 export function MpladsDashboard({ 
@@ -20,9 +23,10 @@ export function MpladsDashboard({
   states: initialStates, 
   mps: initialMps, 
   sectors: initialSectors,
-  completedWorks: initialCompletedWorks
+  completedWorks: initialCompletedWorks,
+  mlaladSchemes = []
 }: MpladsDashboardProps) {
-  const [activeTab, setActiveTab] = useState<'overview' | 'states' | 'mps' | 'sectors' | 'works' | 'downloads'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'states' | 'mps' | 'sectors' | 'works' | 'mlalad' | 'downloads'>('overview');
   
   const [overview, setOverview] = useState<MpladsOverview | null>(initialOverview);
   const [states, setStates] = useState<StateSummary[]>(initialStates || []);
@@ -229,6 +233,19 @@ export function MpladsDashboard({
           </button>
 
           <button
+            onClick={() => setActiveTab('mlalad')}
+            className={`font-narrow text-xs md:text-sm font-bold uppercase tracking-widest px-4 py-2 border-2 transition-all ${
+              activeTab === 'mlalad'
+                ? 'border-primary bg-primary text-primary-foreground'
+                : 'border-transparent text-muted-foreground hover:text-primary hover:border-primary/40'
+            }`}
+          >
+            <span className="flex items-center gap-2">
+              <Landmark className="w-4 h-4" /> 6. State MLA Funds (MLALAD)
+            </span>
+          </button>
+
+          <button
             onClick={() => setActiveTab('downloads')}
             className={`font-narrow text-xs md:text-sm font-bold uppercase tracking-widest px-4 py-2 border-2 transition-all ${
               activeTab === 'downloads'
@@ -237,7 +254,7 @@ export function MpladsDashboard({
             }`}
           >
             <span className="flex items-center gap-2">
-              <FileSpreadsheet className="w-4 h-4" /> 6. Open Data Downloads
+              <FileSpreadsheet className="w-4 h-4" /> 7. Open Data Downloads
             </span>
           </button>
         </nav>
@@ -596,7 +613,12 @@ export function MpladsDashboard({
         </section>
       )}
 
-      {/* TAB 6: OPEN DATA DOWNLOADS */}
+      {/* TAB 6: STATE MLA FUNDS (MLALAD) */}
+      {activeTab === 'mlalad' && (
+        <MLALADTab schemes={mlaladSchemes} />
+      )}
+
+      {/* TAB 7: OPEN DATA DOWNLOADS */}
       {activeTab === 'downloads' && (
         <section className="border-2 border-primary bg-secondary/30 p-8 space-y-6">
           <div>

@@ -47,7 +47,7 @@ export function Navbar() {
               className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1.5"
             >
               <Scale className="w-3.5 h-3.5 text-primary" />
-              1. Philosophy & Vision
+              1. Vision
             </Link>
 
             <Link 
@@ -55,7 +55,7 @@ export function Navbar() {
               className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1.5"
             >
               <MessageSquare className="w-3.5 h-3.5 text-primary" />
-              2. Discourse & Concerns
+              2. Concerns
             </Link>
 
             <Link 
@@ -63,7 +63,14 @@ export function Navbar() {
               className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1.5"
             >
               <Database className="w-3.5 h-3.5 text-primary" />
-              3. Data & Accountability
+              3. Data
+            </Link>
+
+            <Link 
+              href="/milestones" 
+              className="text-xs font-narrow uppercase font-bold tracking-widest text-foreground hover:text-muted-foreground transition-colors flex items-center gap-1.5 border-l border-primary/30 pl-4"
+            >
+              Milestones
             </Link>
           </nav>
         </div>
@@ -108,6 +115,11 @@ export function Navbar() {
 
           <Link href="/transparency" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsOpen(false)}>
             <Database className="w-4 h-4 text-primary" /> 3. Data & Accountability
+          </Link>
+          <div className="w-full h-px bg-primary/20"></div>
+
+          <Link href="/milestones" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsOpen(false)}>
+            Milestones Ledger
           </Link>
           <div className="w-full h-px bg-primary/20"></div>
 

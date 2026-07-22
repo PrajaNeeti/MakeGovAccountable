@@ -1,0 +1,54 @@
+import React from 'react';
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+
+export interface IASOfficer {
+  id: string;
+  officer_name: string;
+  allotment_year: number;
+  cadre: string;
+  current_posting: string;
+  pay_level: string;
+  qualification?: string;
+}
+
+export function IASRosterCard({ officers }: { officers: IASOfficer[] }) {
+  if (!officers || officers.length === 0) return null;
+
+  return (
+    <Card className="border-2 border-primary/20 shadow-md">
+      <CardHeader className="bg-muted/40 border-b pb-4">
+        <CardTitle className="text-xl font-serif font-black uppercase tracking-tight text-primary">
+          DoPT Senior IAS Civil Servants Roster
+        </CardTitle>
+        <p className="text-xs text-muted-foreground uppercase font-bold tracking-wider mt-1">
+          Executive Cadre Postings & Civil List Authority
+        </p>
+      </CardHeader>
+      <CardContent className="pt-6 space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {officers.map((officer) => (
+            <div key={officer.id} className="p-4 rounded-lg border border-border bg-background space-y-2">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h4 className="font-bold text-base text-foreground font-serif">{officer.officer_name}</h4>
+                  <span className="text-xs font-bold uppercase text-primary tracking-wider">
+                    IAS {officer.cadre} Cadre &bull; {officer.allotment_year} Batch
+                  </span>
+                </div>
+                <span className="text-[11px] font-mono font-bold bg-muted px-2 py-0.5 rounded text-muted-foreground">
+                  {officer.pay_level}
+                </span>
+              </div>
+              <p className="text-sm font-medium text-muted-foreground">{officer.current_posting}</p>
+              {officer.qualification && (
+                <p className="text-xs text-muted-foreground italic border-t border-border pt-1">
+                  Education: {officer.qualification}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
