@@ -135,7 +135,7 @@ export default async function Home(props: { searchParams: Promise<any> }) {
               href="/transparency"
               className="inline-flex items-center gap-1 font-narrow text-xs font-bold uppercase tracking-widest border border-primary bg-primary text-primary-foreground px-4 py-2 hover:bg-transparent hover:text-primary transition-all whitespace-nowrap"
             >
-              Open Data Hub &rarr;
+              Tathya &rarr;
             </Link>
           </div>
         </div>
@@ -202,7 +202,7 @@ export default async function Home(props: { searchParams: Promise<any> }) {
                 <span className="font-narrow text-xs font-bold uppercase text-muted-foreground">Pillar 1</span>
                 <Scale className="w-5 h-5 text-primary" />
               </div>
-              <h3 className="font-serif text-2xl font-bold uppercase">Philosophy & Vision</h3>
+              <h3 className="font-serif text-2xl font-bold uppercase">Drishti</h3>
               <p className="font-sans text-sm text-muted-foreground leading-relaxed">
                 Articles on proper governance, David Hume's 1742 principles of political legitimacy, Chanakya Neeti, and performing your <em>Swadharma</em> quietly without partisan noise.
               </p>
@@ -211,7 +211,7 @@ export default async function Home(props: { searchParams: Promise<any> }) {
               href="/vision"
               className="mt-6 inline-flex items-center gap-2 font-narrow text-xs font-bold uppercase tracking-widest border border-primary bg-primary text-primary-foreground px-4 py-2.5 hover:bg-transparent hover:text-primary transition-all w-fit"
             >
-              Read Vision & Essays <ArrowRight className="w-3.5 h-3.5" />
+              Read Drishti & Essays <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
@@ -222,7 +222,7 @@ export default async function Home(props: { searchParams: Promise<any> }) {
                 <span className="font-narrow text-xs font-bold uppercase text-muted-foreground">Pillar 2</span>
                 <MessageSquare className="w-5 h-5 text-primary" />
               </div>
-              <h3 className="font-serif text-2xl font-bold uppercase">Discourse & Concerns</h3>
+              <h3 className="font-serif text-2xl font-bold uppercase">Charcha</h3>
               <p className="font-sans text-sm text-muted-foreground leading-relaxed">
                 Thoughtful editorial forums and citizen concern portal equipped with AI semantic de-duplication to consolidate public willpower.
               </p>
@@ -232,7 +232,7 @@ export default async function Home(props: { searchParams: Promise<any> }) {
                 href="/forums"
                 className="inline-flex items-center gap-1 font-narrow text-xs font-bold uppercase tracking-widest border border-primary bg-primary text-primary-foreground px-3 py-2 hover:bg-transparent hover:text-primary transition-all"
               >
-                Forums
+                Charcha
               </Link>
               <Link
                 href="/submit"
@@ -250,7 +250,7 @@ export default async function Home(props: { searchParams: Promise<any> }) {
                 <span className="font-narrow text-xs font-bold uppercase text-muted-foreground">Pillar 3</span>
                 <Database className="w-5 h-5 text-primary" />
               </div>
-              <h3 className="font-serif text-2xl font-bold uppercase">Data & Accountability</h3>
+              <h3 className="font-serif text-2xl font-bold uppercase">Tathya</h3>
               <p className="font-sans text-sm text-muted-foreground leading-relaxed">
                 Multi-branch scraped ledgers auditing ₹11,538+ Cr in MPLADS funds, candidate affidavits, PRS attendance, IAS rosters, and NJDG court backlogs.
               </p>
@@ -260,7 +260,7 @@ export default async function Home(props: { searchParams: Promise<any> }) {
                 href="/transparency"
                 className="inline-flex items-center gap-1 font-narrow text-xs font-bold uppercase tracking-widest border border-primary bg-primary text-primary-foreground px-3 py-2 hover:bg-transparent hover:text-primary transition-all"
               >
-                Data Hub
+                Tathya
               </Link>
               <Link
                 href="/politicians"

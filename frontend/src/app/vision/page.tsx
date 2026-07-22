@@ -10,7 +10,7 @@ export default function VisionPage() {
           Pillar 1 • Governance Essays & Philosophy
         </span>
         <h1 className="text-4xl md:text-6xl font-black font-serif uppercase tracking-tight text-primary mt-4">
-          Philosophy & Vision
+          Drishti
         </h1>
         <p className="text-muted-foreground font-sans text-lg max-w-2xl mx-auto mt-4">
           What proper governance means, historical principles of political legitimacy, and why PrajaNeeti exists to quiet the noise and keep an honest public record.
@@ -109,7 +109,7 @@ export default function VisionPage() {
           <div className="border border-primary bg-card p-6 flex flex-col justify-between">
             <div>
               <span className="font-narrow text-xs font-bold uppercase text-muted-foreground">Pillar 1</span>
-              <h4 className="font-serif text-xl font-bold mt-1">Philosophy & Vision</h4>
+              <h4 className="font-serif text-xl font-bold mt-1">Drishti</h4>
               <p className="font-sans text-xs text-muted-foreground mt-2">David Hume, Chanakya & principles of governance.</p>
             </div>
             <Link href="/vision" className="mt-4 font-narrow text-xs font-bold uppercase text-primary underline">You Are Here</Link>
@@ -118,7 +118,7 @@ export default function VisionPage() {
           <div className="border border-primary bg-card p-6 flex flex-col justify-between">
             <div>
               <span className="font-narrow text-xs font-bold uppercase text-muted-foreground">Pillar 2</span>
-              <h4 className="font-serif text-xl font-bold mt-1">Discourse & Concerns</h4>
+              <h4 className="font-serif text-xl font-bold mt-1">Charcha</h4>
               <p className="font-sans text-xs text-muted-foreground mt-2">Public forums & civic concern portal.</p>
             </div>
             <Link href="/forums" className="mt-4 font-narrow text-xs font-bold uppercase text-primary underline">Join Discourse →</Link>
@@ -127,10 +127,10 @@ export default function VisionPage() {
           <div className="border border-primary bg-card p-6 flex flex-col justify-between">
             <div>
               <span className="font-narrow text-xs font-bold uppercase text-muted-foreground">Pillar 3</span>
-              <h4 className="font-serif text-xl font-bold mt-1">Data & Accountability</h4>
+              <h4 className="font-serif text-xl font-bold mt-1">Tathya</h4>
               <p className="font-sans text-xs text-muted-foreground mt-2">MPLADS ledgers, official records & MP directory.</p>
             </div>
-            <Link href="/transparency" className="mt-4 font-narrow text-xs font-bold uppercase text-primary underline">Explore Data →</Link>
+            <Link href="/transparency" className="mt-4 font-narrow text-xs font-bold uppercase text-primary underline">Explore Tathya →</Link>
           </div>
         </div>
       </section>

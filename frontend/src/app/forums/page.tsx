@@ -16,7 +16,7 @@ export default async function ForumsOverviewPage() {
           Pillar 2 • Letters to the Editor & Civil Discourse
         </span>
         <h1 className="text-4xl md:text-6xl font-black font-serif uppercase tracking-tight text-primary mt-4">
-          Editorial Forum & Public Discourse
+          Charcha
         </h1>
         <p className="text-muted-foreground font-sans text-base max-w-3xl mx-auto mt-3 leading-relaxed">
           Quiet, evidence-based commentary on government spending, representative records, executive mandates, and judicial backlogs.

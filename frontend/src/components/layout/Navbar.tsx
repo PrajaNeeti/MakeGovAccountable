@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { Menu, X, PlusCircle, Scale, MessageSquare, Database, ArrowLeft, ChevronUp, ChevronDown, Award, Eye, Users } from "lucide-react";
+import { Menu, X, PlusCircle, Scale, MessageSquare, ArrowLeft, ChevronUp, ChevronDown, Award, Eye, Users } from "lucide-react";
 import { OmnibarSearch } from "@/components/OmnibarSearch";
 
 export function Navbar() {
@@ -113,39 +113,30 @@ export function Navbar() {
               {/* Streamlined Desktop Navigation Links */}
               <nav className="hidden lg:flex items-center gap-5">
                 <Link 
-                  href="/concerns" 
-                  className={`text-xs font-narrow uppercase font-bold tracking-widest transition-colors ${
-                    pathname === '/concerns' ? 'text-primary border-b-2 border-primary' : 'text-foreground hover:text-muted-foreground'
-                  }`}
-                >
-                  Concerns
-                </Link>
-
-                <Link 
-                  href="/politicians" 
-                  className={`text-xs font-narrow uppercase font-bold tracking-widest transition-colors ${
-                    pathname?.startsWith('/politicians') ? 'text-primary border-b-2 border-primary' : 'text-foreground hover:text-muted-foreground'
-                  }`}
-                >
-                  Politicians
-                </Link>
-
-                <Link 
                   href="/transparency" 
                   className={`text-xs font-narrow uppercase font-bold tracking-widest transition-colors ${
                     pathname === '/transparency' ? 'text-primary border-b-2 border-primary' : 'text-foreground hover:text-muted-foreground'
                   }`}
                 >
-                  Data Hub
+                  Tathya
                 </Link>
 
                 <Link 
-                  href="/#governance-dashboard" 
+                  href="/forums" 
                   className={`text-xs font-narrow uppercase font-bold tracking-widest transition-colors ${
-                    pathname === '/dashboards' ? 'text-primary border-b-2 border-primary' : 'text-foreground hover:text-muted-foreground'
+                    pathname?.startsWith('/forums') ? 'text-primary border-b-2 border-primary' : 'text-foreground hover:text-muted-foreground'
                   }`}
                 >
-                  Dashboards
+                  Charcha
+                </Link>
+
+                <Link 
+                  href="/vision" 
+                  className={`text-xs font-narrow uppercase font-bold tracking-widest transition-colors ${
+                    pathname?.startsWith('/vision') ? 'text-primary border-b-2 border-primary' : 'text-foreground hover:text-muted-foreground'
+                  }`}
+                >
+                  Drishti
                 </Link>
 
                 {/* Explore / More Dropdown */}
@@ -161,11 +152,11 @@ export function Navbar() {
                   {isMoreOpen && (
                     <div className="absolute top-full left-0 mt-2 w-48 border-2 border-primary bg-background shadow-xl rounded p-2 flex flex-col gap-1 z-50">
                       <Link 
-                        href="/forums" 
+                        href="/politicians" 
                         className="text-xs font-narrow uppercase font-bold tracking-wider text-foreground hover:bg-muted p-2 rounded flex items-center gap-2"
                         onClick={() => setIsMoreOpen(false)}
                       >
-                        <Users className="w-3.5 h-3.5 text-primary" /> Public Forums
+                        <Users className="w-3.5 h-3.5 text-primary" /> Politicians
                       </Link>
                       <Link 
                         href="/milestones" 
@@ -173,13 +164,6 @@ export function Navbar() {
                         onClick={() => setIsMoreOpen(false)}
                       >
                         <Award className="w-3.5 h-3.5 text-primary" /> Milestones Ledger
-                      </Link>
-                      <Link 
-                        href="/vision" 
-                        className="text-xs font-narrow uppercase font-bold tracking-wider text-foreground hover:bg-muted p-2 rounded flex items-center gap-2"
-                        onClick={() => setIsMoreOpen(false)}
-                      >
-                        <Eye className="w-3.5 h-3.5 text-primary" /> Vision & Philosophy
                       </Link>
                     </div>
                   )}
@@ -246,8 +230,18 @@ export function Navbar() {
                 </button>
               )}
 
-              <Link href="/concerns" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
-                <MessageSquare className="w-4 h-4 text-primary" /> Concerns
+              <Link href="/transparency" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
+                <Scale className="w-4 h-4 text-primary" /> Tathya
+              </Link>
+              <div className="w-full h-px bg-primary/20"></div>
+
+              <Link href="/forums" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
+                <Users className="w-4 h-4 text-primary" /> Charcha
+              </Link>
+              <div className="w-full h-px bg-primary/20"></div>
+
+              <Link href="/vision" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
+                <Eye className="w-4 h-4 text-primary" /> Drishti
               </Link>
               <div className="w-full h-px bg-primary/20"></div>
 
@@ -256,28 +250,8 @@ export function Navbar() {
               </Link>
               <div className="w-full h-px bg-primary/20"></div>
 
-              <Link href="/transparency" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
-                <Database className="w-4 h-4 text-primary" /> Data Hub
-              </Link>
-              <div className="w-full h-px bg-primary/20"></div>
-
-              <Link href="/dashboards" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
-                Dashboards
-              </Link>
-              <div className="w-full h-px bg-primary/20"></div>
-
-              <Link href="/forums" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
-                <Users className="w-4 h-4 text-primary" /> Forums & Discussions
-              </Link>
-              <div className="w-full h-px bg-primary/20"></div>
-
               <Link href="/milestones" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
                 <Award className="w-4 h-4 text-primary" /> Milestones Ledger
-              </Link>
-              <div className="w-full h-px bg-primary/20"></div>
-
-              <Link href="/vision" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
-                <Eye className="w-4 h-4 text-primary" /> Vision & Philosophy
               </Link>
               <div className="w-full h-px bg-primary/20"></div>
 

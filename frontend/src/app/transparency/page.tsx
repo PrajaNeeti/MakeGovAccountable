@@ -26,7 +26,7 @@ export default async function TransparencyPage() {
           Pillar 3 • Scraped Government Ledgers & Official Accountability
         </span>
         <h1 className="text-4xl md:text-6xl font-black font-serif uppercase tracking-tight text-primary mt-4">
-          Data & Accountability Hub
+          Tathya
         </h1>
         <p className="text-muted-foreground font-sans text-base max-w-3xl mx-auto mt-3">
           Verifiable open ledgers tracking government spending, Member of Parliament allocations, candidate affidavits, civil servant rosters, state assembly funds, and judicial backlogs.

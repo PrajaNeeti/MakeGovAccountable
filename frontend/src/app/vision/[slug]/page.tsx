@@ -77,7 +77,7 @@ export default async function DynamicEssayPage(props: { params: Promise<{ slug: 
         href="/vision" 
         className="inline-flex items-center gap-2 font-narrow text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
       >
-        <ArrowLeft className="w-4 h-4" /> Back to Philosophy & Vision
+        <ArrowLeft className="w-4 h-4" /> Back to Drishti
       </Link>
 
       {/* Article Header */}
@@ -127,7 +127,7 @@ export default async function DynamicEssayPage(props: { params: Promise<{ slug: 
           href="/transparency" 
           className="inline-flex items-center gap-2 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground px-5 py-2.5 font-narrow text-xs font-bold uppercase tracking-widest transition-all"
         >
-          Explore Scraped Data →
+            Explore Tathya →
         </Link>
       </footer>
     </div>
