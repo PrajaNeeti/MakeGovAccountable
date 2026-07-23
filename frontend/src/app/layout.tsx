@@ -3,6 +3,7 @@ import { Playfair_Display, Source_Sans_3, Archivo_Narrow } from "next/font/googl
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -58,6 +59,7 @@ export default function RootLayout({
           {children}
         </main>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
