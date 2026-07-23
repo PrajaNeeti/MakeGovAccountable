@@ -1,81 +1,65 @@
 {
-  "fetched_at": "2026-07-22T13:23:36.280Z",
-  "results": {
-    "summary_overview": {
-      "status": "SUCCESS",
-      "json_file": "summary_overview.json",
-      "csv_file": "summary_overview.csv",
-      "record_count": 1
+  "fetched_at": "2026-07-23T02:55:40.565Z",
+  "endpoints": [
+    {
+      "name": "summary_overview",
+      "status": "failed",
+      "error": "getaddrinfo ENOTFOUND esakshi.mospi.gov.in"
     },
-    "summary_states": {
-      "status": "SUCCESS",
-      "json_file": "summary_states.json",
-      "csv_file": "summary_states.csv",
-      "record_count": 36
+    {
+      "name": "summary_states",
+      "status": "failed",
+      "error": "getaddrinfo ENOTFOUND esakshi.mospi.gov.in"
     },
-    "summary_mps": {
-      "status": "SUCCESS",
-      "json_file": "summary_mps.json",
-      "csv_file": "summary_mps.csv",
-      "record_count": 20
+    {
+      "name": "summary_mps",
+      "status": "failed",
+      "error": "getaddrinfo ENOTFOUND esakshi.mospi.gov.in"
     },
-    "mplads_sectors": {
-      "status": "SUCCESS",
-      "json_file": "mplads_sectors.json",
-      "csv_file": "mplads_sectors.csv",
-      "record_count": 4
+    {
+      "name": "mplads_sectors",
+      "status": "failed",
+      "error": "getaddrinfo ENOTFOUND esakshi.mospi.gov.in"
     },
-    "mplads_terms": {
-      "status": "SUCCESS",
-      "json_file": "mplads_terms.json",
-      "csv_file": "mplads_terms.csv",
-      "record_count": 2
+    {
+      "name": "mplads_terms",
+      "status": "failed",
+      "error": "getaddrinfo ENOTFOUND esakshi.mospi.gov.in"
     },
-    "mplads_trends": {
-      "status": "SUCCESS",
-      "json_file": "mplads_trends.json",
-      "csv_file": "mplads_trends.csv",
-      "record_count": 4
+    {
+      "name": "mplads_trends",
+      "status": "failed",
+      "error": "getaddrinfo ENOTFOUND esakshi.mospi.gov.in"
     },
-    "analytics_performance_distribution": {
-      "status": "SUCCESS",
-      "json_file": "analytics_performance_distribution.json",
-      "csv_file": "analytics_performance_distribution.csv",
-      "record_count": 4
+    {
+      "name": "works_completed",
+      "status": "failed",
+      "error": "getaddrinfo ENOTFOUND esakshi.mospi.gov.in"
     },
-    "analytics_top_performers": {
-      "status": "SUCCESS",
-      "json_file": "analytics_top_performers.json",
-      "csv_file": "analytics_top_performers.csv",
-      "record_count": 10
+    {
+      "name": "works_categories",
+      "status": "failed",
+      "error": "getaddrinfo ENOTFOUND esakshi.mospi.gov.in"
     },
-    "analytics_trends": {
-      "status": "SUCCESS",
-      "json_file": "analytics_trends.json",
-      "csv_file": "analytics_trends.csv",
-      "record_count": 4
+    {
+      "name": "expenditures_categories",
+      "status": "failed",
+      "error": "getaddrinfo ENOTFOUND esakshi.mospi.gov.in"
     },
-    "expenditures_categories": {
-      "status": "SUCCESS",
-      "json_file": "expenditures_categories.json",
-      "csv_file": "expenditures_categories.csv",
-      "record_count": 1
+    {
+      "name": "analytics_trends",
+      "status": "failed",
+      "error": "getaddrinfo ENOTFOUND esakshi.mospi.gov.in"
     },
-    "works_categories": {
-      "status": "SUCCESS",
-      "json_file": "works_categories.json",
-      "csv_file": "works_categories.csv",
-      "record_count": 1
+    {
+      "name": "analytics_top_performers",
+      "status": "failed",
+      "error": "getaddrinfo ENOTFOUND esakshi.mospi.gov.in"
     },
-    "works_completed": {
-      "status": "SUCCESS",
-      "json_file": "works_completed.json",
-      "csv_file": "works_completed.csv",
-      "record_count": 20
-    },
-    "works_recommended": {
-      "status": "FAILED",
-      "error": "Request timed out"
+    {
+      "name": "analytics_performance_distribution",
+      "status": "failed",
+      "error": "getaddrinfo ENOTFOUND esakshi.mospi.gov.in"
     }
-  }
+  ]
 }

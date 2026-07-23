@@ -36,24 +36,41 @@ Just people doing the work.
 
 ---
 
-## 🛠️ Data Sourcing & Scraper Architecture
+## 🛠️ Data Sourcing & Live Ingestion Architecture
 
-PrajaNeeti includes an automated Python data ingestion suite located under `backend/app/scrapers/`.
+PrajaNeeti features a multi-pillar automated data ingestion engine supporting both Node.js and Python runners.
 
-### Run All Scrapers
+### Node.js Live Ingestion Pipeline (`scripts/ingestion/`)
+```bash
+# Run all 5 governance data pipelines (AoB Rules, IAS Roster, NJDG, MP Affidavits, MLALAD)
+node scripts/ingestion/run_all.js
+
+# Target a specific domain
+node scripts/ingestion/run_all.js aob-rules
+node scripts/ingestion/run_all.js ias-roster
+node scripts/ingestion/run_all.js njdg
+node scripts/ingestion/run_all.js mp-affidavits
+node scripts/ingestion/run_all.js mlalad
+```
+
+### Live Synchronization & Telemetry
+- **Live Sync Endpoint**: `/api/ingest?domain=all` (secured via `CRON_SECRET` Bearer token)
+- **GitHub Action Workflow**: `.github/workflows/live-data-sync.yml` (runs daily at `0 0 * * *`)
+- **Telemetry Audit Table**: `public.ingestion_logs` in Supabase (tracks status, execution time ms, error logs, and records processed)
+- **Bot Prevention**: Cloudflare Turnstile token validation via `TURNSTILE_SECRET_KEY` in `submitConcern.ts`
+
+### Python Data Scraper Suite (`backend/app/scrapers/`)
 ```bash
 cd backend
 python -m app.scrapers.cli --target all
 ```
 
 ### Supported Data Targets
-- `myneta`: Scrapes Lok Sabha candidate affidavits (assets, liabilities, criminal cases, education).
-- `prs`: Scrapes MP legislative performance (attendance %, questions asked, debates, bills).
-- `aob`: Parses Cabinet Secretariat Allocation of Business Rules PDF into department mandates.
-- `ias`: Scrapes DoPT e-Civil List for senior IAS officer rosters and postings.
-- `match`: Runs fuzzy string resolution to map raw posting titles to canonical department UUIDs.
-- `mlalad`: Scrapes state-level assembly constituency allocation & expenditure (Gujarat pilot).
-- `njdg`: Scrapes National Judicial Data Grid (NJDG) High Court case pendency and backlog stats.
+- `aob`: Ingests Cabinet Secretariat Allocation of Business Rules into `public.department_mandates`.
+- `ias`: Ingests DoPT e-Civil List senior officer rosters (JS & Secretary level) into `public.ias_officers`.
+- `njdg`: Ingests National Judicial Data Grid (NJDG) High Court case pendency and backlogs into `public.judicial_aggregates`.
+- `myneta` & `prs`: Ingests MP election affidavits (assets, liabilities, cases, education) and parliamentary activity into `public.politician_affidavits` and `public.mp_legislative_stats`.
+- `mlalad`: Ingests state-level assembly constituency allocations & expenditures (Gujarat, Maharashtra, Karnataka, UP) into `public.mlalad_schemes`.
 
 ### Tracking Progress
 Track platform engineering and data ingestion milestones live on the web app at **`/milestones`** or in **`MILESTONES.md`**.

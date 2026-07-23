@@ -49,8 +49,13 @@ export async function getDepartmentMandatesAndOfficers() {
     supabase.from('ias_officers').select('*')
   ]);
 
-  let mandates = mandatesRes.data || [];
-  let officers = officersRes.data || [];
+  let mandates = mandatesRes.data && mandatesRes.data.length > 0
+    ? mandatesRes.data.map((m: any) => ({ ...m, is_mock: false }))
+    : [];
+
+  let officers = officersRes.data && officersRes.data.length > 0
+    ? officersRes.data.map((o: any) => ({ ...o, is_mock: false }))
+    : [];
 
   if (mandates.length === 0) {
     mandates = [

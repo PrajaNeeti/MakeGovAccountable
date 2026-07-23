@@ -62,5 +62,5 @@ export async function getJudicialAggregates() {
       }
     ];
   }
-  return data;
+  return data.map((item: any) => ({ ...item, is_mock: false }));
 }

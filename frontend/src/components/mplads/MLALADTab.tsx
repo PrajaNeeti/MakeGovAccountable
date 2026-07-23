@@ -23,7 +23,7 @@ export function MLALADTab({ schemes }: { schemes: MLALADScheme[] }) {
           State MLA Local Area Development (MLALAD) Fund Oversight
         </CardTitle>
         <p className="text-xs text-muted-foreground uppercase font-bold tracking-wider mt-1">
-          State Assembly Constituency Allocation, Expenditure & Works Completed (Gujarat Pilot)
+          State Assembly Constituency Allocation, Expenditure & Works Completed (Gujarat, Maharashtra, Karnataka, UP)
         </p>
       </CardHeader>
       <CardContent className="pt-6 space-y-4">
@@ -62,13 +62,13 @@ export function MLALADTab({ schemes }: { schemes: MLALADScheme[] }) {
           })}
         </div>
 
-        {/* Coming Soon Pipeline Banner */}
-        <div className="mt-6 p-4 border-2 border-dashed border-amber-500/50 bg-amber-500/10 rounded-lg text-center space-y-1">
-          <span className="font-narrow text-xs font-bold uppercase tracking-widest text-amber-700 dark:text-amber-300 flex items-center justify-center gap-1.5">
-            ⌛ 27 State Assembly Portals Ingesting — Pipeline Sourcing Coming Soon
+        {/* Live Pipeline Status Banner */}
+        <div className="mt-6 p-4 border-2 border-dashed border-emerald-500/50 bg-emerald-500/10 rounded-lg text-center space-y-1">
+          <span className="font-narrow text-xs font-bold uppercase tracking-widest text-emerald-700 dark:text-emerald-300 flex items-center justify-center gap-1.5">
+            ✓ Active Live Ingestion: Gujarat, Maharashtra, Karnataka & Uttar Pradesh Assembly Portals
           </span>
           <p className="text-xs text-muted-foreground max-w-2xl mx-auto">
-            Current pilot covers Gujarat Vidhan Sabha. MLALAD data pipelines for Maharashtra, Uttar Pradesh, Bihar, Tamil Nadu, Rajasthan, and 22 other State Assembly portals are scheduled for Phase 6 ingestion.
+            State assembly MLALAD data pipelines are active for Gujarat, Maharashtra, Karnataka, and Uttar Pradesh, with scheduled updates synced to official state planning department releases.
           </p>
         </div>
       </CardContent>

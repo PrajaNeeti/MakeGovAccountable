@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { Menu, X, PlusCircle, Scale, MessageSquare, ArrowLeft, ChevronUp, ChevronDown, Award, Eye, Users } from "lucide-react";
+import { Menu, X, PlusCircle, Scale, MessageSquare, ArrowLeft, ChevronUp, ChevronDown, Award, Eye, Users, ShieldCheck } from "lucide-react";
 import { OmnibarSearch } from "@/components/OmnibarSearch";
 
 export function Navbar() {
@@ -110,26 +110,9 @@ export function Navbar() {
                 PRAJA NEETI.
               </Link>
 
-              {/* Streamlined Desktop Navigation Links */}
-              <nav className="hidden lg:flex items-center gap-5">
-                <Link 
-                  href="/transparency" 
-                  className={`text-xs font-narrow uppercase font-bold tracking-widest transition-colors ${
-                    pathname === '/transparency' ? 'text-primary border-b-2 border-primary' : 'text-foreground hover:text-muted-foreground'
-                  }`}
-                >
-                  Tathya
-                </Link>
-
-                <Link 
-                  href="/forums" 
-                  className={`text-xs font-narrow uppercase font-bold tracking-widest transition-colors ${
-                    pathname?.startsWith('/forums') ? 'text-primary border-b-2 border-primary' : 'text-foreground hover:text-muted-foreground'
-                  }`}
-                >
-                  Charcha
-                </Link>
-
+              {/* Streamlined Desktop Navigation Links organized under 3 Pillars */}
+              <nav className="hidden lg:flex items-center gap-6">
+                {/* Pillar 1: Drishti */}
                 <Link 
                   href="/vision" 
                   className={`text-xs font-narrow uppercase font-bold tracking-widest transition-colors ${
@@ -139,34 +122,76 @@ export function Navbar() {
                   Drishti
                 </Link>
 
-                {/* Explore / More Dropdown */}
-                <div className="relative">
-                  <button
-                    onClick={() => setIsMoreOpen(!isMoreOpen)}
-                    onBlur={() => setTimeout(() => setIsMoreOpen(false), 200)}
-                    className="text-xs font-narrow uppercase font-bold tracking-widest text-muted-foreground hover:text-primary transition-colors flex items-center gap-0.5 border-l border-primary/30 pl-3"
+                {/* Pillar 2: Charcha Dropdown */}
+                <div className="relative group">
+                  <Link 
+                    href="/forums" 
+                    className={`text-xs font-narrow uppercase font-bold tracking-widest transition-colors flex items-center gap-1 ${
+                      pathname?.startsWith('/forums') || pathname === '/concerns' || pathname === '/submit' ? 'text-primary border-b-2 border-primary' : 'text-foreground hover:text-muted-foreground'
+                    }`}
                   >
-                    More <ChevronDown className="w-3 h-3" />
-                  </button>
+                    Charcha <ChevronDown className="w-3 h-3 text-muted-foreground" />
+                  </Link>
 
-                  {isMoreOpen && (
-                    <div className="absolute top-full left-0 mt-2 w-48 border-2 border-primary bg-background shadow-xl rounded p-2 flex flex-col gap-1 z-50">
-                      <Link 
-                        href="/politicians" 
-                        className="text-xs font-narrow uppercase font-bold tracking-wider text-foreground hover:bg-muted p-2 rounded flex items-center gap-2"
-                        onClick={() => setIsMoreOpen(false)}
-                      >
-                        <Users className="w-3.5 h-3.5 text-primary" /> Politicians
-                      </Link>
-                      <Link 
-                        href="/milestones" 
-                        className="text-xs font-narrow uppercase font-bold tracking-wider text-foreground hover:bg-muted p-2 rounded flex items-center gap-2"
-                        onClick={() => setIsMoreOpen(false)}
-                      >
-                        <Award className="w-3.5 h-3.5 text-primary" /> Milestones Ledger
-                      </Link>
-                    </div>
-                  )}
+                  <div className="absolute top-full left-0 hidden group-hover:flex w-52 border-2 border-primary bg-background shadow-xl rounded p-2 flex-col gap-1 z-50">
+                    <Link 
+                      href="/forums" 
+                      className="text-xs font-narrow uppercase font-bold tracking-wider text-foreground hover:bg-muted p-2 rounded flex items-center gap-2"
+                    >
+                      <MessageSquare className="w-3.5 h-3.5 text-primary" /> Discussion Forums
+                    </Link>
+                    <Link 
+                      href="/concerns" 
+                      className="text-xs font-narrow uppercase font-bold tracking-wider text-foreground hover:bg-muted p-2 rounded flex items-center gap-2"
+                    >
+                      <ShieldCheck className="w-3.5 h-3.5 text-primary" /> Pooled Concerns
+                    </Link>
+                    <Link 
+                      href="/submit" 
+                      className="text-xs font-narrow uppercase font-bold tracking-wider text-foreground hover:bg-muted p-2 rounded flex items-center gap-2"
+                    >
+                      <PlusCircle className="w-3.5 h-3.5 text-primary" /> Raise a Concern
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Pillar 3: Tathya Dropdown */}
+                <div className="relative group">
+                  <Link 
+                    href="/transparency" 
+                    className={`text-xs font-narrow uppercase font-bold tracking-widest transition-colors flex items-center gap-1 ${
+                      pathname === '/transparency' || pathname?.startsWith('/politicians') || pathname === '/mplads' || pathname === '/milestones' ? 'text-primary border-b-2 border-primary' : 'text-foreground hover:text-muted-foreground'
+                    }`}
+                  >
+                    Tathya <ChevronDown className="w-3 h-3 text-muted-foreground" />
+                  </Link>
+
+                  <div className="absolute top-full left-0 hidden group-hover:flex w-56 border-2 border-primary bg-background shadow-xl rounded p-2 flex-col gap-1 z-50">
+                    <Link 
+                      href="/transparency" 
+                      className="text-xs font-narrow uppercase font-bold tracking-wider text-foreground hover:bg-muted p-2 rounded flex items-center gap-2"
+                    >
+                      <Scale className="w-3.5 h-3.5 text-primary" /> Transparency Overview
+                    </Link>
+                    <Link 
+                      href="/mplads" 
+                      className="text-xs font-narrow uppercase font-bold tracking-wider text-foreground hover:bg-muted p-2 rounded flex items-center gap-2"
+                    >
+                      <Award className="w-3.5 h-3.5 text-primary" /> MPLADS & MLALAD Funds
+                    </Link>
+                    <Link 
+                      href="/politicians" 
+                      className="text-xs font-narrow uppercase font-bold tracking-wider text-foreground hover:bg-muted p-2 rounded flex items-center gap-2"
+                    >
+                      <Users className="w-3.5 h-3.5 text-primary" /> MP Affidavits Directory
+                    </Link>
+                    <Link 
+                      href="/milestones" 
+                      className="text-xs font-narrow uppercase font-bold tracking-wider text-foreground hover:bg-muted p-2 rounded flex items-center gap-2"
+                    >
+                      <Award className="w-3.5 h-3.5 text-primary" /> Data Milestones Ledger
+                    </Link>
+                  </div>
                 </div>
               </nav>
             </div>
@@ -230,29 +255,45 @@ export function Navbar() {
                 </button>
               )}
 
-              <Link href="/transparency" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
-                <Scale className="w-4 h-4 text-primary" /> Tathya
-              </Link>
-              <div className="w-full h-px bg-primary/20"></div>
-
-              <Link href="/forums" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
-                <Users className="w-4 h-4 text-primary" /> Charcha
-              </Link>
-              <div className="w-full h-px bg-primary/20"></div>
-
+              {/* Pillar 1: Drishti */}
               <Link href="/vision" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
-                <Eye className="w-4 h-4 text-primary" /> Drishti
+                <Eye className="w-4 h-4 text-primary" /> Drishti (Vision & Governance)
               </Link>
               <div className="w-full h-px bg-primary/20"></div>
 
-              <Link href="/politicians" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
-                Politician Directory
-              </Link>
+              {/* Pillar 2: Charcha */}
+              <div className="flex flex-col gap-2">
+                <Link href="/forums" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
+                  <MessageSquare className="w-4 h-4 text-primary" /> Charcha (Discourse)
+                </Link>
+                <div className="flex flex-col gap-1.5 pl-6">
+                  <Link href="/concerns" className="text-xs font-narrow font-bold uppercase tracking-widest text-muted-foreground hover:text-primary flex items-center gap-2" onClick={() => setIsExpanded(false)}>
+                    <ShieldCheck className="w-3.5 h-3.5 text-primary" /> Pooled Concerns
+                  </Link>
+                  <Link href="/submit" className="text-xs font-narrow font-bold uppercase tracking-widest text-muted-foreground hover:text-primary flex items-center gap-2" onClick={() => setIsExpanded(false)}>
+                    <PlusCircle className="w-3.5 h-3.5 text-primary" /> Raise a Concern
+                  </Link>
+                </div>
+              </div>
               <div className="w-full h-px bg-primary/20"></div>
 
-              <Link href="/milestones" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
-                <Award className="w-4 h-4 text-primary" /> Milestones Ledger
-              </Link>
+              {/* Pillar 3: Tathya */}
+              <div className="flex flex-col gap-2">
+                <Link href="/transparency" className="text-sm font-narrow font-bold uppercase tracking-widest hover:text-muted-foreground flex items-center gap-2" onClick={() => setIsExpanded(false)}>
+                  <Scale className="w-4 h-4 text-primary" /> Tathya (Scraped Ledgers)
+                </Link>
+                <div className="flex flex-col gap-1.5 pl-6">
+                  <Link href="/mplads" className="text-xs font-narrow font-bold uppercase tracking-widest text-muted-foreground hover:text-primary flex items-center gap-2" onClick={() => setIsExpanded(false)}>
+                    <Award className="w-3.5 h-3.5 text-primary" /> MPLADS & State Funds
+                  </Link>
+                  <Link href="/politicians" className="text-xs font-narrow font-bold uppercase tracking-widest text-muted-foreground hover:text-primary flex items-center gap-2" onClick={() => setIsExpanded(false)}>
+                    <Users className="w-3.5 h-3.5 text-primary" /> MP Affidavits Directory
+                  </Link>
+                  <Link href="/milestones" className="text-xs font-narrow font-bold uppercase tracking-widest text-muted-foreground hover:text-primary flex items-center gap-2" onClick={() => setIsExpanded(false)}>
+                    <Award className="w-3.5 h-3.5 text-primary" /> Data Milestones Ledger
+                  </Link>
+                </div>
+              </div>
               <div className="w-full h-px bg-primary/20"></div>
 
               <Link 

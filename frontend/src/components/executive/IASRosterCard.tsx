@@ -17,9 +17,20 @@ export function IASRosterCard({ officers }: { officers: IASOfficer[] }) {
   return (
     <Card className="border-2 border-primary/20 shadow-md">
       <CardHeader className="bg-muted/40 border-b pb-4">
-        <CardTitle className="text-xl font-serif font-black uppercase tracking-tight text-primary">
-          DoPT Senior IAS Civil Servants Roster
-        </CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-xl font-serif font-black uppercase tracking-tight text-primary">
+            DoPT Senior IAS Civil Servants Roster
+          </CardTitle>
+          {officers.some((o: any) => o.is_mock) ? (
+            <span className="text-[10px] font-narrow font-bold uppercase tracking-wider bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded">
+              Sample / Mock Data
+            </span>
+          ) : (
+            <span className="text-[10px] font-narrow font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded">
+              ✓ Live Official Source (DoPT Civil List)
+            </span>
+          )}
+        </div>
         <p className="text-xs text-muted-foreground uppercase font-bold tracking-wider mt-1">
           Executive Cadre Postings & Civil List Authority
         </p>

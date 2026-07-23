@@ -149,23 +149,16 @@ export function MpladsDashboard({
   };
 
   return (
-    <div className="space-y-10">
-      {/* Header Masthead */}
-      <header className="border-b-2 border-t-2 border-primary py-10 text-center bg-card">
-        <span className="font-narrow text-xs font-bold uppercase tracking-widest text-muted-foreground border-b border-primary pb-1">
-          Ministry of Statistics & Programme Implementation • e-SAKSHI & MoSPI Audit
-        </span>
-        <h1 className="text-4xl md:text-6xl font-black font-serif uppercase tracking-tight text-primary mt-4">
-          MPLADS Parliamentary Oversight Ledger
-        </h1>
-        <p className="text-muted-foreground font-sans text-base max-w-3xl mx-auto mt-3">
-          Deep public accountability platform for the Member of Parliament Local Area Development Scheme.
-          Auditing ₹11,500+ Crores in development funds across Parliamentarians, States, Sectors, and Ground Projects.
-        </p>
-      </header>
+    <div className="space-y-8">
+      {/* Audit Source & Timestamp Flag */}
+      <div className="flex flex-col sm:flex-row items-center justify-between border-b-2 border-primary pb-4 font-narrow text-xs font-bold uppercase tracking-widest text-muted-foreground gap-2">
+        <span>Source: Ministry of Statistics & Programme Implementation (e-SAKSHI & MoSPI Data)</span>
+        <span className="border border-primary px-2.5 py-1 bg-muted text-primary">Auditing ₹11,500+ Cr Public Funds</span>
+      </div>
 
       {/* Multi-Tab Navigation Bar */}
       <div className="border-b-2 border-primary bg-background sticky top-16 z-40">
+
         <nav className="flex flex-wrap gap-2 md:gap-4 overflow-x-auto py-2">
           <button
             onClick={() => setActiveTab('overview')}

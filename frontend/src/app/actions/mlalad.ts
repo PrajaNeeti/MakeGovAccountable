@@ -49,5 +49,5 @@ export async function getMLALADSchemes() {
       }
     ];
   }
-  return data;
+  return data.map((item: any) => ({ ...item, is_mock: false }));
 }

@@ -232,7 +232,13 @@ export default async function Home(props: { searchParams: Promise<any> }) {
                 href="/forums"
                 className="inline-flex items-center gap-1 font-narrow text-xs font-bold uppercase tracking-widest border border-primary bg-primary text-primary-foreground px-3 py-2 hover:bg-transparent hover:text-primary transition-all"
               >
-                Charcha
+                Charcha Forums
+              </Link>
+              <Link
+                href="/concerns"
+                className="inline-flex items-center gap-1 font-narrow text-xs font-bold uppercase tracking-widest border border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground px-3 py-2 transition-all"
+              >
+                View Pooled Concerns
               </Link>
               <Link
                 href="/submit"

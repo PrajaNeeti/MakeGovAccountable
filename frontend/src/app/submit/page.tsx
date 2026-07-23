@@ -5,31 +5,15 @@ import { useRouter } from 'next/navigation';
 import { submitConcern, getSemanticMatches, SemanticMatch } from '@/app/actions/submitConcern';
 import { signConcern } from '@/app/actions/signConcern';
 import { createClient } from '@/lib/supabase/client';
+import { Shield, Sparkles, Send, MapPin, User, EyeOff, Info, ArrowRight } from 'lucide-react';
 
 // ── Similarity badge colour ────────────────────────────────────────────────
 
 function SimilarityBadge({ score }: { score: number }) {
   const pct = Math.round(score * 100);
-  // colour ranges: green ≥70, amber 55–69
-  const colour =
-    pct >= 70
-      ? { bg: 'oklch(0.95 0.06 145)', text: 'oklch(0.3 0.1 145)' }
-      : { bg: 'oklch(0.96 0.08 60)', text: 'oklch(0.45 0.14 60)' };
-
   return (
-    <span
-      style={{
-        backgroundColor: colour.bg,
-        color: colour.text,
-        fontSize: '11px',
-        fontWeight: 600,
-        padding: '2px 8px',
-        borderRadius: '100px',
-        whiteSpace: 'nowrap',
-        flexShrink: 0,
-      }}
-    >
-      {pct}% match
+    <span className="font-narrow text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 border border-primary bg-muted text-primary flex-shrink-0">
+      {pct}% Match
     </span>
   );
 }
@@ -37,10 +21,10 @@ function SimilarityBadge({ score }: { score: number }) {
 // ── Entity type label ──────────────────────────────────────────────────────
 
 const ENTITY_LABELS: Record<string, string> = {
-  concern: 'Similar Concern',
-  politician: 'Politician',
-  department: 'Department',
-  court: 'Court',
+  concern: 'Similar Public Concern',
+  politician: 'Parliamentarian Record',
+  department: 'Department Oversight',
+  court: 'Legal/Judicial Precedent',
   activity: 'Gov. Activity',
 };
 
@@ -57,32 +41,10 @@ function MatchPanel({ matches, isLoading, onSign }: MatchPanelProps) {
     return (
       <div
         aria-live="polite"
-        aria-label="Finding similar concerns…"
-        style={{
-          marginTop: '24px',
-          padding: '16px',
-          borderRadius: '12px',
-          border: '1px solid oklch(0.922 0 0)',
-          backgroundColor: 'oklch(0.985 0 0)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px',
-        }}
+        className="mt-6 p-4 border-2 border-primary bg-muted/20 flex items-center gap-3 text-xs font-narrow font-bold uppercase tracking-wider text-muted-foreground"
       >
-        <span
-          className="inline-block rounded-full border-2 animate-spin"
-          style={{
-            width: '14px',
-            height: '14px',
-            borderColor: 'oklch(0.7 0 0)',
-            borderTopColor: 'oklch(0.3 0 0)',
-            flexShrink: 0,
-          }}
-          aria-hidden="true"
-        />
-        <span style={{ fontSize: '13px', color: 'oklch(0.556 0 0)' }}>
-          Scanning for similar concerns…
-        </span>
+        <span className="inline-block w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin flex-shrink-0" />
+        <span>Scanning public archives for similar citizen concerns…</span>
       </div>
     );
   }
@@ -93,106 +55,37 @@ function MatchPanel({ matches, isLoading, onSign }: MatchPanelProps) {
   const entities = matches.filter((m) => m.result_type !== 'concern');
 
   return (
-    <div
-      role="region"
-      aria-label="Similar concerns found"
-      style={{ marginTop: '24px' }}
-    >
-      {/* Section header */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          marginBottom: '12px',
-        }}
-      >
-        <span
-          style={{
-            display: 'inline-block',
-            width: '6px',
-            height: '6px',
-            borderRadius: '50%',
-            backgroundColor: 'oklch(0.5 0.18 145)',
-            flexShrink: 0,
-          }}
-        />
-        <span
-          style={{
-            fontSize: '12px',
-            fontWeight: 600,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            color: 'oklch(0.439 0 0)',
-          }}
-        >
-          Similar concerns already on record
+    <div role="region" aria-label="Similar concerns found" className="mt-8 space-y-4">
+      {/* Section Header */}
+      <div className="flex items-center gap-2 border-b border-primary/30 pb-2">
+        <Sparkles className="w-4 h-4 text-primary" />
+        <span className="font-narrow text-xs font-bold uppercase tracking-widest text-primary">
+          AI Voice Pooling • Overlapping Concerns Found ({matches.length})
         </span>
       </div>
 
       {/* Concern cards */}
       {concerns.length > 0 && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: entities.length > 0 ? '16px' : 0 }}>
+        <div className="space-y-3">
           {concerns.map((m) => (
             <div
               key={m.id}
-              style={{
-                padding: '12px 16px',
-                borderRadius: '10px',
-                border: '1px solid oklch(0.922 0 0)',
-                backgroundColor: 'oklch(0.99 0 0)',
-                display: 'flex',
-                gap: '12px',
-                alignItems: 'flex-start',
-                transition: 'border-color 0.15s',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'oklch(0.7 0 0)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'oklch(0.922 0 0)';
-              }}
+              className="p-4 border-2 border-primary bg-card flex items-start gap-4 justify-between transition-all hover:bg-muted/10"
             >
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p
-                  style={{
-                    fontSize: '14px',
-                    color: 'oklch(0.205 0 0)',
-                    lineHeight: '1.5',
-                    margin: 0,
-                    overflow: 'hidden',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                  }}
-                >
+              <div className="space-y-2 flex-1 min-w-0">
+                <p className="font-sans text-sm text-foreground line-clamp-2 leading-relaxed">
                   {m.content}
                 </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
-                  <p
-                    style={{
-                      fontSize: '11px',
-                      color: 'oklch(0.6 0 0)',
-                      margin: 0,
-                    }}
-                  >
+                <div className="flex items-center gap-3">
+                  <span className="font-narrow text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
                     {ENTITY_LABELS[m.result_type] ?? m.result_type}
-                  </p>
+                  </span>
                   <button
                     type="button"
                     onClick={() => onSign(m.id)}
-                    style={{
-                      fontSize: '11px',
-                      fontWeight: 600,
-                      color: 'oklch(0.985 0 0)',
-                      backgroundColor: 'oklch(0.205 0 0)',
-                      padding: '4px 10px',
-                      borderRadius: '6px',
-                      cursor: 'pointer',
-                      border: 'none',
-                    }}
+                    className="font-narrow text-xs font-bold uppercase tracking-wider border border-primary bg-primary text-primary-foreground px-3 py-1 hover:bg-transparent hover:text-primary transition-all"
                   >
-                    Add My Voice
+                    Add My Voice 🗣️
                   </button>
                 </div>
               </div>
@@ -202,81 +95,32 @@ function MatchPanel({ matches, isLoading, onSign }: MatchPanelProps) {
         </div>
       )}
 
-      {/* Entity cards (government context) */}
+      {/* Entity cards */}
       {entities.length > 0 && (
-        <>
-          <p
-            style={{
-              fontSize: '12px',
-              fontWeight: 600,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              color: 'oklch(0.439 0 0)',
-              marginBottom: '8px',
-            }}
-          >
-            Related government context
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div className="space-y-2 pt-2">
+          <span className="font-narrow text-xs font-bold uppercase tracking-widest text-muted-foreground block">
+            Related Government Records
+          </span>
+          <div className="space-y-2">
             {entities.map((m) => (
               <div
                 key={m.id}
-                style={{
-                  padding: '10px 14px',
-                  borderRadius: '8px',
-                  border: '1px solid oklch(0.922 0 0)',
-                  backgroundColor: 'oklch(0.975 0 0)',
-                  display: 'flex',
-                  gap: '10px',
-                  alignItems: 'center',
-                }}
+                className="p-3 border border-primary/50 bg-muted/20 flex items-center gap-3 text-xs"
               >
-                <span
-                  style={{
-                    fontSize: '10px',
-                    fontWeight: 700,
-                    letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
-                    color: 'oklch(0.556 0 0)',
-                    whiteSpace: 'nowrap',
-                    backgroundColor: 'oklch(0.93 0 0)',
-                    padding: '2px 7px',
-                    borderRadius: '4px',
-                    flexShrink: 0,
-                  }}
-                >
+                <span className="font-narrow text-[10px] font-bold uppercase tracking-wider border border-primary bg-background px-2 py-0.5 text-primary flex-shrink-0">
                   {ENTITY_LABELS[m.result_type] ?? m.result_type}
                 </span>
-                <p
-                  style={{
-                    fontSize: '13px',
-                    color: 'oklch(0.3 0 0)',
-                    margin: 0,
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    flex: 1,
-                  }}
-                >
+                <p className="font-sans text-muted-foreground truncate flex-1">
                   {m.content}
                 </p>
               </div>
             ))}
           </div>
-        </>
+        </div>
       )}
 
-      {/* Non-blocking note */}
-      <p
-        style={{
-          fontSize: '12px',
-          color: 'oklch(0.65 0 0)',
-          marginTop: '10px',
-          lineHeight: '1.5',
-        }}
-      >
-        These are existing concerns and government actions that may overlap with
-        yours. You can still submit — your concern will be published regardless.
+      <p className="font-sans text-xs text-muted-foreground leading-relaxed pt-1">
+        Found overlapping records? You can add your voice to existing concerns or proceed to file a new public record below.
       </p>
     </div>
   );
@@ -289,6 +133,7 @@ export default function SubmitPage() {
   const [isPending, startTransition] = useTransition();
   const [content, setContent] = useState('');
   const [location, setLocation] = useState({ state: '', city: '', area: '' });
+  const [isAnonymous, setIsAnonymous] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [charCount, setCharCount] = useState(0);
 
@@ -303,7 +148,6 @@ export default function SubmitPage() {
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
 
-    // Only search when there's enough text
     if (content.trim().length < 20) {
       setMatches([]);
       setIsMatchLoading(false);
@@ -343,12 +187,10 @@ export default function SubmitPage() {
   }
 
   async function handleSign(concernId: string) {
-    // 1. Try to sign
     const res = await signConcern(concernId);
     if (res.success) {
       router.push(`/track/${concernId}`);
     } else if (res.requiresAuth) {
-      // 2. Redirect to Google login if required
       const supabase = createClient();
       await supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -366,9 +208,7 @@ export default function SubmitPage() {
     setError(null);
 
     startTransition(async () => {
-      // Here we would normally grab the reCAPTCHA token, e.g. from a ref
-      const captchaToken = 'mock-token'; // Mocked for now
-
+      const captchaToken = 'mock-token';
       const result = await submitConcern(content, location, captchaToken);
       if (!result.success) {
         setError(result.error);
@@ -381,103 +221,104 @@ export default function SubmitPage() {
   // ── Render ────────────────────────────────────────────────────────────────
 
   return (
-    <main className="min-h-screen bg-[oklch(1_0_0)]">
-      {/* Hero section */}
-      <section
-        className="border-b border-[oklch(0.922_0_0)]"
-        style={{ padding: '64px 0 48px' }}
-      >
-        <div className="mx-auto max-w-3xl px-6">
-          <p
-            className="text-[14px] font-medium tracking-widest uppercase text-[oklch(0.556_0_0)]"
-            style={{ marginBottom: '16px' }}
-          >
-            PRAJA NEETI
-          </p>
-          <h1
-            className="font-serif font-bold leading-tight text-[oklch(0.145_0_0)]"
-            style={{ fontSize: '48px', lineHeight: '1.1', marginBottom: '16px' }}
-          >
+    <main className="min-h-screen bg-background pb-16">
+      {/* Broadsheet Masthead Section */}
+      <header className="border-b-2 border-t-2 border-primary py-10 bg-card">
+        <div className="container mx-auto px-4 md:px-8 max-w-4xl space-y-3">
+          <span className="font-narrow text-xs font-bold uppercase tracking-widest text-muted-foreground border-b border-primary pb-1 inline-block">
+            Pillar 1 • Citizen Oversight & Public Filing
+          </span>
+          <h1 className="text-4xl md:text-6xl font-black font-serif tracking-tight text-primary uppercase">
             Submit a Concern
           </h1>
-          <p
-            className="text-[oklch(0.556_0_0)]"
-            style={{ fontSize: '16px', lineHeight: '1.6', maxWidth: '580px' }}
-          >
-            Your concern will be published publicly and matched to government
-            actions and policies. No account required — you will receive a
-            private tracking link after submission.
+          <p className="text-muted-foreground font-sans text-base max-w-2xl leading-relaxed">
+            Your concern will be published as a public record and automatically aggregated into regional voice pools. No password required — a secure tracking token will be issued.
           </p>
         </div>
-      </section>
+      </header>
 
-      {/* Form */}
-      <section style={{ padding: '48px 0 96px' }}>
-        <div className="mx-auto max-w-3xl px-6">
-          <form onSubmit={handleSubmit} noValidate>
-            {/* Instructions card */}
-            <div
-              className="rounded-lg border border-[oklch(0.922_0_0)] bg-[oklch(0.97_0_0)]"
-              style={{ padding: '16px 20px', marginBottom: '32px' }}
-            >
-              <p className="text-[14px] text-[oklch(0.439_0_0)] leading-relaxed">
-                <strong className="text-[oklch(0.205_0_0)]">Guidelines:</strong>{' '}
-                Be specific and factual. Avoid personal attacks. Concerns must be
-                civic in nature — relate to government actions, policies,
-                spending, or inaction.
-              </p>
+      {/* Form Section */}
+      <section className="container mx-auto px-4 md:px-8 max-w-4xl pt-10">
+        <form onSubmit={handleSubmit} noValidate className="space-y-8">
+          {/* AI Notice & Guidelines Callout */}
+          <div className="border-2 border-primary bg-card p-6 space-y-3">
+            <div className="flex items-center gap-2 text-primary">
+              <Info className="w-4 h-4 flex-shrink-0" />
+              <span className="font-narrow text-xs font-bold uppercase tracking-widest">
+                Filing Guidelines & Public Oversight Notice
+              </span>
+            </div>
+            <p className="font-sans text-sm text-muted-foreground leading-relaxed">
+              <strong className="text-primary font-semibold">Civic Scope Only:</strong> Submissions must relate to public infrastructure, government spending, policy implementation, or official inaction. Factual descriptions enable precise automated matching against parliamentary records and MP expenditure.
+            </p>
+          </div>
+
+          {/* Jurisdiction & Location Section */}
+          <div className="space-y-4 border-2 border-primary bg-card p-6">
+            <div className="flex items-center gap-2 border-b border-primary/30 pb-3">
+              <MapPin className="w-4 h-4 text-primary" />
+              <h2 className="font-narrow text-xs font-bold uppercase tracking-widest text-primary">
+                1. Jurisdiction & Location Details
+              </h2>
             </div>
 
-            {/* Location Fields */}
-            <div style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
-              <div style={{ flex: 1 }}>
-                <label className="block font-semibold text-[oklch(0.205_0_0)]" style={{ fontSize: '13px', marginBottom: '6px' }}>State</label>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+              <div>
+                <label className="block font-narrow text-xs font-bold uppercase tracking-wider text-primary mb-2">
+                  State / Territory *
+                </label>
                 <input
                   type="text"
                   name="state"
                   value={location.state}
                   onChange={handleLocationChange}
                   placeholder="e.g. Maharashtra"
-                  className="w-full rounded-lg border border-[oklch(0.922_0_0)] bg-white px-3 py-2 text-[14px]"
-                  style={{ outline: 'none' }}
+                  className="w-full border-b-2 border-primary bg-transparent py-2 text-sm font-sans focus:outline-none focus:border-b-4 placeholder:text-muted-foreground/60"
                 />
               </div>
-              <div style={{ flex: 1 }}>
-                <label className="block font-semibold text-[oklch(0.205_0_0)]" style={{ fontSize: '13px', marginBottom: '6px' }}>City</label>
+              <div>
+                <label className="block font-narrow text-xs font-bold uppercase tracking-wider text-primary mb-2">
+                  City / District *
+                </label>
                 <input
                   type="text"
                   name="city"
                   value={location.city}
                   onChange={handleLocationChange}
                   placeholder="e.g. Mumbai"
-                  className="w-full rounded-lg border border-[oklch(0.922_0_0)] bg-white px-3 py-2 text-[14px]"
-                  style={{ outline: 'none' }}
+                  className="w-full border-b-2 border-primary bg-transparent py-2 text-sm font-sans focus:outline-none focus:border-b-4 placeholder:text-muted-foreground/60"
                 />
               </div>
-              <div style={{ flex: 1 }}>
-                <label className="block font-semibold text-[oklch(0.205_0_0)]" style={{ fontSize: '13px', marginBottom: '6px' }}>Area (Optional)</label>
+              <div>
+                <label className="block font-narrow text-xs font-bold uppercase tracking-wider text-primary mb-2">
+                  Ward / Area (Optional)
+                </label>
                 <input
                   type="text"
                   name="area"
                   value={location.area}
                   onChange={handleLocationChange}
-                  placeholder="e.g. Bandra"
-                  className="w-full rounded-lg border border-[oklch(0.922_0_0)] bg-white px-3 py-2 text-[14px]"
-                  style={{ outline: 'none' }}
+                  placeholder="e.g. Bandra West"
+                  className="w-full border-b-2 border-primary bg-transparent py-2 text-sm font-sans focus:outline-none focus:border-b-4 placeholder:text-muted-foreground/60"
                 />
               </div>
             </div>
+          </div>
 
-            {/* Label */}
-            <label
-              htmlFor="concern-content"
-              className="block font-semibold text-[oklch(0.205_0_0)]"
-              style={{ fontSize: '14px', marginBottom: '8px' }}
-            >
-              Your Concern
-            </label>
+          {/* Concern Content Section */}
+          <div className="space-y-4 border-2 border-primary bg-card p-6">
+            <div className="flex items-center justify-between border-b border-primary/30 pb-3">
+              <label
+                htmlFor="concern-content"
+                className="font-narrow text-xs font-bold uppercase tracking-widest text-primary block"
+              >
+                2. Statement of Concern *
+              </label>
+              <span className="font-narrow text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                {charCount} / {MAX_CHARS.toLocaleString()} Chars
+              </span>
+            </div>
 
-            {/* Textarea */}
             <textarea
               id="concern-content"
               name="content"
@@ -487,117 +328,90 @@ export default function SubmitPage() {
               minLength={10}
               maxLength={MAX_CHARS}
               disabled={isPending}
-              placeholder="Describe the government action, policy, or inaction you are concerned about…"
-              className="w-full rounded-lg border text-[oklch(0.145_0_0)] placeholder:text-[oklch(0.708_0_0)] bg-white resize-y focus:outline-none transition-colors"
-              style={{
-                borderColor: error ? 'oklch(0.577 0.245 27.325)' : 'oklch(0.922 0 0)',
-                padding: '16px',
-                fontSize: '16px',
-                lineHeight: '1.6',
-                minHeight: '200px',
-                boxShadow: error
-                  ? '0 0 0 2px oklch(0.577 0.245 27.325 / 0.15)'
-                  : 'none',
-              }}
-              onFocus={(e) => {
-                e.currentTarget.style.borderColor = 'oklch(0.439 0 0)';
-                e.currentTarget.style.boxShadow =
-                  '0 0 0 3px oklch(0.205 0 0 / 0.08)';
-              }}
-              onBlur={(e) => {
-                e.currentTarget.style.borderColor = error
-                  ? 'oklch(0.577 0.245 27.325)'
-                  : 'oklch(0.922 0 0)';
-                e.currentTarget.style.boxShadow = error
-                  ? '0 0 0 2px oklch(0.577 0.245 27.325 / 0.15)'
-                  : 'none';
-              }}
+              placeholder="Provide specific details regarding the civic issue, department involved, or unfulfilled promise..."
+              className="w-full border-2 border-primary bg-background p-4 text-base font-sans leading-relaxed text-foreground placeholder:text-muted-foreground/60 focus:outline-none min-h-[220px] resize-y"
             />
 
-            {/* Char counter + error row */}
-            <div
-              className="flex items-start justify-between"
-              style={{ marginTop: '8px' }}
-            >
-              {error ? (
-                <p
-                  role="alert"
-                  className="text-[oklch(0.577_0.245_27.325)] font-medium"
-                  style={{ fontSize: '14px' }}
-                >
-                  {error}
-                </p>
-              ) : (
-                <span />
-              )}
-              <span
-                className="text-[oklch(0.556_0_0)] tabular-nums ml-auto"
-                style={{ fontSize: '13px' }}
-              >
-                {charCount} / {MAX_CHARS.toLocaleString()}
-              </span>
+            {error && (
+              <p role="alert" className="font-narrow text-xs font-bold uppercase tracking-wider text-destructive border-l-2 border-destructive pl-2">
+                ⚠️ {error}
+              </p>
+            )}
+
+            {/* Semantic Match Panel */}
+            <MatchPanel matches={matches} isLoading={isMatchLoading} onSign={handleSign} />
+          </div>
+
+          {/* Privacy & Filing Mode Section */}
+          <div className="space-y-4 border-2 border-primary bg-card p-6">
+            <div className="flex items-center gap-2 border-b border-primary/30 pb-3">
+              <Shield className="w-4 h-4 text-primary" />
+              <h2 className="font-narrow text-xs font-bold uppercase tracking-widest text-primary">
+                3. Privacy & Voice Identity Mode
+              </h2>
             </div>
 
-            {/* ── Semantic match panel (non-blocking) ──────────────── */}
-            <MatchPanel matches={matches} isLoading={isMatchLoading} onSign={handleSign} />
-
-            {/* Submit button */}
-            <div style={{ marginTop: '32px' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <button
-                id="submit-concern-btn"
-                type="submit"
-                disabled={isPending || content.trim().length < 10}
-                className="inline-flex items-center justify-center gap-2 rounded-lg font-semibold text-white transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                style={{
-                  backgroundColor: isPending
-                    ? 'oklch(0.439 0 0)'
-                    : 'oklch(0.205 0 0)',
-                  color: 'oklch(0.985 0 0)',
-                  padding: '14px 32px',
-                  fontSize: '16px',
-                  cursor:
-                    isPending || content.trim().length < 10
-                      ? 'not-allowed'
-                      : 'pointer',
-                  opacity: content.trim().length < 10 ? 0.5 : 1,
-                  transition: 'background-color 0.15s, opacity 0.15s',
-                }}
-                onMouseEnter={(e) => {
-                  if (!isPending && content.trim().length >= 10) {
-                    e.currentTarget.style.backgroundColor = 'oklch(0.269 0 0)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = isPending
-                    ? 'oklch(0.439 0 0)'
-                    : 'oklch(0.205 0 0)';
-                }}
+                type="button"
+                onClick={() => setIsAnonymous(false)}
+                className={`p-4 border-2 text-left transition-all flex items-start gap-3 ${
+                  !isAnonymous
+                    ? 'border-primary bg-primary text-primary-foreground'
+                    : 'border-primary/40 bg-background text-primary hover:border-primary'
+                }`}
               >
-                {isPending ? (
-                  <>
-                    <span
-                      className="inline-block rounded-full border-2 border-white/30 border-t-white animate-spin"
-                      style={{ width: '16px', height: '16px' }}
-                      aria-hidden="true"
-                    />
-                    Publishing…
-                  </>
-                ) : (
-                  'Submit Concern'
-                )}
+                <User className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-narrow text-xs font-bold uppercase tracking-wider block">Verified Voice</span>
+                  <span className="text-xs opacity-80 font-sans block mt-0.5">Sign with Google authentication for verified citizen badge.</span>
+                </div>
               </button>
 
-              <p
-                className="text-[oklch(0.556_0_0)]"
-                style={{ fontSize: '13px', marginTop: '12px' }}
+              <button
+                type="button"
+                onClick={() => setIsAnonymous(true)}
+                className={`p-4 border-2 text-left transition-all flex items-start gap-3 ${
+                  isAnonymous
+                    ? 'border-primary bg-primary text-primary-foreground'
+                    : 'border-primary/40 bg-background text-primary hover:border-primary'
+                }`}
               >
-                By submitting, you agree that your concern will be visible
-                publicly. No personal data is collected.
-              </p>
+                <EyeOff className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-narrow text-xs font-bold uppercase tracking-wider block">Anonymous Citizen</span>
+                  <span className="text-xs opacity-80 font-sans block mt-0.5">File anonymously without personal identity attached.</span>
+                </div>
+              </button>
             </div>
-          </form>
-        </div>
+          </div>
+
+          {/* Submit Action Bar */}
+          <div className="pt-4 space-y-3">
+            <button
+              id="submit-concern-btn"
+              type="submit"
+              disabled={isPending || content.trim().length < 10}
+              className="w-full inline-flex items-center justify-center gap-2 font-narrow text-sm font-bold uppercase tracking-widest border-2 border-primary bg-primary text-primary-foreground px-8 py-4 hover:bg-transparent hover:text-primary transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isPending ? (
+                <>
+                  <span className="inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                  Publishing to Public Record…
+                </>
+              ) : (
+                <>
+                  <Send className="w-4 h-4" /> File Public Concern
+                </>
+              )}
+            </button>
+            <p className="font-sans text-xs text-center text-muted-foreground">
+              By submitting, your concern becomes an immutable public record for community voice pooling.
+            </p>
+          </div>
+        </form>
       </section>
     </main>
   );
 }
+

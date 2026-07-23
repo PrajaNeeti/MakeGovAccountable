@@ -72,8 +72,13 @@ export default async function ModerationPage() {
 
   return (
     <div className="container mx-auto p-8 lg:p-12 max-w-5xl">
-      <header className="mb-12">
-        <h1 className="text-5xl font-serif font-bold mb-4">Moderation Dashboard</h1>
+      <header className="mb-12 space-y-3">
+        <div className="flex items-center justify-between">
+          <h1 className="text-5xl font-serif font-bold">Moderation Dashboard</h1>
+          <span className="text-xs font-narrow font-bold uppercase tracking-wider bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/30 px-3 py-1 rounded-full">
+            ⌛ Sandbox / In-Development Portal
+          </span>
+        </div>
         <p className="text-xl text-gray-600">Pending AI-Suggested Groups: {groups?.length || 0}</p>
       </header>
 

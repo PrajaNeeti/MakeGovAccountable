@@ -138,14 +138,40 @@ export async function submitConcern(
     };
   }
 
-  // Basic CAPTCHA verification (mocked if no secret is provided)
-  const captchaSecret = process.env.RECAPTCHA_SECRET_KEY;
-  if (captchaSecret && captchaToken) {
+  // CAPTCHA / Bot Verification (Cloudflare Turnstile or Google reCAPTCHA)
+  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+  const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY;
+
+  if (turnstileSecret) {
+    if (!captchaToken) {
+      return { success: false, error: 'CAPTCHA token is required.' };
+    }
+    try {
+      const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          secret: turnstileSecret,
+          response: captchaToken,
+        }),
+      });
+      const verifyJson = await verifyRes.json();
+      if (!verifyJson.success) {
+        return { success: false, error: 'Turnstile CAPTCHA verification failed. Please try again.' };
+      }
+    } catch (e) {
+      console.error('[submitConcern] Turnstile verification error:', e);
+      return { success: false, error: 'Failed to verify Turnstile CAPTCHA. Please try again.' };
+    }
+  } else if (recaptchaSecret) {
+    if (!captchaToken) {
+      return { success: false, error: 'CAPTCHA token is required.' };
+    }
     try {
       const verifyRes = await fetch('https://www.google.com/recaptcha/api/siteverify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `secret=${captchaSecret}&response=${captchaToken}`,
+        body: `secret=${recaptchaSecret}&response=${captchaToken}`,
       });
       const verifyJson = await verifyRes.json();
       if (!verifyJson.success) {
@@ -155,8 +181,6 @@ export async function submitConcern(
       console.error('[submitConcern] CAPTCHA verification error:', e);
       return { success: false, error: 'Failed to verify CAPTCHA. Please try again.' };
     }
-  } else if (captchaSecret && !captchaToken) {
-    return { success: false, error: 'CAPTCHA token is required.' };
   }
 
   // Generate embedding for the concern (best-effort — non-blocking)

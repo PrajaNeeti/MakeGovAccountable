@@ -56,7 +56,8 @@ export async function getDiscussions() {
     ...d,
     title: d.title || `Civic Discussion Thread #${d.id.slice(0, 6)}`,
     category: d.category || 'General Civic Discourse',
-    post_count: d.forum_posts?.[0]?.count || 0
+    post_count: d.forum_posts?.[0]?.count || 0,
+    is_mock: false
   }));
 }
 

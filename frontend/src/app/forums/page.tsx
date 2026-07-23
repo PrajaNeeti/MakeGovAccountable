@@ -22,7 +22,19 @@ export default async function ForumsOverviewPage() {
           Quiet, evidence-based commentary on government spending, representative records, executive mandates, and judicial backlogs.
         </p>
 
-        <div className="flex justify-center mt-6">
+        <div className="flex flex-wrap justify-center items-center gap-3 mt-6">
+          <Link
+            href="/submit"
+            className="inline-flex items-center gap-2 border-2 border-primary bg-primary text-primary-foreground hover:bg-transparent hover:text-primary px-4 py-2.5 font-narrow text-xs font-bold uppercase tracking-widest transition-all"
+          >
+            <PlusCircle className="w-4 h-4" /> Raise a Concern
+          </Link>
+          <Link
+            href="/concerns"
+            className="inline-flex items-center gap-2 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground px-4 py-2.5 font-narrow text-xs font-bold uppercase tracking-widest transition-all"
+          >
+            <ShieldCheck className="w-4 h-4" /> View Pooled Concerns
+          </Link>
           <StartDiscussionButton />
         </div>
       </header>

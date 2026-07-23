@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
+import { Search, MapPin, MessageSquare, Filter, ArrowRight } from 'lucide-react';
 
 // ---------------------------------------------------------------------------
 // Types & helpers
@@ -22,13 +23,6 @@ const STATUS_LABELS: Record<string, string> = {
   grouped: 'Grouped',
   resolved: 'Resolved',
   rejected: 'Rejected',
-};
-
-const STATUS_DOT: Record<string, string> = {
-  pending: 'oklch(0.708 0 0)',
-  grouped: 'oklch(0.439 0.12 260)',
-  resolved: 'oklch(0.439 0.18 145)',
-  rejected: 'oklch(0.577 0.245 27.325)',
 };
 
 function formatRelativeDate(iso: string): string {
@@ -61,68 +55,46 @@ function shortId(token: string): string {
 
 function ConcernCard({ concern }: { concern: Concern }) {
   const status = concern.status ?? 'pending';
-  const dotColor = STATUS_DOT[status] ?? STATUS_DOT.pending;
   const statusLabel = STATUS_LABELS[status] ?? status;
 
   return (
     <Link
       href={`/track/${concern.tracking_token}`}
-      className="group block rounded-xl border border-[oklch(0.922_0_0)] bg-white hover:border-[oklch(0.708_0_0)] hover:shadow-sm transition-all duration-200"
-      style={{ padding: '24px', textDecoration: 'none' }}
+      className="group block border-2 border-primary bg-card p-6 transition-all hover:bg-muted/20 hover:border-primary/90 focus:outline-none"
       aria-label={`View concern ${shortId(concern.tracking_token)}`}
     >
       {/* Header row */}
-      <div
-        className="flex items-center justify-between"
-        style={{ marginBottom: '12px' }}
-      >
-        <span
-          className="font-mono font-medium text-[oklch(0.556_0_0)]"
-          style={{ fontSize: '11px', letterSpacing: '0.08em' }}
-        >
+      <div className="flex items-center justify-between border-b border-primary/30 pb-3 mb-4">
+        <span className="font-narrow text-xs font-bold uppercase tracking-widest text-primary bg-muted px-2 py-0.5 border border-primary/30">
           #{shortId(concern.tracking_token)}
         </span>
-        <span
-          className="inline-flex items-center gap-1 text-[oklch(0.556_0_0)]"
-          style={{ fontSize: '12px' }}
-        >
-          <span
-            className="inline-block rounded-full"
-            style={{ width: '6px', height: '6px', backgroundColor: dotColor }}
-          />
+        <span className="inline-flex items-center gap-1.5 font-narrow text-xs font-bold uppercase tracking-wider text-muted-foreground">
+          <span className="inline-block w-2 h-2 rounded-full bg-primary" />
           {statusLabel}
         </span>
       </div>
 
       {/* Location */}
       {(concern.city || concern.state) && (
-        <p style={{ fontSize: '12px', color: 'oklch(0.556 0 0)', marginBottom: '8px', fontWeight: 600 }}>
-          📍 {[concern.area, concern.city, concern.state].filter(Boolean).join(', ')}
-        </p>
+        <div className="flex items-center gap-1 text-xs font-narrow font-bold uppercase tracking-wider text-muted-foreground mb-3">
+          <MapPin className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+          <span>{[concern.area, concern.city, concern.state].filter(Boolean).join(', ')}</span>
+        </div>
       )}
 
       {/* Content */}
-      <p
-        className="text-[oklch(0.205_0_0)] group-hover:text-[oklch(0.145_0_0)] transition-colors"
-        style={{ fontSize: '15px', lineHeight: '1.6', marginBottom: '16px' }}
-      >
+      <p className="font-sans text-sm text-foreground leading-relaxed mb-6 group-hover:text-primary transition-colors line-clamp-4">
         {truncate(concern.content)}
       </p>
 
       {/* Footer */}
-      <div className="flex items-center justify-between">
-        <p
-          className="text-[oklch(0.708_0_0)]"
-          style={{ fontSize: '12px' }}
-        >
+      <div className="flex items-center justify-between border-t border-primary/20 pt-4 text-xs">
+        <span className="font-narrow font-medium text-muted-foreground">
           {formatRelativeDate(concern.created_at)}
-        </p>
-        <p
-          className="text-[oklch(0.205_0_0)] font-semibold"
-          style={{ fontSize: '13px' }}
-        >
+        </span>
+        <span className="font-narrow font-bold uppercase tracking-wider text-primary border border-primary px-2.5 py-1 bg-background group-hover:bg-primary group-hover:text-primary-foreground transition-all">
           🗣️ {concern.signatures_count || 1} Voice{(concern.signatures_count || 1) !== 1 ? 's' : ''}
-        </p>
+        </span>
       </div>
     </Link>
   );
@@ -163,197 +135,108 @@ export default async function ConcernsPage({
   const hasData = !error && concerns && concerns.length > 0;
 
   return (
-    <main className="min-h-screen bg-[oklch(1_0_0)]">
-      {/* Page header */}
-      <section
-        className="border-b border-[oklch(0.922_0_0)]"
-        style={{ padding: '64px 24px 48px' }}
-      >
-        <div className="mx-auto max-w-6xl">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p
-                className="text-[13px] font-medium tracking-widest uppercase text-[oklch(0.556_0_0)]"
-                style={{ marginBottom: '12px' }}
-              >
-                PrajaNeeti · Public Feed
-              </p>
-              <h1
-                className="font-serif font-bold text-[oklch(0.145_0_0)]"
-                style={{ fontSize: '48px', lineHeight: '1.1' }}
-              >
+    <main className="min-h-screen bg-background pb-16">
+      {/* Broadsheet Masthead Section */}
+      <header className="border-b-2 border-t-2 border-primary py-10 bg-card">
+        <div className="container mx-auto px-4 md:px-8 max-w-7xl">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="space-y-3">
+              <span className="font-narrow text-xs font-bold uppercase tracking-widest text-muted-foreground border-b border-primary pb-1 inline-block">
+                Pillar 1 • Public Record & Voice Pooling Feed
+              </span>
+              <h1 className="text-4xl md:text-6xl font-black font-serif tracking-tight text-primary uppercase">
                 Citizen Concerns
               </h1>
-              <p
-                className="text-[oklch(0.556_0_0)]"
-                style={{
-                  fontSize: '16px',
-                  lineHeight: '1.6',
-                  marginTop: '16px',
-                  maxWidth: '560px',
-                }}
-              >
-                All concerns submitted by citizens are public by default. Browse,
-                share, and track government accountability in real time.
+              <p className="text-muted-foreground font-sans text-base max-w-2xl leading-relaxed">
+                All submitted concerns are public record by default. Filter by state or city to track real-time government accountability and community voice pooling.
               </p>
             </div>
 
-            {/* CTA */}
-            <div className="flex flex-col sm:flex-row gap-4 items-center">
-              <form action="/concerns" method="GET" className="flex gap-2">
+            {/* Actions & Filters */}
+            <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+              <form action="/concerns" method="GET" className="flex flex-wrap sm:flex-nowrap gap-2">
                 <input
                   type="text"
                   name="state"
-                  placeholder="State"
+                  placeholder="State (e.g. Karnataka)"
                   defaultValue={state || ''}
-                  className="rounded-lg border border-[oklch(0.922_0_0)] px-3 py-2 text-[14px]"
-                  style={{ outline: 'none' }}
+                  className="px-3 py-2 border-2 border-primary bg-background text-sm font-sans focus:outline-none w-36 md:w-44"
                 />
                 <input
                   type="text"
                   name="city"
-                  placeholder="City"
+                  placeholder="City (e.g. Bengaluru)"
                   defaultValue={city || ''}
-                  className="rounded-lg border border-[oklch(0.922_0_0)] px-3 py-2 text-[14px]"
-                  style={{ outline: 'none' }}
+                  className="px-3 py-2 border-2 border-primary bg-background text-sm font-sans focus:outline-none w-36 md:w-44"
                 />
                 <button
                   type="submit"
-                  className="rounded-lg bg-[oklch(0.922_0_0)] px-3 py-2 text-[14px] font-semibold"
+                  className="inline-flex items-center gap-1.5 font-narrow text-xs font-bold uppercase tracking-widest border-2 border-primary bg-muted px-4 py-2 hover:bg-primary hover:text-primary-foreground transition-all"
                 >
-                  Filter
+                  <Filter className="w-3.5 h-3.5" /> Filter
                 </button>
               </form>
+
               <Link
                 href="/submit"
                 id="new-concern-cta"
-                className="inline-flex items-center justify-center rounded-lg font-semibold whitespace-nowrap transition-all"
-                style={{
-                  backgroundColor: 'oklch(0.205 0 0)',
-                  color: 'oklch(0.985 0 0)',
-                  padding: '13px 28px',
-                  fontSize: '15px',
-                  textDecoration: 'none',
-                  flexShrink: 0,
-                }}
+                className="inline-flex items-center justify-center gap-2 font-narrow text-xs font-bold uppercase tracking-widest border-2 border-primary bg-primary text-primary-foreground px-6 py-2.5 hover:bg-transparent hover:text-primary transition-all whitespace-nowrap"
               >
-                Submit Concern
+                Submit Concern <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
 
-          {/* Stats bar */}
+          {/* Stats Bar */}
           {hasData && (
-            <div
-              className="flex items-center gap-6 border-t border-[oklch(0.922_0_0)]"
-              style={{ marginTop: '32px', paddingTop: '24px' }}
-            >
-              <div>
-                <span
-                  className="font-bold text-[oklch(0.205_0_0)]"
-                  style={{ fontSize: '24px' }}
-                >
-                  {concerns.length}
-                </span>
-                <span
-                  className="text-[oklch(0.556_0_0)]"
-                  style={{ fontSize: '13px', marginLeft: '6px' }}
-                >
-                  concern{concerns.length !== 1 ? 's' : ''} published
-                </span>
-              </div>
+            <div className="flex items-center gap-6 border-t border-primary/30 mt-8 pt-4 text-xs font-narrow font-bold uppercase tracking-wider">
+              <span className="text-primary text-sm font-serif">{concerns.length} Record{concerns.length !== 1 ? 's' : ''} Published</span>
+              <span className="text-muted-foreground">• Sorted by Voice Pool Density</span>
             </div>
           )}
         </div>
-      </section>
+      </header>
 
-      {/* Feed */}
-      <section style={{ padding: '48px 24px 96px' }}>
-        <div className="mx-auto max-w-6xl">
-          {error ? (
-            /* Error state */
-            <div
-              className="rounded-xl border border-[oklch(0.922_0_0)] bg-[oklch(0.97_0_0)] text-center"
-              style={{ padding: '64px 24px' }}
-            >
-              <p
-                className="font-semibold text-[oklch(0.439_0_0)]"
-                style={{ fontSize: '18px', marginBottom: '8px' }}
-              >
-                Failed to load concerns
-              </p>
-              <p className="text-[oklch(0.556_0_0)]" style={{ fontSize: '14px' }}>
-                Failed to publish. Please check your connection and try again.
+      {/* Main Feed Section */}
+      <section className="container mx-auto px-4 md:px-8 max-w-7xl pt-10">
+        {error ? (
+          /* Error State */
+          <div className="border-2 border-primary bg-card p-12 text-center space-y-3">
+            <h2 className="font-serif text-2xl font-bold text-primary uppercase">Failed to load public record</h2>
+            <p className="text-muted-foreground text-sm font-sans">
+              Could not retrieve concerns feed. Please verify your connection and reload.
+            </p>
+          </div>
+        ) : !hasData ? (
+          /* Empty State */
+          <div className="border-2 border-dashed border-primary/50 bg-card p-16 text-center space-y-6 max-w-2xl mx-auto">
+            <div className="w-12 h-12 border-2 border-primary bg-muted mx-auto flex items-center justify-center text-primary">
+              <MessageSquare className="w-6 h-6" />
+            </div>
+            <div className="space-y-2">
+              <h2 className="font-serif text-3xl font-bold uppercase text-primary">No Public Concerns Found</h2>
+              <p className="text-muted-foreground text-sm font-sans max-w-md mx-auto">
+                No active concerns have been filed matching this filter. Be the first citizen to file an issue for public oversight.
               </p>
             </div>
-          ) : !hasData ? (
-            /* Empty state */
-            <div
-              className="rounded-xl border border-[oklch(0.922_0_0)] bg-[oklch(0.97_0_0)] text-center"
-              style={{ padding: '96px 24px' }}
+            <Link
+              href="/submit"
+              id="empty-state-cta"
+              className="inline-flex items-center justify-center gap-2 font-narrow text-xs font-bold uppercase tracking-widest border-2 border-primary bg-primary text-primary-foreground px-6 py-3 hover:bg-transparent hover:text-primary transition-all"
             >
-              <div
-                className="mx-auto rounded-full bg-[oklch(0.922_0_0)] flex items-center justify-center"
-                style={{ width: '64px', height: '64px', marginBottom: '24px' }}
-              >
-                {/* Megaphone icon (inline SVG) */}
-                <svg
-                  width="28"
-                  height="28"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="oklch(0.556 0 0)"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M3 11l19-9-9 19-2-8-8-2z" />
-                </svg>
-              </div>
-              <h2
-                className="font-serif font-bold text-[oklch(0.205_0_0)]"
-                style={{ fontSize: '24px', marginBottom: '12px' }}
-              >
-                No Concerns Published Yet
-              </h2>
-              <p
-                className="text-[oklch(0.556_0_0)]"
-                style={{ fontSize: '16px', marginBottom: '32px', maxWidth: '400px', margin: '0 auto 32px' }}
-              >
-                Be the first to raise an issue and start tracking government
-                action.
-              </p>
-              <Link
-                href="/submit"
-                id="empty-state-cta"
-                className="inline-flex items-center justify-center rounded-lg font-semibold transition-all"
-                style={{
-                  backgroundColor: 'oklch(0.205 0 0)',
-                  color: 'oklch(0.985 0 0)',
-                  padding: '13px 28px',
-                  fontSize: '15px',
-                  textDecoration: 'none',
-                }}
-              >
-                Submit Concern
-              </Link>
-            </div>
-          ) : (
-            /* Magazine multi-column grid */
-            <div
-              className="grid gap-6"
-              style={{
-                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-              }}
-            >
-              {(concerns as Concern[]).map((concern) => (
-                <ConcernCard key={concern.id} concern={concern} />
-              ))}
-            </div>
-          )}
-        </div>
+              Submit Concern <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        ) : (
+          /* 3-Column Dossier Grid */
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {(concerns as Concern[]).map((concern) => (
+              <ConcernCard key={concern.id} concern={concern} />
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );
 }
+
