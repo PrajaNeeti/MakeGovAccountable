@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/PrajaNeeti/MakeGovAccountable#readme",
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "pg": "^8.22.0"
   }
 }
