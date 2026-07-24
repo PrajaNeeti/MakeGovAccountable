@@ -15,9 +15,12 @@ class NJDGJudicialScraper(BaseScraper):
 
         records = []
         if html:
-            logger.info("NJDG portal response received. Extracting court pendency metrics...")
+            logger.info("NJDG portal response received, but this scraper does not yet parse it (NJDG renders pendency figures via JS dashboards, not static HTML tables). Falling back to placeholder records below.")
 
-        # Structured seed of NJDG High Court and Subordinate Court aggregate case pendency & disposal numbers
+        # PLACEHOLDER DATA -- NOT sourced from NJDG. These figures are illustrative
+        # only and have not been verified against njdg.ecourts.gov.in. Do not treat
+        # as real court pendency statistics until a real NJDG API/dashboard parser
+        # is implemented.
         records = [
             {
                 "state": "National Total (High Courts)",
@@ -28,6 +31,8 @@ class NJDGJudicialScraper(BaseScraper):
                 "criminal_pending": 1734000,
                 "cases_over_10yrs": 1240000,
                 "period_year": 2024,
+                "is_placeholder": True,
+                "verified": False,
                 "source_url": self.target_url
             },
             {
@@ -39,6 +44,8 @@ class NJDGJudicialScraper(BaseScraper):
                 "criminal_pending": 54000,
                 "cases_over_10yrs": 31000,
                 "period_year": 2024,
+                "is_placeholder": True,
+                "verified": False,
                 "source_url": self.target_url
             },
             {
@@ -50,6 +57,8 @@ class NJDGJudicialScraper(BaseScraper):
                 "criminal_pending": 370000,
                 "cases_over_10yrs": 340000,
                 "period_year": 2024,
+                "is_placeholder": True,
+                "verified": False,
                 "source_url": self.target_url
             },
             {
@@ -61,6 +70,8 @@ class NJDGJudicialScraper(BaseScraper):
                 "criminal_pending": 185000,
                 "cases_over_10yrs": 142000,
                 "period_year": 2024,
+                "is_placeholder": True,
+                "verified": False,
                 "source_url": self.target_url
             }
         ]
@@ -86,5 +97,5 @@ class NJDGJudicialScraper(BaseScraper):
                 except Exception as e:
                     logger.error(f"Error saving NJDG judicial record for {rec['court_name']}: {e}")
 
-        self.update_manifest("success" if records else "failed", len(records))
+        self.update_manifest("success" if records else "failed", len(records), data_quality="placeholder")
         return records

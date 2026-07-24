@@ -68,8 +68,19 @@ class BaseScraper:
         except Exception as e:
             logger.error(f"Failed to log extraction failure to Supabase: {e}")
 
-    def update_manifest(self, status: str, records_count: int, error: Optional[str] = None):
-        """Update manifest file data/sourcing/metadata.json."""
+    def update_manifest(self, status: str, records_count: int, error: Optional[str] = None,
+                         data_quality: str = "unspecified"):
+        """Update manifest file data/sourcing/metadata.json.
+
+        data_quality should be one of:
+          - "verified_live_source": values were checked against a live official
+            source (URL cited per-record) at the time noted in the record.
+          - "verified_manual_snapshot": values were manually verified against a
+            cited source but the automated fetch/parse of that source is not
+            yet implemented (so this isn't re-verified on every run).
+          - "placeholder": values are illustrative/unverified and MUST NOT be
+            presented to end users as real sourced facts.
+        """
         if not os.path.exists(MANIFEST_PATH):
             logger.warning(f"Manifest path not found at {MANIFEST_PATH}")
             return
@@ -88,11 +99,12 @@ class BaseScraper:
                 "status": status,
                 "records_ingested": records_count,
                 "last_run": datetime.now(timezone.utc).isoformat(),
+                "data_quality": data_quality,
                 "error": error
             }
 
             with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
                 json.dump(manifest, f, indent=2)
-            logger.info(f"Manifest updated for {self.source_name}: {status} ({records_count} records)")
+            logger.info(f"Manifest updated for {self.source_name}: {status} ({records_count} records, quality={data_quality})")
         except Exception as e:
             logger.error(f"Failed to update manifest: {e}")

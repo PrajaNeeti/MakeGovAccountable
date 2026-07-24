@@ -19,33 +19,45 @@ class AoBRulesParser(BaseScraper):
         if html:
             soup = BeautifulSoup(html, "lxml")
             links = soup.find_all("a", href=re.compile(r"\.pdf", re.IGNORECASE))
-            logger.info(f"Found {len(links)} PDF links on Cabinet Secretariat org chart page.")
+            logger.info(f"Found {len(links)} PDF links on Cabinet Secretariat org chart page, but this parser does not yet download/parse those PDFs. Falling back to placeholder records below.")
 
-        # Structured seed of core Union Ministries & AoB Rule mandates (Second Schedule excerpts)
+        # PLACEHOLDER DATA -- general-knowledge summaries of ministry mandates,
+        # NOT parsed from the cited Cabinet Secretariat PDFs. Broadly accurate at
+        # a high level but not verified against the current official Allocation
+        # of Business Rules text, and should not be presented as a verbatim
+        # official source until a real PDF parser is implemented.
         records = [
             {
                 "department_name": "Ministry of Home Affairs",
                 "mandate_summary": "Internal Security, Police, Border Management, Center-State Relations, Disaster Management.",
                 "subject_rules": "1. Maintenance of public order. 2. Union territory administration. 3. National Disaster Management Authority.",
-                "source_doc": "Allocation of Business Rules 1961 (Amended 2024)"
+                "source_doc": "Allocation of Business Rules 1961 (Amended 2024)",
+                "is_placeholder": True,
+                "verified": False
             },
             {
                 "department_name": "Ministry of Finance - Department of Economic Affairs",
                 "mandate_summary": "Macroeconomic Policy, Federal Capital Budgeting, External Assistance, Infrastructure Financing.",
                 "subject_rules": "1. Preparation of Union Budget. 2. Management of public debt. 3. Currency and coinage regulations.",
-                "source_doc": "Allocation of Business Rules 1961 (Amended 2024)"
+                "source_doc": "Allocation of Business Rules 1961 (Amended 2024)",
+                "is_placeholder": True,
+                "verified": False
             },
             {
                 "department_name": "Ministry of Cooperation",
                 "mandate_summary": "General Policy on Cooperatives, Incorporation and Winding up of Multi-State Cooperative Societies.",
                 "subject_rules": "1. Strengthening of cooperative movement. 2. Ease of doing business for cooperatives. 3. National cooperative databases.",
-                "source_doc": "Allocation of Business Rules (Amended 2021 Notification)"
+                "source_doc": "Allocation of Business Rules (Amended 2021 Notification)",
+                "is_placeholder": True,
+                "verified": False
             },
             {
                 "department_name": "Ministry of Environment, Forest and Climate Change",
                 "mandate_summary": "Conservation of Forests, Biodiversity Protection, Climate Mitigation, Environmental Impact Assessment.",
                 "subject_rules": "1. Prevention and control of pollution. 2. Environment Protection Act enforcement. 3. National Tiger Conservation Authority.",
-                "source_doc": "Allocation of Business Rules 1961 (Amended 2024)"
+                "source_doc": "Allocation of Business Rules 1961 (Amended 2024)",
+                "is_placeholder": True,
+                "verified": False
             }
         ]
 
@@ -75,5 +87,5 @@ class AoBRulesParser(BaseScraper):
                 except Exception as e:
                     logger.error(f"Error persisting AoB rule mandate for {rec['department_name']}: {e}")
 
-        self.update_manifest("success" if records else "failed", len(records))
+        self.update_manifest("success" if records else "failed", len(records), data_quality="placeholder")
         return records

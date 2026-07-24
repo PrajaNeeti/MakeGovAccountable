@@ -30,12 +30,16 @@ class EntityMatcher(BaseScraper):
 
         if not self.supabase:
             logger.warning("Supabase client not available. Running dry-run entity resolution.")
+            # Illustrative dry-run examples only (used when there's no DB to match
+            # against) -- these are generic, well-known department name aliases,
+            # not claims about any specific record, so flagged as placeholder for
+            # consistency with the rest of the pipeline.
             sample_aliases = [
-                {"alias_name": "Ministry of Home Affairs", "canonical_name": "Ministry of Home Affairs", "entity_type": "department", "similarity": 1.0},
-                {"alias_name": "MHA India", "canonical_name": "Ministry of Home Affairs", "entity_type": "department", "similarity": 0.85},
-                {"alias_name": "DPIIT", "canonical_name": "Ministry of Commerce and Industry", "entity_type": "department", "similarity": 0.90}
+                {"alias_name": "Ministry of Home Affairs", "canonical_name": "Ministry of Home Affairs", "entity_type": "department", "similarity": 1.0, "is_placeholder": True},
+                {"alias_name": "MHA India", "canonical_name": "Ministry of Home Affairs", "entity_type": "department", "similarity": 0.85, "is_placeholder": True},
+                {"alias_name": "DPIIT", "canonical_name": "Ministry of Commerce and Industry", "entity_type": "department", "similarity": 0.90, "is_placeholder": True}
             ]
-            self.update_manifest("success", len(sample_aliases))
+            self.update_manifest("success", len(sample_aliases), data_quality="placeholder")
             return sample_aliases
 
         try:
