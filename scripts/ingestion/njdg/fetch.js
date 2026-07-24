@@ -18,7 +18,10 @@ async function fetchNJDGData() {
   console.log('[NJDG-Fetch] Visiting NJDG High Courts & District Courts portal...');
   await fetchUrl(NJDG_PORTAL_URL);
 
-  // Ingested official NJDG High Court pendency aggregates (2024 period data)
+  // PLACEHOLDER DATA -- NOT sourced from NJDG. The fetch above only pings
+  // the portal root and does not parse it. These figures are illustrative
+  // only and unverified; do not present as real NJDG statistics until a
+  // real parser is implemented.
   const njdgData = [
     {
       state: 'National Total (High Courts)',
@@ -29,6 +32,8 @@ async function fetchNJDGData() {
       criminal_pending: 1734000,
       cases_over_10yrs: 1240000,
       period_year: 2024,
+      is_placeholder: true,
+      verified: false,
       source_url: 'https://njdg.ecourts.gov.in'
     },
     {
@@ -40,6 +45,8 @@ async function fetchNJDGData() {
       criminal_pending: 370000,
       cases_over_10yrs: 340000,
       period_year: 2024,
+      is_placeholder: true,
+      verified: false,
       source_url: 'https://njdg.ecourts.gov.in'
     },
     {
@@ -51,6 +58,8 @@ async function fetchNJDGData() {
       criminal_pending: 185000,
       cases_over_10yrs: 142000,
       period_year: 2024,
+      is_placeholder: true,
+      verified: false,
       source_url: 'https://njdg.ecourts.gov.in'
     },
     {
@@ -62,6 +71,8 @@ async function fetchNJDGData() {
       criminal_pending: 54000,
       cases_over_10yrs: 31000,
       period_year: 2024,
+      is_placeholder: true,
+      verified: false,
       source_url: 'https://njdg.ecourts.gov.in'
     },
     {
@@ -73,6 +84,8 @@ async function fetchNJDGData() {
       criminal_pending: 30000,
       cases_over_10yrs: 18500,
       period_year: 2024,
+      is_placeholder: true,
+      verified: false,
       source_url: 'https://njdg.ecourts.gov.in'
     },
     {
@@ -84,6 +97,8 @@ async function fetchNJDGData() {
       criminal_pending: 170000,
       cases_over_10yrs: 95000,
       period_year: 2024,
+      is_placeholder: true,
+      verified: false,
       source_url: 'https://njdg.ecourts.gov.in'
     }
   ];
