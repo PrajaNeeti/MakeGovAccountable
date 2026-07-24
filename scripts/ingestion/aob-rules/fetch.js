@@ -23,7 +23,9 @@ async function fetchAoBRules() {
   console.log('[AoB-Fetch] Requesting Cabinet Secretariat AoB Rules index...');
   const indexRes = await fetchUrl(AOB_INDEX_URL);
   
-  // Real Second Schedule raw data parsed from official Cabinet Secretariat publications
+  // PLACEHOLDER DATA -- general-knowledge ministry mandate summaries, NOT
+  // parsed from the fetched Cabinet Secretariat pages. Broadly accurate at a
+  // high level but unverified against the current official AoB Rules text.
   const rawData = [
     {
       department_name: 'Ministry of Home Affairs',
@@ -35,7 +37,9 @@ async function fetchAoBRules() {
         '4. Border management, coastal security, and census operations.',
         '5. Department of Official Language and Inter-State Council Secretariat.'
       ],
-      source_doc: 'https://cabsec.gov.in/businessrules/allocationofbusinessrules/'
+      source_doc: 'https://cabsec.gov.in/businessrules/allocationofbusinessrules/',
+      is_placeholder: true,
+      verified: false
     },
     {
       department_name: 'Ministry of Finance - Department of Economic Affairs',
@@ -47,7 +51,9 @@ async function fetchAoBRules() {
         '4. Bilateral and multilateral economic relations (World Bank, IMF, ADB).',
         '5. National Investment and Infrastructure Fund (NIIF) administration.'
       ],
-      source_doc: 'https://cabsec.gov.in/businessrules/allocationofbusinessrules/'
+      source_doc: 'https://cabsec.gov.in/businessrules/allocationofbusinessrules/',
+      is_placeholder: true,
+      verified: false
     },
     {
       department_name: 'Ministry of Cooperation',
@@ -58,7 +64,9 @@ async function fetchAoBRules() {
         '3. Multi-State Cooperative Societies Act, 2002 administration.',
         '4. Computerisation of Primary Agricultural Credit Societies (PACS).'
       ],
-      source_doc: 'https://cabsec.gov.in/businessrules/allocationofbusinessrules/'
+      source_doc: 'https://cabsec.gov.in/businessrules/allocationofbusinessrules/',
+      is_placeholder: true,
+      verified: false
     },
     {
       department_name: 'Ministry of Road Transport and Highways',
@@ -69,7 +77,9 @@ async function fetchAoBRules() {
         '3. National Highways Authority of India (NHAI) governance.',
         '4. Road safety initiatives, FASTag electronic toll collection, and green expressways.'
       ],
-      source_doc: 'https://cabsec.gov.in/businessrules/allocationofbusinessrules/'
+      source_doc: 'https://cabsec.gov.in/businessrules/allocationofbusinessrules/',
+      is_placeholder: true,
+      verified: false
     },
     {
       department_name: 'Ministry of Environment, Forest and Climate Change',
@@ -80,7 +90,9 @@ async function fetchAoBRules() {
         '3. Environmental Impact Assessment (EIA) clearances for major infrastructure.',
         '4. International climate change negotiations under UNFCCC and COP commitments.'
       ],
-      source_doc: 'https://cabsec.gov.in/businessrules/allocationofbusinessrules/'
+      source_doc: 'https://cabsec.gov.in/businessrules/allocationofbusinessrules/',
+      is_placeholder: true,
+      verified: false
     }
   ];
 
