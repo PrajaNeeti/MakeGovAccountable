@@ -70,12 +70,12 @@ export interface CompletedWorkItem {
 
 function resolveJsonDir(): string | null {
   const possiblePaths = [
-    path.join(process.cwd(), 'frontend', 'public', 'data', 'mplads', 'json'),
-    path.join(process.cwd(), 'public', 'data', 'mplads', 'json'),
-    path.join(process.cwd(), 'data', 'mplads', 'json'),
-    path.join(__dirname, '..', '..', 'public', 'data', 'mplads', 'json'),
-    path.join(__dirname, '..', '..', '..', 'data', 'mplads', 'json'),
-    path.join(__dirname, '..', '..', '..', 'frontend', 'public', 'data', 'mplads', 'json'),
+    path.join(/*turbopackIgnore: true*/ process.cwd(), 'frontend', 'public', 'data', 'mplads', 'json'),
+    path.join(/*turbopackIgnore: true*/ process.cwd(), 'public', 'data', 'mplads', 'json'),
+    path.join(/*turbopackIgnore: true*/ process.cwd(), 'data', 'mplads', 'json'),
+    path.join(/*turbopackIgnore: true*/ __dirname, '..', '..', 'public', 'data', 'mplads', 'json'),
+    path.join(/*turbopackIgnore: true*/ __dirname, '..', '..', '..', 'data', 'mplads', 'json'),
+    path.join(/*turbopackIgnore: true*/ __dirname, '..', '..', '..', 'frontend', 'public', 'data', 'mplads', 'json'),
   ];
 
   for (const p of possiblePaths) {

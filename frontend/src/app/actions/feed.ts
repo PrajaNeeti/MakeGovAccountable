@@ -35,9 +35,13 @@ export async function getUnifiedFeed(page: number, limit: number, filters?: Feed
     activitiesQuery = activitiesQuery.eq('entity_id', filters.politician);
   }
 
+  const timeoutPromise = new Promise<{ data: null }>((resolve) =>
+    setTimeout(() => resolve({ data: null }), 2000)
+  );
+
   const [{ data: activities }, { data: spending }] = await Promise.all([
-    activitiesQuery,
-    spendingQuery
+    Promise.race([activitiesQuery, timeoutPromise]),
+    Promise.race([spendingQuery, timeoutPromise])
   ]);
 
   const combined = [

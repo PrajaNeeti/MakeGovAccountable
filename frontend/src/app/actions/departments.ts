@@ -43,10 +43,14 @@ export async function getDepartments() {
 
 export async function getDepartmentMandatesAndOfficers() {
   const supabase = await createClient();
+  const timeout = new Promise<{ data: null }>((resolve) =>
+    setTimeout(() => resolve({ data: null }), 1500)
+  );
+
   const [depsRes, mandatesRes, officersRes] = await Promise.all([
-    supabase.from('departments').select('*'),
-    supabase.from('department_mandates').select('*'),
-    supabase.from('ias_officers').select('*')
+    Promise.race([supabase.from('departments').select('*'), timeout]),
+    Promise.race([supabase.from('department_mandates').select('*'), timeout]),
+    Promise.race([supabase.from('ias_officers').select('*'), timeout])
   ]);
 
   let mandates = mandatesRes.data && mandatesRes.data.length > 0

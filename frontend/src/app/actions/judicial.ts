@@ -4,7 +4,13 @@ import { createClient } from '@/lib/supabase/server';
 
 export async function getJudicialAggregates() {
   const supabase = await createClient();
-  const { data, error } = await supabase.from('judicial_aggregates').select('*').order('pending_cases', { ascending: false });
+  const timeout = new Promise<{ data: null; error: any }>((resolve) =>
+    setTimeout(() => resolve({ data: null, error: null }), 1500)
+  );
+  const { data, error } = await Promise.race([
+    supabase.from('judicial_aggregates').select('*').order('pending_cases', { ascending: false }),
+    timeout
+  ]);
 
   if (error || !data || data.length === 0) {
     return [

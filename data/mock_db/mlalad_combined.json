@@ -1,0 +1,127 @@
+{
+  "gujarat": [
+    {
+      "state": "Gujarat",
+      "district": "Ahmedabad (example)",
+      "constituency": "Sample Constituency A",
+      "mla_name": "Placeholder MLA A",
+      "allocated_amount": 15000000,
+      "total_expenditure": 13800000,
+      "unspent_amount": 1200000,
+      "completed_works_count": 48,
+      "is_placeholder": true,
+      "verified": false,
+      "source_url": "https://gujarat.gov.in/mlalad"
+    },
+    {
+      "state": "Gujarat",
+      "district": "Rajkot (example)",
+      "constituency": "Sample Constituency B",
+      "mla_name": "Placeholder MLA B",
+      "allocated_amount": 15000000,
+      "total_expenditure": 14200000,
+      "unspent_amount": 800000,
+      "completed_works_count": 52,
+      "is_placeholder": true,
+      "verified": false,
+      "source_url": "https://gujarat.gov.in/mlalad"
+    },
+    {
+      "state": "Gujarat",
+      "district": "Surat (example)",
+      "constituency": "Sample Constituency C",
+      "mla_name": "Placeholder MLA C",
+      "allocated_amount": 15000000,
+      "total_expenditure": 14900000,
+      "unspent_amount": 100000,
+      "completed_works_count": 61,
+      "is_placeholder": true,
+      "verified": false,
+      "source_url": "https://gujarat.gov.in/mlalad"
+    }
+  ],
+  "karnataka": [
+    {
+      "state": "Karnataka",
+      "district": "Bengaluru Urban (example)",
+      "constituency": "Sample Constituency A",
+      "mla_name": "Placeholder MLA A",
+      "allocated_amount": 20000000,
+      "total_expenditure": 18400000,
+      "unspent_amount": 1600000,
+      "completed_works_count": 39,
+      "is_placeholder": true,
+      "verified": false,
+      "source_url": "https://finance.karnataka.gov.in"
+    },
+    {
+      "state": "Karnataka",
+      "district": "Bengaluru Urban (example)",
+      "constituency": "Sample Constituency B",
+      "mla_name": "Placeholder MLA B",
+      "allocated_amount": 20000000,
+      "total_expenditure": 19100000,
+      "unspent_amount": 900000,
+      "completed_works_count": 42,
+      "is_placeholder": true,
+      "verified": false,
+      "source_url": "https://finance.karnataka.gov.in"
+    }
+  ],
+  "maharashtra": [
+    {
+      "state": "Maharashtra",
+      "district": "Mumbai City (example)",
+      "constituency": "Sample Constituency A",
+      "mla_name": "Placeholder MLA A",
+      "allocated_amount": 50000000,
+      "total_expenditure": 46500000,
+      "unspent_amount": 3500000,
+      "completed_works_count": 74,
+      "is_placeholder": true,
+      "verified": false,
+      "source_url": "https://planning.maharashtra.gov.in"
+    },
+    {
+      "state": "Maharashtra",
+      "district": "Nagpur (example)",
+      "constituency": "Sample Constituency B",
+      "mla_name": "Placeholder MLA B",
+      "allocated_amount": 50000000,
+      "total_expenditure": 49100000,
+      "unspent_amount": 900000,
+      "completed_works_count": 88,
+      "is_placeholder": true,
+      "verified": false,
+      "source_url": "https://planning.maharashtra.gov.in"
+    }
+  ],
+  "up": [
+    {
+      "state": "Uttar Pradesh",
+      "district": "Gorakhpur (example)",
+      "constituency": "Sample Constituency A",
+      "mla_name": "Placeholder MLA A",
+      "allocated_amount": 50000000,
+      "total_expenditure": 48200000,
+      "unspent_amount": 1800000,
+      "completed_works_count": 92,
+      "is_placeholder": true,
+      "verified": false,
+      "source_url": "https://up.gov.in/vidhayaknidhi"
+    },
+    {
+      "state": "Uttar Pradesh",
+      "district": "Mainpuri (example)",
+      "constituency": "Sample Constituency B",
+      "mla_name": "Placeholder MLA B",
+      "allocated_amount": 50000000,
+      "total_expenditure": 45800000,
+      "unspent_amount": 4200000,
+      "completed_works_count": 78,
+      "is_placeholder": true,
+      "verified": false,
+      "source_url": "https://up.gov.in/vidhayaknidhi"
+    }
+  ]
+}

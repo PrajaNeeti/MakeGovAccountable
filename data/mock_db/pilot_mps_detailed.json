@@ -1,0 +1,442 @@
+{
+  "methodology": {
+    "career_timeline": "PRS Legislative Research MP pages, official Sansad/BJP/Congress/Census-of-India profile pages, and mainstream press biography pieces, cross-checked with Wikipedia. Extended back to approximately age 18 where sourced. Any claim about early-life employment, education credentials, or personal history that is self-reported, unverified by an independent record, or actively disputed in the press is explicitly labeled 'allegedly' or flagged with a note on sourcing strength — it is not presented as settled fact.",
+    "criminal_civil_cases": "Two tiers: (1) 'declared_affidavit' = sworn ECI election affidavit via MyNeta/ADR, factual and legally self-declared. (2) 'media_allegation' = reported by an established newspaper/wire service, explicitly labeled an allegation, not a proven fact, with current legal status and a case_summary paragraph. Case lists aim to be exhaustive for this pilot, not just the single highest-profile case per person. Where a source base is thin or one-sided (e.g. partisan-only outlets with no neutral wire-service corroboration), that is stated explicitly rather than presenting the claim with the same confidence as a well-corroborated one.",
+    "promises": "Sourced from newspaper headline coverage of rallies, manifestos, speeches, or interviews. Lists are extensive for the two most prolific public speakers in this pilot (Modi, Rahul Gandhi) and cover both fulfilled and unfulfilled/disputed promises. Where a promise is publicly disputed or fact-checked, both the popular belief and the sourced clarification are included rather than picking a side.",
+    "note": "This is a pilot of 5 MPs, not exhaustive of Parliament. Every entry has a source_url. Nothing here has been inferred or filled in without a citation — where evidence was thin, that is stated rather than guessed at."
+  },
+  "politicians": [
+    {
+      "name": "Narendra Modi",
+      "house": "Lok Sabha",
+      "constituency": "Varanasi",
+      "state": "Uttar Pradesh",
+      "party": "BJP",
+      "prs_source_url": "https://prsindia.org/mptrack/18-lok-sabha/narendra-modi",
+      "career_timeline": [
+        { "period": "as a child/teen, pre-1967", "position": "Helped his father run a tea stall at Vadnagar railway station, Gujarat (widely repeated biographical claim from Modi's own account and BJP-published biography; independent corroboration is limited to family/townspeople interviews given decades later)", "source_name": "BBC News", "source_url": "https://www.bbc.com/news/world-asia-india-26928814" },
+        { "period": "1968 (age ~17–18)", "position": "Married Jashodaben Chimanlal Modi in an arranged marriage; the marriage was not publicly acknowledged for over four decades and was first officially disclosed by Modi in his 2014 Lok Sabha election affidavit", "source_name": "BBC News", "source_url": "https://www.bbc.com/news/world-asia-india-26928814" },
+        { "period": "c. 1968–1971", "position": "Allegedly left home and traveled around India, including stays near the Himalayas and at Belur Math and other ashrams, before returning to Gujarat — this period is self-described in Modi's own authorized accounts/interviews and is not independently documented", "source_name": "Narendra Modi official biography site / press profiles", "source_url": "https://www.britannica.com/biography/Narendra-Modi" },
+        { "period": "1971", "position": "Became a full-time RSS (Rashtriya Swayamsevak Sangh) pracharak (organizer)", "source_name": "Britannica", "source_url": "https://www.britannica.com/biography/Narendra-Modi" },
+        { "period": "1978–1983", "position": "Reportedly earned a B.A. (Delhi University, external/correspondence) and an M.A. in political science (Gujarat University, 1983) — the authenticity of both degrees has been repeatedly and publicly disputed; this is treated as an allegedly-contested claim, see case_allegations below", "source_name": "The Wire", "source_url": "https://m.thewire.in/article/rights/narendra-modi-degree-controversy-timeline" },
+        { "period": "1985", "position": "RSS deputed him to full-time work with the BJP", "source_name": "Britannica", "source_url": "https://www.britannica.com/biography/Narendra-Modi" },
+        { "period": "1987", "position": "Organized BJP's campaign for the Ahmedabad Municipal Corporation election", "source_name": "Britannica", "source_url": "https://www.britannica.com/biography/Narendra-Modi" },
+        { "period": "1990", "position": "Helped organize L.K. Advani's Somnath-to-Ayodhya Rath Yatra", "source_name": "Britannica", "source_url": "https://www.britannica.com/biography/Narendra-Modi" },
+        { "period": "1995–2001", "position": "BJP national secretary / general secretary (organization)", "source_name": "Britannica", "source_url": "https://www.britannica.com/biography/Narendra-Modi" },
+        { "period": "2001–2014", "position": "Chief Minister of Gujarat", "source_name": "Britannica", "source_url": "https://www.britannica.com/biography/Narendra-Modi" },
+        { "period": "2014–present", "position": "Prime Minister of India (3rd consecutive term from 2024)", "source_name": "PRS Legislative Research", "source_url": "https://prsindia.org/mptrack/18-lok-sabha/narendra-modi" }
+      ],
+      "case_allegations": [
+        {
+          "type": "declared_affidavit",
+          "description": "No criminal cases declared in 2024 Lok Sabha election affidavit.",
+          "case_summary": "In his sworn ECI candidacy affidavit for the 2024 Lok Sabha election from Varanasi, Modi declared zero pending or past criminal cases against him — the only one of the five politicians in this pilot with a clean affidavit on this count.",
+          "status": "no_cases_declared",
+          "source_name": "MyNeta / ADR (ECI affidavit)",
+          "source_url": "https://www.myneta.info/LokSabha2024/candidate.php?candidate_id=8974",
+          "date": "2024"
+        },
+        {
+          "type": "media_allegation",
+          "description": "Allegation that as Gujarat CM he bore responsibility for the 2002 Gujarat riots; Zakia Jafri petitioned against the SIT's clean chit to him.",
+          "case_summary": "Following the February 2002 Gujarat riots — triggered by the Godhra train burning — 69 people including former Congress MP Ehsan Jafri were killed in the Gulberg Society massacre in Ahmedabad. Jafri's widow, Zakia Jafri, filed a complaint alleging a 'larger conspiracy' by 63 people including then-CM Modi, accusing the state administration of complicity and deliberate inaction. A Supreme Court-appointed Special Investigation Team (SIT) probed the complaint and, in a February 2012 closure report, found no prosecutable evidence against Modi and the others. Zakia Jafri filed a protest petition challenging that clean chit.",
+          "status": "cleared — SIT clean chit (2012) upheld by Supreme Court, Zakia Jafri's petition dismissed June 24, 2022, with the bench finding no material suggesting a larger criminal conspiracy at the highest level",
+          "source_name": "The Tribune / LiveLaw",
+          "source_url": "https://www.tribuneindia.com/news/nation/sc-dismisses-zakia-jafris-plea-challenging-sits-clean-chit-to-64-people-including-then-cm-narendra-modi-in-2002-gujarat-riots-case-406574",
+          "date": "2022-06-24"
+        },
+        {
+          "type": "media_allegation",
+          "description": "Degree-authenticity dispute: AAP leaders publicly questioned whether Modi's B.A./M.A. degrees are genuine; Modi filed a defamation complaint against them.",
+          "case_summary": "AAP leaders Arvind Kejriwal and Manish Sisodia repeatedly questioned the authenticity of Modi's Delhi University B.A. and Gujarat University M.A. degrees, including after a CIC (Central Information Commission) order and a 2016 Delhi High Court case over disclosure of degree records. BJP held a press conference in 2016 displaying the degree certificates to rebut the claims. Modi (as Gujarat CM, prior to becoming PM) filed a private criminal defamation complaint against Kejriwal and other AAP leaders over their public claims that the degrees were fake.",
+          "status": "Modi's defamation complaint was dismissed by an Ahmedabad court in 2017 for lack of evidence of malicious intent; the underlying degree-authenticity dispute itself remains a subject of public and legal back-and-forth rather than a settled criminal finding either way",
+          "source_name": "Business Standard / National Herald / ThePrint",
+          "source_url": "https://m.thewire.in/article/rights/narendra-modi-degree-controversy-timeline",
+          "date": "2016–2017"
+        },
+        {
+          "type": "media_allegation",
+          "description": "'Snoopgate' (2013): Amit Shah, then Gujarat Minister of State for Home, is alleged on leaked recordings to have ordered illegal surveillance of a private citizen on the instructions of a figure referred to only as 'saheb', widely presumed by commentators to mean Modi as then-CM.",
+          "case_summary": "In November 2013, Cobrapost and Gulail published audio recordings in which Amit Shah is heard directing Gujarat police officer G.L. Singhal to conduct unauthorized, off-the-books surveillance — phone tapping and physical tailing — of a young woman referred to as 'Madhuri' in August–September 2009, allegedly on orders from 'saheb'. Modi was not named directly on the recordings and has not been formally charged in connection with the episode; the allegation that he was 'saheb' remains a media inference, not a proven fact.",
+          "status": "no criminal case was filed against Modi personally; a Gujarat-government-ordered inquiry commission's proceedings were themselves politically contested and did not result in charges against him",
+          "source_name": "Business Standard / The Wire",
+          "source_url": "https://www.business-standard.com/article/politics/all-you-need-to-know-about-snoopgate-113112700241_1.html",
+          "date": "2013"
+        }
+      ],
+      "promises": [
+        {
+          "promise_text": "Popularly remembered as: 'Rs 15 lakh will be deposited in every Indian's bank account' (from recovered black money), 2014 campaign.",
+          "context": "election campaign speech, 2014",
+          "public_belief_vs_fact": "Widely believed and cited by critics as a broken promise. Fact-check: the statement referred to the scale of black money stashed abroad, not a literal per-person deposit pledge; it does not appear in the 2014 BJP manifesto; BJP president Amit Shah later called it a political 'jumla' (rhetorical device).",
+          "source_name": "BOOM Live (fact-check) / Scroll.in",
+          "source_url": "https://www.boomlive.in/did-modi-promise-to-deposit-rs-15-lakh-in-every-account-a-factcheck",
+          "date": "2014 (statement), later fact-checked"
+        },
+        {
+          "promise_text": "'Achhe din aane wale hain' (good days are coming) — general promise of development, an end to corruption, and improved living standards, modeled on the 'Gujarat model'.",
+          "context": "2014 general election campaign slogan",
+          "public_belief_vs_fact": "Became the defining, and most-mocked, slogan of the 2014 campaign; opposition and commentators have since repeatedly invoked 'where are the achhe din?' amid continuing inflation and unemployment complaints, though supporters point to specific infrastructure and welfare-scheme delivery as partial fulfillment.",
+          "source_name": "DailyO / Catch News",
+          "source_url": "https://www.dailyo.in/voices/modi-2014-promises-bjp-upa-2019-lok-sabha-elections-achhe-din-swachh-bharat-inflation-economy-petrol-price-24408",
+          "date": "2014, revisited through 2019"
+        },
+        {
+          "promise_text": "Black money stashed abroad (claimed at ₹80 lakh crore) would be recovered and returned within 100 days of taking office.",
+          "context": "2014 campaign speeches",
+          "public_belief_vs_fact": "Not fulfilled as stated. Only about ₹3,770 crore was recovered under the government's one-time black-money compliance window, far short of the figure cited during the campaign; this gap has been a recurring opposition talking point.",
+          "source_name": "Deccan Herald",
+          "source_url": "https://www.deccanherald.com/india/aap-targets-pm-over-measly-black-money-recovery-485147.html",
+          "date": "2014 (promise), ongoing fact-check"
+        },
+        {
+          "promise_text": "Two crore (20 million) new jobs to be created every year.",
+          "context": "2014 election campaign",
+          "public_belief_vs_fact": "Widely cited by opposition and independent economists as unmet — official employment data has been contested and, at various points, delayed in release, fueling further dispute over whether the target was met in any single year.",
+          "source_name": "DailyO",
+          "source_url": "https://www.dailyo.in/voices/modi-2014-promises-bjp-upa-2019-lok-sabha-elections-achhe-din-swachh-bharat-inflation-economy-petrol-price-24408",
+          "date": "2014"
+        },
+        {
+          "promise_text": "Swachh Bharat Abhiyan (Clean India Mission) — India to be open-defecation free and significantly cleaner by October 2, 2019 (Gandhi's 150th birth anniversary).",
+          "context": "launched October 2, 2014",
+          "public_belief_vs_fact": "Government declared India 'open defecation free' in October 2019 on schedule; independent surveys and journalists have since disputed the completeness of that claim, citing continued open defecation in parts of rural India and questions over toilet-usage rather than just toilet-construction data.",
+          "source_name": "The Quint",
+          "source_url": "https://www.thequint.com/videos/news-videos/economy-farmers-income-employment-reality-check-of-pm-modis-promises-for-76th-independence-day",
+          "date": "2014 (launch) – 2019 (deadline)"
+        },
+        {
+          "promise_text": "Doubling farmers' income by 2022.",
+          "context": "announced February 28, 2016",
+          "public_belief_vs_fact": "Not achieved. Government did not publish clear before/after income figures; independent analysis using NSSO data found real farm income grew roughly 21% between 2012–13 and 2018–19 — well short of doubling — and a government official later publicly acknowledged the 2022 target would not be met.",
+          "source_name": "The Wire / ThePrint",
+          "source_url": "https://m.thewire.in/article/agriculture/a-grim-future-what-happened-to-the-promise-of-doubling-farmers-income-by-2022/amp",
+          "date": "2016 (promise), 2022 (deadline missed)"
+        },
+        {
+          "promise_text": "'Housing for All' — every family to have a pucca house by 2022 (India's 75th Independence Day / 76th, depending on the speech).",
+          "context": "restated December 6, 2018 ahead of the 2022 target under the Pradhan Mantri Awas Yojana",
+          "public_belief_vs_fact": "Government has cited large numbers of houses sanctioned/completed under PMAY, but independent reporting found the 'zero homeless families' framing of the original promise was not achieved by the stated deadline, with implementation timelines for many sanctioned units extending well past 2022.",
+          "source_name": "India.com",
+          "source_url": "https://www.india.com/news/india/up-varanasi-pm-narendra-modi-promises-double-income-to-farmers-houses-to-poor-by-2022-highlights-2491978/",
+          "date": "2018 restatement of a 2022 target"
+        },
+        {
+          "promise_text": "Construction of a Ram Mandir at the disputed Ayodhya site — a decades-old BJP manifesto commitment, reiterated by Modi personally.",
+          "context": "BJP manifestos since 1989; fulfilled under Modi's tenure following the 2019 Supreme Court verdict",
+          "public_belief_vs_fact": "One of the rare high-profile promises delivered in full during Modi's tenure: he laid the foundation stone in August 2020 and led the temple's consecration ceremony (Pran Pratishtha) in January 2024, which he and the BJP have since cited at rallies as a fulfilled commitment.",
+          "source_name": "PRS Legislative Research / press coverage of the January 2024 consecration",
+          "source_url": "https://prsindia.org/mptrack/18-lok-sabha/narendra-modi",
+          "date": "long-standing promise; fulfilled January 2024"
+        }
+      ]
+    },
+    {
+      "name": "Rahul Gandhi",
+      "house": "Lok Sabha",
+      "constituency": "Rae Bareli",
+      "state": "Uttar Pradesh",
+      "party": "INC",
+      "prs_source_url": "https://prsindia.org/mptrack/18-lok-sabha/rahul-gandhi",
+      "career_timeline": [
+        { "period": "1980s, through age 18 (born 1970)", "position": "Schooling disrupted and frequently changed (including The Doon School and St. Columba's) due to security concerns following grandmother Indira Gandhi's 1984 assassination while his father Rajiv Gandhi was Prime Minister; parts of his schooling were reportedly done at home for safety reasons", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Rahul-Gandhi" },
+        { "period": "1989", "position": "Briefly enrolled at St. Stephen's College, Delhi", "source_name": "Britannica", "source_url": "https://www.britannica.com/biography/Rahul-Gandhi" },
+        { "period": "1990", "position": "Transferred to Rollins College, Winter Park, Florida (USA), reportedly under the name 'Raul Vinci' for security reasons — this pseudonymous enrollment is publicly acknowledged, but the underlying degree record has itself become part of a contested affidavit dispute (see case_allegations)", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Rahul-Gandhi" },
+        { "period": "1994", "position": "B.A. in International Relations, Rollins College, Florida", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Rahul-Gandhi" },
+        { "period": "1995", "position": "M.Phil in International Relations, Trinity College, Cambridge", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Rahul-Gandhi" },
+        { "period": "mid-1990s (~3 years)", "position": "Allegedly worked as a management consultant at the Monitor Group in London — self-described in official biographical materials; independent employment verification (payroll/HR records) is not publicly available, which is itself the basis of a separate media dispute over his professional history", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Rahul-Gandhi" },
+        { "period": "2002–2003", "position": "Founded and ran Backops Services Pvt. Ltd., a Mumbai-based technology outsourcing company, before winding it down to enter politics", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Rahul-Gandhi" },
+        { "period": "2004–2024", "position": "Lok Sabha MP for Amethi (2004–2019) then Wayanad (2019–2024)", "source_name": "PRS Legislative Research", "source_url": "https://prsindia.org/mptrack/18-lok-sabha/rahul-gandhi" },
+        { "period": "2007", "position": "AICC General Secretary, given charge of the Indian Youth Congress and NSUI", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Rahul-Gandhi" },
+        { "period": "2013–2017", "position": "Vice President, Indian National Congress", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Rahul-Gandhi" },
+        { "period": "2017–2019", "position": "President, Indian National Congress", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Rahul-Gandhi" },
+        { "period": "2024–present", "position": "Lok Sabha MP for Rae Bareli; Leader of Opposition, Lok Sabha", "source_name": "PRS Legislative Research", "source_url": "https://prsindia.org/mptrack/18-lok-sabha/rahul-gandhi" }
+      ],
+      "case_allegations": [
+        {
+          "type": "declared_affidavit",
+          "description": "18 criminal cases declared, including IPC 406, 420, 499×15, 500×15, 120B×2, 403×2, 228A, 34, 465.",
+          "case_summary": "Rahul Gandhi's 2024 Lok Sabha election affidavit lists 18 pending criminal cases, the large majority being defamation-related sections (IPC 499/500) arising from multiple political speeches, plus a smaller number of cheating/criminal-breach-of-trust and criminal-conspiracy sections. Individually, most of these are private-complaint defamation matters filed by BJP-affiliated individuals or organizations in different states rather than state-initiated prosecutions.",
+          "status": "mixed — mostly pending at trial-court stage; see the Surat 'Modi surname' case below for the one that reached a conviction",
+          "source_name": "MyNeta / ADR (ECI affidavit)",
+          "source_url": "https://www.myneta.info/LokSabha2024/candidate.php?candidate_id=2195",
+          "date": "2024"
+        },
+        {
+          "type": "media_allegation",
+          "description": "Surat 'Modi surname' defamation case: convicted, disqualified as MP, conviction later stayed by the Supreme Court.",
+          "case_summary": "In an April 2019 campaign speech in Kolar, Karnataka, Rahul Gandhi asked, 'How come all thieves have Modi as their common surname?', referencing Nirav Modi, Lalit Modi and PM Modi. BJP MLA Purnesh Modi filed a criminal defamation complaint in Surat. A Surat magistrate's court convicted Gandhi in March 2023 and sentenced him to two years' imprisonment — the maximum under the relevant section — which triggered his automatic disqualification as a Lok Sabha MP under the Representation of the People Act. The Supreme Court stayed the conviction in August 2023, restoring his MP status.",
+          "status": "conviction stayed by the Supreme Court (August 2023); appeal against the underlying conviction remains pending in the Gujarat courts",
+          "source_name": "Deccan Herald",
+          "source_url": "https://www.deccanherald.com/amp/story/india%2Ftruth-is-my-god-rahul-gandhi-quotes-mahatma-after-jail-sentence-in-modi-surname-remark-case-1202723.html",
+          "date": "2023-03 (conviction), 2023-08 (Supreme Court stay)"
+        },
+        {
+          "type": "media_allegation",
+          "description": "National Herald case: Enforcement Directorate alleges Sonia and Rahul Gandhi, via Young Indian, illegally took control of Associated Journals Ltd assets worth over ₹2,000 crore, with ₹142 crore in alleged proceeds of crime.",
+          "case_summary": "The ED's money-laundering case centers on Young Indian, a not-for-profit company in which Sonia and Rahul Gandhi together hold 76% of the shares, which acquired the debts and assets of Associated Journals Ltd (publisher of the National Herald newspaper) for a fraction of their claimed market value in a 2010 transaction. The ED alleges this amounted to an illegal takeover of assets worth over ₹2,000 crore for approximately ₹50 lakh, generating an estimated ₹142 crore in 'proceeds of crime.' The Gandhis and other accused deny wrongdoing, characterizing the case as politically motivated.",
+          "status": "ongoing — ED chargesheet filed April 2025; a Delhi trial court declined to take cognisance of the chargesheet on December 16, 2025; the ED has appealed that order to the Delhi High Court, with the next hearing listed for March 12, 2026",
+          "source_name": "News on Air (Prasar Bharati) / BBC",
+          "source_url": "https://www.newsonair.gov.in/ed-files-chargesheet-against-sonia-gandhi-rahul-gandhi-in-national-herald-case/",
+          "date": "2025-04-15 (chargesheet), ongoing"
+        },
+        {
+          "type": "media_allegation",
+          "description": "RSS defamation case (Bhiwandi, Maharashtra): sued by an RSS activist over a 2014 rally remark linking the RSS to Mahatma Gandhi's assassination.",
+          "case_summary": "At a March 6, 2014 election rally, Rahul Gandhi said 'RSS ke logon ne Gandhiji ko goli maari' ('RSS people shot Gandhiji'). RSS activist Rajesh Kunte filed a private criminal defamation complaint in a Bhiwandi magistrate's court. The case has dragged on for over a decade with multiple summons and bail proceedings; courts have separately noted that while Nathuram Godse, Gandhi's assassin, was at one point an RSS member, that is legally distinct from RSS as an organization having ordered the assassination — the specific factual dispute at the heart of the defamation claim.",
+          "status": "ongoing — case still pending in the Bhiwandi magistrate's court as of the most recent public reporting; Gandhi has been granted bail at various stages",
+          "source_name": "Deccan Herald / Gulf News",
+          "source_url": "https://www.deccanherald.com/india/rss-defamation-case-raga-appear-court-tuesday-674118.html",
+          "date": "2014 (remark), ongoing"
+        },
+        {
+          "type": "media_allegation",
+          "description": "Alleged British citizenship: a BJP-affiliated petitioner claims Rahul Gandhi held/holds British citizenship, which would bar him from Indian electoral office; Allahabad High Court has ordered an FIR.",
+          "case_summary": "A petitioner, S Vignesh Shishir, filed a PIL in the Lucknow bench of the Allahabad High Court alleging he possessed documents indicating Rahul Gandhi held British citizenship, and sought a CBI probe and disqualification from Indian electoral office on that basis. The Union government was repeatedly asked by the court to seek clarification from the UK government but did not produce a timeline for a response; the case was disposed of in May 2025 for lack of Centre action, with liberty for the petitioner to pursue other remedies. In April 2026, the Allahabad High Court separately directed registration of an FIR against Rahul Gandhi in connection with the British-nationality allegation. Note: this claim's public sourcing is dominated by BJP-affiliated petitioners and right-leaning outlets; no neutral wire-service or court finding has yet substantiated the underlying citizenship claim itself.",
+          "status": "ongoing — FIR registration directed April 2026; underlying citizenship allegation not yet adjudicated on the merits",
+          "source_name": "Bar and Bench / Deccan Herald",
+          "source_url": "https://www.barandbench.com/news/allahabad-high-court-directs-fir-against-rahul-gandhi-in-british-nationality-case",
+          "date": "2019 (petition filed) – 2026 (FIR directed)"
+        }
+      ],
+      "promises": [
+        {
+          "promise_text": "NYAY scheme — guaranteed minimum income of ₹72,000/year to India's 5 crore poorest families.",
+          "context": "2019 Congress manifesto, reiterated at INDIA alliance events",
+          "public_belief_vs_fact": "Presented consistently since 2019; reiterated as recently as Dec 2023 by party chief Kharge with Rahul Gandhi present. Not implemented since Congress has not held central power since the promise.",
+          "source_name": "The Tribune",
+          "source_url": "https://www.tribuneindia.com/news/india/rahul-reiterates-caste-survey-promise-kharge-talks-of-nyay-scheme-if-india-alliance-comes-to-power-576178",
+          "date": "2023-12-28"
+        },
+        {
+          "promise_text": "Nationwide caste census if INDIA alliance/Congress comes to power.",
+          "context": "multiple rallies and AICC session, Ahmedabad, 2025",
+          "public_belief_vs_fact": "Notably, Rahul Gandhi has publicly acknowledged Congress's own past shortfall on this: 'My mistake, we couldn't get caste census done earlier, correcting that now.' This self-correction is itself part of the public record, not just the promise.",
+          "source_name": "India TV / The Tribune",
+          "source_url": "https://www.indiatvnews.com/news/india/rahul-gandhi-pushes-for-caste-census-says-will-pass-law-in-parliament-aicc-session-latest-updates-2025-04-09-984667",
+          "date": "2025-04-09"
+        },
+        {
+          "promise_text": "Remove the 50% cap on caste-based reservations via a constitutional amendment.",
+          "context": "repeated at rallies including the 2024 Maharashtra assembly campaign",
+          "public_belief_vs_fact": "Consistently repeated promise tied to the caste-census push; framed by Gandhi as necessary because SC/ST/OBC/minority groups together make up roughly 90% of the population by his stated estimate. Not enacted, since this requires central legislative power Congress does not currently hold.",
+          "source_name": "Business Standard",
+          "source_url": "https://www.business-standard.com/politics/rahul-gandhi-backs-caste-census-again-promises-to-break-50-quota-limit-124110601397_1.html",
+          "date": "2024-11-06"
+        },
+        {
+          "promise_text": "Legal guarantee for Minimum Support Price (MSP) on crops, as recommended by the Swaminathan Commission formula.",
+          "context": "Congress 'Nyay Patra' 2024 Lok Sabha manifesto, part of the 'Kisan Nyay' pillar",
+          "public_belief_vs_fact": "Directly responsive to the 2020–21 farmer protests' central demand. Popularly seen as a major differentiator from the BJP's position; not implemented since Congress did not form the central government after 2024.",
+          "source_name": "The Tribune",
+          "source_url": "https://www.tribuneindia.com/news/india/congress-releases-manifesto-for-lok-sabha-election-focuses-on-paanch-nyay-607693",
+          "date": "2024-04-05"
+        },
+        {
+          "promise_text": "Fill approximately 30 lakh (3 million) vacant sanctioned central government posts.",
+          "context": "Congress 2024 manifesto and rally speeches, e.g. Rajasthan campaign",
+          "public_belief_vs_fact": "Frequently cited by Gandhi as a contrast to Modi-government job-letter distribution events, which Congress characterized as symbolic rather than a genuine fix for the vacancy backlog. Not implemented since Congress did not form the central government after 2024.",
+          "source_name": "Deccan Herald",
+          "source_url": "https://www.deccanherald.com/amp/story/india%2Frajasthan%2F30-lakh-vacant-government-posts-will-be-filled-youths-will-get-apprenticeships-promises-rahul-gandhi-2926309",
+          "date": "2024"
+        },
+        {
+          "promise_text": "'Right to Apprenticeship' — one-year paid apprenticeship (₹1 lakh/year stipend) guaranteed to every diploma holder or graduate under 25.",
+          "context": "Congress 'Nyay Patra' 2024 manifesto, 'Yuva Nyay' (youth justice) pillar",
+          "public_belief_vs_fact": "Positioned as a flagship youth-employment guarantee; announced jointly by Gandhi with the wider 25-guarantee 'Nyay Patra' rollout. Not implemented since Congress did not form the central government after 2024.",
+          "source_name": "Congress manifesto site (manifesto.inc.in) / Careers360",
+          "source_url": "https://manifesto.inc.in/en/youth/",
+          "date": "2024-04-05"
+        },
+        {
+          "promise_text": "Wealth redistribution / institutional survey — a nationwide survey of wealth distribution alongside the caste census, to inform welfare targeting.",
+          "context": "2024 Lok Sabha campaign speeches",
+          "public_belief_vs_fact": "This promise was seized on by the BJP, which characterized it (disputed by Congress) as a precursor to wealth redistribution policy; Congress said the survey was about data-gathering for targeted welfare, not asset seizure. Included here as a reported campaign statement, not as an endorsement of either side's framing.",
+          "source_name": "Business Today",
+          "source_url": "https://www.businesstoday.in/amp/india/story/rahul-gandhis-another-big-poll-promise-congress-will-conduct-wealth-redistribution-survey-if-voted-to-power-424606-2024-04-07",
+          "date": "2024-04-07"
+        },
+        {
+          "promise_text": "NYAY Patra's broader 'Paanch Nyay' (five pillars of justice) framework — 25 guarantees spanning youth, farmers, women, workers, and equity/social-justice measures.",
+          "context": "Congress manifesto launch, April 5, 2024, released jointly by Kharge, Sonia Gandhi and Rahul Gandhi",
+          "public_belief_vs_fact": "The manifesto's central organizing framework for the 2024 campaign; individual guarantees under it (MSP, apprenticeships, caste census, reservation cap) are tracked as separate promise entries above. As with the rest of the manifesto, none of the 25 guarantees have been implemented since Congress did not form the central government after 2024.",
+          "source_name": "Deccan Chronicle",
+          "source_url": "https://www.deccanchronicle.com/nation/politics/congress-etches-5-pillars-of-justice-in-its-manifesto-888569",
+          "date": "2024-04-05"
+        }
+      ]
+    },
+    {
+      "name": "Amit Shah",
+      "house": "Lok Sabha",
+      "constituency": "Gandhinagar",
+      "state": "Gujarat",
+      "party": "BJP",
+      "prs_source_url": "https://prsindia.org/mptrack/18-lok-sabha/amit-anil-chandra-shah",
+      "career_timeline": [
+        { "period": "born 1964, family background", "position": "Born in Mumbai to a Gujarati business family involved in the PVC pipe trade; the family later moved to Mansa, Gujarat, and Shah was schooled in Mehsana", "source_name": "Census of India profile", "source_url": "https://censusindia.gov.in/census.website/sites/default/files/2022-04/Eng-Shri_Amit_Shah.pdf" },
+        { "period": "as a teenager, before age 18", "position": "Joined the RSS as a swayamsevak (volunteer member)", "source_name": "BJP official profile / press biography", "source_url": "https://www.bjp.org/shri-amit-shah" },
+        { "period": "early 1980s (around age 18)", "position": "Enrolled for a B.Sc. in Biochemistry at C.U. Shah Science College, Ahmedabad, and joined the Akhil Bharatiya Vidyarthi Parishad (ABVP), the RSS's student wing, during this period", "source_name": "Census of India profile", "source_url": "https://censusindia.gov.in/census.website/sites/default/files/2022-04/Eng-Shri_Amit_Shah.pdf" },
+        { "period": "mid-1980s", "position": "Reportedly met Narendra Modi through RSS circles in Ahmedabad during this period, beginning a decades-long political association — this meeting/timeline detail is commonly repeated in press profiles but not independently documented beyond both men's own accounts", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Amit-Shah" },
+        { "period": "before entering full-time politics", "position": "Worked in the family PVC-pipe business and as a stockbroker, including directorship roles in cooperative banks", "source_name": "Census of India profile", "source_url": "https://censusindia.gov.in/census.website/sites/default/files/2022-04/Eng-Shri_Amit_Shah.pdf" },
+        { "period": "1987", "position": "Formally joined the Bharatiya Janata Yuva Morcha (BJP youth wing)", "source_name": "Census of India profile", "source_url": "https://censusindia.gov.in/census.website/sites/default/files/2022-04/Eng-Shri_Amit_Shah.pdf" },
+        { "period": "1997", "position": "Won the Sarkhej assembly by-election, his first elected office", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Amit-Shah" },
+        { "period": "1999", "position": "Became Chairman of the Ahmedabad District Cooperative Bank (ADCB), reportedly turning a loss-making bank profitable", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Amit-Shah" },
+        { "period": "2002", "position": "Gujarat state minister holding Home, Law, and other portfolios under CM Modi", "source_name": "Census of India profile", "source_url": "https://censusindia.gov.in/census.website/sites/default/files/2022-04/Eng-Shri_Amit_Shah.pdf" },
+        { "period": "2014–2020", "position": "BJP National President", "source_name": "BJP official profile", "source_url": "https://www.bjp.org/shri-amit-shah" },
+        { "period": "2019–present", "position": "Union Minister of Home Affairs", "source_name": "Ministry of Home Affairs", "source_url": "https://www.mha.gov.in/en/about-us/meet-the-minister/union-home-minister" },
+        { "period": "2021–present", "position": "Union Minister of Cooperation", "source_name": "PRS Legislative Research", "source_url": "https://prsindia.org/mptrack/18-lok-sabha/amit-anil-chandra-shah" }
+      ],
+      "case_allegations": [
+        {
+          "type": "media_allegation",
+          "description": "Named prime accused in the Sohrabuddin Sheikh / Kausar Bi / Tulsiram Prajapati fake encounter case (murder, kidnapping, extortion charges).",
+          "case_summary": "Sohrabuddin Sheikh, an alleged gangster, was killed in a November 2005 police encounter in Gujarat; his wife Kausar Bi disappeared and was allegedly killed days later; an associate, Tulsiram Prajapati (a key witness), was killed in a second alleged encounter in December 2006. The CBI alleged these were staged 'fake encounters' and named then-Gujarat Home Minister Amit Shah as the key conspirator, alleging he ordered the killings, in part to eliminate witnesses. Shah was arrested in July 2010, spent about three months in jail, and was released on bail; the case was later transferred to Mumbai on Supreme Court orders due to concerns about witness intimidation in Gujarat.",
+          "status": "discharged — a special CBI court discharged Shah on December 30, 2014, holding that 'no case' existed against him and that he had been 'implicated for political reasons'; the CBI did not appeal the discharge",
+          "source_name": "Business Standard (PTI)",
+          "source_url": "https://www.business-standard.com/article/pti-stories/amit-shah-discharged-in-sohrabuddin-sheikh-encounter-case-114123000349_1.html",
+          "date": "2014-12-30"
+        },
+        {
+          "type": "media_allegation",
+          "description": "Named in connection with the Ishrat Jahan fake encounter case allegations.",
+          "case_summary": "Ishrat Jahan, a 19-year-old college student, and three men were killed in a June 2004 police encounter near Ahmedabad; Gujarat police claimed they were Lashkar-e-Taiba operatives planning to assassinate Modi. A CBI-led SIT investigation subsequently alleged the encounter was staged. Amit Shah's name surfaced in early media reporting and political commentary linking the case to the state Home Ministry he then headed, though he was not among those the CBI ultimately chargesheeted.",
+          "status": "cleared — Shah was not named by the CBI in its chargesheets in the case",
+          "source_name": "Deccan Herald",
+          "source_url": "https://www.deccanherald.com/india/cbi-drops-shah-ishrat-case-2175764",
+          "date": "chargesheet stage, exact date unspecified in source"
+        },
+        {
+          "type": "media_allegation",
+          "description": "'Snoopgate' (2013): audio recordings allege Shah, as Gujarat Minister of State for Home, personally directed illegal surveillance of a private citizen.",
+          "case_summary": "Recordings published by Cobrapost and Gulail in November 2013 captured conversations in which Shah is alleged to instruct IPS officer G.L. Singhal to conduct off-the-books surveillance — phone tapping, tailing to malls, restaurants, and airports — of a young woman referred to as 'Madhuri' during August–September 2009, described as being carried out on the instructions of a figure called 'saheb'. Singhal later told the CBI the operation had no legal authorization or paperwork. Shah has denied wrongdoing, and the woman's family has stated the surveillance was for her safety at her father's request.",
+          "status": "no criminal charges were ultimately brought against Shah over the episode; a state government-ordered inquiry was itself politically contested",
+          "source_name": "Business Standard / The Wire",
+          "source_url": "https://www.business-standard.com/article/politics/all-you-need-to-know-about-snoopgate-113112700241_1.html",
+          "date": "2013"
+        }
+      ],
+      "promises": [
+        {
+          "promise_text": "Abrogation of Article 370 (Jammu & Kashmir special status) — long-standing BJP electoral promise.",
+          "context": "election manifestos over multiple cycles; executed as Home Minister",
+          "public_belief_vs_fact": "Unusual case where the promise was actually delivered — Article 370 was abrogated in August 2019 under Shah's tenure as Home Minister, which he has since cited at rallies as a fulfilled commitment.",
+          "source_name": "Deccan Herald",
+          "source_url": "https://www.deccanherald.com/elections/india/lok-sabha-elections-2024-congress-didnt-revoke-article-370-for-appeasement-politics-says-amit-shah-at-a-rally-in-haryana-3029910",
+          "date": "2024 rally reference to 2019 action"
+        },
+        {
+          "promise_text": "Nationwide implementation of the Citizenship Amendment Act (CAA), promised repeatedly at rallies before eventual rules notification.",
+          "context": "campaign speeches, 2019–2024",
+          "public_belief_vs_fact": "Shah repeatedly promised CAA implementation 'after the elections' across several campaign cycles, drawing both strong support and strong opposition (including protests in parts of the northeast and among Muslim organizations); CAA rules were eventually notified in March 2024, shortly before the general election, which critics characterized as election-timed.",
+          "source_name": "press coverage of CAA rules notification, March 2024",
+          "source_url": "https://www.mha.gov.in/en/about-us/meet-the-minister/union-home-minister",
+          "date": "promised repeatedly 2019–2024; rules notified March 2024"
+        }
+      ]
+    },
+    {
+      "name": "Nirmala Sitharaman",
+      "house": "Rajya Sabha",
+      "constituency": null,
+      "state": "Karnataka",
+      "party": "BJP",
+      "prs_source_url": "https://prsindia.org/mptrack/rajya-sabha/nirmalasitharaman",
+      "career_timeline": [
+        { "period": "born 1959, family background", "position": "Born in Madurai, Tamil Nadu, into a Tamil Iyengar Brahmin family; her father worked for Indian Railways, which meant frequent relocations and schooling across several towns", "source_name": "press biography coverage", "source_url": "https://www.deccanherald.com/india/karnatakas-representative-in-union-cabinet-nirmala-sitharaman-3059465" },
+        { "period": "around age 18, late 1970s", "position": "B.A. in Economics, Seethalakshmi Ramaswami College, Tiruchirapalli (affiliated with the University of Madras)", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Nirmala-Sitharaman" },
+        { "period": "early 1980s", "position": "Moved to Delhi for postgraduate study; M.A. in Economics, Jawaharlal Nehru University (JNU)", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Nirmala-Sitharaman" },
+        { "period": "1984", "position": "M.Phil in Economics, JNU, with a focus on Indo-European textile trade; met her future husband, Parakala Prabhakar, during her time at JNU", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Nirmala-Sitharaman" },
+        { "period": "1986", "position": "Married Parakala Prabhakar", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Nirmala-Sitharaman" },
+        { "period": "late 1980s, UK", "position": "Worked in London, including as a sales assistant at the furnishings retailer Habitat, and separately as an assistant economist with the Agricultural Engineers Association in the UK, while her husband pursued further study there", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Nirmala-Sitharaman" },
+        { "period": "1990s, after returning to India", "position": "Worked as a Senior Manager in the R&D division of PricewaterhouseCoopers (PwC), based in Hyderabad", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Nirmala-Sitharaman" },
+        { "period": "2006", "position": "Joined the BJP", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Nirmala-Sitharaman" },
+        { "period": "2010", "position": "Appointed BJP National Spokesperson", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Nirmala-Sitharaman" },
+        { "period": "2014–present", "position": "Rajya Sabha MP from Karnataka", "source_name": "PRS Legislative Research", "source_url": "https://prsindia.org/mptrack/rajya-sabha/nirmalasitharaman" },
+        { "period": "2017–2019", "position": "Union Minister of Defence (first full-time woman to hold the post)", "source_name": "Deccan Herald", "source_url": "https://www.deccanherald.com/india/karnatakas-representative-in-union-cabinet-nirmala-sitharaman-3059465" },
+        { "period": "2019–present", "position": "Union Minister of Finance and Corporate Affairs", "source_name": "Deccan Herald", "source_url": "https://www.deccanherald.com/india/karnatakas-representative-in-union-cabinet-nirmala-sitharaman-3059465" }
+      ],
+      "case_allegations": [
+        {
+          "type": "media_allegation",
+          "description": "As Defence Minister, accused by opposition (Congress/Rahul Gandhi) of corruption/irregularity in the Rafale fighter jet procurement deal; formal petitions to the Supreme Court filed by Yashwant Sinha, Arun Shourie and Prashant Bhushan.",
+          "case_summary": "The 2016 government-to-government deal for 36 Dassault Rafale fighter jets, negotiated during Sitharaman's tenure as Defence Minister, was challenged in the Supreme Court by former ministers Yashwant Sinha and Arun Shourie along with lawyer Prashant Bhushan, who alleged irregularities in pricing and the choice of an offset partner (Reliance Defence over the public-sector HAL). The Congress party, led in its public campaign by Rahul Gandhi with the slogan 'Chowkidar Chor Hai,' made this a central 2019 election attack line. The petitioners twice sought Supreme Court intervention, including a review petition alleging the government's original submissions relied on an unsigned note in a sealed cover, and separately sought perjury proceedings against government officials.",
+          "status": "cleared — Supreme Court dismissed petitions seeking a CBI probe on December 14, 2018, finding no irregularity in the decision-making process; review petitions were also dismissed on November 14, 2019",
+          "source_name": "Outlook India / Scroll.in",
+          "source_url": "https://www.outlookindia.com/national/india-news-supreme-court-dismisses-petitions-seeking-probe-into-rafale-deal-news-342292",
+          "date": "2018-12-14 (initial), 2019-11-14 (review dismissed)"
+        }
+      ],
+      "promises": [
+        {
+          "promise_text": "Income up to ₹12 lakh/year made tax-free; additional ₹75,000 standard deduction for salaried taxpayers.",
+          "context": "Union Budget 2025 speech",
+          "public_belief_vs_fact": "This was a delivered, not just promised, policy change — enacted in the Budget 2025 announcement itself, benefiting an estimated 6.3 crore taxpayers per government figures.",
+          "source_name": "Business Standard",
+          "source_url": "https://www.business-standard.com/budget/news/budget-is-by-the-people-for-the-people-says-fm-nirmala-sitharaman-125020200379_1.html",
+          "date": "2025-02-01"
+        }
+      ]
+    },
+    {
+      "name": "Sonia Gandhi",
+      "house": "Rajya Sabha",
+      "constituency": null,
+      "state": "Rajasthan",
+      "party": "INC",
+      "prs_source_url": "https://prsindia.org/mptrack/rajya-sabha/sonia-gandhi",
+      "career_timeline": [
+        { "period": "born December 9, 1946", "position": "Born Edvige Antonia Albina Màino in Orbassano, near Turin, Italy, into a Catholic family; her father Stefano Maino allegedly had ties to Italian fascist-era military service on the Eastern Front during WWII — a claim raised by some biographers/critics that is not treated here as settled fact, only as a reported allegation about her family background", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Sonia-Gandhi" },
+        { "period": "1964 (age ~17–18)", "position": "Moved to Cambridge, England, to study English at a language school (Bell Educational Trust)", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Sonia-Gandhi" },
+        { "period": "1965", "position": "Met Rajiv Gandhi, then a student at Trinity College, Cambridge, at a Greek restaurant in the city", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Sonia-Gandhi" },
+        { "period": "1968", "position": "Married Rajiv Gandhi in New Delhi and moved to India to live with the Gandhi family", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Sonia-Gandhi" },
+        { "period": "1983", "position": "Granted Indian citizenship; BJP has alleged, and this remains disputed, that she appeared on Delhi electoral rolls before this date — Congress figures including Pranab Mukherjee stated she formally surrendered her Italian passport on April 27, 1983, and Italy did not permit dual citizenship at the time, meaning she would have automatically lost Italian citizenship upon naturalizing as Indian", "source_name": "press biography coverage", "source_url": "https://www.deccanherald.com/india/sonia-gandhi-files-for-rajya-sabha-nomination-today-a-look-at-her-past-election-results-2893734" },
+        { "period": "1984", "position": "Rajiv Gandhi became Prime Minister following Indira Gandhi's assassination; Sonia Gandhi did not enter active politics at this time", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Sonia-Gandhi" },
+        { "period": "1991", "position": "Rajiv Gandhi assassinated; Sonia Gandhi again declined the Congress presidency when it was offered to her", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Sonia-Gandhi" },
+        { "period": "1997", "position": "Formally joined the Indian National Congress", "source_name": "press biography coverage", "source_url": "https://www.britannica.com/biography/Sonia-Gandhi" },
+        { "period": "1998–2017", "position": "President, Indian National Congress (longest-serving in party history)", "source_name": "Deccan Herald", "source_url": "https://www.deccanherald.com/india/sonia-gandhi-files-for-rajya-sabha-nomination-today-a-look-at-her-past-election-results-2893734" },
+        { "period": "2004–2014", "position": "Chairperson, United Progressive Alliance (UPA)", "source_name": "Deccan Herald", "source_url": "https://www.deccanherald.com/india/sonia-gandhi-files-for-rajya-sabha-nomination-today-a-look-at-her-past-election-results-2893734" },
+        { "period": "2004–2024", "position": "Lok Sabha MP for Rae Bareli (5 consecutive terms)", "source_name": "Deccan Herald", "source_url": "https://www.deccanherald.com/india/sonia-gandhi-takes-oath-as-rajya-sabha-member-elected-unopposed-from-rajasthan-2965733" },
+        { "period": "2024–present", "position": "Rajya Sabha MP from Rajasthan (elected unopposed)", "source_name": "Deccan Herald", "source_url": "https://www.deccanherald.com/india/sonia-gandhi-takes-oath-as-rajya-sabha-member-elected-unopposed-from-rajasthan-2965733", "date": "2024-04-04" }
+      ],
+      "case_allegations": [
+        {
+          "type": "media_allegation",
+          "description": "National Herald case (same matter as Rahul Gandhi entry) — ED alleges illegal acquisition of Associated Journals Ltd assets via Young Indian.",
+          "case_summary": "The ED alleges Sonia and Rahul Gandhi, who together hold 76% of Young Indian, used that entity to acquire the debts and assets of Associated Journals Ltd (publisher of the National Herald) for approximately ₹50 lakh, against a claimed asset value exceeding ₹2,000 crore, in a 2010 transaction — generating an alleged ₹142 crore in proceeds of crime. Sonia Gandhi and other accused deny wrongdoing and describe the case as a politically motivated prosecution.",
+          "status": "ongoing — ED chargesheet filed April 2025; Delhi court declined to take cognisance December 16, 2025; ED appealed to Delhi High Court, next hearing listed March 12, 2026",
+          "source_name": "News on Air (Prasar Bharati)",
+          "source_url": "https://www.newsonair.gov.in/ed-files-chargesheet-against-sonia-gandhi-rahul-gandhi-in-national-herald-case/",
+          "date": "2025-04-15, ongoing"
+        },
+        {
+          "type": "media_allegation",
+          "description": "Citizenship-timeline allegation: BJP has alleged Sonia Gandhi's name appeared on Indian electoral rolls prior to her formal 1983 grant of Indian citizenship.",
+          "case_summary": "This allegation, distinct from Rahul Gandhi's separate British-citizenship dispute, concerns whether Sonia Gandhi was improperly registered as a voter in Delhi before she was legally granted Indian citizenship in April 1983. Congress leaders including Pranab Mukherjee have stated on record that she surrendered her Italian passport in April 1983 concurrent with her naturalization. No court has upheld the BJP's timeline allegation as fact; it remains a recurring political talking point rather than an adjudicated legal finding.",
+          "status": "no formal criminal case established; remains a contested political allegation without a court finding against her",
+          "source_name": "Deccan Herald",
+          "source_url": "https://www.deccanherald.com/india/sonia-gandhi-files-for-rajya-sabha-nomination-today-a-look-at-her-past-election-results-2893734",
+          "date": "1983 (disputed events), recurring allegation since"
+        }
+      ],
+      "promises": [
+        {
+          "promise_text": "'We do not make false promises. What we promise, we deliver' — general campaign pledge, cited alongside claim of having fulfilled 2009 manifesto promises.",
+          "context": "election campaign speech",
+          "public_belief_vs_fact": "This is a self-assessment by Sonia Gandhi of her own party's record, not an independently verified fact-check; included here as a direct quote attributable to her, not as a verified claim.",
+          "source_name": "Deccan Herald (archive)",
+          "source_url": "https://www.deccanherald.com/archives/sonia-attacks-bjp-talking-big-2184633",
+          "date": "unspecified campaign period"
+        },
+        {
+          "promise_text": "Mahalakshmi scheme — ₹1 lakh/year unconditional cash transfer to every poor Indian family; free and compulsory public schooling Class I–XII.",
+          "context": "Congress 'Nyay Patra' manifesto launch, 2024 Lok Sabha elections",
+          "public_belief_vs_fact": "Manifesto promise released jointly with Kharge and Rahul Gandhi; not implemented since Congress did not form the central government after 2024.",
+          "source_name": "Indiablooms",
+          "source_url": "https://www.indiablooms.com/news/sonia-gandhi-rahul-gandhi-kharge-release-congress-manifesto-for-lok-sabha-polls/details",
+          "date": "2024"
+        }
+      ]
+    }
+  ]
+}

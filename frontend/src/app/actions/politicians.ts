@@ -13,6 +13,52 @@ export async function getPoliticians() {
   const statsMap = new Map((stats || []).map(s => [s.politician_id, s]));
 
   if (error || !pols || pols.length === 0) {
+    try {
+      const fs = require('fs');
+      const path = require('path');
+      const pilotJsonPath = path.join(/*turbopackIgnore: true*/ process.cwd(), '..', 'data', 'mock_db', 'pilot_mps_detailed.json');
+      const jsonPath = path.join(/*turbopackIgnore: true*/ process.cwd(), '..', 'data', 'mock_db', 'mp_affidavits_and_stats.json');
+
+      let pilotPols: any[] = [];
+      if (fs.existsSync(pilotJsonPath)) {
+        const pilotData = JSON.parse(fs.readFileSync(pilotJsonPath, 'utf-8'));
+        pilotPols = pilotData.politicians || [];
+      }
+
+      if (fs.existsSync(jsonPath)) {
+        const fileData = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+        const affidavits = fileData.affidavits || [];
+        const legStats = fileData.legStats || [];
+
+        return affidavits.map((aff: any, index: number) => {
+          const names = aff.candidate_name.split(' ');
+          const st = legStats.find((s: any) => s.mp_name === aff.candidate_name) || {};
+          const pilotDetail = pilotPols.find((p: any) => p.name.toLowerCase() === aff.candidate_name.toLowerCase());
+
+          return {
+            id: `pol-${index + 1}`,
+            first_name: names[0],
+            last_name: names.slice(1).join(' '),
+            bio: `${aff.candidate_name} - ${aff.party} MP from ${aff.constituency}, ${aff.state}.`,
+            house: aff.house,
+            state: aff.state,
+            constituency: aff.constituency,
+            party: aff.party,
+            total_assets: aff.total_assets,
+            criminal_cases_count: aff.criminal_cases_count,
+            attendance_pct: st.attendance_pct ?? null,
+            questions_asked: st.questions_asked ?? null,
+            verified: aff.verified,
+            data_quality: aff.data_quality,
+            has_detailed_pilot: !!pilotDetail,
+            is_mock: false
+          };
+        });
+      }
+    } catch (e) {
+      console.error('Failed reading mock JSON:', e);
+    }
+
     // Fallback sample data with rich affidavit and legislative stats
     return [
       {
@@ -83,19 +129,75 @@ export async function getPoliticians() {
 
 export async function getPoliticianDetails(id: string) {
   const supabase = await createClient();
-  const [polRes, rolesRes, statementsRes, affidavitRes, legStatsRes] = await Promise.all([
-    supabase.from('politicians').select('*').eq('id', id).single(),
-    supabase.from('roles').select('*, departments(name), courts(name)').eq('politician_id', id),
-    supabase.from('statements').select('*').eq('politician_id', id).order('date_made', { ascending: false }),
-    supabase.from('politician_affidavits').select('*').eq('politician_id', id).maybeSingle(),
-    supabase.from('mp_legislative_stats').select('*').eq('politician_id', id).maybeSingle()
+  const timeout = new Promise<{ data: null }>((resolve) =>
+    setTimeout(() => resolve({ data: null }), 1500)
+  );
+
+  const [polRes, rolesRes, statementsRes, affidavitRes, legStatsRes, timelineRes, casesRes, promisesRes] = await Promise.all([
+    Promise.race([supabase.from('politicians').select('*').eq('id', id).single(), timeout]),
+    Promise.race([supabase.from('roles').select('*, departments(name), courts(name)').eq('politician_id', id), timeout]),
+    Promise.race([supabase.from('statements').select('*').eq('politician_id', id).order('date_made', { ascending: false }), timeout]),
+    Promise.race([supabase.from('politician_affidavits').select('*').eq('politician_id', id).maybeSingle(), timeout]),
+    Promise.race([supabase.from('mp_legislative_stats').select('*').eq('politician_id', id).maybeSingle(), timeout]),
+    Promise.race([supabase.from('politician_career_timeline').select('*').eq('politician_id', id), timeout]),
+    Promise.race([supabase.from('politician_case_allegations').select('*').eq('politician_id', id), timeout]),
+    Promise.race([supabase.from('politician_public_promises').select('*').eq('politician_id', id), timeout])
   ]);
 
-  let politician = polRes.data;
-  let affidavit = affidavitRes.data;
-  let legislativeStats = legStatsRes.data;
+  let politician = polRes?.data;
+  let affidavit = affidavitRes?.data;
+  let legislativeStats = legStatsRes?.data;
+  let careerTimeline: any[] = timelineRes?.data || [];
+  let caseAllegations: any[] = casesRes?.data || [];
+  let promises: any[] = promisesRes?.data || [];
 
-  // Rich fallback matching if record is not in Supabase yet (clearly marked as mock)
+  // If detailed data wasn't found by UUID in database, fallback to reading mock JSON or querying by key
+  const fs = require('fs');
+  const path = require('path');
+  const pilotJsonPath = path.join(/*turbopackIgnore: true*/ process.cwd(), '..', 'data', 'mock_db', 'pilot_mps_detailed.json');
+  const jsonPath = path.join(/*turbopackIgnore: true*/ process.cwd(), '..', 'data', 'mock_db', 'mp_affidavits_and_stats.json');
+
+  if (careerTimeline.length === 0 || caseAllegations.length === 0 || promises.length === 0) {
+    let pilotData: any = null;
+    if (fs.existsSync(pilotJsonPath)) {
+      try {
+        pilotData = JSON.parse(fs.readFileSync(pilotJsonPath, 'utf-8'));
+      } catch (e) {
+        console.error('Failed reading pilot JSON:', e);
+      }
+    }
+
+    const fullName = politician ? `${politician.first_name} ${politician.last_name}`.toLowerCase() : id.toLowerCase();
+    if (pilotData && pilotData.politicians) {
+      const matchedPilot = pilotData.politicians.find((p: any) => {
+        const pName = p.name.toLowerCase();
+        return fullName.includes(pName) || pName.includes(fullName) ||
+               (id === 'pol-1' && pName.includes('modi')) ||
+               (id === 'pol-2' && pName.includes('rahul')) ||
+               (id === 'pol-3' && pName.includes('shah')) ||
+               (id === 'pol-4' && pName.includes('gadkari')) ||
+               (id === 'pol-5' && pName.includes('sitharaman'));
+      });
+
+      if (matchedPilot) {
+        if (careerTimeline.length === 0) careerTimeline = matchedPilot.career_timeline || [];
+        if (caseAllegations.length === 0) caseAllegations = matchedPilot.case_allegations || [];
+        if (promises.length === 0) promises = matchedPilot.promises || [];
+
+        if (!politician) {
+          const names = matchedPilot.name.split(' ');
+          politician = {
+            id,
+            first_name: names[0],
+            last_name: names.slice(1).join(' '),
+            bio: `${matchedPilot.name} - ${matchedPilot.party} representative (${matchedPilot.house}, ${matchedPilot.constituency || matchedPilot.state}).`,
+            is_mock: false
+          };
+        }
+      }
+    }
+  }
+
   if (!politician) {
     if (id === 'pol-1' || id.includes('modi')) {
       politician = { id: 'pol-1', first_name: 'Narendra', last_name: 'Modi', bio: 'Prime Minister of India & MP from Varanasi constituency, Uttar Pradesh (Lok Sabha).', is_mock: true };
@@ -194,6 +296,10 @@ export async function getPoliticianDetails(id: string) {
     ],
     statements: statementsRes.data || [],
     affidavit,
-    legislativeStats
+    legislativeStats,
+    careerTimeline,
+    caseAllegations,
+    promises
   };
 }
+

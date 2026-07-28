@@ -3,12 +3,15 @@ import { notFound } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { AffidavitCard } from "@/components/politicians/AffidavitCard";
 import { LegislativeStatsCard } from "@/components/politicians/LegislativeStatsCard";
+import { CareerTimelineCard } from "@/components/politicians/CareerTimelineCard";
+import { CaseAllegationsCard } from "@/components/politicians/CaseAllegationsCard";
+import { PublicPromisesCard } from "@/components/politicians/PublicPromisesCard";
 import StartDiscussionButton from "@/components/forums/StartDiscussionButton";
 import Link from "next/link";
 
 export default async function PoliticianProfilePage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
-  const { politician, roles, statements, affidavit, legislativeStats } = await getPoliticianDetails(params.id);
+  const { politician, roles, statements, affidavit, legislativeStats, careerTimeline, caseAllegations, promises } = await getPoliticianDetails(params.id);
 
   if (!politician) {
     return notFound();
@@ -37,6 +40,19 @@ export default async function PoliticianProfilePage(props: { params: Promise<{ i
 
       {/* Legislative Track Record Card */}
       {legislativeStats && <LegislativeStatsCard stats={legislativeStats} />}
+
+      {/* Pilot Data Components: Career Timeline, Legal Record, & Promises */}
+      {careerTimeline && careerTimeline.length > 0 && (
+        <CareerTimelineCard timeline={careerTimeline} />
+      )}
+
+      {caseAllegations && caseAllegations.length > 0 && (
+        <CaseAllegationsCard allegations={caseAllegations} />
+      )}
+
+      {promises && promises.length > 0 && (
+        <PublicPromisesCard promises={promises} />
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
         <div className="lg:col-span-2">
