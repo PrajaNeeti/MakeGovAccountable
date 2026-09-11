@@ -1,0 +1,21 @@
+{
+  "seats": [
+    {"id":"OBS_local_IN","jurisdiction":"IN","currency":"INR","mobility":0.2,
+     "capital_base":"small",
+     "instruments":["equity_local","gold","real_estate","fd","usd_cash"]},
+    {"id":"OBS_offshore_IN","jurisdiction":"IN","currency":"INR","mobility":0.5,
+     "capital_base":"small_medium",
+     "instruments":["equity_local","equity_global","gold","usd_cash","offshore_fund"]},
+    {"id":"OBS_hardcurrency_EM","jurisdiction":null,"currency":"USD","mobility":0.6,
+     "capital_base":"medium",
+     "instruments":["equity_global","commodities","gold","usd_cash","local_bonds"]},
+    {"id":"OBS_mobile_global","jurisdiction":null,"currency":"USD","mobility":1.0,
+     "capital_base":"medium",
+     "instruments":["equity_global","commodities","vol","credit","gold","fx"]},
+    {"id":"OBS_institutional","jurisdiction":null,"currency":"USD","mobility":0.8,
+     "capital_base":"large",
+     "instruments":["equity_global","credit","rates","fx","private_credit","vol"]}
+  ],
+  "rebalance":"annual",
+  "report":["real_return","max_drawdown","leverage_index","liquidity_at_exit"]
+}

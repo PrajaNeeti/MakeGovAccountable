@@ -1,0 +1,1774 @@
+{
+  "meta": {
+    "system": "world economy 2026-2046",
+    "t0": 2026,
+    "rounds": 20,
+    "numeraire": "2026_USD"
+  },
+  "actors": [
+    {
+      "id": "ST_US",
+      "tier": "T1",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.5,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-ST_US-bootstrap"
+      ]
+    },
+    {
+      "id": "ST_CN",
+      "tier": "T1",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.1,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-ST_CN-bootstrap"
+      ]
+    },
+    {
+      "id": "ST_EU",
+      "tier": "T1",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.25,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-ST_EU-bootstrap"
+      ]
+    },
+    {
+      "id": "ST_IN",
+      "tier": "T1",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.2,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-ST_IN-bootstrap"
+      ]
+    },
+    {
+      "id": "ST_JP_KR",
+      "tier": "T1",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.25,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-ST_JP_KR-bootstrap"
+      ]
+    },
+    {
+      "id": "ST_TW",
+      "tier": "T1",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.25,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-ST_TW-bootstrap"
+      ]
+    },
+    {
+      "id": "ST_RU",
+      "tier": "T1",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.125,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-ST_RU-bootstrap"
+      ]
+    },
+    {
+      "id": "ST_GULF",
+      "tier": "T1",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.067,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-ST_GULF-bootstrap"
+      ]
+    },
+    {
+      "id": "ST_ENTREPOT",
+      "tier": "T1",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.2,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-ST_ENTREPOT-bootstrap"
+      ]
+    },
+    {
+      "id": "ST_SWING",
+      "tier": "T1",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.25,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-ST_SWING-bootstrap"
+      ]
+    },
+    {
+      "id": "ST_FRAGILE",
+      "tier": "T1",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.5,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-ST_FRAGILE-bootstrap"
+      ]
+    },
+    {
+      "id": "CB_US",
+      "tier": "T2",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.25,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-CB_US-bootstrap"
+      ]
+    },
+    {
+      "id": "CB_EU",
+      "tier": "T2",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.125,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-CB_EU-bootstrap"
+      ]
+    },
+    {
+      "id": "CB_CN",
+      "tier": "T2",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.1,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-CB_CN-bootstrap"
+      ]
+    },
+    {
+      "id": "CB_JP",
+      "tier": "T2",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.2,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-CB_JP-bootstrap"
+      ]
+    },
+    {
+      "id": "CB_IN",
+      "tier": "T2",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.333,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-CB_IN-bootstrap"
+      ]
+    },
+    {
+      "id": "CB_EM",
+      "tier": "T2",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.333,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-CB_EM-bootstrap"
+      ]
+    },
+    {
+      "id": "SWF",
+      "tier": "T2",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.05,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-SWF-bootstrap"
+      ]
+    },
+    {
+      "id": "IFI",
+      "tier": "T2",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.1,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-IFI-bootstrap"
+      ]
+    },
+    {
+      "id": "AM_INDEX",
+      "tier": "T3",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.5,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-AM_INDEX-bootstrap"
+      ]
+    },
+    {
+      "id": "AM_ACTIVE",
+      "tier": "T3",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.333,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-AM_ACTIVE-bootstrap"
+      ]
+    },
+    {
+      "id": "BANK_GSIB",
+      "tier": "T3",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.5,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-BANK_GSIB-bootstrap"
+      ]
+    },
+    {
+      "id": "NBFI_CREDIT",
+      "tier": "T3",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.2,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-NBFI_CREDIT-bootstrap"
+      ]
+    },
+    {
+      "id": "HF_MACRO",
+      "tier": "T3",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.5,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-HF_MACRO-bootstrap"
+      ]
+    },
+    {
+      "id": "EXCH_CLEAR",
+      "tier": "T3",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.2,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-EXCH_CLEAR-bootstrap"
+      ]
+    },
+    {
+      "id": "INS_RE",
+      "tier": "T3",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.333,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-INS_RE-bootstrap"
+      ]
+    },
+    {
+      "id": "CORP_SEMI",
+      "tier": "T3",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.143,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-CORP_SEMI-bootstrap"
+      ]
+    },
+    {
+      "id": "CORP_ENERGY",
+      "tier": "T3",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.067,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-CORP_ENERGY-bootstrap"
+      ]
+    },
+    {
+      "id": "CORP_TECH",
+      "tier": "T3",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.2,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-CORP_TECH-bootstrap"
+      ]
+    },
+    {
+      "id": "CORP_COMMOD",
+      "tier": "T3",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.5,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-CORP_COMMOD-bootstrap"
+      ]
+    },
+    {
+      "id": "CORP_DEFENSE",
+      "tier": "T3",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.1,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-CORP_DEFENSE-bootstrap"
+      ]
+    },
+    {
+      "id": "HH_DM_ASSET",
+      "tier": "T4",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.067,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-HH_DM_ASSET-bootstrap"
+      ]
+    },
+    {
+      "id": "HH_DM_LABOR",
+      "tier": "T4",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.5,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-HH_DM_LABOR-bootstrap"
+      ]
+    },
+    {
+      "id": "HH_CN",
+      "tier": "T4",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.1,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-HH_CN-bootstrap"
+      ]
+    },
+    {
+      "id": "HH_IN",
+      "tier": "T4",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.1,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-HH_IN-bootstrap"
+      ]
+    },
+    {
+      "id": "HH_EM_URBAN",
+      "tier": "T4",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.5,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-HH_EM_URBAN-bootstrap"
+      ]
+    },
+    {
+      "id": "HH_EM_SUBSIST",
+      "tier": "T4",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.5,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-HH_EM_SUBSIST-bootstrap"
+      ]
+    },
+    {
+      "id": "LABOR_ORG",
+      "tier": "T4",
+      "lambda": 6.4,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.05
+      },
+      "discount": 0.333,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [],
+      "private_type": {},
+      "assumption_ids": [
+        "STUB-LABOR_ORG-bootstrap"
+      ]
+    }
+  ],
+  "theatres": [
+    {
+      "id": "reserve_currency_order",
+      "tier": "T0",
+      "members": [
+        "ST_US",
+        "ST_CN",
+        "CB_US",
+        "CB_CN",
+        "SWF"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    },
+    {
+      "id": "taiwan_semiconductor",
+      "tier": "T0",
+      "members": [
+        "ST_US",
+        "ST_CN",
+        "ST_TW",
+        "ST_JP_KR",
+        "CORP_SEMI"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    },
+    {
+      "id": "energy_routes",
+      "tier": "T1",
+      "members": [
+        "ST_GULF",
+        "ST_RU",
+        "ST_CN",
+        "INS_RE",
+        "CORP_COMMOD"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    },
+    {
+      "id": "trade_bloc_alignment",
+      "tier": "T1",
+      "members": [
+        "ST_US",
+        "ST_CN",
+        "ST_IN",
+        "ST_SWING",
+        "ST_EU"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    },
+    {
+      "id": "entrepot_and_frontier",
+      "tier": "T1",
+      "members": [
+        "ST_ENTREPOT",
+        "ST_FRAGILE"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    },
+    {
+      "id": "global_dollar_funding",
+      "tier": "T2",
+      "members": [
+        "CB_US",
+        "CB_EM",
+        "BANK_GSIB",
+        "ST_FRAGILE"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    },
+    {
+      "id": "sovereign_debt_workout",
+      "tier": "T2",
+      "members": [
+        "IFI",
+        "ST_CN",
+        "ST_FRAGILE",
+        "AM_ACTIVE"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    },
+    {
+      "id": "monetary_policy_core",
+      "tier": "T2",
+      "members": [
+        "CB_US",
+        "CB_EU",
+        "CB_JP",
+        "CB_IN"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    },
+    {
+      "id": "capital_allocation",
+      "tier": "T3",
+      "members": [
+        "AM_INDEX",
+        "AM_ACTIVE",
+        "HF_MACRO",
+        "SWF"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    },
+    {
+      "id": "credit_and_plumbing",
+      "tier": "T3",
+      "members": [
+        "BANK_GSIB",
+        "NBFI_CREDIT",
+        "EXCH_CLEAR",
+        "HF_MACRO"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    },
+    {
+      "id": "compute_and_capex",
+      "tier": "T3",
+      "members": [
+        "CORP_TECH",
+        "CORP_SEMI",
+        "AM_INDEX",
+        "CB_US"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    },
+    {
+      "id": "physical_flows",
+      "tier": "T3",
+      "members": [
+        "CORP_COMMOD",
+        "CORP_ENERGY",
+        "INS_RE",
+        "CORP_DEFENSE"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    },
+    {
+      "id": "consent_dm",
+      "tier": "T4",
+      "members": [
+        "HH_DM_LABOR",
+        "HH_DM_ASSET",
+        "LABOR_ORG"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    },
+    {
+      "id": "consent_em",
+      "tier": "T4",
+      "members": [
+        "HH_EM_SUBSIST",
+        "HH_EM_URBAN"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    },
+    {
+      "id": "household_savings",
+      "tier": "T4",
+      "members": [
+        "HH_CN",
+        "HH_IN"
+      ],
+      "interaction_matrix": "payoff_fn:generic_competition"
+    }
+  ],
+  "shocks": [
+    {
+      "id": "energy_supply_disruption",
+      "annual_prob": 0.08,
+      "prob_modifier": {
+        "if": "conflict_index>0.5",
+        "multiply": 3.0
+      },
+      "effects": {
+        "ST_JP_KR": {
+          "resources": -0.1,
+          "liquidity": -0.05
+        },
+        "ST_EU": {
+          "resources": -0.08,
+          "liquidity": -0.04
+        },
+        "ST_GULF": {
+          "resources": 0.15,
+          "liquidity": 0.05
+        },
+        "ST_RU": {
+          "resources": 0.1,
+          "liquidity": 0.03
+        }
+      },
+      "duration_rounds": 2
+    },
+    {
+      "id": "taiwan_strait_flashpoint",
+      "annual_prob": 0.03,
+      "prob_modifier": {
+        "if": "conflict_index>0.4",
+        "multiply": 4.0
+      },
+      "effects": {
+        "ST_TW": {
+          "security": -0.3,
+          "liquidity": -0.15
+        },
+        "CORP_SEMI": {
+          "resources": -0.2,
+          "liquidity": -0.1
+        },
+        "ST_CN": {
+          "legitimacy": -0.05,
+          "security": -0.05
+        },
+        "ST_US": {
+          "security": -0.05,
+          "liquidity": -0.05
+        }
+      },
+      "duration_rounds": 3
+    },
+    {
+      "id": "financial_accident",
+      "annual_prob": 0.06,
+      "prob_modifier": {
+        "if": "conflict_index>0.45",
+        "multiply": 2.5
+      },
+      "effects": {
+        "NBFI_CREDIT": {
+          "liquidity": -0.2,
+          "resources": -0.1
+        },
+        "BANK_GSIB": {
+          "liquidity": -0.1
+        },
+        "HF_MACRO": {
+          "resources": 0.08
+        }
+      },
+      "duration_rounds": 1
+    },
+    {
+      "id": "harvest_failure",
+      "annual_prob": 0.07,
+      "prob_modifier": {
+        "if": "conflict_index>0.5",
+        "multiply": 2.0
+      },
+      "effects": {
+        "ST_FRAGILE": {
+          "liquidity": -0.12,
+          "legitimacy": -0.08
+        },
+        "HH_EM_SUBSIST": {
+          "security": -0.1,
+          "liquidity": -0.1
+        },
+        "ST_SWING": {
+          "resources": 0.05
+        }
+      },
+      "duration_rounds": 1
+    },
+    {
+      "id": "sovereign_debt_crisis",
+      "annual_prob": 0.05,
+      "prob_modifier": {
+        "if": "conflict_index>0.55",
+        "multiply": 3.0
+      },
+      "effects": {
+        "ST_FRAGILE": {
+          "liquidity": -0.2,
+          "legitimacy": -0.1
+        },
+        "IFI": {
+          "resources": -0.05
+        },
+        "AM_ACTIVE": {
+          "resources": -0.05
+        }
+      },
+      "duration_rounds": 2
+    },
+    {
+      "id": "cyber_or_infra_incident",
+      "annual_prob": 0.05,
+      "prob_modifier": {
+        "if": "conflict_index>0.5",
+        "multiply": 2.0
+      },
+      "effects": {
+        "EXCH_CLEAR": {
+          "liquidity": -0.1,
+          "security": -0.05
+        },
+        "BANK_GSIB": {
+          "liquidity": -0.05
+        }
+      },
+      "duration_rounds": 1
+    },
+    {
+      "id": "succession_or_leadership_shock",
+      "annual_prob": 0.04,
+      "effects": {
+        "ST_GULF": {
+          "legitimacy": -0.05,
+          "autonomy": -0.03
+        },
+        "ST_RU": {
+          "legitimacy": -0.05,
+          "security": -0.05
+        }
+      },
+      "duration_rounds": 2
+    },
+    {
+      "id": "cascading_systemic_crisis",
+      "annual_prob": 0.02,
+      "prob_modifier": {
+        "if": "conflict_index>0.6",
+        "multiply": 5.0
+      },
+      "effects": {
+        "BANK_GSIB": {
+          "liquidity": -0.15
+        },
+        "HF_MACRO": {
+          "liquidity": -0.1
+        },
+        "ST_FRAGILE": {
+          "liquidity": -0.15,
+          "legitimacy": -0.1
+        },
+        "HH_EM_SUBSIST": {
+          "security": -0.1
+        }
+      },
+      "duration_rounds": 2
+    }
+  ],
+  "observer": {
+    "seats": [
+      {
+        "id": "OBS_local_IN",
+        "jurisdiction": "IN",
+        "currency": "INR",
+        "mobility": 0.2,
+        "capital_base": "small",
+        "instruments": [
+          "equity_local",
+          "gold",
+          "real_estate",
+          "fd",
+          "usd_cash"
+        ]
+      },
+      {
+        "id": "OBS_offshore_IN",
+        "jurisdiction": "IN",
+        "currency": "INR",
+        "mobility": 0.5,
+        "capital_base": "small_medium",
+        "instruments": [
+          "equity_local",
+          "equity_global",
+          "gold",
+          "usd_cash",
+          "offshore_fund"
+        ]
+      },
+      {
+        "id": "OBS_hardcurrency_EM",
+        "jurisdiction": null,
+        "currency": "USD",
+        "mobility": 0.6,
+        "capital_base": "medium",
+        "instruments": [
+          "equity_global",
+          "commodities",
+          "gold",
+          "usd_cash",
+          "local_bonds"
+        ]
+      },
+      {
+        "id": "OBS_mobile_global",
+        "jurisdiction": null,
+        "currency": "USD",
+        "mobility": 1.0,
+        "capital_base": "medium",
+        "instruments": [
+          "equity_global",
+          "commodities",
+          "vol",
+          "credit",
+          "gold",
+          "fx"
+        ]
+      },
+      {
+        "id": "OBS_institutional",
+        "jurisdiction": null,
+        "currency": "USD",
+        "mobility": 0.8,
+        "capital_base": "large",
+        "instruments": [
+          "equity_global",
+          "credit",
+          "rates",
+          "fx",
+          "private_credit",
+          "vol"
+        ]
+      }
+    ],
+    "rebalance": "annual",
+    "report": [
+      "real_return",
+      "max_drawdown",
+      "leverage_index",
+      "liquidity_at_exit"
+    ]
+  },
+  "transition": {
+    "feedback_lags": {
+      "T4_to_T1": 3,
+      "T3_to_T2": 1,
+      "T1_to_T0": 2
+    },
+    "lambda_stress_coupling": 0.5,
+    "ledger_tolerance": 1000000000.0,
+    "conflict_model": "costly_lottery_v2"
+  }
+}

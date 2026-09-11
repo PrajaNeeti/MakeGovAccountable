@@ -1,0 +1,57 @@
+[
+  {"id":"energy_supply_disruption","annual_prob":0.08,
+   "prob_modifier":{"if":"conflict_index>0.5","multiply":3.0},
+   "effects":{"ST_JP_KR":{"resources":-0.10,"liquidity":-0.05},
+              "ST_EU":{"resources":-0.08,"liquidity":-0.04},
+              "ST_GULF":{"resources":0.15,"liquidity":0.05},
+              "ST_RU":{"resources":0.10,"liquidity":0.03}},
+   "duration_rounds":2},
+
+  {"id":"taiwan_strait_flashpoint","annual_prob":0.03,
+   "prob_modifier":{"if":"conflict_index>0.4","multiply":4.0},
+   "effects":{"ST_TW":{"security":-0.30,"liquidity":-0.15},
+              "CORP_SEMI":{"resources":-0.20,"liquidity":-0.10},
+              "ST_CN":{"legitimacy":-0.05,"security":-0.05},
+              "ST_US":{"security":-0.05,"liquidity":-0.05}},
+   "duration_rounds":3},
+
+  {"id":"financial_accident","annual_prob":0.06,
+   "prob_modifier":{"if":"conflict_index>0.45","multiply":2.5},
+   "effects":{"NBFI_CREDIT":{"liquidity":-0.20,"resources":-0.10},
+              "BANK_GSIB":{"liquidity":-0.10},
+              "HF_MACRO":{"resources":0.08}},
+   "duration_rounds":1},
+
+  {"id":"harvest_failure","annual_prob":0.07,
+   "prob_modifier":{"if":"conflict_index>0.5","multiply":2.0},
+   "effects":{"ST_FRAGILE":{"liquidity":-0.12,"legitimacy":-0.08},
+              "HH_EM_SUBSIST":{"security":-0.10,"liquidity":-0.10},
+              "ST_SWING":{"resources":0.05}},
+   "duration_rounds":1},
+
+  {"id":"sovereign_debt_crisis","annual_prob":0.05,
+   "prob_modifier":{"if":"conflict_index>0.55","multiply":3.0},
+   "effects":{"ST_FRAGILE":{"liquidity":-0.20,"legitimacy":-0.10},
+              "IFI":{"resources":-0.05},
+              "AM_ACTIVE":{"resources":-0.05}},
+   "duration_rounds":2},
+
+  {"id":"cyber_or_infra_incident","annual_prob":0.05,
+   "prob_modifier":{"if":"conflict_index>0.5","multiply":2.0},
+   "effects":{"EXCH_CLEAR":{"liquidity":-0.10,"security":-0.05},
+              "BANK_GSIB":{"liquidity":-0.05}},
+   "duration_rounds":1},
+
+  {"id":"succession_or_leadership_shock","annual_prob":0.04,
+   "effects":{"ST_GULF":{"legitimacy":-0.05,"autonomy":-0.03},
+              "ST_RU":{"legitimacy":-0.05,"security":-0.05}},
+   "duration_rounds":2},
+
+  {"id":"cascading_systemic_crisis","annual_prob":0.02,
+   "prob_modifier":{"if":"conflict_index>0.6","multiply":5.0},
+   "effects":{"BANK_GSIB":{"liquidity":-0.15},
+              "HF_MACRO":{"liquidity":-0.10},
+              "ST_FRAGILE":{"liquidity":-0.15,"legitimacy":-0.10},
+              "HH_EM_SUBSIST":{"security":-0.10}},
+   "duration_rounds":2}
+]

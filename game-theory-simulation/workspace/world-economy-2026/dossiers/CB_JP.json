@@ -1,0 +1,54 @@
+{
+  "id": "CB_JP",
+  "as_of": "2026-09-12",
+  "confidence": "low",
+  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
+  "utility_weights": {
+    "survival": 0.3,
+    "resources": 0.3,
+    "autonomy": 0.2,
+    "legitimacy": 0.15,
+    "relative_rank": 0.05
+  },
+  "discount_rate": 0.2,
+  "survival_threshold": 0.25,
+  "state": {
+    "resources": 0.5,
+    "security": 0.5,
+    "legitimacy": 0.5,
+    "autonomy": 0.5,
+    "rank": 0.5,
+    "liquidity": 0.5
+  },
+  "capabilities": [
+    {
+      "action": "hold",
+      "cost": 0.1,
+      "reversible": true
+    },
+    {
+      "action": "settle",
+      "cost": 0.1,
+      "reversible": true
+    },
+    {
+      "action": "escalate",
+      "cost": 0.1,
+      "reversible": true
+    }
+  ],
+  "constraints": [],
+  "credibility": {
+    "overall": 0.6
+  },
+  "deception_prior": 0.2,
+  "monitoring": 0.5,
+  "private_type": {},
+  "stated_vs_revealed": [],
+  "dependencies": [],
+  "tripwires": [],
+  "assumption_ids": [
+    "STUB-CB_JP-bootstrap"
+  ],
+  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+}

@@ -146,6 +146,9 @@ strategic outcomes should not depend on it.
   folk theorem, commitment, signalling
 - `references/deception-and-resource-flow.md` — belief update, ledger
   reconciliation, credibility dynamics
+- `references/kautilya-mandala.md` — Arthashastra structure: shadgunya as the
+  canonical action basis, chaturupaya escalation ladder, exposure-based mandala
+  for theatre formation, the OBS seat as vijigishu
 - `scripts/engine.py` — solver, Monte Carlo, transitions, ledger checks
 - `scripts/build_spec.py` — merges `actors.json` + dossiers into `spec.json`
 
