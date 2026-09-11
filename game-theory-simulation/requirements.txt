@@ -1,0 +1,3 @@
+numpy>=1.24
+# optional, for faster equilibrium solving:
+# scipy>=1.11
