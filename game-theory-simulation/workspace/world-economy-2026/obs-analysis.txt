@@ -1,0 +1,33 @@
+
+300 runs, 5 OBS seats
+
+--- OBS_hardcurrency_EM
+    terminal value: mean=1.213 median=1.213 p10=1.097 p90=1.326
+    positive terminal value: 99.7% of runs
+    max drawdown: mean=0.030 p90=0.062
+    peak coincided with a liquidity-crisis shock (2-round window): 66.7% of runs
+
+--- OBS_institutional
+    terminal value: mean=2.004 median=1.845 p10=1.143 p90=3.028
+    positive terminal value: 96.0% of runs
+    max drawdown: mean=0.060 p90=0.111
+    peak coincided with a liquidity-crisis shock (2-round window): 59.7% of runs
+
+--- OBS_local_IN
+    terminal value: mean=1.186 median=1.187 p10=1.152 p90=1.220
+    positive terminal value: 100.0% of runs
+    max drawdown: mean=0.001 p90=0.004
+    peak coincided with a liquidity-crisis shock (2-round window): 69.7% of runs
+
+--- OBS_mobile_global
+    terminal value: mean=2.595 median=2.417 p10=1.536 p90=3.961
+    positive terminal value: 100.0% of runs
+    max drawdown: mean=0.011 p90=0.028
+    peak coincided with a liquidity-crisis shock (2-round window): 66.3% of runs
+
+--- OBS_offshore_IN
+    terminal value: mean=1.195 median=1.194 p10=1.046 p90=1.335
+    positive terminal value: 96.0% of runs
+    max drawdown: mean=0.050 p90=0.109
+    peak coincided with a liquidity-crisis shock (2-round window): 64.0% of runs
+

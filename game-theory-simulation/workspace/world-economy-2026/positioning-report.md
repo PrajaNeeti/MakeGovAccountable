@@ -109,40 +109,87 @@ not evidence of a tradeable mandate constraint. There is no forced-flow
 edge to report here until `observer.json`'s seats or a real index-
 methodology constraint are actually wired into the solver.
 
-## OBS positioning — what this section can and can't tell you
+## OBS positioning — now actually computed
 
-**Read this section as analyst interpretation of actor-level outcomes,
-not as a computed trade.** `engine.py` does not simulate `observer.json`'s
-five seats at all — no return series, no drawdown, no entry/exit timing
-is computed by the model for any OBS seat. The previous version of this
-report presented seat-by-seat position sizes and entry triggers in
-simulation-flavored language without that disclaimer, which the audit
-correctly flagged as the section most likely to be mistaken for computed
-output by someone who might act on it. It wasn't computed. What follows
-is much narrower, built only on the one relationship actually verified
-above.
+**This closes Fatal finding F2.** `engine.py` now runs `observer.json`'s
+five seats through a real instrument-return registry (13 instruments —
+equity, gold, offshore fund, real estate, FD, USD cash, commodities,
+local bonds, vol, credit, rates, FX, private credit) built from the same
+per-round state deltas that drive everything else in this model, and
+tracks a compounded value, running peak, and drawdown series for each
+seat across all 300 runs. Every number below is `--analyse-obs` output
+against the corrected sweep, not narration.
 
-Given the real, robust energy-producer-vs-importer relationship:
+Two structural bugs were caught before trusting the mechanism, both via
+the same discipline used throughout this project — check the computed
+numbers for plausibility before believing the formula, don't just check
+for crashes. A first pilot showed `OBS_mobile_global` with the highest
+mean return of all five seats and essentially **zero** drawdown
+(mean=0.000) — a statistically implausible free lunch. Root causes: (1)
+gold and USD cash's conflict-sensitivity term was floored at
+`max(0, d_conflict)`, making it structurally unable to lose money on a
+de-escalation; (2) the "vol" instrument paid off on `0.15 × number of
+shocks fired`, which is unconditionally non-negative and dominant since
+roughly a third of the 13 shocks fire in a typical round — "vol" was
+almost always profitable regardless of outcome. Both fixed to signed/
+magnitude-based terms (gold and cash now genuinely sell off on
+de-escalation; vol now pays on realized destructive magnitude,
+`abs(shock_resources_net)`, not event count, with a real carry cost).
+Re-verified at both 20-run pilot and full 300-run scale — see below, no
+seat shows zero-risk behavior anymore.
 
-- A seat with **no capital mobility** has no instrument to hold this
-  correlation directly in most relevant jurisdictions; its exposure to
-  this axis is already structural (via local currency and energy costs),
-  not a position to take.
-- A seat with **offshore access or full mobility** can hold the
-  correlation as a relative-value position (long energy-producer-linked
-  exposure, short/underweight energy-import-exposed names) sized to
-  whatever base rate a real backtest — not this model — would support.
-  This report does not compute that base rate.
-- A **hard-currency EM earner** whose income is already producer-linked
-  is already structurally on one side of this trade; the analytically
-  interesting move is recognizing that exposure, not adding to it.
-- The **institutional-information seat** would see a change in Gulf spare
-  capacity or Russian shadow-fleet volumes before it's public — a real
-  mechanism, but not something this run quantifies.
+The OBS computation is provably read-only: it consumes a post-clamp copy
+of actor state and writes only to its own seat-value/drawdown structure,
+never back into actor state. Confirmed directly — every actor-level
+correlation in this report (ST_GULF vs ST_RU/ST_EU/ST_JP_KR, the
+near-zero tech-complex correlations, the cluster/regime table above) is
+byte-identical between the pre-OBS-wiring run and this one at the same
+seed. Wiring OBS in did not, and structurally cannot, change the
+underlying game.
 
-No position sizes, entry prices, or drawdown figures are given, because
-none are computed by the model. Any such numbers in the prior version of
-this report should be disregarded.
+### Per-seat results (300 runs, terminal value normalized to 1.0 at t=0)
+
+| Seat | Mobility | Terminal value (mean / p10 / p90) | % runs positive | Max drawdown (mean / p90) | Peak near a liquidity-crisis shock |
+|---|---|---|---|---|---|
+| OBS_local_IN | 0.2 | 1.19 / 1.15 / 1.22 | 100.0% | 0.001 / 0.004 | 69.7% |
+| OBS_offshore_IN | 0.5 | 1.20 / 1.05 / 1.34 | 96.0% | 0.050 / 0.109 | 64.0% |
+| OBS_hardcurrency_EM | 0.6 | 1.21 / 1.10 / 1.33 | 99.7% | 0.030 / 0.062 | 66.7% |
+| OBS_mobile_global | 1.0 | 2.60 / 1.54 / 3.96 | 100.0% | 0.011 / 0.028 | 66.3% |
+| OBS_institutional | 0.8 | 2.00 / 1.14 / 3.03 | 96.0% | 0.060 / 0.111 | 59.7% |
+
+Read this ranking with real caution about what's driving it, not as a
+recommendation:
+
+- **OBS_local_IN's near-zero drawdown (0.001) is a basket-composition
+  artifact, not evidence the seat is genuinely low-risk.** Its five
+  instruments are entirely India-domestic (`equity_local`, `real_estate`,
+  `fd`) or dampened averages (`gold`, `usd_cash` at 1/5 weight each) —
+  the IN jurisdiction basket (`ST_IN`, `CB_IN`, `HH_IN`) simply has low
+  resources-dimension variance in this model relative to the shock-heavy
+  global instruments. A locally-constrained investor being modeled as
+  "safe" here reflects a narrow basket, not real insulation from
+  jurisdiction risk this model doesn't otherwise capture (currency
+  controls, capital-flow reversals — see `audit-final.md` on T4/household
+  kernel richness).
+- **OBS_mobile_global and OBS_institutional show the highest returns
+  (2.60x, 2.00x mean) driven mechanically by their exposure to `vol`,
+  `credit`, `fx`, and `private_credit`** — instruments with wider swings
+  because they key off `shock_resources_net` magnitude and cross-basket
+  liquidity deltas directly, not because full mobility is "better" in any
+  general sense this run can support.
+- **59.7%–69.7% of seats' peak values land within two rounds of a
+  liquidity-crisis shock** (`cascading_systemic_crisis`, `financial_accident`,
+  `sovereign_debt_crisis`) firing — consistent with these seats holding
+  instruments (gold, USD cash, vol) that are specifically constructed to
+  respond to conflict/liquidity swings, not an independent finding about
+  real-world crisis timing.
+- This is one seeded 300-run sweep of a model with the limitations
+  `audit-final.md` documents in full (equal-weight rebalancing only, no
+  optimization step; only 3 of 95 sourced constraints operationalized;
+  T4/household kernels the least mechanically rich part of the model).
+  Treat the ranking as "these are the mechanical consequences of this
+  model's instrument definitions," not as investment advice or a
+  validated real-world edge.
 
 ## Where a real edge might come from
 
