@@ -234,6 +234,42 @@ consequential shock in the dataset.
   indicator, consistent with `actors.json`'s own "track order books, not white
   papers" instruction — not modeled at the operational level anywhere.
 
+## Post-fix verification (2026-09, added after remediation)
+
+All four Material findings (M1–M4) were fixed and the sweep re-run
+(300×10, seed 42). Verified directly against the new `runs.jsonl`, at
+full sample, not just the pilot used during remediation:
+
+- **M2 (security decay)**: now decelerating, not runaway — round-over-
+  round delta shrinks from −0.0187 (r0→r1) to −0.0072 (r8→r9), confirming
+  mean-reversion. Not fully flat: `taiwan_strait_flashpoint` still fires
+  at 3.87× its nominal rate (`cascading_systemic_crisis` at 1.45×) —
+  improved from the original finding but conflict-linked shocks still run
+  meaningfully above nominal throughout a run. Flagging as improved, not
+  resolved.
+- **M3 (HH_DM_LABOR floor)**: down from 38.5% to 16.9% of round-
+  observations. Improved, not eliminated — still worth a further look if
+  this actor becomes decision-relevant in a future pass.
+- **M1 (ST_US threshold)**: now engages at 4.4% of round-observations
+  (was 0%) — non-degenerate.
+- **M4 (taiwan_strait_flashpoint)**: ST_JP_KR, CORP_DEFENSE, INS_RE
+  effects added; net destruction widened from −0.20 to −0.27.
+
+Both Fatal findings against `positioning-report.md` (F1, F3) are addressed
+in a rewritten v2 of that report, which retracts the AM_INDEX claim
+entirely and replaces "one axis" with the actual computed correlation/PCA
+structure (energy-producer-vs-importer relationship real and robust;
+no dominant single axis; tech-complex actors near-independent of it and of
+each other). F2 (OBS section unmodeled) is addressed with an explicit
+disclaimer and a much narrower set of claims, none presented as computed
+model output.
+
+This verification was done directly by the same session that made the
+fixes, not by a separate independent pass — the numbers above are
+re-derivable from `runs.jsonl` by anyone who wants to check them, but note
+that (unlike the audit above) this addendum was not produced by a party
+with an incentive to find remaining problems.
+
 ## Calibration
 
 Very little of this specific run should be bet on. The two claims a reader would

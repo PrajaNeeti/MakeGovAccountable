@@ -1,213 +1,191 @@
-# Positioning report — world-economy-2026, final sourced run
+# Positioning report — world-economy-2026, final sourced run (v2)
+
+> **This replaces the version an independent adversarial audit
+> (`audit-final.md`) found two Fatal problems in.** That audit is worth
+> reading in full: it falsified this report's own headline claim ("one
+> axis") using the report's own named test, and found the OBS-seat section
+> was narrated, not computed. Both are corrected below by actually running
+> the tests before writing the claim, not after. The underlying run also
+> changed: four engine bugs the audit found (security decay, a floored
+> household actor, an unreachable constraint threshold, an incomplete
+> shock) are fixed and this report is against the corrected sweep.
 
 300 runs, 10-year horizon (2026–2036), 40 actors, 15 researched theatres,
-real ledger conservation verified (0/3000 round-observations flagged, drift
-0.0). This is the Orchestrator-level interpretation of `runs.jsonl` /
-`analysis.txt`. Read `audit.md` alongside this — several caveats there
-(household kernels still simplified, the "escalate" action a compressed
-proxy for a much richer real action space) bound how much weight any single
-number here should carry.
+ledger conservation independently re-verified exact (0/3000 flagged,
+drift 0.0) after the fixes. Read `audit.md` and `audit-final.md` alongside
+this for everything that still bounds how much weight any number here
+should carry — several material limitations remain and are not repeated
+in full below.
 
 ## The distribution
 
-Seven regimes, not three hundred stories:
+Seven regimes:
 
 | Regime | Share | Branch pt | Winners | Losers |
 |---|---|---|---|---|
-| **A — Late Tech Drift** (cl. 0) | 20.3% | round 9 | CORP_SEMI, ST_JP_KR, ST_EU | ST_GULF, ST_RU, ST_CN |
-| **B — Energy Shock** (cl. 1) | 15.0% | round 7 | ST_GULF, ST_RU, AM_ACTIVE | ST_JP_KR, ST_EU, CORP_TECH |
-| **C — AI Complex Ascendant** (cl. 2) | 11.7% | round 9 | CORP_SEMI, HF_MACRO, CORP_TECH | AM_ACTIVE, NBFI_CREDIT, ST_EU |
-| **D — Consumption Rebalancing** (cl. 3) | 12.0% | round 9 | HH_EM_URBAN, AM_ACTIVE, CORP_SEMI | ST_CN, ST_JP_KR, CORP_TECH |
-| **E — Late Energy Drift** (cl. 4) | 20.7% | round 9 | ST_JP_KR, ST_EU, CORP_COMMOD | CORP_SEMI, ST_GULF, ST_RU |
-| **F — Early Tech Break** (cl. 5) | 11.7% | **round 4** | ST_JP_KR, CORP_TECH, ST_EU | ST_GULF, ST_RU, HH_EM_URBAN |
-| **G — Early Energy Break** (cl. 6) | 8.7% | **round 5** | ST_GULF, ST_RU, NBFI_CREDIT | ST_JP_KR, ST_EU, AM_ACTIVE |
+| 0 | 17.0% | round 9 | CORP_SEMI, AM_ACTIVE, ST_JP_KR | CORP_TECH, CORP_DEFENSE, ST_CN |
+| 1 | 17.7% | round 9 | ST_GULF, ST_RU, AM_INDEX | CORP_COMMOD, ST_EU, ST_JP_KR |
+| 2 | 10.7% | **round 5** | CORP_SEMI, ST_JP_KR, CORP_TECH | AM_ACTIVE, NBFI_CREDIT, CORP_DEFENSE |
+| 3 | 13.3% | round 9 | HH_EM_URBAN, CORP_COMMOD, SWF | ST_CN, CORP_SEMI, ST_JP_KR |
+| 4 | 6.3% | **round 6** | ST_JP_KR, ST_EU, CORP_SEMI | ST_GULF, ST_RU, HH_EM_URBAN |
+| 5 | 18.7% | round 9 | CORP_TECH, ST_CN, CORP_DEFENSE | CORP_SEMI, AM_ACTIVE, HH_EM_URBAN |
+| 6 | 16.3% | round 7 | CORP_DEFENSE, AM_ACTIVE, CORP_COMMOD | CORP_SEMI, ST_JP_KR, CORP_TECH |
 
-**The real structure here is one axis, not seven independent stories.**
-Regimes A/C/D/F cluster on one side (tech/semiconductor complex up, energy
-producers down); B/E/G cluster on the other (energy producers up, tech
-down). E and A are close to mirror images of B and C respectively. What
-actually varies across the 300 histories is less "which of seven futures"
-and more "which side of one recurring tension wins, and how early." That's
-a more honest and more useful finding than seven distinct plots would be.
+**I am not going to claim these seven reduce to one axis.** The previous
+version of this report did exactly that, from exactly this kind of table,
+and it was wrong — the audit checked the actual correlation structure and
+it isn't there. Here is what the data actually supports, computed
+directly rather than inferred from winner/loser lists:
 
-## Branch points and leading indicators
+## What's actually real, quantified
 
-Five of seven regimes only separate by round 9 — the second-to-last round
-of a 10-year run. That is a **low-confidence signal about the model, not
-about the world**: `game-forms.md`'s own guidance says treat late-run
-separation as lower-confidence, since real systems rarely have a visible
-terminal round and end-game effects are an artifact of the horizon being
-finite. Don't read "most branches resolve in year 9" as a forecast that the
-late 2030s are when things clarify — read it as five regimes that are
-genuinely close together for most of the run and only tip apart late.
+**One genuinely strong, robust relationship exists** — energy producers
+against energy-import-exposed advanced economies, in final-round resources
+across all 300 runs:
 
-The two regimes worth real attention are the **early breaks** (F, round 4;
-G, round 5), because something in the first several years, not the last,
-decisively locks in the trajectory:
+```
+ST_GULF vs ST_RU:      r = +0.94   (same side — both producers)
+ST_GULF vs ST_EU:      r = −0.95   (strong opposite)
+ST_GULF vs ST_JP_KR:   r = −0.60   (moderate opposite)
+```
 
-- **Regime F (Early Tech Break, 11.7%)** — Publicly observable leading
-  indicator: an early, sustained run of `ai_progress_acceleration` /
-  `manufacturing_automation_wave` shocks pushing `CORP_TECH`'s rank past
-  the 0.85 threshold before round 4, without an intervening correction.
-  Watch: hyperscaler capex guidance revisions and AI-driven memory/logic
-  demand data in the first 2–3 years — if capex keeps beating guidance
-  *and* no capex-correction event has occurred by then, this is the branch.
-- **Regime G (Early Energy Break, 8.7%, smallest cluster)** — Leading
-  indicator: an early `energy_supply_disruption` or `taiwan_strait_
-  flashpoint` compounding before round 5, with Gulf spare capacity and
-  Russian shadow-fleet volumes both holding up (i.e., producers can
-  actually deliver into the price spike rather than being supply-
-  constrained themselves). Watch: Hormuz/Red Sea war-risk insurance premia
-  (already sourced as "pricing war at Hormuz, peace at Taiwan" — a live,
-  dated signal) and Russian shadow-fleet interception rates in the first
-  two to three years.
+This is the one number in this report worth taking seriously as a
+tradeable pattern. It's mechanically obvious in retrospect (the
+`energy_routes` kernel and `energy_supply_disruption` shock both move
+these actors in exactly this pattern by construction) and it held up
+under the audit's ±30% perturbation sweep, at full sample.
 
-## Winners and losers by tier
+**Everything else does not form a second pole of the same axis.** The
+tech/semiconductor complex — the actors the retracted "one axis" framing
+treated as the energy axis's mirror image — barely correlates with the
+energy axis *or with itself*:
 
-- **T1 states**: `ST_GULF` and `ST_RU` are the most volatile — their
-  standing swings by ±0.10 to ±0.25 resources depending on which side of
-  the axis a run lands on, more than any other T1 actor. `ST_JP_KR` is
-  nearly as volatile in the opposite direction. `ST_EU` moves with
-  `ST_JP_KR` in five of seven regimes — the model is picking up a real
-  shared exposure (both are energy-import-dependent, chip-and-materials-
-  exposed advanced economies) rather than a coincidence.
-- **T3 capital**: `CORP_SEMI` and `CORP_TECH` are the tech-side counter-
-  weight to `ST_GULF`/`ST_RU` in almost every regime — consistent with the
-  `ai_progress_acceleration` and `manufacturing_automation_wave` shocks
-  funding the AI/robotics complex partly out of `AM_ACTIVE`'s and
-  `HH_DM_LABOR`'s reallocated capital (see `shocks.json`'s conservation
-  notes) and partly independent of the energy axis.
-- **T4 households**: `HH_EM_URBAN` shows up as a winner in Regime D and a
-  loser in Regime F — the only household actor with a real bidirectional
-  swing in this run, worth a closer look in a future pass since T4 actors
-  are otherwise mostly passengers here (their kernels are the least
-  differentiated of the three tiers — noted in `audit.md`).
+```
+ST_GULF vs CORP_SEMI:      r = +0.11
+ST_GULF vs CORP_TECH:      r = +0.12
+CORP_SEMI vs CORP_TECH:    r = +0.12   (near-zero, even to each other)
+```
 
-## OBS positioning, by seat
+`CORP_SEMI`'s swings are driven almost entirely by the (now widened)
+`taiwan_strait_flashpoint` shock; `CORP_TECH`'s by the separate AI-
+progress/correction shocks. They move independently because they *are*
+independent mechanisms in this model, not two views of one story.
 
-The single most decision-relevant fact for every seat: **you are being
-asked to position on one axis (energy-producer-favorable vs. tech/AI-
-favorable), not seven**. Every seat's strategy below is a way of holding
-that axis, sized and instrumented differently by what each seat can
-actually access.
+**PCA on the full 40-actor final-state matrix confirms there is no
+dominant axis at all**: the first principal component explains 10.3% of
+cross-run variance, the second 9.2%, and it takes ten components to reach
+69%. This is a genuinely multi-factor system. That's a real, useful
+finding on its own — a model with 15 independently-researched theatres
+*should* produce many semi-independent sources of variance rather than
+collapsing to one story, and this run does. The honest headline is
+"one strong pattern, embedded in a lot of real independent variation,"
+not "one axis."
 
-### Local, no capital mobility (most people)
-Cannot hold either side of the axis directly with local instruments in
-most of the actors' home jurisdictions. The honest answer for this seat is
-defensive, not tactical: hold what's least exposed to *either* branch —
-domestic real assets and a currency-hedge instrument if one exists
-locally (gold, where culturally and legally accessible, tracks this
-almost exactly per the HH_IN dossier's own finding on investment-grade
-gold demand). **Entry**: immediately, as insurance, not as a trade. **What
-kills it**: nothing — this is the position that has no edge, only a floor.
-**Drawdown**: bounded by definition, but so is the upside. This seat's
-real leverage is political, not financial (see `consent_em`/`consent_dm`
-kernels) — the leading indicators above matter to this seat as *migration
-and cost-of-living* signals, not portfolio ones.
+## Branch points
 
-### Local + offshore access
-Can now actually take a side. **Position**: a modest, hedged tilt toward
-the tech/AI complex (Regimes A/C/D/F cover 55.7% of runs vs. 44.3% for the
-energy side — a real, if not overwhelming, base-rate edge) via offshore
-index exposure, sized small given `AM_INDEX`'s own dossier-documented
-mandate rigidity means index flows are forced, not informed — you are
-riding a mechanical buyer, not a smart one. **Entry**: after confirming no
-early break has already resolved the axis (check the Regime F/G leading
-indicators above first). **What kills it**: a `ai_capex_correction` or
-`robotics_capex_correction` firing after you've entered — both are real,
-sourced, and not small (−0.18 to −0.22 resources to the exact names you'd
-be long). **Drawdown**: material and correlated with the tech names
-specifically, which is the whole risk of this trade.
+Two regimes separate meaningfully earlier than the rest (round 5 and 6,
+against a round 7–9 pattern elsewhere) — regimes 2 and 4, an early tech
+break and its approximate mirror. The other five separating mostly by
+round 9 should still be read as **lower-confidence and partly a modeling
+artifact**: security now mean-reverts (fixed this pass) rather than
+decaying without limit, but conflict-linked shock rates still run above
+their nominal base rate throughout a run (`taiwan_strait_flashpoint` at
+3.9× nominal, `cascading_systemic_crisis` at 1.5×, both improved from the
+prior build but not at parity) — some of the late-round separation is
+still cumulative shock exposure compounding over a fixed ten-round window,
+not a real feature of years 8–10 specifically.
 
-### Hard-currency earner, EM-based
-Structurally long the energy-producer side already (most such seats sit in
-economies where a `ST_GULF`/`ST_RU`-favorable regime is also good for the
-local economy and currency). **Position**: don't double up — this seat's
-edge is recognizing it's *already* exposed to Regimes B/E/G, so the
-marginal trade is a small tech-side hedge, not more energy exposure.
-**Entry**: as soon as local hydrocarbon-linked income is confirmed (i.e.,
-immediately, structurally). **What kills it**: an early tech break (Regime
-F) while carrying no hedge — the scenario this seat is least prepared for
-by default. **Drawdown**: currency-correlated, which is the actual risk —
-a local-currency devaluation compounds a resources loss rather than
-offsetting it, unlike the mobile-capital seat below.
+## The AM_INDEX claim is retracted
 
-### Fully mobile capital
-The seat with the real structural edge, because it can hold the axis as a
-*relative-value* position (long one side, short or underweight the other)
-rather than a directional bet, and can reposition the instant a leading
-indicator fires. **Position**: a relative-value pair — long the AI/
-semiconductor complex, short/underweight energy-producer-linked exposure —
-sized to the base rate above, with an explicit stop tied to the two named
-leading indicators (Hormuz/Red Sea war-risk premia for the energy break;
-capex-guidance-vs-correction-shock timing for the tech break). **Entry**:
-as soon as one leading indicator moves and the other doesn't. **What
-kills it**: both breaks firing in the same window (not mutually exclusive
-in the model — check for it), or a `cascading_systemic_crisis` that hits
-`HF_MACRO`/`BANK_GSIB` liquidity broadly enough to force deleveraging
-regardless of which side of the trade is "right." **Drawdown**: this is
-the seat variance-preferring actors (`HF_MACRO`, `CORP_COMMOD`) already
-occupy in the model — the edge is real but crowded with sophisticated
-counterparties.
+The prior version of this report called constraint arbitrage against
+`AM_INDEX` "the dominant, most legitimate edge in this run." The audit
+ran the report's own proposed test: `AM_INDEX`'s dossier constraint never
+matches an actual engine action, so it never binds, and its action choices
+across all 3000 round-observations are statistically indistinguishable
+from random (33/34/32%). The only real, non-decorative thing happening to
+`AM_INDEX` is a flat +0.02/round drift hardcoded into the
+`compute_and_capex` kernel — a real structural detail, but a drift term,
+not evidence of a tradeable mandate constraint. There is no forced-flow
+edge to report here until `observer.json`'s seats or a real index-
+methodology constraint are actually wired into the solver.
 
-### Inside a T2/T3 institution (information-advantage seat)
-The only seat that can plausibly see a leading indicator before it's
-public — e.g., an index-methodology committee member seeing an inclusion/
-exclusion decision before `AM_INDEX`'s forced flow executes, or a swap-
-line allocation decision at `CB_US` before it's announced. **Position**:
-this seat's edge isn't which side of the axis to hold, it's timing entry
-into whichever seat-4 trade above *ahead* of the forced-flow or
-policy-announcement move that will move the price. **What kills it**: this
-is also the seat with the least ability to be a documented, replicable
-finding — everything here depends on a specific desk's specific access,
-which is exactly why the model can name the mechanism (constraint
-arbitrage against a rule-bound actor) but not the trade.
+## OBS positioning — what this section can and can't tell you
 
-## Where the edge actually comes from
+**Read this section as analyst interpretation of actor-level outcomes,
+not as a computed trade.** `engine.py` does not simulate `observer.json`'s
+five seats at all — no return series, no drawdown, no entry/exit timing
+is computed by the model for any OBS seat. The previous version of this
+report presented seat-by-seat position sizes and entry triggers in
+simulation-flavored language without that disclaimer, which the audit
+correctly flagged as the section most likely to be mistaken for computed
+output by someone who might act on it. It wasn't computed. What follows
+is much narrower, built only on the one relationship actually verified
+above.
 
-- **Constraint arbitrage** is the dominant, most legitimate edge in this
-  run: `AM_INDEX` is mechanically forced to buy/sell on index rules
-  regardless of price (sourced, not modeled speculation), and that forced
-  flow is a big enough share of the tech-side capital allocation in this
-  run to be tradeable by anyone who isn't bound by the same mandate.
-- **Flow foreknowledge** is the mobile-capital seat's edge specifically —
-  the two leading indicators named above are both real, public, dated data
-  series (war-risk insurance pricing; hyperscaler capex guidance), not
-  privileged information. That's a feature: the edge is reading data
-  everyone can see, before most people bother to.
-- **Variance ownership** belongs to `HF_MACRO`, `CORP_COMMOD`, and `INS_RE`
-  in this model, not to OBS — OBS is explicitly a price-taker, and trying
-  to occupy the variance-owner role directly (as opposed to riding beside
-  it) is a liability, not a strategy, per the skill's own OBS design.
-- **Horizon arbitrage** shows up weakly in this run because the household
-  and pension-fund kernels are the least differentiated of the three
-  tiers (see `audit.md`) — this is the edge source most likely to
-  strengthen once T4 kernels get the same treatment T0–T3 got here.
+Given the real, robust energy-producer-vs-importer relationship:
+
+- A seat with **no capital mobility** has no instrument to hold this
+  correlation directly in most relevant jurisdictions; its exposure to
+  this axis is already structural (via local currency and energy costs),
+  not a position to take.
+- A seat with **offshore access or full mobility** can hold the
+  correlation as a relative-value position (long energy-producer-linked
+  exposure, short/underweight energy-import-exposed names) sized to
+  whatever base rate a real backtest — not this model — would support.
+  This report does not compute that base rate.
+- A **hard-currency EM earner** whose income is already producer-linked
+  is already structurally on one side of this trade; the analytically
+  interesting move is recognizing that exposure, not adding to it.
+- The **institutional-information seat** would see a change in Gulf spare
+  capacity or Russian shadow-fleet volumes before it's public — a real
+  mechanism, but not something this run quantifies.
+
+No position sizes, entry prices, or drawdown figures are given, because
+none are computed by the model. Any such numbers in the prior version of
+this report should be disregarded.
+
+## Where a real edge might come from
+
+- **Flow foreknowledge** on the one verified relationship: Hormuz/Red Sea
+  war-risk insurance pricing and Russian shadow-fleet interception rates
+  are real, public, dated series that move ahead of the resource outcomes
+  this model produces — a legitimate, checkable leading indicator for the
+  energy-axis relationship specifically.
+- **Constraint arbitrage** is not currently demonstrated by this run for
+  any actor at meaningful scale — only 3 of 95 sourced constraints show
+  real tripwire behavior (`ST_CN`, `ST_JP_KR`, `ST_TW` — see
+  `audit-final.md` M1), and none of the three is a capital-markets mandate
+  rule an outside actor could straightforwardly arbitrage the way the
+  retracted `AM_INDEX` claim implied.
+- **Variance ownership** belongs to `HF_MACRO`/`CORP_COMMOD`/`INS_RE` in
+  this model, per the skill's own design intent — not to OBS.
+- **Horizon arbitrage** is not demonstrated here; T4/household kernels are
+  the least mechanically rich part of the model (see `audit-final.md` on
+  `HH_DM_LABOR` specifically) and this is the edge source most likely to
+  strengthen once that's addressed.
 
 ## Falsifiability
 
-- **"One axis, not seven regimes"** — falsified if a future run with
-  refined T4 kernels produces a household-driven regime with a magnitude
-  and frequency comparable to the energy/tech axis, independent of it.
-- **"Early breaks (F, G) are the decision-relevant regimes"** — falsified
-  if perturbing the two named leading indicators ±30% doesn't measurably
-  change which runs land in F/G vs. the round-9 regimes (an audit check
-  not yet run — flagged as a next step, not done here).
-- **"Constraint arbitrage against AM_INDEX is the dominant edge"** —
-  falsified if AM_INDEX's mandate-rigidity constraint (cost 0.9,
-  effectively hard per its dossier) turns out not to bind in this run the
-  way `credit_and_plumbing`/`capital_allocation`'s kernels assume — worth
-  a direct audit check on AM_INDEX's actual chosen-action distribution.
+- **"The energy-producer-vs-importer correlation is real"** — falsified if
+  a further ±30%+ perturbation of `energy_supply_disruption`'s magnitude,
+  or a corrected/rebalanced version of the shock, drives the ST_GULF/
+  ST_EU correlation toward zero. Held under the audit's own perturbation
+  to date.
+- **"There is no dominant single axis"** — falsified if a future run
+  (richer T4 kernels, more theatres wired together via genuine cross-
+  theatre spillover, which `engine.py` does not currently implement)
+  produces a PC1 explaining a large majority of variance instead of 10%.
+- **"AM_INDEX shows no tradeable constraint behavior"** — falsified the
+  moment `AM_INDEX`'s mandate constraint is actually wired to a matching
+  engine action and shown to bind in a meaningful share of rounds.
 
-## What this is not
+## What this still is not
 
-Not a forecast of the 2026–2036 world economy. It is the output of a
-model built from real, dated, sourced research, run through a solver that
-computes actual equilibria rather than narrating plausible ones, with a
-verified-exact resource ledger — but still carrying the limitations in
-`audit.md`: T4 kernels are thin, only one axis of tension has emerged
-because only two theatres (`energy_routes`, `compute_and_capex`/`taiwan_
-semiconductor`) currently drive most of the shock-linked variance, and no
-adversarial audit has yet stress-tested this specific positioning report
-the way `adversarial-auditor.md` requires before anything here should be
-treated as a conclusion.
+Not a forecast, and — per the two corrections above — no longer a report
+that oversold what the model computes. It is one real, quantified,
+audit-surviving relationship (energy producers vs. import-exposed
+advanced economies) embedded in a genuinely multi-factor system that a
+single "axis" or a single "edge" claim does not do justice to. The
+honest use of this run is: it demonstrates the pipeline can produce a
+verifiable signal and survive an adversarial pass that catches its own
+overreach — not that it has found the trade.
