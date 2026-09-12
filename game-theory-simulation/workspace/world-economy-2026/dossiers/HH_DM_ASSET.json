@@ -1,54 +1,81 @@
 {
   "id": "HH_DM_ASSET",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
+  "confidence": "medium",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
+    "survival": 0.15,
+    "resources": 0.4,
     "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "legitimacy": 0.1,
+    "relative_rank": 0.15
   },
-  "discount_rate": 0.067,
-  "survival_threshold": 0.25,
+  "discount_rate": 0.05,
+  "horizon_driver": "multi-decade portfolio/retirement horizon typical of top-decile asset holders (matches Cartographer's 15yr); this collapses toward an urgent, near-term horizon only when a specific tax or regulatory threat acquires a real legislative vehicle",
+  "survival_threshold": 0.15,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
+    "resources": 0.75,
+    "security": 0.7,
     "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "autonomy": 0.6,
+    "rank": 0.8,
+    "liquidity": 0.6
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.1, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
+  ],
+  "constraints": [
+    {"action": "support_broad_based_wealth_or_capital_gains_tax_increase", "type": "penalised", "cost": 0.5,
+     "source": "donor-class political economy: 300 billionaire families contributed ~$3bn (~1/6 of all 2024 election spending), skewed ~5:1 to the GOP; Trump alone received $450m from 150 billionaire families (75% of their $600m total)",
+     "breaks_under": "inequality salience crosses a political tipping point where both major parties run credibly on redistribution (not observed as of 2026)"},
+    {"action": "large-scale voluntary capital flight / tax-residency exit from home jurisdiction", "type": "priced", "cost": 0.4,
+     "source": "estate-planning and relocation costs are real but not prohibitive for the ultra-wealthy",
+     "breaks_under": "effective marginal tax rate on capital gains/wealth exceeds roughly 45-50% with credible enforcement"}
+  ],
+  "credibility": {
+    "overall": 0.65,
+    "by_domain": {
+      "political_spending_follow_through": 0.85,
+      "consumption_stability": 0.8,
+      "stated_bipartisan_or_stakeholder_capitalism_rhetoric": 0.3
+    }
+  },
+  "deception_prior": 0.35,
+  "monitoring": 0.75,
+  "private_type": {},
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Public and philanthropic rhetoric from wealthy individuals/institutions emphasizes bipartisan civic engagement, ESG and 'stakeholder capitalism'.",
+      "revealed": "300 billionaire families gave ~$3bn in the 2024 US federal cycle (~1/6 of ~$16bn total spent), skewed roughly 5:1 to the GOP; 100 billionaire families alone gave $2.6bn (1 in 6 dollars of all spending); Trump received $450m from 150 billionaire families vs Harris's $143m.",
+      "delta": "Stated bipartisan/civic framing diverges sharply from a heavily one-sided, redistribution-averse revealed donation pattern.",
+      "sources": [
+        "https://www.commondreams.org/news/billionaire-political-donations-2024",
+        "https://americansfortaxfairness.org/billionaires-buying-elections-theyve-come-to-collect/",
+        "https://www.forbes.com/sites/maryroeloffs/2026/03/09/the-huge-billionaire-election-influence-in-numbers-nearly-one-fifth-of-all-donations/"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "The Federal Reserve's statutory mandate is dual (maximum employment, price stability), not asset prices.",
+      "revealed": "The top 10% of US households own ~93% of household equities and the top 1% owns ~54% of public equity markets (up from 40% in 2002); wealth concentration hit a record 31.7% of all US wealth held by the top 1% in Q3 2025 (~$55tn, roughly equal to the entire bottom 90%).",
+      "delta": "The official mandate excludes asset prices, but the wealth base whose political voice is most concentrated is overwhelmingly asset-price-linked, which is the structural mechanism behind the Cartographer's claim that this actor's preference is the real constraint on the reaction function.",
+      "sources": [
+        "https://www.stlouisfed.org/open-vault/2025/june/the-state-of-us-household-wealth",
+        "https://www.cbsnews.com/news/us-wealth-gap-widest-in-three-decades-federal-reserve/",
+        "https://finance.yahoo.com/news/wealthiest-10-americans-own-93-033623827.html"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-HH_DM_ASSET-bootstrap"
+  "dependencies": [
+    {"on": "CB_US", "type": "monetary_policy_transmission_to_asset_prices", "strength": 0.7},
+    {"on": "ST_US", "type": "tax_and_regulatory_policy_exposure", "strength": 0.6},
+    {"on": "AM_INDEX", "type": "passive_flow_price_support", "strength": 0.4}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "a broad equity index drawdown exceeds ~20% and persists more than 2 quarters",
+     "then": "donation and lobbying intensity against restrictive monetary/fiscal policy spikes, and public pressure for a policy 'put' reasserts regardless of the Fed's stated mandate"},
+    {"if": "a capital-gains or wealth-tax proposal gains a realistic legislative path (e.g., a scheduled committee vote)",
+     "then": "pre-emptive realization/relocation of gains and a surge in targeted political spending against the sponsoring party, visible within one election cycle"}
+  ],
+  "what_would_change_my_mind": "A wealth-tax or high-bracket capital-gains proposal passing with sustained majority political-donation support from top-decile households, rather than the historical ~5:1 opposition pattern, would falsify the 'donor veto' framing."
 }

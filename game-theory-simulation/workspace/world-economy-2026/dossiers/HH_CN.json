@@ -1,54 +1,79 @@
 {
   "id": "HH_CN",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
+  "confidence": "medium",
   "utility_weights": {
     "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
+    "resources": 0.35,
+    "autonomy": 0.1,
     "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "relative_rank": 0.1
   },
-  "discount_rate": 0.1,
+  "discount_rate": 0.09,
+  "horizon_driver": "no formal exit option under capital controls forces a long effective horizon (aligned with ST_CN's 10-year horizon), but the proximate savings-rate behavior is a much shorter (1-2yr) precautionary response to property and employment uncertainty",
   "survival_threshold": 0.25,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
+    "resources": 0.45,
+    "security": 0.4,
     "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "autonomy": 0.15,
+    "rank": 0.4,
+    "liquidity": 0.55
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.1, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
+  ],
+  "constraints": [
+    {"action": "large-scale outbound capital transfer beyond the ~$50k/year individual quota", "type": "hard", "cost": 0.9,
+     "source": "PBoC/SAFE capital-account gates (CB_CN chokepoint)",
+     "breaks_under": "near-total loss of confidence in RMB-denominated savings; not observed even through the 2021-26 property downturn"},
+    {"action": "organised public protest over frozen pre-sale housing / developer defaults", "type": "priced", "cost": 0.4,
+     "source": "observed but suppressed 2022 mortgage-boycott episodes across multiple cities",
+     "breaks_under": "a large regional cluster of simultaneous developer defaults with no visible state backstop"}
+  ],
+  "credibility": {
+    "overall": 0.7,
+    "by_domain": {
+      "savings_behavior_persistence": 0.85,
+      "response_to_stated_govt_consumption_rebalancing_target": 0.35
+    }
+  },
+  "deception_prior": 0.1,
+  "monitoring": 0.55,
+  "private_type": {},
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "The 2025 Government Work Report made consumption stimulus the top policy priority, with trade-in subsidies, consumption vouchers, and a fiscal impulse estimated at ~1.6% of GDP.",
+      "revealed": "Household bank deposits have nearly doubled over five years and China's household consumption share of GDP remains under 40% (total consumption ~56.6% of GDP) versus a 60-80% developed-market norm, even though the stimulus produced a real but shallow retail-sales bounce (+5.0% YoY Jan-May 2025, +6.4% in May alone).",
+      "delta": "Stimulus moves the needle at the margin but does not produce the structural consumption rebalancing officially targeted; households are revealed to be saving through the stimulus rather than because of an absence of one.",
+      "sources": [
+        "https://thedocs.worldbank.org/en/doc/8ae5ce818673952a85fee1ee57c3e933-0070012025/original/CEU-June-2025-EN.pdf",
+        "https://www.bruegel.org/analysis/chinese-economy-stimulus-without-rebalancing",
+        "https://www.cnbc.com/2025/03/11/chinas-41-billion-plan-to-boost-consumption-is-just-a-start.html"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Official framing treats the property-market correction as a managed, bottoming-out adjustment.",
+      "revealed": "New home sales fell 9.2% YoY in 2025 (residential sales value down 13.0% to RMB7.33tn); Fitch forecasts a further 11-13% decline in 2026, and prices continued falling through H1 2026 as buyers held back waiting for a floor.",
+      "delta": "Households are revealed to be deliberately deferring purchases in anticipation of further declines rather than responding to 'bottoming' messaging, which itself reinforces the deflationary spiral.",
+      "sources": [
+        "https://www.mingtiandi.com/real-estate/research-policy/china-new-home-sales-to-fall-11-to-13-in-2026-fitch/",
+        "https://asiatimes.com/2026/07/chinas-housing-market-free-falls-as-buyers-wait-for-floor-prices/",
+        "https://www.gam.com/en/our-thinking/investment-opinions/china-housing-market-downturn-and-its-impact"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-HH_CN-bootstrap"
+  "dependencies": [
+    {"on": "ST_CN", "type": "social_safety_net_and_property_backstop_policy", "strength": 0.7},
+    {"on": "CB_CN", "type": "capital_account_gate_and_domestic_credit_conditions", "strength": 0.5}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "new-home price declines continue for 2+ more years without a credible developer-liability backstop",
+     "then": "the precautionary savings rate stays structurally elevated and consumption-stimulus multipliers keep shrinking regardless of voucher size"},
+    {"if": "a cluster of simultaneous large regional developer defaults leaves pre-sale buyers without homes or refunds",
+     "then": "localized mortgage-boycott-style collective action re-emerges (2022 precedent), pressuring ST_CN for an explicit, visible backstop"}
+  ],
+  "what_would_change_my_mind": "A sustained (3+ quarter) rise in the household consumption share of GDP alongside falling deposit growth would indicate the precautionary-savings equilibrium is genuinely breaking, not just being temporarily subsidized."
 }

@@ -1,54 +1,89 @@
 {
   "id": "CORP_TECH",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.20,
+    "resources": 0.30,
+    "autonomy": 0.20,
+    "legitimacy": 0.10,
+    "relative_rank": 0.20
   },
-  "discount_rate": 0.2,
-  "survival_threshold": 0.25,
+  "discount_rate": 0.15,
+  "horizon_driver": "hyperscalers report quarterly and revise capex guidance almost every quarter, but the underlying capital commitments (data centers, power contracts, multi-year chip and cloud-capacity deals) lock in 5-10 year physical horizons; frontier AI labs additionally run on a 'compute lead' clock measured in months, which is the fastest-moving horizon in the whole system",
+  "survival_threshold": 0.20,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "resources": 0.85,
+    "security": 0.60,
+    "legitimacy": 0.40,
+    "autonomy": 0.55,
+    "rank": 0.75,
+    "liquidity": 0.80
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true,
+     "note": "maintain current capex and model-release cadence"},
+    {"action": "settle", "cost": 0.10, "reversible": true,
+     "note": "accept binding external safety regulation, slow release cadence, or restore a paused safety commitment"},
+    {"action": "escalate", "cost": 0.15, "reversible": false,
+     "note": "raise capex guidance further or commit to training/deploying beyond a prior safety threshold — once compute is contracted (often via circular vendor-financing arrangements) it is very costly to unwind"}
+  ],
+  "constraints": [
+    {"action": "pause_frontier_development_pending_safeguards", "type": "performative",
+     "cost": 0.20,
+     "source": "Anthropic loosened its Responsible Scaling Policy in Feb 2026, dropping a pledge that once barred training advanced systems without guaranteed safeguards, now allowing it to proceed if it believes it lacks a significant lead over a competitor. OpenAI removed the word 'safely' from its mission statement in a 2024 IRS filing. The Future of Life Institute's Summer 2026 AI Safety Index documents pledges by Anthropic, OpenAI, Google DeepMind and Meta being weakened or voided, several explicitly conditioned on competitor behaviour — https://www.bloomberg.com/news/articles/2026-02-25/anthropic-adds-caveat-to-ai-safety-policy-in-race-against-rivals ; https://futureoflife.org/ai-safety-index-summer-2026/",
+     "breaks_under": "belief that a competitor is close to or ahead in capability — the constraint is explicitly competitor-contingent by the labs' own stated policy language, not absolute"},
+    {"action": "self_fund_capex_from_operating_cash_flow", "type": "priced",
+     "cost": 0.25,
+     "source": "OpenAI is reported on track to lose ~$14bn in 2026 (nearly triple its 2025 loss) while committing to hundreds of billions in compute purchase and financing arrangements with Nvidia and Oracle; roughly $600bn+ of reported 2026 Nvidia-OpenAI financing narrowed to a signed $105bn guarantee by August 2026 — https://tech-ish.com/2026/02/03/nvidia-openai-oracle-circular-financing-loop/ ; https://www.axios.com/2026/07/27/nvidia-openai-financing-ai-jensen-huang-ssi",
+     "breaks_under": "access to vendor-financed or circular capital structures (chipmaker-invests-in-customer-who-buys-chips) that let capex outrun current revenue"}
+  ],
+  "credibility": {
+    "overall": 0.45,
+    "by_domain": {
+      "financial_guidance_delivery": 0.80,
+      "infrastructure_buildout_delivery": 0.75,
+      "AI_safety_commitments": 0.20
+    }
+  },
+  "deception_prior": 0.40,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Frontier AI labs (OpenAI's charter, Anthropic's founding mission and Responsible Scaling Policy) publicly commit to developing AI 'safely' and to pausing or gating development on safety guarantees, positioning themselves as safety-first relative to unconstrained rivals.",
+      "revealed": "Anthropic revised its RSP in Feb 2026 to permit proceeding without guaranteed safeguards when it judges it lacks a clear competitive lead; OpenAI dropped 'safely' from its stated mission in a 2024 filing; the Future of Life Institute's mid-2026 index documents a sector-wide pattern of weakened or voided pause pledges. Separately, by September 2026 OpenAI reversed course again to lobby for binding external safety regulation rather than voluntary commitments.",
+      "delta": "Voluntary safety commitments function as competitive signalling that erodes exactly when competitive pressure is highest — the opposite of when the stated purpose says they should bind hardest. The September 2026 pivot to seeking mandatory regulation is itself a revealed move: it can lock in compliance costs for rivals more effectively than a voluntary pledge a firm keeps unilaterally weakening.",
+      "sources": [
+        "https://www.bloomberg.com/news/articles/2026-02-25/anthropic-adds-caveat-to-ai-safety-policy-in-race-against-rivals",
+        "https://futureoflife.org/ai-safety-index-summer-2026/",
+        "https://www.euronews.com/next/2026/09/11/openai-makes-u-turn-and-calls-for-binding-national-ai-safety-rules"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Hyperscaler capex is framed publicly as demand-driven infrastructure investment matched to observed customer usage growth.",
+      "revealed": "Combined 2026 hyperscaler capex guidance (~$725bn, up ~77% YoY across Amazon, Microsoft, Alphabet, Meta) has been raised repeatedly through the year even as OpenAI — a major demand source — is running toward a ~$14bn 2026 loss, and a large share of the financing runs through circular arrangements where the chip supplier (Nvidia) invests in the customer (OpenAI) who spends it on cloud capacity (Oracle) that buys more chips from Nvidia.",
+      "delta": "The capex cycle is being sustained partly by vendor-financed demand rather than purely by organic end-customer revenue, meaning the observed 'demand signal' is partially self-generated within a small circle of counterparties — a genuine systemic-risk flag given AI capex now estimated at ~1.8-5% of US GDP and credited with a large share of 2026 US GDP growth.",
+      "sources": [
+        "https://datacenterrichness.substack.com/p/hyperscalers-plan-630-billion-in",
+        "https://tech-ish.com/2026/02/03/nvidia-openai-oracle-circular-financing-loop/",
+        "https://betafinch.com/blog/ai-capex-percent-us-gdp-2026"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-CORP_TECH-bootstrap"
+  "dependencies": [
+    {"on": "CORP_SEMI", "type": "chokepoint supplier for leading-edge accelerators, HBM memory and advanced packaging", "strength": 0.7},
+    {"on": "CB_US", "type": "financing conditions for debt-funded capex and for the broader equity valuations underpinning vendor-financing structures", "strength": 0.4},
+    {"on": "ST_US", "type": "export-control policy on AI chips and the regulatory environment for AI deployment", "strength": 0.5}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "a leading lab publicly announces a capability pause or safety-gated delay",
+     "then": "expect a rival's competitive move to erode that pause within roughly two quarters — this is not speculative: it is the explicit, stated logic of Anthropic's own Feb 2026 RSP revision ('if we believe we do not have a significant lead')",
+     "source": "https://www.bloomberg.com/news/articles/2026-02-25/anthropic-adds-caveat-to-ai-safety-policy-in-race-against-rivals"},
+    {"if": "any of the big-four hyperscalers issues its FIRST quarter-over-quarter capex guidance CUT since the 2025-26 buildout began",
+     "then": "treat it as the likely inflection point of the AI-capex supercycle — given the sector's ~5% of GDP weight and outsized contribution to 2026 US growth, this would be a macro-relevant shock in its own right, not merely a sector event",
+     "source": "https://betafinch.com/blog/us-gdp-q1-2026-ai-spending-impact"},
+    {"if": "OpenAI (or another AI-lab counterparty central to the Nvidia-Oracle-style financing loop) misses a compute-purchase or financing commitment",
+     "then": "expect contagion through the circular financing chain (chipmaker revenue recognition, cloud provider backlog, lab valuation) faster than through any single firm's own fundamentals, since roughly $800bn+ of 2026 activity is estimated to run through these circular arrangements",
+     "source": "https://tech-ish.com/2026/02/03/nvidia-openai-oracle-circular-financing-loop/"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "Confidence is medium-low specifically on the GDP-contribution figures (a 75%-of-Q1-growth claim and a 1.8-5% of GDP range both come from third-party modeled estimates, not a single authoritative government release) — a BEA or Fed staff estimate confirming or revising that range would sharpen this materially. On safety commitments, a lab holding a stated pause through a period where a rival visibly advanced would falsify the competitor-contingent-pledge finding."
 }

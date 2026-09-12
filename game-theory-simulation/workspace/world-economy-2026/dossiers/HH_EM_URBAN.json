@@ -1,54 +1,77 @@
 {
   "id": "HH_EM_URBAN",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
+  "confidence": "medium",
   "utility_weights": {
     "survival": 0.3,
     "resources": 0.3,
     "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "legitimacy": 0.1,
+    "relative_rank": 0.1
   },
-  "discount_rate": 0.5,
-  "survival_threshold": 0.25,
+  "discount_rate": 0.3,
+  "horizon_driver": "currency-confidence cycle — behavior resets on each FX/reserve-adequacy scare, roughly a 1-3 year horizon tied to the local devaluation/restructuring cycle",
+  "survival_threshold": 0.3,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "resources": 0.35,
+    "security": 0.35,
+    "legitimacy": 0.4,
+    "autonomy": 0.3,
+    "rank": 0.35,
+    "liquidity": 0.3
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.08, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": true}
+  ],
+  "constraints": [
+    {"action": "hold savings entirely in local currency through a visible devaluation episode", "type": "performative", "cost": 0.35,
+     "source": "repeated regional precedent of household FX flight (Argentina, Turkey, Egypt)",
+     "breaks_under": "credible, enforced capital controls plus a stable or appreciating currency sustained for 2+ years"}
+  ],
+  "credibility": {
+    "overall": 0.6,
+    "by_domain": {
+      "stated_trust_in_local_currency_vs_dollarization_behavior": 0.3,
+      "amnesty_or_stabilization_program_responsiveness": 0.65
+    }
+  },
+  "deception_prior": 0.3,
+  "monitoring": 0.45,
+  "private_type": {},
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "President Milei campaigned explicitly on formal dollarization of Argentina and shutting the central bank; the 2024-26 official narrative describes gradual 'currency competition' and normalization.",
+      "revealed": "Official dollarization was never implemented (a 50% peso devaluation was used instead in Dec 2023); FX controls were only gradually lifted through 2024-25; a 2025 tax amnesty was needed to draw an estimated ~US$20bn of previously undeclared household dollars ('mattress money') back into the formal financial system.",
+      "delta": "The stated policy goal (full dollarization) was abandoned, while the underlying household behavior it was meant to address — large-scale private dollar-holding outside the formal system — is confirmed at scale by the amnesty's uptake.",
+      "sources": [
+        "https://www.cato.org/blog/argentina-dont-waste-yet-another-opportunity-dollarize",
+        "https://www.piie.com/blogs/realtime-economics/2026/argentinas-fragile-monetary-framework-risks-renewed-volatility",
+        "https://finance.yahoo.com/news/argentinas-milei-unveils-bold-plan-211734759.html"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Turkish and Egyptian authorities have repeatedly announced de-dollarization or FX-stabilization programs (e.g., Turkey's lira-protected deposit scheme; Egypt's 2024 IMF-backed currency float and reform package).",
+      "revealed": "Turkish household/business dollarization grew through the lira's >80% cumulative depreciation (2018-2023) and remained elevated into 2025; Egypt's pound fell ~37% in 2024, and remittances plus household dollar demand leaked into the black market ahead of the official devaluation (rate moving from ~E£30 to ~E£46/USD).",
+      "delta": "Household dollarization is confirmed as a leading, not lagging, indicator relative to official currency policy in both cases — it moved before the official rate did.",
+      "sources": [
+        "https://mei.edu/publication/turkeys-self-made-currency-crisis/",
+        "https://en.wikipedia.org/wiki/2023%E2%80%932024_Egyptian_financial_crisis",
+        "https://www.worldfinance.com/markets/africas-currency-crisis"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-HH_EM_URBAN-bootstrap"
+  "dependencies": [
+    {"on": "ST_FRAGILE", "type": "currency_and_capital_control_regime", "strength": 0.6},
+    {"on": "CB_EM", "type": "FX_intervention_and_reserve_adequacy", "strength": 0.5},
+    {"on": "BANK_GSIB", "type": "remittance_and_correspondent_banking_access", "strength": 0.2}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "official FX reserve cover falls below roughly 3 months of imports, or a parallel-market FX premium exceeds ~20-30%",
+     "then": "household dollarization/black-market FX buying accelerates visibly before any official devaluation is announced — the fastest available early-warning signal per the Cartographer"},
+    {"if": "a credible stabilization program (tax amnesty, positive real rates, credible fiscal anchor) is enacted",
+     "then": "a meaningful but partial share of hoarded FX returns to the formal system within 12-18 months (Argentina 2024-25 precedent), not a full reversal"}
+  ],
+  "what_would_change_my_mind": "A frontier/EM currency crisis in 2026-27 where household FX-buying/dollarization does NOT move ahead of the official rate or reserve data would break the 'fastest early-warning indicator' claim. This dossier extrapolates a general mechanism from three national case studies (Argentina, Turkey, Egypt) rather than a full cross-country panel, so treat magnitudes as illustrative, not precise."
 }

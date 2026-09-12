@@ -1,54 +1,67 @@
 {
   "id": "CB_IN",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
+    "survival": 0.25,
+    "resources": 0.25,
+    "autonomy": 0.25,
     "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "relative_rank": 0.10
   },
-  "discount_rate": 0.333,
+  "discount_rate": 0.20,
+  "horizon_driver": "Governor Sanjay Malhotra's term (from Dec 2024, statutory 3-year initial term) nested inside India's annual union budget cycle; capital-flow and reserve decisions are re-litigated on a roughly quarterly rhythm.",
   "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true, "meaning": "maintain current rate and no fresh FX intervention"},
+    {"action": "settle", "cost": 0.10, "reversible": true, "meaning": "incremental FX smoothing operation or a new capital-inflow-attracting rule (e.g., FAR security expansion, FPI limit change)"},
+    {"action": "escalate", "cost": 0.15, "reversible": false, "meaning": "large-scale reserve drawdown to defend the rupee, or tightened capital-outflow controls"}
+  ],
+  "constraints": [
+    {"action": "target_an_explicit_rupee_level", "type": "performative", "cost": 0.15, "source": "Governor Malhotra: RBI does not aim for any specific rupee value; depreciation is demand-driven (Sept 2026)", "breaks_under": "the constraint is already performative in practice — reserve buffer and new capital-inflow tools reveal active management despite the disclaimer"},
+    {"action": "breach_inflation_targeting_band_(4%±2%)", "type": "priced", "cost": 0.30, "source": "statutory Monetary Policy Framework since 2016", "breaks_under": "a domestic growth crisis forcing accommodation, as with most EM inflation-targeters under stress"},
+    {"action": "fully_open_the_capital_account", "type": "priced", "cost": 0.30, "source": "FEMA framework retains gradual, quota-based liberalization", "breaks_under": "not observed to break; 2026 measures (FAR expansion, FPI limit removal) loosen specific channels without abandoning the overall gated structure"}
+  ],
+  "credibility": {
+    "overall": 0.70,
+    "by_domain": {
+      "inflation_targeting_execution": 0.75,
+      "fx_intervention_transparency": 0.40,
+      "UPI_export_execution": 0.85
+    }
+  },
+  "deception_prior": 0.30,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Governor Malhotra: the RBI does not aim for any specific value of the rupee; recent depreciation is mainly demand-driven, not policy-targeted (Business Standard, Sept 2026).",
+      "revealed": "India held $682.3 billion in FX reserves as of 29 May 2026 — covering more than 11 months of imports and about 96% of external debt outstanding — and in 2026 the RBI introduced new capital-inflow tools explicitly to support the currency: expanding the Fully Accessible Route to new 15/30/40-year government securities and removing short-term investment limits for foreign portfolio investors, alongside a foreign-currency deposit drive the RBI defended against cost criticism by noting it would generate income from overseas deployment.",
+      "delta": "The 'no level target' line is the stated policy; the reserve buffer size and the timing/design of new capital-attraction instruments reveal a sustained, active defense of the rupee — a textbook 'fear of floating' pattern common among large-reserve EM central banks.",
+      "sources": [
+        "https://www.business-standard.com/finance/news/india-fx-deposits-to-help-earn-more-revenue-rbi-governor-sanjay-malhotra-126091100766_1.html",
+        "https://www.businesstoday.in/latest/economy/story/rbi-gov-sanjay-malhotra-has-a-few-tricks-up-his-sleeve-to-attract-foreign-capital-535053-2026-06-05",
+        "https://theprint.in/economy/india-foreign-reserves-to-help-earn-more-revenue-says-rbi-chief/3040360/"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "UPI's international rollout is publicly framed as digital-public-infrastructure diplomacy and financial-inclusion goodwill (PM Modi and NPCI messaging).",
+      "revealed": "By mid-2026 UPI is live in roughly 11 countries (Singapore, UAE, Bhutan, Nepal, Sri Lanka, France, Mauritius, Qatar, Cambodia, and a Thailand linkage via PromptPay), executed through commercially structured bilateral deals via NPCI International (e.g., partnering with ACLEDA Bank to make Cambodia the ninth country in June 2026), with Malaysia, Japan, Israel and the Maldives named as next targets. The sequencing concentrates on Gulf remittance corridors and immediate-neighborhood dependency states.",
+      "delta": "This matches the Cartographer's flag directly: UPI is not just soft-power narrative but a real, growing, commercially structured strategic payments asset with a deliberate corridor strategy — smaller in scale than SWIFT/dollar clearing but a genuine, exportable sovereignty instrument.",
+      "sources": [
+        "https://clearingpost.com/india/upi/",
+        "https://vajiramandravi.com/current-affairs/countries-accepting-upi-payment/",
+        "https://newskarnataka.com/india/pm-modi-seeks-deeper-global-links-for-upi/10092026/"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-CB_IN-bootstrap"
+  "dependencies": [
+    {"on": "ST_IN", "type": "governor_and_MPC_appointment", "strength": 0.5},
+    {"on": "CB_US", "type": "dollar_rate_differential_drives_capital_flows", "strength": 0.5},
+    {"on": "NPCI", "type": "operational_execution_of_UPI_exports", "strength": 0.4}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "INR depreciates more than roughly 3% in a single quarter", "then": "RBI escalates FX intervention and reserve drawdown despite the 'no target' framing"},
+    {"if": "reserves fall below roughly 9 months of import cover", "then": "RBI reverses toward capital-outflow tightening rather than the current inflow-attracting stance"},
+    {"if": "a partner country's UPI linkage suffers a fraud/AML incident", "then": "expansion in that specific corridor pauses pending a compliance fix, consistent with the DPI-diplomacy risk profile (not yet observed)"}
+  ],
+  "confidence": "medium-high",
+  "what_would_change_my_mind": "A sustained period of genuinely hands-off rupee depreciation with no matching reserve drawdown or new capital-inflow measures would falsify the 'active defense despite denial' reading."
 }

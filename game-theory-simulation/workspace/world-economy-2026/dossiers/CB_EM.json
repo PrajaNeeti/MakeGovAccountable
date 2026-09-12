@@ -1,54 +1,67 @@
 {
   "id": "CB_EM",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.25,
+    "resources": 0.25,
+    "autonomy": 0.20,
+    "legitimacy": 0.10,
+    "relative_rank": 0.20
   },
-  "discount_rate": 0.333,
-  "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
+  "discount_rate": 0.20,
+  "horizon_driver": "Highly heterogeneous within the merged actor: national election cycles and external-debt rollover walls set a short clock for Turkey/Brazil/South Africa-type members, while GCC currency pegs operate on a multi-decade, non-electoral horizon. Treat the merged discount rate as an average masking wide internal variance.",
+  "survival_threshold": 0.30,
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true, "meaning": "maintain current rate stance and FX regime"},
+    {"action": "settle", "cost": 0.10, "reversible": true, "meaning": "incremental reserve-composition adjustment or smoothing intervention"},
+    {"action": "escalate", "cost": 0.15, "reversible": false, "meaning": "aggressive capital controls, a large one-off devaluation, or a sharp discrete reserve-composition shift"}
+  ],
+  "constraints": [
+    {"action": "abandon_the_USD_currency_peg_(GCC_members)", "type": "hard", "cost": null, "source": "decades-long Saudi riyal / UAE dirham dollar pegs, defended as a fiscal-and-monetary-credibility anchor", "breaks_under": "never observed to break, including through prior oil-price collapses"},
+    {"action": "maintain_inflation_targeting_independence_under_political_pressure", "type": "priced", "cost": 0.30, "source": "varies sharply by member — Turkey's CBRT rate policy was repeatedly overridden by presidential pressure pre-2023, since partially restored; Brazil's BCB has held a more orthodox, credible line", "breaks_under": "an incumbent government facing an election within the discount horizon, most acutely in Turkey-type cases"},
+    {"action": "diversify_reserves_faster_than_domestic_liquidity_needs_allow", "type": "priced", "cost": 0.25, "source": "gold and non-dollar asset purchases are themselves price-sensitive and constrained by the member's own FX-stability needs", "breaks_under": "not generally observed to break; diversification pace tracks each member's own reserve-adequacy comfort, not a coordinated bloc timetable"}
+  ],
+  "credibility": {
+    "overall": 0.50,
+    "by_domain": {
+      "GCC_peg_defense": 0.90,
+      "inflation_targeting_average_across_members": 0.50,
+      "reserve_diversification_follow_through": 0.60
+    }
+  },
+  "deception_prior": 0.35,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "A broad 'de-dollarization' narrative (BRICS-adjacent communications, national central bank statements) describes reserve diversification as a deliberate, coordinated, bloc-wide shift away from the dollar.",
+      "revealed": "IMF COFER data shows the US dollar's share of allocated global reserves moved only marginally, from 56.93% (2025Q3) to 56.77% (2025Q4), and independent analysis found that roughly 92% of a comparable 2025 decline was driven by currency valuation effects, not active central-bank portfolio reallocation. Real, deliberate gold accumulation is concentrated in a handful of outlier members — Turkey (28.4% of reserves in gold after adding 387 tonnes in 2022-24) — while others remain conservative: Brazil holds only about 2% of reserves in gold despite cutting its USD-asset share from 89% to ~78% over 2017-2024, and Indonesia holds under 4% in gold. Emerging-market central banks collectively raised their share of global official gold reserves from 18% (2000) to roughly 32% (end-2025), but this growth is uneven, not uniform across the bloc.",
+      "delta": "The bloc-wide 'de-dollarization' narrative substantially overstates a trend that is real only in specific outlier members and is mostly a slow, valuation-noisy process rather than a coordinated policy shift. Modeling this as one actor with one reserve-composition trajectory is itself a simplification the evidence argues against.",
+      "sources": [
+        "https://data.imf.org/en/datasets/IMF.STA:COFER",
+        "https://cepr.org/voxeu/columns/dollars-status-through-lens-foreign-exchange-reserves",
+        "https://discoveryalert.com.au/emerging-market-reserve-strategies-gold-diversification-2026/",
+        "https://www.usgoldbureau.com/news/post/de-dollarization-2.0"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Members of this bloc broadly claim operational monetary-policy independence and market-driven exchange-rate regimes.",
+      "revealed": "GCC members maintain currency-board-style dollar pegs with no independent rate-setting at all; among the non-peg members, credibility varies widely — Turkey's central bank suppressed rates under direct political pressure pre-2023 while Brazil's has run a comparatively orthodox, credible inflation-targeting regime throughout the same period.",
+      "delta": "Claimed uniform 'independent inflation-targeting' status masks a very wide internal credibility spread. Any run that treats CB_EM's stated policy stance as a single signal should widen its uncertainty band accordingly, or split the actor when a run turns on one specific member (as the Cartographer's own notes elsewhere anticipate for other merged actors).",
+      "sources": [
+        "https://discoveryalert.com.au/emerging-market-reserve-strategies-gold-diversification-2026/",
+        "https://finance.yahoo.com/news/imf-q2-2025-cofer-data-193648028.html"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-CB_EM-bootstrap"
+  "dependencies": [
+    {"on": "CB_US", "type": "dominant_external_price_taker_relationship", "strength": 0.7},
+    {"on": "ST_GULF", "type": "peg_defense_for_GCC_subset", "strength": 0.5},
+    {"on": "CB_CN", "type": "bellwether_for_more_aggressive_diversifiers", "strength": 0.3}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "global oil price falls sharply and stays below roughly $50/bbl", "then": "GCC peg-defense costs rise materially, testing but historically not breaking the hard peg constraint"},
+    {"if": "a member's currency depreciates more than roughly 15% in a month", "then": "capital controls escalate (Turkey-style precedent) regardless of stated free-float commitments"},
+    {"if": "gold prices correct more than roughly 20%", "then": "EM gold-accumulation pace slows — buying is price-sensitive and opportunistic, not doctrinaire"}
+  ],
+  "confidence": "low",
+  "what_would_change_my_mind": "Sustained, multi-quarter, valuation-adjusted COFER evidence of a dollar-share decline concentrated across many (not just 2-3) EM central banks would upgrade the de-dollarization tripwire from 'narrative' to 'mechanism.' Flagged explicitly: this is a merged actor whose members (GCC pegs, Turkey, Brazil) behave too differently for a single utility function to be more than an approximation — the Orchestrator should widen the distribution on this actor specifically or consider splitting it if a run turns on any one member."
 }

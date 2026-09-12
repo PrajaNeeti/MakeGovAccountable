@@ -1,54 +1,76 @@
 {
   "id": "HH_DM_LABOR",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
+  "confidence": "medium",
   "utility_weights": {
-    "survival": 0.3,
+    "survival": 0.25,
     "resources": 0.3,
-    "autonomy": 0.2,
+    "autonomy": 0.1,
     "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "relative_rank": 0.2
   },
-  "discount_rate": 0.5,
-  "survival_threshold": 0.25,
+  "discount_rate": 0.35,
+  "horizon_driver": "paycheck-to-paycheck liquidity and the next election cycle; the collapsing job-switcher wage premium and falling quit rate reveal a shortening effective horizon as the labor market cools",
+  "survival_threshold": 0.3,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "resources": 0.3,
+    "security": 0.4,
+    "legitimacy": 0.45,
+    "autonomy": 0.35,
+    "rank": 0.25,
+    "liquidity": 0.35
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.08, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": true}
+  ],
+  "constraints": [
+    {"action": "abandon mainstream two-party political identification entirely", "type": "priced", "cost": 0.35,
+     "source": "partisan identity and institutional inertia (union, church, community ties)",
+     "breaks_under": "real wage growth is negative for 2+ consecutive quarters while equity/asset indices post double-digit gains"}
+  ],
+  "credibility": {
+    "overall": 0.55,
+    "by_domain": {
+      "stated_economic_grievance_vs_realignment_vote": 0.7,
+      "consumer_confidence_survey_vs_actual_spending": 0.4
+    }
+  },
+  "deception_prior": 0.15,
+  "monitoring": 0.7,
+  "private_type": {},
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Pre-2024 polling and rhetoric emphasized inflation and cost-of-living as the top issue, framed largely as diffuse, bipartisan anti-incumbent sentiment.",
+      "revealed": "A ~15-point swing toward Trump among voters earning under $50k in the 2024 election; for the first time since the 1960s a majority of that income bracket voted Republican (56% vs 43% for Harris). Research links this to long-term wage stagnation, not only short-term inflation.",
+      "delta": "Generalized cost-of-living discontent translated into a specific, historically unusual, and durable partisan realignment rather than diffuse anti-incumbency that would revert once inflation cooled.",
+      "sources": [
+        "https://www.cambridge.org/core/journals/perspectives-on-politics/article/who-is-left-behind-economic-status-loss-and-populist-radical-right-voting/8DD23A6C5454488E7F41F7C5633B095F",
+        "https://foreignpolicy.com/2025/01/07/class-demographics-trump-harris-election/",
+        "https://www.americanprogressaction.org/article/the-working-class-wants-policymakers-to-reward-work-and-listen-to-their-values/"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "2025-26 official and market narrative treats a record-high S&P 500 as evidence of a healthy economy.",
+      "revealed": "The job-switcher wage premium collapsed from >2% in 2022 to roughly zero by 2025, quits are below 2022-23 levels, and the earnings-vs-real-economy correlation fell to about -0.4 by 2024; corporate profit margins for goods industries are ~60% above 2018-19 levels even as payroll growth lags a capex-heavy, AI-driven investment cycle.",
+      "delta": "The headline equity/GDP narrative diverges from this actor's lived wage and hiring experience, which the Cartographer correctly flags as the leading indicator, not the equity index.",
+      "sources": [
+        "https://privatebank.jpmorgan.com/nam/en/insights/markets-and-investing/tmt/not-a-red-flag-the-market-economy-disconnect",
+        "https://www.jpmorgan.com/insights/markets-and-economy/top-market-takeaways/tmt-why-the-us-economy-and-s-and-p-five-hundred-are-diverging"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-HH_DM_LABOR-bootstrap"
+  "dependencies": [
+    {"on": "ST_US", "type": "electoral_accountability_channel", "strength": 0.6},
+    {"on": "CB_US", "type": "employment_mandate_sensitivity", "strength": 0.4},
+    {"on": "CORP_TECH", "type": "automation_and_capex_driven_displacement_exposure", "strength": 0.3}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "real wage growth is negative for 2+ consecutive quarters while a broad equity index sits within ~5% of all-time highs",
+     "then": "populist vote share among below-median-income voters rises materially within 1-2 electoral cycles, lagging the wage data by roughly 2-4 rounds per the Cartographer's note"},
+    {"if": "the job-switcher wage premium turns negative (switching jobs pays less than staying)",
+     "then": "quits fall further and this actor becomes more strike-prone and politically volatile even as market-based labor voice (mobility) declines"}
+  ],
+  "what_would_change_my_mind": "A 2026-28 cycle where real wage growth recovers strongly, matching or exceeding asset returns, without any reversal of the 2024 populist realignment would falsify the wage-driven mechanism and point to identity/cultural drivers instead."
 }

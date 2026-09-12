@@ -1,54 +1,76 @@
 {
   "id": "ST_ENTREPOT",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
+    "survival": 0.15,
+    "resources": 0.35,
+    "autonomy": 0.25,
     "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "relative_rank": 0.1
   },
-  "discount_rate": 0.2,
+  "discount_rate": 0.16,
+  "horizon_driver": "financial-sector reputational capital decays slowly but, once broken (a confiscation precedent), cannot be rebuilt within an electoral cycle — treat horizon as long (5yr) but the underlying asset (neutrality) as capable of a step-change loss",
   "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.08, "reversible": true},
+    {"action": "escalate", "cost": 0.2, "reversible": false}
+  ],
+  "constraints": [
+    {"action": "confiscate_(not_merely_freeze)_sanctioned_sovereign_assets", "type": "priced_not_hard",
+     "cost": 0.35,
+     "source": "Switzerland: government stated in Feb 2023 that confiscation was unconstitutional and risked violating international obligations",
+     "breaks_under": "already breaking: both houses of the Swiss parliament endorsed measures toward confiscation in 2026, seeking an international-law framework to proceed — the 'unconstitutional' constraint bent under sustained EU/G7 reputational and diplomatic pressure"},
+    {"action": "commit_national_balance_sheet_to_a_reparations_loan_backed_by_frozen_assets", "type": "priced",
+     "cost": 0.2,
+     "source": "varies sharply by jurisdiction",
+     "breaks_under": "UK broke this early and eagerly (GBP2.26bn/$2.93bn committed to the G7 loan structure), while Belgium (EU, adjacent case) held out for over a year demanding liability guarantees — the entrepot bloc does not move as one actor on this question"},
+    {"action": "expose_reinsurance_and_custody_infrastructure_to_direct_belligerent-side_liability", "type": "priced",
+     "cost": 0.3,
+     "source": "franchise value depends on being seen as a neutral venue for any counterparty's capital, including sanctioned or contested capital",
+     "breaks_under": "Euroclear's role in holding, and now the EU's structuring of returns from, ~EUR185bn of Russian reserves has already made it a direct party to the conflict's financial dimension, evidenced by Russia's $230bn Moscow-court damages claim against it"}
+  ],
+  "credibility": {
+    "overall": 0.5,
+    "by_domain": {
+      "custody_and_safekeeping_neutrality": 0.5,
+      "legal_and_arbitration_venue_reliability": 0.75,
+      "reinsurance_and_trade_finance_continuity": 0.7,
+      "uniform_bloc_behavior_on_sanctions_questions": 0.25
+    }
+  },
+  "deception_prior": 0.3,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Switzerland will not confiscate frozen Russian assets because doing so is unconstitutional and would violate its international legal obligations (government position stated as recently as Feb 2023 and reaffirmed periodically since).",
+      "revealed": "In 2026 both houses of the Swiss parliament endorsed measures to move toward confiscation for Ukraine reconstruction, directing the government to find an international-law-compatible legal basis — a direct reversal of the constitutional-bar framing under sustained EU/G7 and reputational pressure. As of July 2026, CHF8.5bn in financial assets plus real estate, vehicles, aircraft and art belonging to sanctioned parties remain frozen (not yet confiscated) in Switzerland.",
+      "delta": "The 'constitutional impossibility' framing was a priced political constraint, not a hard legal wall — it moved once the reputational cost of appearing to shelter Russian capital exceeded the cost of bending neutrality doctrine.",
+      "sources": ["https://kyivindependent.com/swiss-parliament-backs-measures-to-confiscate-frozen-russian-assets-for-ukraine-reconstruction/", "https://www.swissinfo.ch/eng/foreign-affairs/switzerland-and-frozen-russian-assets-where-do-things-stand/76282852", "https://lupicinio.com/en/the-swiss-government-declares-confiscation-of-russian-assets-unconstitutional/"]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "The UK, alongside other financial entrepots, administers global capital neutrally and apolitically, consistent with the shared 'franchise-in-neutrality' the Cartographer attributes to this group.",
+      "revealed": "The UK moved fastest and most eagerly of any entrepot to commit real money (GBP2.26bn/$2.93bn) to the G7 reparations-loan structure backed by frozen Russian assets — an active, belligerent-side financial posture, not neutral custody.",
+      "delta": "UK behavior on the single largest live test of 'neutral custodian' status (the ~$300bn Russian reserve question) is the opposite of Switzerland's initial posture — confirming the Cartographer's open question that the bloc's shared franchise is no longer actually shared.",
+      "sources": ["https://www.expressandstar.com/uk-news/uk-to-explore-reparations-loan-for-ukraine-using-frozen-russian-assets-5667805", "https://www.cer.eu/insights/ukraine-reparations-loan-how-fix-europes-financial-plumbing"]
     },
     {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Entrepot custody and clearing infrastructure (Euroclear, London-based reinsurance/trade finance) is a passive, mechanical layer with no independent political agency.",
+      "revealed": "Euroclear's Belgian host state has actively vetoed and reshaped the EU's asset-mobilization plans for over a year on its own liability-risk calculus (demanding EU-level guarantees before releasing income streams), and Russia's central bank has sued Euroclear directly for $230bn in a Moscow court — the infrastructure layer is itself a contested political actor, not a neutral pipe.",
+      "delta": "Confirms the interest-researcher discipline that 'plumbing' actors (EXCH_CLEAR, and by extension the entrepots that host them) have genuine, distinct interests that diverge from their nominal principals.",
+      "sources": ["https://www.npr.org/2025/12/03/g-s1-100225/belgium-rejects-plan-frozen-russian-assets", "https://uk.marketscreener.com/news/russia-s-central-bank-seeks-230-billion-in-damages-from-belgium-s-euroclear-moscow-court-says-ce7d50d8d089f027"]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-ST_ENTREPOT-bootstrap"
+  "dependencies": [
+    {"on": "EXCH_CLEAR", "type": "Euroclear_as_the_physical_custody_layer_that_makes_entrepot_neutrality_operational", "strength": 0.6},
+    {"on": "ST_EU", "type": "Belgian/EU_jurisdiction_over_the_largest_contested_asset_pool", "strength": 0.5},
+    {"on": "ST_RU", "type": "counterparty_in_the_frozen-asset_legal_dispute_and_a_historical_client_of_offshore_neutrality", "strength": 0.4},
+    {"on": "INS_RE", "type": "shared_franchise_in_war-risk_and_reinsurance_neutrality", "strength": 0.4}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "Switzerland finalizes an actual legal confiscation mechanism (beyond the 2026 parliamentary endorsement) within the next 12-18 months", "then": "Switzerland's neutral-custody franchise effectively ends for sanctioned-adjacent capital, and non-aligned reserve managers (Gulf SWFs, Chinese state entities) measurably shift new custody allocations toward Singapore, UAE, or onshore alternatives"},
+    {"if": "the EU fully mobilizes its reparations-loan structure (beyond the EUR90bn Dec 2025 tranche) despite continued Belgian resistance", "then": "UK, Luxembourg and Ireland face pressure to match with parallel commitments, while Switzerland, Singapore and Hong Kong face pressure to publicly distance themselves from the precedent to protect their own neutral-custody client base"},
+    {"if": "a major non-Western reserve holder visibly reduces Euroclear/London custody exposure in response to the confiscation precedent (observable via reserve-composition or custody-flow data)", "then": "this validates the 'custody is a weapon' thesis system-wide and is the clearest evidence the entrepot bloc's shared interest has already fractured into two camps"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "This dossier treats ST_ENTREPOT as a single actor per the assignment, but the evidence strongly supports the Cartographer's own open question resolving toward SPLIT: recommend the Orchestrator divide this into (1) an Atlantic/weaponization-willing cluster (UK, Ireland, Luxembourg — all functionally coordinated with the US/EU sanctions architecture) and (2) a neutrality-franchise-preserving cluster (Switzerland, Singapore, and — separately flagged as a harder case given PRC National Security Law control — Hong Kong). Confidence on the UK-vs-Switzerland divergence itself is medium-high (well sourced); confidence on where Singapore and Hong Kong actually sit is low, since this pass did not source their specific 2025-2026 positioning directly and that gap should be closed before the split is implemented."
 }

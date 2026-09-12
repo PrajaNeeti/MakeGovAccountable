@@ -1,54 +1,66 @@
 {
   "id": "CB_JP",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.25,
+    "resources": 0.20,
+    "autonomy": 0.25,
+    "legitimacy": 0.20,
+    "relative_rank": 0.10
   },
-  "discount_rate": 0.2,
+  "discount_rate": 0.15,
+  "horizon_driver": "Governor Ueda's term runs to 2028; the binding clock is really Japan's debt-service feedback loop (>250% debt/GDP) which shortens the effective horizon every time the policy rate rises, plus rising domestic political pressure over yen weakness and cost-of-living inflation.",
   "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true, "meaning": "pause the hiking cycle at current levels"},
+    {"action": "settle", "cost": 0.10, "reversible": true, "meaning": "a scheduled 25bp hike or coordinated signal with MOF on JGB market management"},
+    {"action": "escalate", "cost": 0.15, "reversible": false, "meaning": "a larger or unscheduled hike, or accelerated QT that risks JGB market dysfunction / triggers a disorderly carry-trade unwind"}
+  ],
+  "constraints": [
+    {"action": "allow_disorderly_JGB_market_conditions", "type": "priced", "cost": 0.35, "source": "financial-stability co-mandate and legacy yield-curve-control instincts", "breaks_under": "sustained imported inflation forces hikes even as JGB yields hit multi-decade highs — already observed: 2Y JGB at 1.83% (highest since 1995), 10Y at 2.99% as of Sept 11 2026, with hikes continuing"},
+    {"action": "avoid_triggering_fiscal_dominance_spiral_with_MOF", "type": "priced", "cost": 0.30, "source": "Japan's debt/GDP ratio makes BOJ's own rate hikes a direct driver of government interest costs", "breaks_under": "not yet broken; hikes remain incremental (25bp steps) rather than large moves, consistent with ongoing MOF coordination"},
+    {"action": "repeat_a_surprise_unscheduled_hike_like_August_2024", "type": "performative", "cost": 0.20, "source": "BOJ's communication doctrine emphasizes predictability after the Aug 2024 carry-trade shock", "breaks_under": "the Aug 2024 episode itself is the documented violation — the doctrine is aspirational, not proven durable"}
+  ],
+  "credibility": {
+    "overall": 0.70,
+    "by_domain": {
+      "rate_path_execution": 0.65,
+      "financial_stability_communication": 0.55,
+      "inflation_target_commitment": 0.80
+    }
+  },
+  "deception_prior": 0.20,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "BOJ doctrine holds normalization will proceed gradually and cautiously, contingent on a sustainable 2% inflation trajectory anchored by wage growth ('no preset path').",
+      "revealed": "Since the policy rate reached 0.50% in January 2025, the BOJ has hiked in a compressed cadence to 1% by June 2026 — the highest since 1995 — and is weighing a further hike at the 17-18 September 2026 meeting (market-implied probability ~62%), with Governor Ueda stating hikes are 'on the table at every meeting.' The proximate driver is producer-price inflation of 7.6% YoY in August 2026 and a weak yen amplified by Middle East conflict-driven energy costs, not the domestic wage-driven virtuous cycle the mandate emphasizes.",
+      "delta": "The pace of normalization is the fastest of the post-1990s era and is being driven by imported/FX-transmitted inflation, not by the domestic demand-pull story BOJ communications foreground. Treat the 'gradual, wage-driven' framing as aspirational messaging around a reaction function that is actually FX- and energy-shock-sensitive.",
+      "sources": [
+        "https://www.cnbc.com/2026/06/16/boj-rate-hike-historic-inflation.html",
+        "https://asia.nikkei.com/economy/bank-of-japan/boj-chief-says-rate-hikes-on-table-at-every-meeting-including-this-month-s",
+        "https://tradingeconomics.com/japan/government-bond-yield"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "BOJ presents financial-market stability and orderly transmission as a co-equal concern alongside price stability.",
+      "revealed": "The BOJ has continued signaling and delivering hikes through 2025-26 even as the yen carry trade (estimated ~$261bn) continues unwinding and JGB yields hit multi-decade highs, without pausing the cycle to protect carry-trade-exposed positions in crypto, EM bonds, or leveraged equities.",
+      "delta": "When price stability (via the FX/imported-inflation channel) and financial-stability caution conflict, price stability wins in practice. The 'co-equal concern' framing understates how far behind it actually ranks once inflation data forces the issue.",
+      "sources": [
+        "https://stapletonam.com/the-unwind-of-the-yen-carry-trade-understanding-the-reverse-carry-trade-and-its-global-consequences/",
+        "https://www.vaasblock.com/news/japan-boj-normalization-yen-carry-trade-equities-2026/"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-CB_JP-bootstrap"
+  "dependencies": [
+    {"on": "ST_JP_KR", "type": "political_pressure_over_currency_and_cost_of_living", "strength": 0.4},
+    {"on": "CB_US", "type": "interest_rate_differential_drives_carry_trade_economics", "strength": 0.6},
+    {"on": "MOF_Japan", "type": "JGB_issuance_and_debt_service_coordination", "strength": 0.5}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "core or producer inflation stays elevated with a weak yen persisting", "then": "BOJ hikes again regardless of carry-trade stress (observed pattern through 2025-26)"},
+    {"if": "a disorderly JGB auction or 10Y yield spikes past roughly 3.2-3.5%", "then": "BOJ intervenes or slows QT to preserve market function — untested in this cycle but consistent with past yield-curve-control instincts"},
+    {"if": "USD/JPY weakens sharply past a fresh multi-decade extreme", "then": "domestic political pressure on the BOJ to hike accelerates independent of the regular data calendar"}
+  ],
+  "confidence": "medium-high",
+  "what_would_change_my_mind": "An explicit BOJ pause or reversal citing financial stability over inflation control would show the financial-stability weight is actually higher than currently revealed; a repeat unscheduled shock hike would confirm the Aug 2024 pattern is a durable feature, not an anomaly."
 }

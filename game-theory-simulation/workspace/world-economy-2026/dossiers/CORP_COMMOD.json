@@ -1,54 +1,88 @@
 {
   "id": "CORP_COMMOD",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.20,
+    "resources": 0.40,
+    "autonomy": 0.25,
+    "legitimacy": 0.05,
+    "relative_rank": 0.10
   },
-  "discount_rate": 0.5,
-  "survival_threshold": 0.25,
+  "discount_rate": 0.35,
+  "horizon_driver": "trading books turn over on a cargo-by-cargo, single-voyage basis; private-partnership profit-sharing is annual, which is the effective planning horizon even though physical infrastructure (storage, terminals, shadow-fleet vessel ownership chains) can be held for years",
+  "survival_threshold": 0.20,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "resources": 0.55,
+    "security": 0.60,
+    "legitimacy": 0.25,
+    "autonomy": 0.75,
+    "rank": 0.60,
+    "liquidity": 0.70
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true,
+     "note": "maintain current flow routing and book positioning"},
+    {"action": "settle", "cost": 0.08, "reversible": true,
+     "note": "publicly exit a sanctioned trade lane, pay a settlement/fine, restore compliance posture"},
+    {"action": "escalate", "cost": 0.08, "reversible": true,
+     "note": "open a new arbitrage flow (sanctions-adjacent routing, blending, storage play) — cheap and reversible, consistent with the actors' cartographer-assigned lowest exit cost (0.2) in the whole system"}
+  ],
+  "constraints": [
+    {"action": "sanctions_compliance", "type": "priced",
+     "cost": 0.15,
+     "source": "Glencore pleaded guilty in 2022 to FCPA bribery and market-manipulation charges and paid $1.1bn+ in fines for bribes (over $28m) that secured privileged crude access in Nigeria, Cameroon, Ivory Coast, Equatorial Guinea and South Sudan; Brazil has separately opened bribery investigations into Glencore, Vitol and Trafigura over alleged Petrobras employee bribery — https://www.justice.gov/archives/opa/pr/glencore-entered-guilty-pleas-foreign-bribery-and-market-manipulation-schemes",
+     "breaks_under": "the settlement (fine + guilty plea) has consistently been priced as a cost of doing business rather than triggering a structural change in conduct"},
+    {"action": "avoid_russia_sanctioned_flows", "type": "performative",
+     "cost": 0.10,
+     "source": "Trafigura formally exited direct Russian oil trading after 2022 sanctions, but its own commodities economist publicly confirmed the 'shadow fleet' of tankers moving sanctioned Russian crude has expanded because of the sanctions (Sep 2025); intermediaries such as Nord Axis and 2Rivers/Coral Energy — the latter having sold at least 41 cargoes to Trafigura between Feb 2023 and Feb 2024 and sharing employees with Trafigura — filled the volume gap. The shadow fleet now moves an estimated 65% of Russian seaborne oil (~3.7m bbl/d) via ~350 sanctioned vessels — https://www.marketscreener.com/news/trafigura-economist-says-shadow-fleet-of-oil-tankers-has-expanded-due-to-russia-sanctions-ce7d59ded88ff22c",
+     "breaks_under": "an arms-length intermediary can profitably absorb the volume a major trader publicly declines to touch directly — the group-level flow is barely interrupted even when one name's balance sheet exits"}
+  ],
+  "credibility": {
+    "overall": 0.35,
+    "by_domain": {
+      "physical_logistics_delivery": 0.80,
+      "sanctions_compliance_claims": 0.15,
+      "public_neutrality_positioning": 0.15
+    }
+  },
+  "deception_prior": 0.55,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Traders describe themselves as neutral logistics intermediaries connecting supply surplus to demand deficit, subject to full sanctions compliance.",
+      "revealed": "Profits are structurally tied to volatility and dislocation, not calm markets: Vitol's net profit peaked near $15bn in the 2022 energy-crisis window (per historical reporting) and fell to $4.5bn in 2025 as markets 'calmed'; Trafigura's FY2025 net profit fell 3% to $2.666bn even as underlying EBITDA stayed above $8bn for a fourth straight year; agri-traders Cargill and ADM saw profits fall sharply in 2024-2025 specifically because low, stable crop prices compressed crush and trading margins.",
+      "delta": "This is the direct, dated confirmation of the cartographer's 'structurally variance-preferring' label: profit correlates with dislocation-year timing (2022 energy crisis) far more than with volume or GDP growth, and profits shrink in the calm years that followed.",
+      "sources": [
+        "https://www.aol.com/articles/vitol-profit-drops-4-5-155921000.html",
+        "https://www.trafigura.com/news-and-insights/insights/2025-trafigura-annual-results/financial-review/",
+        "https://www.itiger.com/news/1152044538"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Trafigura publicly states it exited direct Russian oil trading following Western sanctions in 2022.",
+      "revealed": "Its own economist confirmed in September 2025 that the sanctions-driven 'shadow fleet' has expanded, and named intermediaries with documented close ties to Trafigura (shared employees, 41+ cargoes sold to Trafigura by one such intermediary) have continued moving the same underlying Russian barrels the firm says it no longer touches directly.",
+      "delta": "Formal exit from a sanctioned counterparty relationship does not equal exit from the underlying physical flow when a sufficiently arm's-length intermediary layer exists — exactly the kind of stated-vs-revealed gap the sourcing hierarchy (physical flows over statements) is built to catch.",
+      "sources": [
+        "https://www.marketscreener.com/news/trafigura-economist-says-shadow-fleet-of-oil-tankers-has-expanded-due-to-russia-sanctions-ce7d59ded88ff22c",
+        "https://voxukraine.org/en/shadow-fleet-sanctions-and-the-demand-for-russian-crude-oil"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-CORP_COMMOD-bootstrap"
+  "dependencies": [
+    {"on": "INS_RE", "type": "insurability of the vessels and cargoes being traded — a route insurers close is a route these actors cannot service at scale", "strength": 0.5},
+    {"on": "ST_RU", "type": "primary discounted-crude source feeding the shadow-fleet arbitrage trade", "strength": 0.4},
+    {"on": "BANK_GSIB", "type": "trade finance and correspondent banking access, which can be withdrawn as quiet de-risking", "strength": 0.5}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "a new sanctions regime or a sudden supply shock hits a major commodity flow",
+     "then": "expect these traders' quarterly profits to spike within 1-2 quarters via arbitrage margin capture (as in 2022), not to fall as a directly exposed balance-sheet player's would",
+     "source": "2022 energy-crisis profit spike vs 2025 calm-market profit decline pattern, cited above"},
+    {"if": "a trader or a named shadow-fleet intermediary is formally indicted for sanctions evasion or bribery",
+     "then": "expect a negotiated guilty plea and fine (Glencore 2022 precedent: $1.1bn+, no structural change in the broader trading model) rather than exit from the underlying profitable conduct",
+     "source": "https://www.justice.gov/archives/opa/pr/glencore-entered-guilty-pleas-foreign-bribery-and-market-manipulation-schemes"},
+    {"if": "a major trader announces formal exit from a sanctioned country's flows",
+     "then": "check for a same-region intermediary with pre-existing personnel or cargo ties absorbing the volume within 2-3 quarters before treating the exit as a real reduction in aggregate flow",
+     "source": "Nord Axis / 2Rivers-Coral Energy filling Trafigura's Russneft-adjacent volume, cited above"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "Most large private traders (Vitol, Trafigura, Glencore's marketing arm, Cargill, COFCO) do not file public quarterly accounts at the same granularity as listed majors, so profit figures here rely partly on Reuters/Bloomberg sourcing to 'people familiar with the matter' rather than audited public filings — flagged low-to-medium confidence on exact profit numbers, though the direction and dislocation-correlation are corroborated across multiple independent outlets and years. A trader publishing full audited results showing profits flat or falling during a genuine 2026-27 dislocation would meaningfully weaken the variance-preference finding."
 }

@@ -1,54 +1,78 @@
 {
   "id": "EXCH_CLEAR",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.30,
+    "resources": 0.15,
+    "autonomy": 0.15,
+    "legitimacy": 0.20,
+    "relative_rank": 0.20
   },
-  "discount_rate": 0.2,
+  "discount_rate": 0.12,
+  "horizon_driver": "Member default-fund waterfall replenishment cycles, regulatory recognition/equivalence renewal (e.g. EMIR 2.2-style reviews), and — for Euroclear specifically — the multi-year cycle of EU sanctions-renewal and Ukraine-financing legislation now govern effective horizon more than ordinary commercial planning.",
   "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.10, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
+  ],
+  "constraints": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "action": "unilaterally_cancel_or_reverse_executed_exchange-traded_transactions",
+      "type": "priced",
+      "cost": 0.6,
+      "source": "The LME cancelled roughly $3.9bn (~9,000 trades) of nickel transactions on 8 March 2022 after a 250% two-day price spike that would otherwise have triggered ~$19.7bn of single-day margin calls threatening ~28 clearing members with default (LME Independent Review, Jan 2023; OFR working paper 24-09, 2024)",
+      "breaks_under": "clearing-member solvency is judged to be at systemic risk from an extreme, thinly-liquid squeeze; the decision remains highly controversial and subject to ongoing litigation (Elliott Management and Jane Street sued the LME; OFR brief, May 2025) years after the event"
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
+      "action": "immobilise_or_functionally_confiscate_a_sovereign_counterparty's_reserves",
+      "type": "priced",
+      "cost": 0.7,
+      "source": "Euroclear has held the Central Bank of Russia's reserves (over €193-224bn) immobilised since Feb 2022 sanctions; as of Euroclear's own May 2026 update, roughly €176bn had already been converted to cash (reinvested overnight at the ECB) with the remaining ~€9bn of securities maturing in 2026-27",
+      "breaks_under": "EU/G7 political decision to escalate from immobilisation to a financing mechanism using the cash proceeds — the European Commission's 'reparations loan' plan (up to €165bn without formal confiscation) remains under negotiation as of 2026, and Russia's central bank won a ~$250bn default judgment against Euroclear in a Moscow court (16 May 2026), unenforceable in the West but signalling years more legal conflict"
     },
     {
-      "action": "escalate",
+      "action": "raise_margin_requirements_discretionarily_outside_a_pre-announced_schedule",
+      "type": "performative",
       "cost": 0.1,
-      "reversible": true
+      "source": "CME raised precious-metals margins twice within a single week in late December 2025 (silver maintenance margin +25% to ~$25,000/contract, gold +10% to ~$22,000/contract) after annual silver gains near 150% and repeated intraday volatility, framed publicly as 'per the normal review of market volatility' (Bloomberg, CNBC, MINING.com, 31 Dec 2025)",
+      "breaks_under": "framed as routine risk management but functions, in effect, as a discretionary real-time monetary-policy-scale lever exercised by a private risk committee — margins for silver had already been raised 'more than half a dozen times since late September' 2025 by the same logic"
     }
   ],
-  "constraints": [],
   "credibility": {
-    "overall": 0.6
+    "overall": 0.50,
+    "by_domain": {
+      "settlement_finality/operational_reliability": 0.90,
+      "claimed_neutrality/apoliticality": 0.20,
+      "margin_methodology_predictability": 0.55
+    }
   },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-EXCH_CLEAR-bootstrap"
+  "deception_prior": 0.35,
+  "stated_vs_revealed": [
+    {
+      "stated": "Exchanges, CCPs and settlement systems (CME, LME, Euroclear, DTCC, SWIFT) present themselves as neutral, rules-based market infrastructure whose decisions on margin, clearing access, and settlement are purely risk-driven and apolitical.",
+      "revealed": "Euroclear's immobilisation of >€190bn of Russian central bank reserves since Feb 2022 is an explicitly geopolitical function serving G7 sanctions policy, not a market-risk decision; as of 2026 the EU is actively negotiating how to convert that immobilised cash into financing for Ukraine (up to €165bn under the Commission's 'reparations loan' proposal) without technically 'confiscating' the assets — a distinction of legal form rather than economic substance. Separately, the LME's 8 March 2022 cancellation of $3.9bn in executed nickel trades to save ~28 clearing members from default was a discretionary override of live, executed market prices, still being litigated in 2025.",
+      "delta": "Very large. Custody, clearing and settlement function as a weapon and a discretionary safety valve exactly when politically or systemically necessary — 'neutral infrastructure' describes ordinary operations but not crisis or sanctions behaviour, which every major reserve manager updated on after 2022 (per the Cartographer's own framing, now reconfirmed with 2025-26 evidence of continuation: Moscow court judgment vs Euroclear, May 2026; ongoing reparations-loan negotiation).",
+      "sources": ["https://www.euroclear.com/newsandinsights/en/Format/Articles/russia-our-current-status/update-on-russian-sanctioned-assets-may-2026.html", "https://www.themoscowtimes.com/2026/05/16/russian-court-orders-euroclear-to-pay-around-250bln-over-frozen-assets-a92769", "https://www.lme.com/-/media/Files/Trading/New-initiatives/Nickel-independent-review/Independent-Review-of-Events-in-the-Nickel-Market-in-March-2022---Final-Report.pdf"]
+    },
+    {
+      "stated": "Margin requirements are set by fixed, disclosed risk models applied consistently, giving market participants predictable collateral needs.",
+      "revealed": "CME raised precious-metals margins repeatedly and rapidly in a compressed window (more than half a dozen times for silver since late Sept 2025, twice in the same week in late Dec 2025), directly amplifying the price swings it says it is only responding to, per BIS's own March 2026 Quarterly Review analysis of leveraged retail flows in the silver/gold rush.",
+      "delta": "Moderate — the mechanism is disclosed in principle (volatility-based review) but its frequency and reflexive amplification effect in practice function as a much more active, market-moving lever than the 'passive risk management' framing suggests.",
+      "sources": ["https://www.bloomberg.com/news/articles/2025-12-31/cme-hikes-precious-metal-margins-again-after-wild-price-swings", "https://www.bis.org/publ/qtrpdf/r_qt2603w.htm"]
+    }
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "dependencies": [
+    {"on": "ST_EU", "type": "sanctions_mandate_and_legal_liability_shield_for_Euroclear/Belgium", "strength": 0.6},
+    {"on": "BANK_GSIB", "type": "clearing_member_solvency", "strength": 0.5},
+    {"on": "HF_MACRO", "type": "margin_and_liquidity_interaction", "strength": 0.4},
+    {"on": "ST_RU", "type": "adversarial_counterparty_in_litigation", "strength": 0.3}
+  ],
+  "tripwires": [
+    {"if": "any exchange-traded commodity or metal moves >100% in a two-day window on thin liquidity (the LME nickel pattern)", "then": "expect emergency margin hikes and a non-trivial probability of discretionary trade cancellation or circuit-breaker suspension, overriding stated 'neutral, rules-based' operation"},
+    {"if": "the EU formally advances the 'reparations loan' mechanism using Russian reserve cash proceeds (beyond mere immobilisation)", "then": "treat this as the first real test of whether custody-neutrality claims survive a move from freezing to functional use of sovereign reserves — watch for Belgian-government resistance given Euroclear's exposure to Russian retaliatory litigation and its own legal liability as home state"},
+    {"if": "precious-metals or another commodity sees intraday volatility comparable to the Sept-Dec 2025 silver run", "then": "expect CME/LME-style repeated margin hikes within the same week, each amplifying rather than merely tracking price moves"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "A concrete EU vote or binding legal instrument converting Russian reserve cash into direct Ukraine financing (rather than the current negotiation-stage 'reparations loan' proposal) would resolve whether the custody-as-weapon function extends from immobilisation to outright use — as of Sept 2026 this remains proposed, not enacted, and the dossier should be revisited on that news."
 }

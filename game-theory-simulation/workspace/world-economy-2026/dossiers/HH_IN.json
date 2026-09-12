@@ -1,54 +1,76 @@
 {
   "id": "HH_IN",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
+  "confidence": "medium",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
+    "survival": 0.25,
+    "resources": 0.35,
+    "autonomy": 0.15,
     "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "relative_rank": 0.1
   },
-  "discount_rate": 0.1,
+  "discount_rate": 0.09,
+  "horizon_driver": "gold and SIP holdings are multi-year/retirement-oriented for the formal-sector subset; effective horizon shortens sharply for the large informal-labour and remittance-dependent subset, which behaves closer to HH_EM_URBAN/HH_EM_SUBSIST",
   "survival_threshold": 0.25,
   "state": {
     "resources": 0.5,
-    "security": 0.5,
+    "security": 0.45,
     "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "autonomy": 0.45,
+    "rank": 0.4,
+    "liquidity": 0.4
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.08, "reversible": true},
+    {"action": "escalate", "cost": 0.12, "reversible": true}
+  ],
+  "constraints": [
+    {"action": "abandon gold as a savings vehicle in favour of fully formal financial assets", "type": "performative", "cost": 0.3,
+     "source": "gold's cultural/wedding-linked demand and its function as a state-independent store of value",
+     "breaks_under": "a sustained real-return gap strongly favouring formal equity/debt with no rupee-depreciation or informal-economy risk"}
+  ],
+  "credibility": {
+    "overall": 0.65,
+    "by_domain": {
+      "gold_purchase_intention_vs_actual_bifurcation": 0.6,
+      "SIP_continuation_discipline": 0.75
+    }
+  },
+  "deception_prior": 0.15,
+  "monitoring": 0.65,
+  "private_type": {},
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Indian gold demand is traditionally framed as jewellery/cultural (weddings, festivals) rather than financial.",
+      "revealed": "Q1 2026 investment demand (bars/coins) rose 54% YoY to 82 tonnes while jewellery volumes fell 19% YoY even as jewellery spending rose 47% (price-driven, not volume-driven); investment demand then cooled to 54t in Q2 2026 from a ~100t/quarter run-rate, tracking the gold-price and hedging cycle rather than the wedding calendar. Total 2024 demand was 802.8 tonnes, making India the world's second-largest gold consumer.",
+      "delta": "The actor is increasingly treating gold as an investment/FX-hedge instrument rather than primarily a cultural purchase, confirming the Cartographer's 'private decentralised FX reserve' framing.",
+      "sources": [
+        "https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-india-focus-q1-2026",
+        "https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-india-focus-q2-2026",
+        "https://www.businesstoday.in/personal-finance/investment/story/golds-record-2025-rally-boosts-rbi-reserves-but-weakens-demand-deepens-import-reliance-sbi-research-500915-2025-11-05"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Mutual-fund industry messaging in 2025-26 frames SIP retail investors as a stable, uniformly 'sticky' long-term domestic equity bid.",
+      "revealed": "Net SIP inflows hit a record ~₹2 trillion in FY26 (Apr 2025-Mar 2026) with successive record monthly contributions (₹29,361cr Sep-25, ₹31,002cr Dec-25, ₹31,961cr Jul-26) even as SIP account closures rose during 2025-26 market turbulence, and active SIP accounts still grew past 10 crore.",
+      "delta": "The aggregate flow is a genuine, near-mechanical record bid supporting the 'forced flow' framing, but it masks rising account-level churn — headline stickiness is partly a composition effect (new accounts replacing closed ones), not universal individual discipline.",
+      "sources": [
+        "https://www.business-standard.com/markets/news/net-sip-inflows-surge-to-record-2-trillion-in-fy26-despite-closures-126090901370_1.html",
+        "https://www.tatamutualfund.com/blogs/decoding-sip-trends-mid-2026-are-investors-consolidating-or-expanding-their-sips"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-HH_IN-bootstrap"
+  "dependencies": [
+    {"on": "CB_IN", "type": "INR_management_and_capital_flow_measures", "strength": 0.4},
+    {"on": "AM_INDEX", "type": "domestic_equity_price_transmission", "strength": 0.3},
+    {"on": "ST_GULF", "type": "remittance_corridor_dependence", "strength": 0.3}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "the rupee depreciates sharply or the gold price spikes further (e.g., a geopolitical or dollar-funding shock)",
+     "then": "investment-demand gold buying accelerates further even as jewellery volumes keep falling — the jewellery/investment bifurcation widens rather than aggregate gold demand simply rising"},
+    {"if": "domestic equity indices see a sustained (2+ quarter) double-digit drawdown",
+     "then": "SIP account closures accelerate materially beyond the FY26 rate, testing whether net SIP inflows can stay positive"}
+  ],
+  "what_would_change_my_mind": "A quarter where investment gold demand falls together with a stable or strengthening rupee (i.e., gold buying decouples from the hedging motive) would undercut the 'private FX reserve' framing. Note: the informal-labour-supply and remittance-receipt sub-controls in the Cartographer file were not independently sourced in this pass and remain thin evidence."
 }

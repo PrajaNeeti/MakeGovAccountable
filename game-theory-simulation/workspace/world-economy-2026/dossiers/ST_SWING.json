@@ -1,54 +1,76 @@
 {
   "id": "ST_SWING",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
+    "survival": 0.2,
     "resources": 0.3,
-    "autonomy": 0.2,
+    "autonomy": 0.25,
     "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "relative_rank": 0.1
   },
-  "discount_rate": 0.25,
-  "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
+  "discount_rate": 0.18,
+  "horizon_driver": "national electoral cycles (Brazil 2026 presidential election, Mexico's sexenio, Turkey's contested succession politics) — shorter and more heterogeneous than the merged actor's structural hedging strategy, which is itself durable across administrations",
+  "survival_threshold": 0.3,
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.08, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
+  ],
+  "constraints": [
+    {"action": "make_a_binding_permanent_bloc_choice_(fully_align_with_US_or_China/Russia_axis)", "type": "priced",
+     "cost": 0.4,
+     "source": "the hedging strategy itself is the primary asset — full alignment with either side forfeits the ability to be courted/paid by both",
+     "breaks_under": "a binary forcing event (e.g., a NATO-Russia direct incident for Turkey, or a full US secondary-sanctions regime with no carve-outs) that eliminates the middle ground"},
+    {"action": "openly_acknowledge_transshipment/tariff-circumvention_practices", "type": "performative",
+     "cost": 0.1,
+     "source": "both Vietnam and Mexico publicly frame trade growth as legitimate nearshoring/CPTPP-based diversification",
+     "breaks_under": "already effectively conceded by the scale of the numbers: Mexico's imports from Vietnam more than doubled (103% YoY, $18.4bn H1 2026) immediately after Mexico imposed new China tariffs, and the White House estimates ~$67bn in 2025 transshipment through Mexico, India and Vietnam combined"},
+    {"action": "fully_integrate_into_a_NATO_or_Western_defense-industrial_rules_regime", "type": "priced",
+     "cost": 0.3,
+     "source": "Turkey specifically: NATO membership vs. independent defense-export and Russian-hardware relationships",
+     "breaks_under": "already broken in practice: Turkey's S-400 purchase has blocked its F-35 reintegration for 7+ years without Ankara reversing course, while Turkish drone exports (tripled to ~$10bn) proceed on an independent commercial track outside NATO-aligned export discipline"}
+  ],
+  "credibility": {
+    "overall": 0.55,
+    "by_domain": {
+      "non-alignment_and_hedging_claims": 0.8,
+      "specific_bilateral_alliance_commitments": 0.3,
+      "trade_compliance_(rules_of_origin,_tariff_circumvention)": 0.35,
+      "commodity_and_manufacturing_delivery": 0.7
+    }
+  },
+  "deception_prior": 0.25,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Mexico's surging imports from Vietnam ($18.4bn H1 2026, +103% YoY) reflect legitimate CPTPP-based trade diversification and Vietnam's own manufacturing growth.",
+      "revealed": "The surge coincided precisely with Mexico's Jan 2026 imposition of new, higher tariffs on Chinese goods, and analysts (Mexico News Daily, Dallas Fed) flag strong evidence of Chinese goods being minimally processed or relabeled in Vietnam to qualify for CPTPP tariff-free entry — a pattern the White House separately estimates at ~$67bn in 2025 transshipment across Mexico/India/Vietnam.",
+      "delta": "The stated 'nearshoring success story' and the revealed 'tariff arbitrage via transshipment' are not mutually exclusive, but the timing and magnitude strongly favor the arbitrage explanation as the dominant driver — exactly the swing-power behavior the Cartographer predicts (monetizing the seam between two blocs' tariff regimes).",
+      "sources": ["https://mexiconewsdaily.com/business/vietnams-exports-to-mexico-transshipment-tariffs/", "https://www.dallasfed.org/research/pubs/25trade/a3", "https://www.riotimesonline.com/washington-names-more-than-40-countries-including-mexico-in-a-china-transshipment-crackdown/"]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Turkey is a loyal NATO member fully integrated into the alliance's defense posture.",
+      "revealed": "Turkey has retained its Russian S-400 system for 7+ years despite it permanently blocking F-35 program reintegration, while simultaneously building an independent, rapidly growing drone export business (tripled to ~$10bn, ~3.7% of total exports) and pursuing parallel Eurasian/SCO and Turkic-bloc diplomatic tracks alongside NATO membership.",
+      "delta": "Turkey treats NATO membership as one track among several rather than as an exclusive commitment — the S-400 saga is the clearest documented case of a swing power refusing to let alliance membership foreclose a parallel relationship with a rival power.",
+      "sources": ["https://www.chathamhouse.org/2026/07/turkeys-s-400-saga-shows-hard-realities-defence-procurement", "https://dronexl.co/2026/02/02/turkey-drone-nato-reality-check/", "https://atlasinstitute.org/turkiyes-balancing-act-how-erdogan-navigates-between-nato-russia-and-the-gulf/"]
     },
     {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Brazil frames its BRICS engagement (and hosting/co-launching BRICS Pay settlement infrastructure with India, Sept 2026) as principled multilateralism and de-dollarization solidarity with the Global South.",
+      "revealed": "Brazil under Lula has used BRICS chiefly as bilateral leverage against Washington in its own tariff disputes, not as a vehicle for committing to Chinese-led bloc alignment — consistent with using the platform instrumentally rather than as an act of alignment.",
+      "delta": "The 'anti-hegemonic multilateralism' framing obscures a narrower transactional logic: extract negotiating leverage vis-a-vis the US without foreclosing US market access.",
+      "sources": ["https://www.riotimesonline.com/brics-2026-complete-guide/", "https://informedclearly.com/en/economy/62229/brics-de-dollarization-trade-settlements-2026"]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-ST_SWING-bootstrap"
+  "dependencies": [
+    {"on": "ST_US", "type": "primary_export_market_and_nearshoring_demand_source", "strength": 0.55},
+    {"on": "ST_CN", "type": "input_goods_supply_and_secondary_export_market", "strength": 0.5},
+    {"on": "CORP_COMMOD", "type": "routing_and_marketing_of_commodity_exports", "strength": 0.4},
+    {"on": "IFI", "type": "FX_and_debt-crisis_backstop_for_the_more_fragile_members_(Turkey,_Argentina-adjacent_risk)", "strength": 0.35}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "the US expands its transshipment crackdown (already naming 40+ countries) into enforced secondary tariffs specifically on Vietnam- or Mexico-routed goods with material Chinese content", "then": "swing states rapidly tighten rules-of-origin compliance and documentation rather than accept the tariffs — commodity/manufacturing revenue access to the US market dominates any bloc-loyalty consideration"},
+    {"if": "a direct NATO-Russia incident occurs in the Black Sea or against Turkish-adjacent assets", "then": "Turkey's dual-track S-400/NATO posture becomes untenable within roughly one crisis cycle and a visible tilt (in one direction or the other) becomes likely within months, not years"},
+    {"if": "BRICS Pay or equivalent local-currency settlement infrastructure reaches a material share (e.g. >10%) of intra-BRICS trade by 2027", "then": "swing actors (Brazil, Indonesia especially) deepen de-dollarization hedging further while still maintaining USD-denominated Western trade relationships in parallel, rather than choosing one settlement system exclusively"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "Because this is a merged actor spanning genuinely heterogeneous political economies (commodity exporters vs. manufacturing relocators vs. Turkey's unique NATO-member status), confidence is capped at medium; a request to model any single member (especially Turkey, whose constraints are qualitatively different from Vietnam's or Brazil's) should trigger a dedicated single-country pass rather than reuse of this merged dossier, per the Cartographer's own split condition."
 }

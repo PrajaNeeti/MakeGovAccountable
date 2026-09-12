@@ -1,54 +1,96 @@
 {
   "id": "CORP_SEMI",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
+  "confidence": "medium",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
+    "survival": 0.2,
+    "resources": 0.35,
+    "autonomy": 0.25,
     "legitimacy": 0.15,
     "relative_rank": 0.05
   },
-  "discount_rate": 0.143,
+  "discount_rate": 0.14,
+  "horizon_driver": "Fab and EUV-tool construction/order cycles run 3-7 years and capex is now guided by multi-year AI-demand forecasts, but this long commercial horizon is repeatedly overridden within weeks by export-control and tariff decisions made in Washington, The Hague, and Beijing — the actor plans on a corporate clock and reacts on a political one.",
   "survival_threshold": 0.25,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "resources": 0.8,
+    "security": 0.6,
+    "legitimacy": 0.55,
+    "autonomy": 0.4,
+    "rank": 0.75,
+    "liquidity": 0.75
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true,
+     "note": "Maintain current customer allocation, export-compliance posture, and announced capex schedule. Modal state most of the time."},
+    {"action": "settle", "cost": 0.1, "reversible": true,
+     "note": "Comply with a new export-control rule or accept a government-imposed condition in exchange for continued market access — the dominant response pattern: Nvidia accepted a 15% US-government revenue share on H20 China sales (Aug 2025) and a 25% share on H200 sales (Dec 2025) rather than accept a full ban; TSMC accelerated its Arizona timeline (2nd fab tool-install moved up to Q3 2026, 3nm output pulled forward to 2027) under sustained US political pressure while continuing to frame it as customer-demand-driven."},
+    {"action": "escalate", "cost": 0.15, "reversible": true,
+     "note": "Actively lobby, litigate, or use a home government as a proxy to resist or narrow a proposed restriction before it becomes final rule — e.g. the Dutch government publicly lobbying Washington against the proposed MATCH Act's extension of export bans to ASML's DUV tools and to servicing already-installed China machines (mid-2026), and Nvidia CEO Jensen Huang's direct, sustained public and White House lobbying against the H20 ban through mid-2025. No instance found of a named firm defying a final, binding export-control rule outright."}
+  ],
+  "constraints": [
+    {"action": "sell_controlled_leading-edge_tools_or_chips_to_a_sanctioned_end_user", "type": "hard", "cost": 0.85,
+     "source": "US Commerce/BIS export-control regime plus Dutch/Japanese coordinated controls on EUV and advanced DUV lithography tools; TSMC's 2020 termination of its Huawei relationship ahead of the formal cutoff is the clearest example of a firm choosing to lose a major customer rather than risk secondary sanctions and loss of toolchain access",
+     "breaks_under": "essentially never for the named firms with respect to final, binding rules — compliance itself is high-credibility. The contested territory is entirely in the run-up to a rule (lobbying to narrow scope), not in defiance after it is set."},
+    {"action": "service_or_maintain_previously-sold_equipment_in_a_now-restricted_market", "type": "priced", "cost": 0.35,
+     "source": "ASML's existing installed base of DUV tools in China and the associated maintenance/parts revenue and goodwill",
+     "breaks_under": "a new binding rule (the proposed MATCH Act) that explicitly bans servicing already-delivered machines — as of mid-2026 this had not yet been enacted, and the Dutch government was actively lobbying against it on ASML's behalf, indicating the firms treat even legacy-equipment servicing revenue and reputational goodwill as worth defending up to the point a rule actually forecloses it",
+     "sources": ["https://nltimes.nl/2026/06/24/dutch-government-irritated-us-plans-new-asml-export-restrictions", "https://www.bloomberg.com/news/articles/2026-06-24/netherlands-lobbies-us-to-drop-chip-curbs-targeting-asml-sales"]}
+  ],
+  "credibility": {
+    "overall": 0.6,
+    "by_domain": {
+      "export_control_compliance_once_final": 0.85,
+      "capex_commitment_delivery_on_stated_timeline": 0.55,
+      "commercial-rationale_framing_of_politically-driven_decisions": 0.3
+    }
+  },
+  "deception_prior": 0.3,
+  "monitoring": 0.6,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "TSMC and NVIDIA publicly frame major capex and supply decisions (Arizona fab acceleration, US-based capacity additions) as pure responses to customer/AI demand — CEO C.C. Wei attributed the Arizona 2nd-fab acceleration (tool install pulled into Q3 2026, 3nm output pulled forward a full year to 2027) explicitly to 'strong AI-related demand' in an Oct 2025 earnings call.",
+      "revealed": "The acceleration and the scale of the commitment (from $65bn, to $100bn, to a cumulative $265bn and ~10 planned Arizona fabs as of the July 2026 announcement) track closely with the escalation of US political pressure over the same period, including CHIPS Act conditionality, tariff threats, and the Commerce Department's Sept 2025 '50-50' production-share proposal aimed squarely at TSMC's Taiwan concentration. Demand growth and political pressure moved together, making it impossible to cleanly separate the two from public statements alone, but the size and speed of the commitments go well beyond what pure NPV-on-AI-demand alone would typically justify at this pace, and the timing of announcements correlates with high-profile political moments (earnings calls immediately following tariff/production-share news cycles).",
+      "delta": "Firms consistently narrate politically-coerced or politically-incentivized capacity decisions in commercial language, which is a genuine deception of framing even though the underlying compliance/investment is real and verifiable. Analysts should discount the 'this is just AI demand' framing whenever it coincides with an active US political pressure campaign, without assuming the capex itself is fake.",
+      "sources": [
+        "https://www.manufacturingmag.com/article/tsmc-arizona-265-billion-four-more-2nm-fabs-record-q2-2026",
+        "https://focustaiwan.tw/politics/202509290015",
+        "https://www.cnbc.com/2025/10/02/taiwan-us-chip-production-tsmc-trade-tariffs.html"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Export-control policy is presented by the US government as a bright-line national-security tool, and firms present themselves as neutral, fully compliant parties simply following the rules of whichever jurisdiction they operate in.",
+      "revealed": "The actual 2025-2026 regime for Nvidia's China-bound AI chips (H20, H200) became a negotiated, revenue-conditioned licensing scheme: Trump announced in Aug 2025 that Nvidia could resume H20 sales to China in exchange for a 15% cut of that revenue paid to the US government, extended in Dec 2025 to a 25% cut on the more advanced H200, with similar terms floated for AMD and Intel. This followed 'months of industry lobbying' by Nvidia CEO Jensen Huang, including direct meetings with President Trump. A national-security control was converted into a monetized, negotiable license fee — a genuinely novel arrangement whose legality has been publicly questioned (export-control statutes do not obviously authorize a revenue-sharing tax) but which both the government and the firm accepted as workable.",
+      "delta": "The stated frame ('bright-line security control, neutral compliance') and the revealed mechanism ('negotiated revenue-share license, obtained via sustained C-suite lobbying') are far apart. The practical lesson for the simulation: CORP_SEMI firms will pay a substantial fraction of restricted-market revenue to a host government in exchange for access, rather than treat a restriction as a fixed boundary — money-for-access dominates principled non-engagement once a fee mechanism is on the table.",
+      "sources": [
+        "https://www.npr.org/2025/08/11/nx-s1-5498689/trump-nvidia-h20-chip-sales-china",
+        "https://www.cnbc.com/2025/12/08/trump-nvidia-h200-sales-china.html",
+        "https://www.lawfaremedia.org/article/trump-s-illegal-ai-chip-export-controls--and-who-can-challenge-them"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-CORP_SEMI-bootstrap"
+  "dependencies": [
+    {"on": "ST_US", "type": "export_licensing_CHIPS_funding_and_tariff_threats", "strength": 0.85,
+     "note": "The single dominant external dependency; illustrated starkly outside the named-six by the US government's Aug 2025 acquisition of a 9.9% equity stake (plus a 5-year warrant for 5% more) in Intel in exchange for converting unpaid CHIPS Act grants and Secure Enclave funding into equity — a precedent the named firms (all CHIPS recipients to varying degrees) now negotiate in the shadow of."},
+    {"on": "ST_TW", "type": "fab_siting_and_export_screening_sovereignty_for_TSMC", "strength": 0.6},
+    {"on": "ST_EU", "type": "Dutch_government_control_over_ASML_export_licenses", "strength": 0.6},
+    {"on": "ST_CN", "type": "residual_China_revenue_exposure", "strength": 0.4,
+     "note": "Material and shrinking under pressure: ASML's China revenue share fell from roughly 36% of group sales in Q4 2025 to about 19% in Q1 2026 (a ~56% quarter-on-quarter drop in China system sales) as restrictions bit, showing the dependency is real but actively being severed by policy rather than by choice."},
+    {"on": "CORP_TECH", "type": "hyperscaler_and_AI_lab_demand_for_compute", "strength": 0.7}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "a home-government export-control rule affecting one of the six firms moves from 'proposed' to 'final'",
+     "then": "the firm complies fully and quickly, but only after an intense multi-month lobbying campaign (often routed through its own home government — Dutch MFA for ASML, Taiwanese trade negotiators for TSMC, direct executive access to the White House for Nvidia) attempting to narrow scope or delay effect; once final, no confirmed case of a named firm defying the rule was found.",
+     "confidence": "high",
+     "sources": ["https://nltimes.nl/2026/06/24/dutch-government-irritated-us-plans-new-asml-export-restrictions", "https://www.npr.org/2025/08/11/nx-s1-5498689/trump-nvidia-h20-chip-sales-china"]},
+    {"if": "a government offers a revenue-conditioned licensing carve-out instead of an outright ban",
+     "then": "the firm accepts within weeks (Nvidia accepted the 15% H20 fee within the same news cycle as the Aug 2025 announcement, and the 25% H200 fee within days of the Dec 2025 announcement) rather than contest the arrangement's legality, even amid public commentary questioning its statutory basis.",
+     "confidence": "high",
+     "sources": ["https://www.cnbc.com/2025/12/08/trump-nvidia-h200-sales-china.html"]},
+    {"if": "AI-demand growth headlines coincide with an active host-government pressure campaign on siting",
+     "then": "expect announced capex/timeline acceleration whose scale exceeds what demand alone would explain, framed publicly in purely commercial terms — watch the gap between the demand narrative and the size/speed of the number, not the number itself.",
+     "confidence": "medium"}
+  ],
+  "what_would_change_my_mind": "A confirmed instance of one of the six firms defying a final, binding export-control rule (rather than lobbying against a proposed one) would materially lower the export-control-compliance credibility score. A CHIPS-style US equity stake being taken directly in one of the six named firms (rather than in Intel, which is adjacent but not in this dossier's roster) would be a strong confirming signal that the 'capability held hostage by jurisdiction' framing has moved from soft (licensing, tariffs) to hard (ownership) capture, and should raise the priced cost of the autonomy-eroding constraints materially. Confidence is medium rather than high because the six firms are structurally very different (foundry, tool monopolist, IDM, fabless GPU designer) and are treated here as one actor only because the Cartographer merged them; several of the findings above (Nvidia's revenue-share deal, ASML's China exposure) are firm-specific rather than complex-wide.",
+  "assumption_ids": ["RESEARCHED-CORP_SEMI-2026-09-12"]
 }

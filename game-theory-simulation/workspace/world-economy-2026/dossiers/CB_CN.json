@@ -1,54 +1,66 @@
 {
   "id": "CB_CN",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.30,
+    "resources": 0.20,
+    "autonomy": 0.20,
+    "legitimacy": 0.10,
+    "relative_rank": 0.20
   },
-  "discount_rate": 0.1,
-  "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
+  "discount_rate": 0.08,
+  "horizon_driver": "Party Congress cycle (5-year) nested inside a multi-decade de-dollarization strategy; PBOC has no electoral clock and is not independent of the State Council, so its horizon is the Party's, not its own.",
+  "survival_threshold": 0.20,
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true, "meaning": "maintain current fixing band and capital-account gate settings"},
+    {"action": "settle", "cost": 0.10, "reversible": true, "meaning": "incremental liberalization step (pilot-zone quota expansion, bilateral RMB settlement deal, gold purchase)"},
+    {"action": "escalate", "cost": 0.15, "reversible": false, "meaning": "sharp capital-control tightening, abrupt CNY devaluation, or aggressive CIPS/gold push in response to outflow pressure"}
+  ],
+  "constraints": [
+    {"action": "disorderly_CNY_depreciation_beyond_managed_band", "type": "priced", "cost": 0.30, "source": "managed float regime, daily fixing mechanism", "breaks_under": "severe, sustained capital outflow pressure (precedent: 2015-16 devaluation episode)"},
+    {"action": "full_capital_account_opening_to_portfolio_flows", "type": "priced_near_hard", "cost": 0.50, "source": "State Council control; Bruegel/Merics reporting that capital-account openness remains ~16% of OECD average with explicit 'firewalls'", "breaks_under": "essentially does not break in the observed period; reserve-currency ambition has not yet been allowed to override control"},
+    {"action": "monetary_policy_independent_of_State_Council_credit_targets", "type": "hard", "cost": null, "source": "PBOC is constitutionally and administratively subordinate to the State Council, not an independent central bank", "breaks_under": "never — this is the actor's defining structural feature, not a negotiable constraint"}
+  ],
+  "credibility": {
+    "overall": 0.55,
+    "by_domain": {
+      "capital_account_liberalization_promises": 0.25,
+      "reserve_and_gold_management": 0.85,
+      "CNY_stability_management": 0.75
+    }
+  },
+  "deception_prior": 0.35,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "PBOC's 2025 roadmap frames RMB internationalization and capital account opening as 'bold' and proceeding toward possible nationwide rollout of pilot mechanisms by 2026.",
+      "revealed": "As of 2026 China's capital account remains only about 16% as open as the OECD average (Bruegel), and Merics reporting describes the actual approach as 'limited globalisation' with monitored pilots (Greater Bay Area, Shanghai Free-Trade Zone) and explicit 'firewalls,' with full liberalization not envisaged even in the current plan.",
+      "delta": "Internationalization rhetoric substantially outpaces capital-account reality. The gate-keeping apparatus is fully intact; pilots are testbeds for control mechanisms, not staging grounds for imminent nationwide opening.",
+      "sources": [
+        "https://www.bruegel.org/blog-post/towards-further-liberalisation-capital-account-china",
+        "https://merics.org/en/report/chinas-caution-about-loosening-cross-border-capital-flows",
+        "https://yuantrends.com/pboc-rmb-internationalization-capital-account-liberalization-2025/"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Official PBOC language frames reserve diversification, including gold accumulation, as measured, prudent, and gradual portfolio risk management.",
+      "revealed": "The PBOC has extended its gold-buying streak to 22 consecutive months through August 2026 — the longest run on record, beginning November 2024 — reaching roughly 2,386.6 tonnes (76.73 million troy ounces), with June 2026's addition (14.93 tonnes) its largest single-month purchase since 2023. This is a mechanically consistent, uninterrupted accumulation pattern, not an occasional rebalancing.",
+      "delta": "The pace and consistency of gold accumulation reveal a firmer, more deliberate de-dollarization commitment than the 'prudent, gradual' framing implies — this is the most reliable hard-flow evidence in the entire dossier because it is disclosed monthly and independently verifiable.",
+      "sources": [
+        "https://goldsilver.com/industry-news/goldsilver-news/pboc-gold-reserves-august-2026-22-months/",
+        "https://goldsilver.com/industry-news/goldsilver-news/pboc-gold-reserves-june-2026/",
+        "https://www.indexbox.io/blog/chinas-central-bank-extends-gold-buying-streak-to-20-months-in-june-2026/"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-CB_CN-bootstrap"
+  "dependencies": [
+    {"on": "ST_CN", "type": "full_political_subordination", "strength": 0.9},
+    {"on": "HH_CN", "type": "credit_and_property_deleveraging_linkage", "strength": 0.5}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "FX reserves fall by more than roughly $100bn in a quarter", "then": "capital-account gates tighten further regardless of internationalization rhetoric (2015-16 precedent)"},
+    {"if": "the PBOC gold-buying streak breaks for 2+ consecutive months", "then": "signals either reserve-adequacy concerns or a deliberate pause in the de-dollarization program — a key leading indicator to monitor"},
+    {"if": "a capital-account pilot zone (Greater Bay Area, Shanghai FTZ) shows net outflow above its quota", "then": "the pilot is throttled or rolled back rather than expanded nationwide, contradicting the stated 2026 roadmap"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "A genuine, unrestricted nationwide expansion of QFII/RQFII-style quotas or removal of FX conversion caps outside pilot zones would flip the read from 'control retained' to 'controlled opening real' — worth a dedicated re-check at each PBOC policy announcement window."
 }
