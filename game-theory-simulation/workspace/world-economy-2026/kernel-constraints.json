@@ -1,0 +1,33 @@
+{
+  "_readme": "Operationalizes 5 of the 95 sourced dossier constraints onto an actual engine action id (escalate) so they mechanically bind, for the actors now covered by a researched kernel (reserve_currency_order, taiwan_semiconductor, energy_routes, global_dollar_funding) rather than generic_competition. Deliberately NOT all 95 -- see audit.md Fatal #1 for why a blanket remap would be dishonest (most constraints reference specific real actions with no genuine payoff differential in a generic kernel to weigh cost against). These 5 were chosen because: (a) the relevant theatre now has a kernel giving 'escalate' a real, distinct payoff for that actor, so a cost has something concrete to trade off against, and (b) the original constraint's theme plausibly maps onto what 'escalate' represents for that actor in that kernel. breaks_under conditions here are MY OWN numeric proxies in the engine's tiny '<dim><op><value>' condition language, not literal restatements of the sourced prose tripwire (the engine cannot parse natural-language conditions) -- each is documented against the real finding it approximates.",
+
+  "ST_US": [
+    {"action": "escalate", "type": "priced", "cost": 0.3,
+     "breaks_under": "autonomy>0.85",
+     "source": "Operationalizes 'unilateral_executive_tariff_imposition_without_congress' (dossier cost 0.3, sourced: administration pivots to Section 122 of the Trade Act same-day). Proxy: once ST_US autonomy is already near-maximal, an alternate legal authority is assumed available and the constraint stops binding."}
+  ],
+
+  "ST_CN": [
+    {"action": "escalate", "type": "priced", "cost": 0.15,
+     "breaks_under": "legitimacy<0.3",
+     "source": "Operationalizes 'publicly_abandon_peaceful_reunification_framing_on_Taiwan' (dossier cost 0.15, sourced: framing already effectively broken in substance, kept only because it's rhetorically costless while facts on the ground change). Proxy: once domestic legitimacy is already low, the marginal rhetorical cost of dropping the framing approaches the dossier's own near-zero real cost."}
+  ],
+
+  "CB_US": [
+    {"action": "escalate", "type": "priced", "cost": 0.25,
+     "breaks_under": "resources<0",
+     "source": "Operationalizes the political cost of defending independence against pressure to ease (dossier: 2025 attempted removal of Fed Governor Cook, blocked 5-4 on narrow due-process grounds only, leaving a compliant for-cause process open). breaks_under is intentionally near-unreachable (resources floor at 0 via clamp()) -- modeled as a durably binding cost, not one with a clean numeric release condition, since the sourced tripwire is about a legal process, not a state-vector threshold."}
+  ],
+
+  "ST_TW": [
+    {"action": "escalate", "type": "priced", "cost": 0.5,
+     "breaks_under": "security<0.2",
+     "source": "Adapted from 'cede_majority_of_leading-edge_capacity_offshore' (dossier cost 0.6, sourced: Taiwan flatly rejected a 50-50 chip-split proposal, Oct 2025). Direction is inverted from the source (that constraint prices CONCEDING; this prices RESISTING/escalating) -- used as a same-order-of-magnitude anchor for the diplomatic/economic cost of taking the hard line, reduced slightly to reflect the adaptation. Proxy: once security has already collapsed (near-invasion conditions), the marginal cost of continued resistance drops -- little left to lose."}
+  ],
+
+  "ST_JP_KR": [
+    {"action": "escalate", "type": "priced", "cost": 0.3,
+     "breaks_under": "resources<0.3",
+     "source": "Direct match: 'fully_comply_with_US_China_chip_export_controls_at_cost_of_China_revenue' (dossier cost 0.3, sourced: Korea's chip exports to China surged 243% YoY in May 2026 even under nominal containment -- full compliance is the road not taken). Proxy: once already resource-poor, the compliance cost is effectively moot since there is little China revenue left to forgo."}
+  ]
+}

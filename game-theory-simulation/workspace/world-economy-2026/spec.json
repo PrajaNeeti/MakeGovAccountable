@@ -55,6 +55,11 @@
           "action": "withdraw_NATO_Indo-Pacific_security_guarantees",
           "cost": 0.2,
           "breaks_if": "sustained European defense spending below political patience threshold, or a crisis where non-intervention becomes politically cheaper than intervention"
+        },
+        {
+          "action": "escalate",
+          "cost": 0.3,
+          "breaks_if": "autonomy>0.85"
         }
       ],
       "private_type": {},
@@ -104,6 +109,11 @@
           "action": "publicly abandon 'peaceful reunification' framing on Taiwan",
           "cost": 0.15,
           "breaks_if": "already effectively broken in substance (see stated_vs_revealed below); the performative framing persists because it costs nothing to maintain rhetorically while military facts on the ground change"
+        },
+        {
+          "action": "escalate",
+          "cost": 0.15,
+          "breaks_if": "legitimacy<0.3"
         }
       ],
       "private_type": {},
@@ -256,6 +266,11 @@
           "action": "reverse_demographic_decline",
           "cost": null,
           "breaks_if": "does not break; treat as structural physics, not a strategic choice"
+        },
+        {
+          "action": "escalate",
+          "cost": 0.3,
+          "breaks_if": "resources<0.3"
         }
       ],
       "private_type": {},
@@ -300,6 +315,11 @@
           "action": "formal_declaration_of_independence",
           "cost": 0.95,
           "breaks_if": "essentially never under current conditions; genuinely closer to a hard constraint than most in this dossier"
+        },
+        {
+          "action": "escalate",
+          "cost": 0.5,
+          "breaks_if": "security<0.2"
         }
       ],
       "private_type": {},
@@ -598,6 +618,11 @@
           "action": "accept an executive-installed FOMC voting majority",
           "cost": 0.15,
           "breaks_if": "already broken in substance at the level of a single seat; the institutional norm ('governors act independently once seated') persists rhetorically but the personnel channel is demonstrably porous"
+        },
+        {
+          "action": "escalate",
+          "cost": 0.25,
+          "breaks_if": "resources<0"
         }
       ],
       "private_type": {},
@@ -1793,7 +1818,7 @@
         "CB_CN",
         "SWF"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:reserve_currency_order"
     },
     {
       "id": "taiwan_semiconductor",
@@ -1805,7 +1830,7 @@
         "ST_JP_KR",
         "CORP_SEMI"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:taiwan_semiconductor"
     },
     {
       "id": "energy_routes",
@@ -1817,7 +1842,7 @@
         "INS_RE",
         "CORP_COMMOD"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:energy_routes"
     },
     {
       "id": "trade_bloc_alignment",
@@ -1849,7 +1874,7 @@
         "BANK_GSIB",
         "ST_FRAGILE"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:global_dollar_funding"
     },
     {
       "id": "sovereign_debt_workout",

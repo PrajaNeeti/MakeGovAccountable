@@ -155,6 +155,196 @@ def _generic(actor, own, others, states, params, rng):
     return d
 
 
+@payoff_fn("reserve_currency_order")
+def _reserve_currency_order(actor, own, others, states, params, rng):
+    """ST_US, ST_CN, CB_US, CB_CN, SWF. Grounded in sourced dossier facts:
+    ST_US's dollar-clearing leverage degrades with use (each application
+    accelerates counterparty exit); ST_CN's de-dollarization is real via a
+    22-month gold-accumulation streak but its capital account is still only
+    ~16% as open as the OECD average despite liberalization rhetoric --
+    the impossible trinity binds; CB_US's independence was tested directly
+    (2025 Cook removal attempt, blocked 5-4 on narrow due-process grounds
+    only) and its swap-line discretion is a real crisis-survival lever;
+    SWF's "longest horizon" framing broke for PIF specifically (2026-2030
+    strategy cuts international allocation 30%->20%) while NBIM/Temasek/GIC
+    are converging on a correlated AI mega-cap bet."""
+    d = {k: 0.0 for k in DIMS}
+    n_esc = sum(1 for a in others.values() if a == "escalate") + (1 if own == "escalate" else 0)
+
+    if actor.id == "ST_US":
+        if own == "escalate":       # dollar-weaponization / unilateral tariff path
+            d["autonomy"] += 0.04; d["rank"] += 0.03
+            d["legitimacy"] -= 0.03
+            d["liquidity"] -= 0.02 * n_esc   # counterparty exit accelerates with use
+        elif own == "settle":
+            d["legitimacy"] += 0.02; d["liquidity"] += 0.01
+    elif actor.id == "ST_CN":
+        if own == "escalate":       # accelerate gold/CIPS de-dollarization push
+            d["autonomy"] += 0.05; d["rank"] += 0.03
+            d["liquidity"] -= 0.03           # impossible-trinity capital-account tension
+            d["security"] -= 0.01
+        elif own == "settle":
+            d["legitimacy"] += 0.01
+    elif actor.id == "CB_US":
+        if own == "escalate":       # defends independence, holds against political pressure
+            d["legitimacy"] += 0.03; d["autonomy"] += 0.02
+            d["liquidity"] -= 0.02           # tight policy strains funding conditions
+        elif own == "settle":       # accommodates pressure to ease
+            d["autonomy"] -= 0.03; d["liquidity"] += 0.02
+    elif actor.id == "CB_CN":
+        if own == "escalate":
+            d["autonomy"] += 0.03; d["liquidity"] -= 0.02
+        elif own == "settle":
+            d["liquidity"] += 0.01
+    elif actor.id == "SWF":
+        if own == "escalate":       # concentrate domestic/strategic (PIF pattern)
+            d["autonomy"] += 0.02
+            d["resources"] -= 0.02 * n_esc   # correlated mega-cap bet risk when peers pile in too
+        elif own == "settle":
+            d["resources"] += 0.01
+
+    d["security"] -= 0.01 * n_esc
+    d["resources"] += 0.01
+    return d
+
+
+@payoff_fn("taiwan_semiconductor")
+def _taiwan_semiconductor(actor, own, others, states, params, rng):
+    """ST_US, ST_CN, ST_TW, ST_JP_KR, CORP_SEMI. Grounded in: Taiwan actively
+    resists dilution (flat 2025 rejection of a 50-50 chip-split proposal) --
+    a materially different object from a passive hostage, though its exit
+    cost stays near 1.0; the US moved from hard bans toward negotiated
+    revenue-share licensing (Nvidia H20/H200 at 15% then 25% to Treasury)
+    after direct lobbying; Korea's chip exports to China surged 243% YoY
+    even under nominal containment, a real, quiet divergence from Japan."""
+    d = {k: 0.0 for k in DIMS}
+    n_esc = sum(1 for a in others.values() if a == "escalate") + (1 if own == "escalate" else 0)
+
+    if actor.id == "ST_CN":
+        if own == "escalate":       # military posturing / timeline pressure on Taiwan
+            d["rank"] += 0.05; d["security"] -= 0.03
+            d["legitimacy"] -= 0.02
+        elif own == "settle":
+            d["legitimacy"] += 0.01
+    elif actor.id == "ST_TW":
+        if own == "escalate":       # resist dilution (real 2025 chip-split rejection)
+            d["autonomy"] += 0.04
+            d["security"] -= 0.05 * n_esc    # exposure rises with regional tension
+            d["liquidity"] -= 0.02
+        elif own == "settle":       # accept a production-split-style arrangement
+            d["autonomy"] -= 0.05; d["resources"] += 0.02
+    elif actor.id == "ST_US":
+        if own == "escalate":       # tighten export controls / demand more onshoring
+            d["autonomy"] += 0.03; d["rank"] += 0.02
+            d["legitimacy"] -= 0.02          # allied/industry friction (ASML-lobbying pattern)
+        elif own == "settle":       # negotiate revenue-share licensing instead of hard bans
+            d["resources"] += 0.03; d["legitimacy"] += 0.01
+    elif actor.id == "ST_JP_KR":
+        if own == "escalate":       # comply fully with the containment ask
+            d["legitimacy"] += 0.01; d["resources"] -= 0.03
+        elif own == "settle":       # keep exploiting license exemptions (243% YoY pattern)
+            d["resources"] += 0.04; d["autonomy"] -= 0.01
+    elif actor.id == "CORP_SEMI":
+        if own == "escalate":       # comply/restrict fully
+            d["legitimacy"] += 0.01; d["resources"] -= 0.02
+        elif own == "settle":       # lobby to narrow scope, keep selling (H20/H200 pattern)
+            d["resources"] += 0.05 - 0.02 * n_esc
+
+    d["security"] -= 0.02 * n_esc
+    return d
+
+
+@payoff_fn("energy_routes")
+def _energy_routes(actor, own, others, states, params, rng):
+    """ST_GULF, ST_RU, ST_CN, INS_RE, CORP_COMMOD. Grounded in: 2026 war-risk
+    insurance is priced asymmetrically -- insurers price real risk at
+    Hormuz/Red Sea (premia to 3% of hull value, Black Sea +250%) but show
+    almost no repricing for comparable Taiwan Strait tension ("pricing war
+    at Hormuz and peace at Taiwan"); Gulf fiscal breakeven pressure is
+    already binding (NEOM scope cuts, ~$44bn 2026 deficit) regardless of
+    posture; Russia's shadow fleet carries ~70% of exports but revenue is
+    falling under interception pressure; commodity traders are confirmed
+    variance-preferring (Vitol profit ~$15bn in the 2022 crisis vs $4.5bn
+    in calm 2025)."""
+    d = {k: 0.0 for k in DIMS}
+    n_esc = sum(1 for a in others.values() if a == "escalate") + (1 if own == "escalate" else 0)
+
+    if actor.id == "ST_GULF":
+        if own == "escalate":       # supply discipline / price defense
+            d["resources"] += 0.03; d["liquidity"] -= 0.02   # fiscal strain persists regardless
+        elif own == "settle":       # maintain spare capacity as stabilizer
+            d["legitimacy"] += 0.01; d["resources"] += 0.01
+    elif actor.id == "ST_RU":
+        if own == "escalate":       # push exports further via shadow fleet
+            d["resources"] += 0.04 - 0.02 * n_esc
+            d["security"] -= 0.03; d["liquidity"] -= 0.02    # revenue already falling under interception
+        elif own == "settle":
+            d["liquidity"] += 0.01
+    elif actor.id == "ST_CN":
+        if own == "escalate":       # aggressive discounted-crude buying / route pressure
+            d["resources"] += 0.03; d["autonomy"] += 0.01
+        elif own == "settle":
+            d["legitimacy"] += 0.01
+    elif actor.id == "INS_RE":
+        # variance-preferring: profits from repricing risk, not from stability
+        if n_esc >= 2:               # real tension triggers repricing (Hormuz/Red Sea pattern)
+            d["resources"] += 0.05
+        else:                        # underpriced when tension is low ("peace at Taiwan" pattern)
+            d["resources"] += 0.01
+        d["security"] -= 0.01 * n_esc
+    elif actor.id == "CORP_COMMOD":
+        d["resources"] += 0.02 + 0.03 * n_esc      # variance-preferring regardless of side
+        d["legitimacy"] -= 0.01 * n_esc            # sanctions-arbitrage reputational cost
+
+    d["security"] -= 0.02 * n_esc
+    return d
+
+
+@payoff_fn("global_dollar_funding")
+def _global_dollar_funding(actor, own, others, states, params, rng):
+    """CB_US, CB_EM, BANK_GSIB, ST_FRAGILE. Grounded in: CB_US swap-line
+    allocation is a discretionary, near-instant survival lever; BANK_GSIB's
+    merged treatment is CONFIRMED wrong under stress (2023: US ring-fenced
+    its deposit guarantee, Switzerland unilaterally inverted the AT1/equity
+    waterfall, EU/BoE repudiated the Swiss approach within days, still
+    litigated in 2026) -- modeled here as a self-protective ring-fencing
+    bias, not solidarity; CB_EM's "de-dollarization" is mostly overstated
+    (COFER dollar share barely moved, ~92% of a comparable prior decline
+    was FX valuation not reallocation) except real outliers like Turkey;
+    ST_FRAGILE's tax-to-GDP has stayed flat at 8-10% through 20+ IMF
+    programs (structural commitments reliably unmet) while quantitative
+    program targets are reliably met once a program is actually in force."""
+    d = {k: 0.0 for k in DIMS}
+    n_esc = sum(1 for a in others.values() if a == "escalate") + (1 if own == "escalate" else 0)
+
+    if actor.id == "CB_US":
+        if own == "escalate":       # discretionary swap-line tightening
+            d["autonomy"] += 0.03; d["rank"] += 0.02
+            d["legitimacy"] -= 0.02          # allied/EM resentment at gatekeeping
+        elif own == "settle":       # extend swap lines generously
+            d["legitimacy"] += 0.02; d["liquidity"] -= 0.01
+    elif actor.id == "BANK_GSIB":
+        if own == "escalate":       # national ring-fencing under stress (2023-confirmed pattern)
+            d["security"] += 0.03; d["legitimacy"] -= 0.02
+        elif own == "settle":       # maintain cross-border support (rare, costly, litigated when it fails)
+            d["liquidity"] -= 0.03; d["legitimacy"] += 0.02
+    elif actor.id == "CB_EM":
+        if own == "escalate":       # real diversification (Turkey-style gold accumulation)
+            d["autonomy"] += 0.02; d["liquidity"] -= 0.01
+        elif own == "settle":       # stay conservative (Brazil/Indonesia pattern)
+            d["liquidity"] += 0.01
+    elif actor.id == "ST_FRAGILE":
+        if own == "escalate":       # resist structural reform (40-year unmet tax-base pattern)
+            d["autonomy"] += 0.01
+            d["liquidity"] -= 0.03 * n_esc   # funding access tightens if reformers defect together
+            d["legitimacy"] -= 0.01
+        elif own == "settle":       # meet IMF numeric criteria (reliably kept once in-program)
+            d["liquidity"] += 0.03; d["legitimacy"] -= 0.01   # domestic austerity cost
+
+    d["security"] -= 0.01 * n_esc
+    return d
+
+
 # ------------------------------------------------------------ QRE solver
 
 def solve_theatre(members, states, kernel, params, rng,

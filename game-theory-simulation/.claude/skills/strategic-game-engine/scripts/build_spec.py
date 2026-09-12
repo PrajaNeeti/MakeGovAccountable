@@ -26,6 +26,16 @@ def main():
     p.add_argument("--rounds", type=int, default=20)
     p.add_argument("--out", default="spec.json")
     p.add_argument("--allow-defaults", action="store_true")
+    p.add_argument("--extra-constraints",
+                    help="JSON file: {actor_id: [constraint, ...]} in dossier "
+                         "format (action/cost/breaks_under), appended to that "
+                         "actor's dossier constraints before building. Use this "
+                         "to operationalize a specific sourced constraint onto "
+                         "one of the engine's actual action ids (hold/settle/"
+                         "escalate) when a theatre has a researched kernel that "
+                         "gives that action a real, distinct payoff to weigh "
+                         "the cost against — a constraint whose action string "
+                         "never matches an actual action id is pure decoration.")
     a = p.parse_args()
 
     actors_doc = json.load(open(a.actors))
@@ -33,6 +43,14 @@ def main():
     for f in glob.glob(os.path.join(a.dossiers, "*.json")):
         d = json.load(open(f))
         dossiers[d["id"]] = d
+
+    if a.extra_constraints:
+        extra = json.load(open(a.extra_constraints))
+        for aid, cons in extra.items():
+            if aid in dossiers:
+                dossiers[aid] = dict(dossiers[aid])
+                dossiers[aid]["constraints"] = list(
+                    dossiers[aid].get("constraints", [])) + cons
 
     out, warn = [], []
     for ac in actors_doc["actors"]:
