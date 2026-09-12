@@ -2,84 +2,117 @@
   "meta": {
     "system": "world economy 2026-2046",
     "t0": 2026,
-    "rounds": 20,
+    "rounds": 10,
     "numeraire": "2026_USD"
   },
   "actors": [
     {
       "id": "ST_US",
       "tier": "T1",
-      "lambda": 6.4,
+      "lambda": 6.0,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "resources": 0.65,
+        "security": 0.75,
+        "legitimacy": 0.45,
+        "autonomy": 0.6,
+        "rank": 0.75,
+        "liquidity": 0.8
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "survival": 0.25,
+        "resources": 0.25,
+        "autonomy": 0.15,
+        "legitimacy": 0.2,
+        "relative_rank": 0.15
       },
-      "discount": 0.5,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "discount": 0.35,
+      "survival_threshold": 0.3,
+      "credibility": 0.5,
+      "deception_prior": 0.35,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "unilateral_executive_tariff_imposition_without_congress",
+          "cost": 0.3,
+          "breaks_if": "administration pivots same-day to alternate statutory authority (Section 122 of the Trade Act of 1974, 10% global surcharge proclaimed Feb 20 2026) \u2014 the constraint bites on IEEPA specifically, not on the policy goal, so treat as a legal-venue constraint, not a substantive one"
+        },
+        {
+          "action": "remove_a_sitting_Fed_governor_without_due_process",
+          "cost": 0.35,
+          "breaks_if": "a properly noticed, documented for-cause process \u2014 the Court explicitly left this open ('punted on several key questions'), so the constraint is real but narrow"
+        },
+        {
+          "action": "sovereign_default_or_missed_debt_service",
+          "cost": 0.9,
+          "breaks_if": "no historical instance; treat as near-physics constraint, revisit only if a debt-ceiling standoff runs past X-date with no legislative vehicle available"
+        },
+        {
+          "action": "withdraw_NATO_Indo-Pacific_security_guarantees",
+          "cost": 0.2,
+          "breaks_if": "sustained European defense spending below political patience threshold, or a crisis where non-intervention becomes politically cheaper than intervention"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-ST_US-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "ST_CN",
       "tier": "T1",
-      "lambda": 6.4,
+      "lambda": 6.0,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
+        "resources": 0.55,
+        "security": 0.65,
+        "legitimacy": 0.55,
+        "autonomy": 0.6,
+        "rank": 0.65,
         "liquidity": 0.5
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
+        "survival": 0.35,
+        "resources": 0.2,
+        "autonomy": 0.15,
         "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "relative_rank": 0.15
       },
-      "discount": 0.1,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "discount": 0.06,
+      "survival_threshold": 0.22,
+      "credibility": 0.5,
+      "deception_prior": 0.4,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "full_capital_account_liberalization",
+          "cost": 0.7,
+          "breaks_if": "no observed instance; this is closer to structural physics than policy choice at present"
+        },
+        {
+          "action": "debt-funded property-sector bailout at scale",
+          "cost": 0.35,
+          "breaks_if": "a systemic bank-run or regional-bank failure cascade \u2014 expect a rapid pivot to full monetization within a single Politburo meeting cycle if that threshold is crossed"
+        },
+        {
+          "action": "publicly abandon 'peaceful reunification' framing on Taiwan",
+          "cost": 0.15,
+          "breaks_if": "already effectively broken in substance (see stated_vs_revealed below); the performative framing persists because it costs nothing to maintain rhetorically while military facts on the ground change"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-ST_CN-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "ST_EU",
       "tier": "T1",
-      "lambda": 6.4,
+      "lambda": 6.2,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -89,15 +122,15 @@
         "liquidity": 0.5
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
+        "survival": 0.25,
+        "resources": 0.25,
         "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "legitimacy": 0.2,
+        "relative_rank": 0.1
       },
-      "discount": 0.25,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
+      "discount": 0.18,
+      "survival_threshold": 0.3,
+      "credibility": 0.55,
       "deception_prior": 0.2,
       "monitoring": 0.5,
       "actions": [
@@ -105,16 +138,35 @@
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "issue_permanent_joint_debt_(eurobonds)",
+          "cost": 0.4,
+          "breaks_if": "systemic bond-market stress (e.g. simultaneous French/Italian spread blowout) forcing an NGEU-style emergency repeat"
+        },
+        {
+          "action": "override_unanimity_via_qualified_majority_on_sanctions_or_treaty_matters",
+          "cost": 0.35,
+          "breaks_if": "coalition-of-the-willing workarounds already used for defense procurement (SAFE) and reparations-loan structuring outside full Council unanimity"
+        },
+        {
+          "action": "confiscate_frozen_Russian_sovereign_assets_outright",
+          "cost": 0.3,
+          "breaks_if": "already partially breaking: Dec 2025 Council deal advanced a EUR90bn loan structure backed by the assets' income stream (not outright seizure) after overcoming Belgian and Hungarian objections"
+        },
+        {
+          "action": "run_deficits_beyond_Stability_and_Growth_Pact_thresholds",
+          "cost": 0.15,
+          "breaks_if": "already broken via the national defense-spending escape clause activated for 18 member states as of Feb 2026, and via France's persistent ~5% deficit"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-ST_EU-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "ST_IN",
       "tier": "T1",
-      "lambda": 6.4,
+      "lambda": 6.2,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -124,27 +176,41 @@
         "liquidity": 0.5
       },
       "weights": {
-        "survival": 0.3,
+        "survival": 0.2,
         "resources": 0.3,
-        "autonomy": 0.2,
+        "autonomy": 0.3,
         "legitimacy": 0.15,
         "relative_rank": 0.05
       },
-      "discount": 0.2,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "discount": 0.16,
+      "survival_threshold": 0.3,
+      "credibility": 0.55,
+      "deception_prior": 0.35,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "formal_mutual_defense_alliance_commitment_(Quad_or_otherwise)",
+          "cost": null,
+          "breaks_if": "not observed to break even under sustained China border pressure (2020 Galwan) or intense US courtship"
+        },
+        {
+          "action": "cut_Russian_crude_imports_to_zero",
+          "cost": 0.35,
+          "breaks_if": "already partially broken downward under US tariff pressure: imports fell from ~1.71mbd average in 2025 to ~1.16mbd in Feb 2026 after the 25% additional US tariff, then stabilized around 0.8-1.0mbd after a Feb 2026 US-India trade deal and a Supreme Court ruling constraining US tariff authority"
+        },
+        {
+          "action": "abandon_Russian_defense_relationship",
+          "cost": 0.3,
+          "breaks_if": "diversifying, not abandoning: France now ~28-29% of 2021-25 arms imports vs Russia's ~40% (down from historic highs), yet India approved ~$25bn in new purchases including 5 additional S-400 systems as recently as March 2026"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-ST_IN-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "ST_JP_KR",
@@ -159,67 +225,92 @@
         "liquidity": 0.5
       },
       "weights": {
-        "survival": 0.3,
+        "survival": 0.25,
         "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "autonomy": 0.15,
+        "legitimacy": 0.2,
+        "relative_rank": 0.1
       },
-      "discount": 0.25,
-      "survival_threshold": 0.25,
+      "discount": 0.18,
+      "survival_threshold": 0.3,
       "credibility": 0.6,
-      "deception_prior": 0.2,
+      "deception_prior": 0.25,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "abrogate_US_alliance_or_host_US_forces_agreements",
+          "cost": null,
+          "breaks_if": "not observed to break; both states have instead increased defense spending and alliance coordination since 2022"
+        },
+        {
+          "action": "fully_comply_with_US_China_chip_export_controls_at_cost_of_China_revenue",
+          "cost": 0.3,
+          "breaks_if": "already bending: Korea's chip exports to China surged 243% YoY in May 2026 on AI-driven memory demand even as the two firms operate China fabs under US-granted (and in Sept 2025, briefly revoked) annual license exemptions"
+        },
+        {
+          "action": "reverse_demographic_decline",
+          "cost": null,
+          "breaks_if": "does not break; treat as structural physics, not a strategic choice"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-ST_JP_KR-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "ST_TW",
       "tier": "T1",
-      "lambda": 6.4,
+      "lambda": 6.8,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
+        "resources": 0.65,
+        "security": 0.45,
+        "legitimacy": 0.6,
+        "autonomy": 0.55,
         "rank": 0.5,
-        "liquidity": 0.5
+        "liquidity": 0.7
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
+        "survival": 0.4,
+        "resources": 0.15,
+        "autonomy": 0.25,
         "legitimacy": 0.15,
         "relative_rank": 0.05
       },
-      "discount": 0.25,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
+      "discount": 0.2,
+      "survival_threshold": 0.2,
+      "credibility": 0.7,
       "deception_prior": 0.2,
-      "monitoring": 0.5,
+      "monitoring": 0.55,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "cede_majority_of_leading_edge_(sub-5nm)_capacity_offshore",
+          "cost": 0.6,
+          "breaks_if": "a survival-threshold shock in which the US security guarantee is made explicitly and credibly conditional on the production split \u2014 President Lai has publicly quantified the cost of conceding (an estimated loss of ~200,000 high-tech jobs and over 1 million high-spending consumers), which is itself evidence the government has priced, not ruled out, some version of this trade"
+        },
+        {
+          "action": "formal_declaration_of_independence",
+          "cost": 0.95,
+          "breaks_if": "essentially never under current conditions; genuinely closer to a hard constraint than most in this dossier"
+        }
+      ],
       "private_type": {},
       "assumption_ids": [
-        "STUB-ST_TW-bootstrap"
+        "RESEARCHED-ST_TW-2026-09-12"
       ]
     },
     {
       "id": "ST_RU",
       "tier": "T1",
-      "lambda": 6.4,
+      "lambda": 5.6,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -229,67 +320,95 @@
         "liquidity": 0.5
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "survival": 0.4,
+        "resources": 0.2,
+        "autonomy": 0.15,
+        "legitimacy": 0.1,
+        "relative_rank": 0.15
       },
-      "discount": 0.125,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "discount": 0.12,
+      "survival_threshold": 0.35,
+      "credibility": 0.4,
+      "deception_prior": 0.5,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "first_use_of_nuclear_weapons",
+          "cost": null,
+          "breaks_if": "not observed to break despite repeated rhetorical signaling; be suspicious of treating the rhetoric itself as a lowered threshold"
+        },
+        {
+          "action": "cede_core_territorial_claims_(Donbas/Crimea)_in_a_settlement",
+          "cost": 0.3,
+          "breaks_if": "the maximalist framing is a negotiating anchor, not a fixed constraint \u2014 Moscow has stayed at the table through multiple 2025-2026 rounds despite the 'non-negotiable' framing"
+        },
+        {
+          "action": "maintain_full_state_control_over_reserve_and_export_revenue_flows",
+          "cost": 0.25,
+          "breaks_if": "already broken in the sense that Russia has lost effective control of these reserves for 4+ years; Moscow's response has shifted from protest to active legal counter-offensive (Moscow court awarded Russia's central bank a $230bn damages claim against Euroclear, 2026), showing the reserves remain strategically important enough to fight for rather than write off"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-ST_RU-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "ST_GULF",
       "tier": "T1",
-      "lambda": 6.4,
+      "lambda": 6.0,
       "state": {
-        "resources": 0.5,
+        "resources": 0.6,
         "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "legitimacy": 0.55,
+        "autonomy": 0.55,
+        "rank": 0.55,
+        "liquidity": 0.7
       },
       "weights": {
         "survival": 0.3,
         "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "autonomy": 0.15,
+        "legitimacy": 0.1,
+        "relative_rank": 0.15
       },
-      "discount": 0.067,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "discount": 0.08,
+      "survival_threshold": 0.3,
+      "credibility": 0.5,
+      "deception_prior": 0.35,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "abandon_USD_invoicing_of_oil_exports",
+          "cost": 0.8,
+          "breaks_if": "a credible, direct US move to weaponize dollar infrastructure against Gulf sovereign assets specifically (an Euroclear-style immobilization precedent) \u2014 no such event has occurred as of this writing"
+        },
+        {
+          "action": "formal Israel normalization without a Palestinian-statehood pathway",
+          "cost": 0.4,
+          "breaks_if": "domestic legitimacy calculus changes, e.g. a ceasefire/statehood framework Riyadh can point to as a face-saving condition"
+        },
+        {
+          "action": "fiscal profligacy beyond the oil-price breakeven",
+          "cost": 0.3,
+          "breaks_if": "sustained observed pattern already \u2014 this constraint is actively binding now, not hypothetical"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-ST_GULF-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "ST_ENTREPOT",
       "tier": "T1",
-      "lambda": 6.4,
+      "lambda": 6.0,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -299,32 +418,46 @@
         "liquidity": 0.5
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
+        "survival": 0.15,
+        "resources": 0.35,
+        "autonomy": 0.25,
         "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "relative_rank": 0.1
       },
-      "discount": 0.2,
+      "discount": 0.16,
       "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "credibility": 0.5,
+      "deception_prior": 0.3,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "confiscate_(not_merely_freeze)_sanctioned_sovereign_assets",
+          "cost": 0.35,
+          "breaks_if": "already breaking: both houses of the Swiss parliament endorsed measures toward confiscation in 2026, seeking an international-law framework to proceed \u2014 the 'unconstitutional' constraint bent under sustained EU/G7 reputational and diplomatic pressure"
+        },
+        {
+          "action": "commit_national_balance_sheet_to_a_reparations_loan_backed_by_frozen_assets",
+          "cost": 0.2,
+          "breaks_if": "UK broke this early and eagerly (GBP2.26bn/$2.93bn committed to the G7 loan structure), while Belgium (EU, adjacent case) held out for over a year demanding liability guarantees \u2014 the entrepot bloc does not move as one actor on this question"
+        },
+        {
+          "action": "expose_reinsurance_and_custody_infrastructure_to_direct_belligerent-side_liability",
+          "cost": 0.3,
+          "breaks_if": "Euroclear's role in holding, and now the EU's structuring of returns from, ~EUR185bn of Russian reserves has already made it a direct party to the conflict's financial dimension, evidenced by Russia's $230bn Moscow-court damages claim against it"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-ST_ENTREPOT-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "ST_SWING",
       "tier": "T1",
-      "lambda": 6.4,
+      "lambda": 6.2,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -334,85 +467,115 @@
         "liquidity": 0.5
       },
       "weights": {
-        "survival": 0.3,
+        "survival": 0.2,
         "resources": 0.3,
-        "autonomy": 0.2,
+        "autonomy": 0.25,
         "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "relative_rank": 0.1
       },
-      "discount": 0.25,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "discount": 0.18,
+      "survival_threshold": 0.3,
+      "credibility": 0.55,
+      "deception_prior": 0.25,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "make_a_binding_permanent_bloc_choice_(fully_align_with_US_or_China/Russia_axis)",
+          "cost": 0.4,
+          "breaks_if": "a binary forcing event (e.g., a NATO-Russia direct incident for Turkey, or a full US secondary-sanctions regime with no carve-outs) that eliminates the middle ground"
+        },
+        {
+          "action": "openly_acknowledge_transshipment/tariff-circumvention_practices",
+          "cost": 0.1,
+          "breaks_if": "already effectively conceded by the scale of the numbers: Mexico's imports from Vietnam more than doubled (103% YoY, $18.4bn H1 2026) immediately after Mexico imposed new China tariffs, and the White House estimates ~$67bn in 2025 transshipment through Mexico, India and Vietnam combined"
+        },
+        {
+          "action": "fully_integrate_into_a_NATO_or_Western_defense-industrial_rules_regime",
+          "cost": 0.3,
+          "breaks_if": "already broken in practice: Turkey's S-400 purchase has blocked its F-35 reintegration for 7+ years without Ankara reversing course, while Turkish drone exports (tripled to ~$10bn) proceed on an independent commercial track outside NATO-aligned export discipline"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-ST_SWING-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "ST_FRAGILE",
       "tier": "T1",
-      "lambda": 6.4,
+      "lambda": 5.6,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "resources": 0.3,
+        "security": 0.35,
+        "legitimacy": 0.4,
+        "autonomy": 0.25,
+        "rank": 0.15,
+        "liquidity": 0.3
       },
       "weights": {
-        "survival": 0.3,
+        "survival": 0.35,
         "resources": 0.3,
-        "autonomy": 0.2,
+        "autonomy": 0.15,
         "legitimacy": 0.15,
         "relative_rank": 0.05
       },
-      "discount": 0.5,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
-      "monitoring": 0.5,
+      "discount": 0.38,
+      "survival_threshold": 0.15,
+      "credibility": 0.4,
+      "deception_prior": 0.45,
+      "monitoring": 0.4,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "float_or_devalue_the_currency",
+          "cost": 0.3,
+          "breaks_if": "reserves fall to crisis levels relative to import cover / a binding IMF program condition is reached \u2014 Egypt devalued three times between 2022 and March 2024 despite each prior devaluation being presented as a durable fix, and Argentina's Milei administration itself, having campaigned on dollarization rather than devaluation, delivered a 54% one-time peso devaluation within weeks of taking office (Dec 2023) once reserves proved inadequate for the stated dollarization path."
+        },
+        {
+          "action": "broaden_the_domestic_tax_base",
+          "cost": 0.4,
+          "breaks_if": "domestic elite/political resistance to taxing agriculture, real estate, and traders \u2014 the constraint has not meaningfully broken in either direction in over four decades: tax-to-GDP has stayed flat near 8-10% through more than 20 prior IMF programs, making this the most reliably *unmet* commitment in the dossier rather than one that swings."
+        },
+        {
+          "action": "meet_quantitative_IMF_performance_criteria",
+          "cost": 0.2,
+          "breaks_if": "rarely, once a program is actually in force \u2014 Pakistan met all seven quantitative performance criteria and six of eight indicative targets at its Dec-2025 test date under the third EFF review (completed March-May 2026), and posted a primary surplus of 1.6% of GDP in FY26, suggesting that once inside a program, the *numeric* targets are the commitments most reliably kept, in contrast to the *structural* ones (tax base, subsidy removal) which are not."
+        }
+      ],
       "private_type": {},
       "assumption_ids": [
-        "STUB-ST_FRAGILE-bootstrap"
+        "RESEARCHED-ST_FRAGILE-2026-09-12"
       ]
     },
     {
       "id": "CB_US",
       "tier": "T2",
-      "lambda": 6.4,
+      "lambda": 6.6,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "resources": 0.7,
+        "security": 0.7,
+        "legitimacy": 0.55,
+        "autonomy": 0.55,
+        "rank": 0.85,
+        "liquidity": 0.8
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "survival": 0.15,
+        "resources": 0.25,
+        "autonomy": 0.3,
+        "legitimacy": 0.2,
+        "relative_rank": 0.1
       },
-      "discount": 0.25,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
+      "discount": 0.15,
+      "survival_threshold": 0.2,
+      "credibility": 0.65,
       "deception_prior": 0.2,
       "monitoring": 0.5,
       "actions": [
@@ -420,16 +583,30 @@
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "hold rates for growth despite above-target inflation",
+          "cost": 0.25,
+          "breaks_if": "core PCE re-accelerating clearly above ~3% for two consecutive quarters while unemployment is flat or falling \u2014 at that point the hawks retake the majority"
+        },
+        {
+          "action": "engage in outright fiscal financing / debt monetization",
+          "cost": 0.3,
+          "breaks_if": "reserves falling into the $2.5-2.7tn band despite the QT halt \u2014 expect outright balance-sheet expansion, not just runoff cessation, if that threshold is crossed"
+        },
+        {
+          "action": "accept an executive-installed FOMC voting majority",
+          "cost": 0.15,
+          "breaks_if": "already broken in substance at the level of a single seat; the institutional norm ('governors act independently once seated') persists rhetorically but the personnel channel is demonstrably porous"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-CB_US-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "CB_EU",
       "tier": "T2",
-      "lambda": 6.4,
+      "lambda": 6.8,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -440,66 +617,94 @@
       },
       "weights": {
         "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
-      },
-      "discount": 0.125,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
-      "monitoring": 0.5,
-      "actions": [
-        "hold",
-        "settle",
-        "escalate"
-      ],
-      "constraints": [],
-      "private_type": {},
-      "assumption_ids": [
-        "STUB-CB_EU-bootstrap"
-      ]
-    },
-    {
-      "id": "CB_CN",
-      "tier": "T2",
-      "lambda": 6.4,
-      "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
-      },
-      "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
+        "resources": 0.15,
+        "autonomy": 0.25,
+        "legitimacy": 0.25,
         "relative_rank": 0.05
       },
       "discount": 0.1,
       "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "credibility": 0.7,
+      "deception_prior": 0.15,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "monetary_financing_of_governments",
+          "cost": null,
+          "breaks_if": "never observed to break; treaty-hard"
+        },
+        {
+          "action": "activate_TPI_for_a_state_out_of_compliance_with_fiscal_rules",
+          "cost": 0.3,
+          "breaks_if": "systemic euro-area contagion risk judged to outweigh the moral-hazard cost \u2014 untested in practice as of Sept 2026"
+        },
+        {
+          "action": "sacrifice_price_stability_for_growth_support",
+          "cost": 0.35,
+          "breaks_if": "has not broken in the current inflation episode; would require inflation credibly anchored near target"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-CB_CN-bootstrap"
-      ]
+      "assumption_ids": []
+    },
+    {
+      "id": "CB_CN",
+      "tier": "T2",
+      "lambda": 6.2,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.2,
+        "autonomy": 0.2,
+        "legitimacy": 0.1,
+        "relative_rank": 0.2
+      },
+      "discount": 0.08,
+      "survival_threshold": 0.2,
+      "credibility": 0.55,
+      "deception_prior": 0.35,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [
+        {
+          "action": "disorderly_CNY_depreciation_beyond_managed_band",
+          "cost": 0.3,
+          "breaks_if": "severe, sustained capital outflow pressure (precedent: 2015-16 devaluation episode)"
+        },
+        {
+          "action": "full_capital_account_opening_to_portfolio_flows",
+          "cost": 0.5,
+          "breaks_if": "essentially does not break in the observed period; reserve-currency ambition has not yet been allowed to override control"
+        },
+        {
+          "action": "monetary_policy_independent_of_State_Council_credit_targets",
+          "cost": null,
+          "breaks_if": "never \u2014 this is the actor's defining structural feature, not a negotiable constraint"
+        }
+      ],
+      "private_type": {},
+      "assumption_ids": []
     },
     {
       "id": "CB_JP",
       "tier": "T2",
-      "lambda": 6.4,
+      "lambda": 6.8,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -509,15 +714,15 @@
         "liquidity": 0.5
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "survival": 0.25,
+        "resources": 0.2,
+        "autonomy": 0.25,
+        "legitimacy": 0.2,
+        "relative_rank": 0.1
       },
-      "discount": 0.2,
+      "discount": 0.15,
       "survival_threshold": 0.25,
-      "credibility": 0.6,
+      "credibility": 0.7,
       "deception_prior": 0.2,
       "monitoring": 0.5,
       "actions": [
@@ -525,16 +730,30 @@
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "allow_disorderly_JGB_market_conditions",
+          "cost": 0.35,
+          "breaks_if": "sustained imported inflation forces hikes even as JGB yields hit multi-decade highs \u2014 already observed: 2Y JGB at 1.83% (highest since 1995), 10Y at 2.99% as of Sept 11 2026, with hikes continuing"
+        },
+        {
+          "action": "avoid_triggering_fiscal_dominance_spiral_with_MOF",
+          "cost": 0.3,
+          "breaks_if": "not yet broken; hikes remain incremental (25bp steps) rather than large moves, consistent with ongoing MOF coordination"
+        },
+        {
+          "action": "repeat_a_surprise_unscheduled_hike_like_August_2024",
+          "cost": 0.2,
+          "breaks_if": "the Aug 2024 episode itself is the documented violation \u2014 the doctrine is aspirational, not proven durable"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-CB_JP-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "CB_IN",
       "tier": "T2",
-      "lambda": 6.4,
+      "lambda": 6.8,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -544,32 +763,46 @@
         "liquidity": 0.5
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
+        "survival": 0.25,
+        "resources": 0.25,
+        "autonomy": 0.25,
         "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "relative_rank": 0.1
       },
-      "discount": 0.333,
+      "discount": 0.2,
       "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "credibility": 0.7,
+      "deception_prior": 0.3,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "target_an_explicit_rupee_level",
+          "cost": 0.15,
+          "breaks_if": "the constraint is already performative in practice \u2014 reserve buffer and new capital-inflow tools reveal active management despite the disclaimer"
+        },
+        {
+          "action": "breach_inflation_targeting_band_(4%\u00b12%)",
+          "cost": 0.3,
+          "breaks_if": "a domestic growth crisis forcing accommodation, as with most EM inflation-targeters under stress"
+        },
+        {
+          "action": "fully_open_the_capital_account",
+          "cost": 0.3,
+          "breaks_if": "not observed to break; 2026 measures (FAR expansion, FPI limit removal) loosen specific channels without abandoning the overall gated structure"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-CB_IN-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "CB_EM",
       "tier": "T2",
-      "lambda": 6.4,
+      "lambda": 6.0,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -579,27 +812,41 @@
         "liquidity": 0.5
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
+        "survival": 0.25,
+        "resources": 0.25,
         "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "legitimacy": 0.1,
+        "relative_rank": 0.2
       },
-      "discount": 0.333,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "discount": 0.2,
+      "survival_threshold": 0.3,
+      "credibility": 0.5,
+      "deception_prior": 0.35,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "abandon_the_USD_currency_peg_(GCC_members)",
+          "cost": null,
+          "breaks_if": "never observed to break, including through prior oil-price collapses"
+        },
+        {
+          "action": "maintain_inflation_targeting_independence_under_political_pressure",
+          "cost": 0.3,
+          "breaks_if": "an incumbent government facing an election within the discount horizon, most acutely in Turkey-type cases"
+        },
+        {
+          "action": "diversify_reserves_faster_than_domestic_liquidity_needs_allow",
+          "cost": 0.25,
+          "breaks_if": "not generally observed to break; diversification pace tracks each member's own reserve-adequacy comfort, not a coordinated bloc timetable"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-CB_EM-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "SWF",
@@ -614,27 +861,41 @@
         "liquidity": 0.5
       },
       "weights": {
-        "survival": 0.3,
+        "survival": 0.2,
         "resources": 0.3,
         "autonomy": 0.2,
         "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "relative_rank": 0.15
       },
       "discount": 0.05,
-      "survival_threshold": 0.25,
+      "survival_threshold": 0.2,
       "credibility": 0.6,
-      "deception_prior": 0.2,
+      "deception_prior": 0.3,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "invest_in_severe_ESG-excluded_sectors_(NBIM)",
+          "cost": 0.25,
+          "breaks_if": "parliamentary override in extreme geopolitical circumstances \u2014 rare, not observed in this window"
+        },
+        {
+          "action": "fund_sponsor-state_domestic_priorities_below_market_return_(PIF/Gulf_funds)",
+          "cost": 0.35,
+          "breaks_if": "not observed to break in the other direction in 2026 \u2014 this constraint became MORE binding, not less, as oil-revenue pressure increased"
+        },
+        {
+          "action": "maintain_full_investment_disclosure_(CIC)",
+          "cost": 0.15,
+          "breaks_if": "flagged as a structural opacity trend rather than a classic moral constraint \u2014 reduces external verifiability of all CIC-specific claims"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-SWF-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "IFI",
@@ -649,67 +910,97 @@
         "liquidity": 0.5
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "survival": 0.2,
+        "resources": 0.2,
+        "autonomy": 0.15,
+        "legitimacy": 0.25,
+        "relative_rank": 0.2
       },
-      "discount": 0.1,
-      "survival_threshold": 0.25,
+      "discount": 0.09,
+      "survival_threshold": 0.2,
       "credibility": 0.6,
-      "deception_prior": 0.2,
+      "deception_prior": 0.3,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "override_the_US_veto_on_an_85%-supermajority_decision",
+          "cost": null,
+          "breaks_if": "never \u2014 structural, treaty-level, not a negotiable constraint absent a US-approved quota realignment"
+        },
+        {
+          "action": "apply_conditionality_evenhandedly_regardless_of_a_borrower's_geopolitical_alignment",
+          "cost": 0.3,
+          "breaks_if": "documented instance: Argentina's program continued disbursing in 2026 even as the Fund's own inflation forecast for the program nearly doubled"
+        },
+        {
+          "action": "guarantee_comparable_treatment_across_official_bilateral_creditors_in_restructuring",
+          "cost": 0.25,
+          "breaks_if": "structurally strained whenever China is a major non-Paris-Club bilateral creditor to the same frontier debtor \u2014 a persistent, if not deeply sourced in this pass, source of delay"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-IFI-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "AM_INDEX",
       "tier": "T3",
-      "lambda": 6.4,
+      "lambda": 6.2,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
+        "resources": 0.85,
+        "security": 0.7,
         "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "autonomy": 0.55,
+        "rank": 0.8,
+        "liquidity": 0.9
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
+        "survival": 0.2,
+        "resources": 0.35,
         "autonomy": 0.2,
-        "legitimacy": 0.15,
+        "legitimacy": 0.2,
         "relative_rank": 0.05
       },
-      "discount": 0.5,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
-      "monitoring": 0.5,
+      "discount": 0.4,
+      "survival_threshold": 0.3,
+      "credibility": 0.55,
+      "deception_prior": 0.35,
+      "monitoring": 0.6,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "deviate_materially_from_benchmark",
+          "cost": 0.9,
+          "breaks_if": "effectively never for true index funds; this is the one constraint in the dossier that is closer to physics than to policy"
+        },
+        {
+          "action": "maintain_public_climate/ESG_coalition_membership",
+          "cost": 0.1,
+          "breaks_if": "state-level legal exposure crosses a low threshold \u2014 BlackRock quit NZAM within ~2 months of the Texas-led multistate antitrust suit (filed Nov 2024) naming that exact membership as evidence; Vanguard had already quit NZAM in Dec 2022 under similar pressure. Treat as a constraint that is dropped, not honored, once it becomes legally costly."
+        },
+        {
+          "action": "support_ESG/social_shareholder_proposals",
+          "cost": 0.15,
+          "breaks_if": "any period of elevated political scrutiny from either flank \u2014 support for E&S proposals collapsed from >40% (2021 proxy season) to ~21% (2022), ~7% (2023), ~4% (2024), and under 2% (2025) at BlackRock; Vanguard supported 0% of E&S proposals in the 2024 season. The break is monotonic and pre-dates any single lawsuit, meaning it tracks the broader political mood, not one legal event."
+        }
+      ],
       "private_type": {},
       "assumption_ids": [
-        "STUB-AM_INDEX-bootstrap"
+        "RESEARCHED-AM_INDEX-2026-09-12"
       ]
     },
     {
       "id": "AM_ACTIVE",
       "tier": "T3",
-      "lambda": 6.4,
+      "lambda": 6.2,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -721,30 +1012,44 @@
       "weights": {
         "survival": 0.3,
         "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
+        "autonomy": 0.15,
+        "legitimacy": 0.2,
         "relative_rank": 0.05
       },
-      "discount": 0.333,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "discount": 0.15,
+      "survival_threshold": 0.3,
+      "credibility": 0.55,
+      "deception_prior": 0.3,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "lever_LDI_beyond_regulatory_resilience_buffer",
+          "cost": 0.35,
+          "breaks_if": "sponsor covenant deterioration forces trustees to chase return over safety, or funding ratio falls fast enough that the buffer itself cannot be replenished in the 5-day window (as happened Sep-Oct 2022 before the rule existed)"
+        },
+        {
+          "action": "abandon_public_ESG/net-zero_stewardship_commitments",
+          "cost": 0.1,
+          "breaks_if": "US political/legal pressure exceeds the reputational cost of exit; observed to break already at scale in Jan 2025 across BlackRock, State Street, and most large US managers within the Net Zero Banking Alliance/NZAM ecosystem"
+        },
+        {
+          "action": "increase_illiquid/private-credit_allocation_beyond_stated_liquidity_policy",
+          "cost": 0.2,
+          "breaks_if": "manager return-chasing under benchmark/peer pressure overrides stated prudence and liquidity-policy limits; already visible industry-wide \u2014 institutional LP allocations to private credit averaged 6.8% of portfolios in 2025 vs 3.1% in 2019"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-AM_ACTIVE-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "BANK_GSIB",
       "tier": "T3",
-      "lambda": 6.4,
+      "lambda": 6.0,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -755,31 +1060,40 @@
       },
       "weights": {
         "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
+        "resources": 0.25,
+        "autonomy": 0.15,
         "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "relative_rank": 0.15
       },
-      "discount": 0.5,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "discount": 0.18,
+      "survival_threshold": 0.2,
+      "credibility": 0.5,
+      "deception_prior": 0.25,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "extend_group-wide_backstop_or_liquidity_support_across_borders_in_a_crisis",
+          "cost": 999,
+          "breaks_if": "never observed to break in 2023 \u2014 this is the actual physics of the merged actor, not a negotiable constraint, and is the central reason the Cartographer's 'merged for tractability' note is right about mechanics but wrong about behaviour under stress"
+        },
+        {
+          "action": "deviate_from_own_jurisdiction's_stated_creditor_hierarchy_(equity_before_AT1)",
+          "cost": 0.5,
+          "breaks_if": "acute national solvency crisis where the home regulator judges creditor-hierarchy deviation necessary to complete a rescue over a single weekend; a Swiss court subsequently ruled the AT1 write-off unlawful (Nov 2025, DLA Piper), and US bondholders are suing Switzerland (2025-26) \u2014 the constraint's price is still being litigated three years later"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-BANK_GSIB-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "NBFI_CREDIT",
       "tier": "T3",
-      "lambda": 6.4,
+      "lambda": 5.52,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -789,32 +1103,41 @@
         "liquidity": 0.5
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "survival": 0.2,
+        "resources": 0.35,
+        "autonomy": 0.25,
+        "legitimacy": 0.1,
+        "relative_rank": 0.1
       },
-      "discount": 0.2,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "discount": 0.12,
+      "survival_threshold": 0.2,
+      "credibility": 0.38,
+      "deception_prior": 0.4,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "delay_recognition_of_portfolio-company_losses_via_mark_discretion",
+          "cost": 0.15,
+          "breaks_if": "forced external re-marking via a redemption gate, a bankruptcy/restructuring event, or third-party rating-agency scrutiny \u2014 Fitch reported the US private-credit default rate hit a record 6.0% in April 2026, which mechanically forces marks that internal discretion had been delaying"
+        },
+        {
+          "action": "rely_on_inflated_private_credit_ratings_for_capital_relief",
+          "cost": 0.2,
+          "breaks_if": "NAIC's Statutory Accounting Principles Working Group has already adopted revised annual-filing requirements effective year-end 2026 to force better disclosure \u2014 the constraint is actively being priced out by regulators in real time"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-NBFI_CREDIT-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "HF_MACRO",
       "tier": "T3",
-      "lambda": 6.4,
+      "lambda": 6.2,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -824,32 +1147,36 @@
         "liquidity": 0.5
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "survival": 0.15,
+        "resources": 0.35,
+        "autonomy": 0.25,
+        "legitimacy": 0.05,
+        "relative_rank": 0.2
       },
-      "discount": 0.5,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "discount": 0.3,
+      "survival_threshold": 0.35,
+      "credibility": 0.55,
+      "deception_prior": 0.3,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "maintain_leveraged_relative-value_positions_through_a_sharp_repricing",
+          "cost": 0.3,
+          "breaks_if": "a sharp, unexpected yield move forces margin calls the fund cannot meet without deleveraging; this broke concretely in April-May 2025 when roughly $60bn (20%) of swap-spread positions were unwound in April 2025 and a further $40bn in May 2025 following the 2 Apr 2025 tariff announcement (Federal Reserve Bank of New York speech, 9 May 2025; Fed FEDS Notes, Jun 2026)"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-HF_MACRO-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "EXCH_CLEAR",
       "tier": "T3",
-      "lambda": 6.4,
+      "lambda": 6.0,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -860,481 +1187,599 @@
       },
       "weights": {
         "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "resources": 0.15,
+        "autonomy": 0.15,
+        "legitimacy": 0.2,
+        "relative_rank": 0.2
       },
-      "discount": 0.2,
+      "discount": 0.12,
       "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "credibility": 0.5,
+      "deception_prior": 0.35,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "unilaterally_cancel_or_reverse_executed_exchange-traded_transactions",
+          "cost": 0.6,
+          "breaks_if": "clearing-member solvency is judged to be at systemic risk from an extreme, thinly-liquid squeeze; the decision remains highly controversial and subject to ongoing litigation (Elliott Management and Jane Street sued the LME; OFR brief, May 2025) years after the event"
+        },
+        {
+          "action": "immobilise_or_functionally_confiscate_a_sovereign_counterparty's_reserves",
+          "cost": 0.7,
+          "breaks_if": "EU/G7 political decision to escalate from immobilisation to a financing mechanism using the cash proceeds \u2014 the European Commission's 'reparations loan' plan (up to \u20ac165bn without formal confiscation) remains under negotiation as of 2026, and Russia's central bank won a ~$250bn default judgment against Euroclear in a Moscow court (16 May 2026), unenforceable in the West but signalling years more legal conflict"
+        },
+        {
+          "action": "raise_margin_requirements_discretionarily_outside_a_pre-announced_schedule",
+          "cost": 0.1,
+          "breaks_if": "framed as routine risk management but functions, in effect, as a discretionary real-time monetary-policy-scale lever exercised by a private risk committee \u2014 margins for silver had already been raised 'more than half a dozen times since late September' 2025 by the same logic"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-EXCH_CLEAR-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "INS_RE",
       "tier": "T3",
-      "lambda": 6.4,
+      "lambda": 6.2,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "resources": 0.65,
+        "security": 0.7,
+        "legitimacy": 0.4,
+        "autonomy": 0.55,
+        "rank": 0.6,
+        "liquidity": 0.7
       },
       "weights": {
         "survival": 0.3,
         "resources": 0.3,
         "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "legitimacy": 0.1,
+        "relative_rank": 0.1
       },
-      "discount": 0.333,
+      "discount": 0.28,
       "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "credibility": 0.55,
+      "deception_prior": 0.35,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "coordinated_coal_or_fossil_exit",
+          "cost": 999,
+          "breaks_if": "explicit antitrust safe-harbour from regulators for coordinated underwriting exclusions \u2014 has not occurred"
+        },
+        {
+          "action": "individual_fossil_fuel_underwriting_pullback",
+          "cost": 0.15,
+          "breaks_if": "profit opportunity in a hardening fossil-asset market, or reputational cost of continuing exceeds the premium earned"
+        },
+        {
+          "action": "underwrite_a_route_below_actuarial_price",
+          "cost": 0.2,
+          "breaks_if": "abundant reinsurance capacity and low recent claims experience push underwriting discipline aside in favour of volume growth"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-INS_RE-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "CORP_SEMI",
       "tier": "T3",
       "lambda": 6.4,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "resources": 0.8,
+        "security": 0.6,
+        "legitimacy": 0.55,
+        "autonomy": 0.4,
+        "rank": 0.75,
+        "liquidity": 0.75
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
+        "survival": 0.2,
+        "resources": 0.35,
+        "autonomy": 0.25,
         "legitimacy": 0.15,
         "relative_rank": 0.05
       },
-      "discount": 0.143,
+      "discount": 0.14,
       "survival_threshold": 0.25,
       "credibility": 0.6,
-      "deception_prior": 0.2,
-      "monitoring": 0.5,
+      "deception_prior": 0.3,
+      "monitoring": 0.6,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "sell_controlled_leading-edge_tools_or_chips_to_a_sanctioned_end_user",
+          "cost": 0.85,
+          "breaks_if": "essentially never for the named firms with respect to final, binding rules \u2014 compliance itself is high-credibility. The contested territory is entirely in the run-up to a rule (lobbying to narrow scope), not in defiance after it is set."
+        },
+        {
+          "action": "service_or_maintain_previously-sold_equipment_in_a_now-restricted_market",
+          "cost": 0.35,
+          "breaks_if": "a new binding rule (the proposed MATCH Act) that explicitly bans servicing already-delivered machines \u2014 as of mid-2026 this had not yet been enacted, and the Dutch government was actively lobbying against it on ASML's behalf, indicating the firms treat even legacy-equipment servicing revenue and reputational goodwill as worth defending up to the point a rule actually forecloses it"
+        }
+      ],
       "private_type": {},
       "assumption_ids": [
-        "STUB-CORP_SEMI-bootstrap"
+        "RESEARCHED-CORP_SEMI-2026-09-12"
       ]
     },
     {
       "id": "CORP_ENERGY",
       "tier": "T3",
-      "lambda": 6.4,
+      "lambda": 5.8,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "resources": 0.6,
+        "security": 0.55,
+        "legitimacy": 0.35,
+        "autonomy": 0.45,
+        "rank": 0.6,
+        "liquidity": 0.55
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "survival": 0.25,
+        "resources": 0.35,
+        "autonomy": 0.15,
+        "legitimacy": 0.1,
+        "relative_rank": 0.15
       },
-      "discount": 0.067,
+      "discount": 0.07,
       "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "credibility": 0.45,
+      "deception_prior": 0.45,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "abandon_net_zero_2050_pledge",
+          "cost": 0.1,
+          "breaks_if": "shareholder pressure for near-term returns, activist investor campaigns, or a sustained high-price environment rewarding volume growth"
+        },
+        {
+          "action": "cut_shareholder_payout_to_fund_state_budget",
+          "cost": 0.3,
+          "breaks_if": "for NOCs, sponsoring-state fiscal need dominates minority-shareholder return expectations whenever oil price falls below the state's effective breakeven (~$72-85/bbl range cited for Saudi 2026 budget)"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-CORP_ENERGY-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "CORP_TECH",
       "tier": "T3",
-      "lambda": 6.4,
+      "lambda": 5.8,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "resources": 0.85,
+        "security": 0.6,
+        "legitimacy": 0.4,
+        "autonomy": 0.55,
+        "rank": 0.75,
+        "liquidity": 0.8
       },
       "weights": {
-        "survival": 0.3,
+        "survival": 0.2,
         "resources": 0.3,
         "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "legitimacy": 0.1,
+        "relative_rank": 0.2
       },
-      "discount": 0.2,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "discount": 0.15,
+      "survival_threshold": 0.2,
+      "credibility": 0.45,
+      "deception_prior": 0.4,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "pause_frontier_development_pending_safeguards",
+          "cost": 0.2,
+          "breaks_if": "belief that a competitor is close to or ahead in capability \u2014 the constraint is explicitly competitor-contingent by the labs' own stated policy language, not absolute"
+        },
+        {
+          "action": "self_fund_capex_from_operating_cash_flow",
+          "cost": 0.25,
+          "breaks_if": "access to vendor-financed or circular capital structures (chipmaker-invests-in-customer-who-buys-chips) that let capex outrun current revenue"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-CORP_TECH-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "CORP_COMMOD",
       "tier": "T3",
-      "lambda": 6.4,
+      "lambda": 5.4,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "resources": 0.55,
+        "security": 0.6,
+        "legitimacy": 0.25,
+        "autonomy": 0.75,
+        "rank": 0.6,
+        "liquidity": 0.7
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "survival": 0.2,
+        "resources": 0.4,
+        "autonomy": 0.25,
+        "legitimacy": 0.05,
+        "relative_rank": 0.1
       },
-      "discount": 0.5,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "discount": 0.35,
+      "survival_threshold": 0.2,
+      "credibility": 0.35,
+      "deception_prior": 0.55,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "sanctions_compliance",
+          "cost": 0.15,
+          "breaks_if": "the settlement (fine + guilty plea) has consistently been priced as a cost of doing business rather than triggering a structural change in conduct"
+        },
+        {
+          "action": "avoid_russia_sanctioned_flows",
+          "cost": 0.1,
+          "breaks_if": "an arms-length intermediary can profitably absorb the volume a major trader publicly declines to touch directly \u2014 the group-level flow is barely interrupted even when one name's balance sheet exits"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-CORP_COMMOD-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "CORP_DEFENSE",
       "tier": "T3",
-      "lambda": 6.4,
+      "lambda": 6.2,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "resources": 0.6,
+        "security": 0.75,
+        "legitimacy": 0.45,
+        "autonomy": 0.3,
+        "rank": 0.65,
+        "liquidity": 0.45
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "survival": 0.2,
+        "resources": 0.25,
+        "autonomy": 0.15,
+        "legitimacy": 0.1,
+        "relative_rank": 0.3
       },
       "discount": 0.1,
       "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
+      "credibility": 0.55,
+      "deception_prior": 0.3,
       "monitoring": 0.5,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "export_licensing_restriction",
+          "cost": 0.15,
+          "breaks_if": "a subsidiary structure in a jurisdiction with a more permissive export regime, or a later formal policy reversal once the strategic/commercial case (e.g. air-defense sales) outweighs the original restriction's rationale"
+        },
+        {
+          "action": "convert_backlog_to_delivered_revenue_on_schedule",
+          "cost": 0.2,
+          "breaks_if": "physical production-capacity limits (skilled labour, machine tools, energetics/propellant supply) bind even when order books and state demand are effectively unlimited"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-CORP_DEFENSE-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "HH_DM_ASSET",
       "tier": "T4",
-      "lambda": 6.4,
+      "lambda": 6.6,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
+        "resources": 0.75,
+        "security": 0.7,
         "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "autonomy": 0.6,
+        "rank": 0.8,
+        "liquidity": 0.6
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
+        "survival": 0.15,
+        "resources": 0.4,
         "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "legitimacy": 0.1,
+        "relative_rank": 0.15
       },
-      "discount": 0.067,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
-      "monitoring": 0.5,
+      "discount": 0.05,
+      "survival_threshold": 0.15,
+      "credibility": 0.65,
+      "deception_prior": 0.35,
+      "monitoring": 0.75,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "support_broad_based_wealth_or_capital_gains_tax_increase",
+          "cost": 0.5,
+          "breaks_if": "inequality salience crosses a political tipping point where both major parties run credibly on redistribution (not observed as of 2026)"
+        },
+        {
+          "action": "large-scale voluntary capital flight / tax-residency exit from home jurisdiction",
+          "cost": 0.4,
+          "breaks_if": "effective marginal tax rate on capital gains/wealth exceeds roughly 45-50% with credible enforcement"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-HH_DM_ASSET-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "HH_DM_LABOR",
       "tier": "T4",
-      "lambda": 6.4,
+      "lambda": 6.2,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "resources": 0.3,
+        "security": 0.4,
+        "legitimacy": 0.45,
+        "autonomy": 0.35,
+        "rank": 0.25,
+        "liquidity": 0.35
       },
       "weights": {
-        "survival": 0.3,
+        "survival": 0.25,
         "resources": 0.3,
-        "autonomy": 0.2,
+        "autonomy": 0.1,
         "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "relative_rank": 0.2
       },
-      "discount": 0.5,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
-      "monitoring": 0.5,
+      "discount": 0.35,
+      "survival_threshold": 0.3,
+      "credibility": 0.55,
+      "deception_prior": 0.15,
+      "monitoring": 0.7,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "abandon mainstream two-party political identification entirely",
+          "cost": 0.35,
+          "breaks_if": "real wage growth is negative for 2+ consecutive quarters while equity/asset indices post double-digit gains"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-HH_DM_LABOR-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "HH_CN",
       "tier": "T4",
-      "lambda": 6.4,
+      "lambda": 6.8,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
+        "resources": 0.45,
+        "security": 0.4,
         "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "autonomy": 0.15,
+        "rank": 0.4,
+        "liquidity": 0.55
       },
       "weights": {
         "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
+        "resources": 0.35,
+        "autonomy": 0.1,
         "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "relative_rank": 0.1
       },
-      "discount": 0.1,
+      "discount": 0.09,
       "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
-      "monitoring": 0.5,
+      "credibility": 0.7,
+      "deception_prior": 0.1,
+      "monitoring": 0.55,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "large-scale outbound capital transfer beyond the ~$50k/year individual quota",
+          "cost": 0.9,
+          "breaks_if": "near-total loss of confidence in RMB-denominated savings; not observed even through the 2021-26 property downturn"
+        },
+        {
+          "action": "organised public protest over frozen pre-sale housing / developer defaults",
+          "cost": 0.4,
+          "breaks_if": "a large regional cluster of simultaneous developer defaults with no visible state backstop"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-HH_CN-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "HH_IN",
       "tier": "T4",
-      "lambda": 6.4,
+      "lambda": 6.6,
       "state": {
         "resources": 0.5,
-        "security": 0.5,
+        "security": 0.45,
         "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "autonomy": 0.45,
+        "rank": 0.4,
+        "liquidity": 0.4
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
+        "survival": 0.25,
+        "resources": 0.35,
+        "autonomy": 0.15,
         "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "relative_rank": 0.1
       },
-      "discount": 0.1,
+      "discount": 0.09,
       "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
-      "monitoring": 0.5,
+      "credibility": 0.65,
+      "deception_prior": 0.15,
+      "monitoring": 0.65,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "abandon gold as a savings vehicle in favour of fully formal financial assets",
+          "cost": 0.3,
+          "breaks_if": "a sustained real-return gap strongly favouring formal equity/debt with no rupee-depreciation or informal-economy risk"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-HH_IN-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "HH_EM_URBAN",
       "tier": "T4",
       "lambda": 6.4,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "resources": 0.35,
+        "security": 0.35,
+        "legitimacy": 0.4,
+        "autonomy": 0.3,
+        "rank": 0.35,
+        "liquidity": 0.3
       },
       "weights": {
         "survival": 0.3,
         "resources": 0.3,
         "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "legitimacy": 0.1,
+        "relative_rank": 0.1
       },
-      "discount": 0.5,
-      "survival_threshold": 0.25,
+      "discount": 0.3,
+      "survival_threshold": 0.3,
       "credibility": 0.6,
-      "deception_prior": 0.2,
-      "monitoring": 0.5,
+      "deception_prior": 0.3,
+      "monitoring": 0.45,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "hold savings entirely in local currency through a visible devaluation episode",
+          "cost": 0.35,
+          "breaks_if": "credible, enforced capital controls plus a stable or appreciating currency sustained for 2+ years"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-HH_EM_URBAN-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "HH_EM_SUBSIST",
       "tier": "T4",
-      "lambda": 6.4,
+      "lambda": 7.0,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
-        "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "resources": 0.15,
+        "security": 0.2,
+        "legitimacy": 0.25,
+        "autonomy": 0.1,
+        "rank": 0.15,
+        "liquidity": 0.1
       },
       "weights": {
-        "survival": 0.3,
-        "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "survival": 0.55,
+        "resources": 0.25,
+        "autonomy": 0.05,
+        "legitimacy": 0.05,
+        "relative_rank": 0.1
       },
-      "discount": 0.5,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
-      "deception_prior": 0.2,
-      "monitoring": 0.5,
+      "discount": 0.55,
+      "survival_threshold": 0.4,
+      "credibility": 0.75,
+      "deception_prior": 0.05,
+      "monitoring": 0.3,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "sustained international migration (formal or irregular)",
+          "cost": 0.6,
+          "breaks_if": "local conditions (violence, famine, hyperinflation) make staying costlier than a very high-cost migration, observed repeatedly in fragile-state collapses"
+        },
+        {
+          "action": "organised violent uprising aimed at regime change (as opposed to issue-specific protest)",
+          "cost": 0.85,
+          "breaks_if": "protest is captured or organised by an external actor (opposition party, military faction, diaspora-linked social-media network) supplying coordination capacity \u2014 Kenya 2024 shows this can shift fast once youth/social-media coordination substitutes for formal organisation"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-HH_EM_SUBSIST-bootstrap"
-      ]
+      "assumption_ids": []
     },
     {
       "id": "LABOR_ORG",
       "tier": "T4",
-      "lambda": 6.4,
+      "lambda": 6.8,
       "state": {
-        "resources": 0.5,
-        "security": 0.5,
+        "resources": 0.4,
+        "security": 0.45,
         "legitimacy": 0.5,
-        "autonomy": 0.5,
-        "rank": 0.5,
-        "liquidity": 0.5
+        "autonomy": 0.4,
+        "rank": 0.35,
+        "liquidity": 0.35
       },
       "weights": {
-        "survival": 0.3,
+        "survival": 0.25,
         "resources": 0.3,
-        "autonomy": 0.2,
-        "legitimacy": 0.15,
-        "relative_rank": 0.05
+        "autonomy": 0.15,
+        "legitimacy": 0.2,
+        "relative_rank": 0.1
       },
-      "discount": 0.333,
-      "survival_threshold": 0.25,
-      "credibility": 0.6,
+      "discount": 0.22,
+      "survival_threshold": 0.2,
+      "credibility": 0.7,
       "deception_prior": 0.2,
-      "monitoring": 0.5,
+      "monitoring": 0.7,
       "actions": [
         "hold",
         "settle",
         "escalate"
       ],
-      "constraints": [],
+      "constraints": [
+        {
+          "action": "wildcat strike without union executive authorization",
+          "cost": 0.3,
+          "breaks_if": "membership anger outruns leadership caution \u2014 has occurred in isolated European rail actions where strikes were called with reduced notice"
+        }
+      ],
       "private_type": {},
-      "assumption_ids": [
-        "STUB-LABOR_ORG-bootstrap"
-      ]
+      "assumption_ids": []
     }
   ],
   "theatres": [
@@ -1676,6 +2121,122 @@
         }
       },
       "duration_rounds": 2
+    },
+    {
+      "id": "ai_progress_acceleration",
+      "annual_prob": 0.15,
+      "_source_note": "Represents the faster branch of a genuinely disputed range: LEAP Wave 8 (2026) superforecaster median for 8hr-task-level AI is ~2028 vs public median ~2037 (forecastingresearch.org/leap). Not a consensus forecast, one branch of one.",
+      "effects": {
+        "CORP_TECH": {
+          "resources": 0.12,
+          "rank": 0.08
+        },
+        "CORP_SEMI": {
+          "resources": 0.08
+        },
+        "CORP_ENERGY": {
+          "resources": 0.03,
+          "liquidity": -0.05
+        },
+        "HH_DM_LABOR": {
+          "legitimacy": -0.04
+        },
+        "HH_EM_URBAN": {
+          "legitimacy": -0.02
+        }
+      },
+      "duration_rounds": 2
+    },
+    {
+      "id": "ai_capex_correction",
+      "annual_prob": 0.06,
+      "prob_modifier": {
+        "if": "CORP_TECH:rank>0.25",
+        "multiply": 3.0
+      },
+      "_source_note": "2026 AI capex >$700B, ~23% of hyperscaler revenue, actively debated as bubble risk (Bridgewater, Forbes Aug 2026). Probability rises after sustained AI-driven gains (CORP_TECH rank) rather than being independent of them, per the skill's correlated-shock rule.",
+      "effects": {
+        "CORP_TECH": {
+          "resources": -0.18,
+          "liquidity": -0.1
+        },
+        "AM_INDEX": {
+          "resources": -0.1
+        },
+        "HF_MACRO": {
+          "resources": 0.06
+        },
+        "CB_US": {
+          "liquidity": -0.05
+        }
+      },
+      "duration_rounds": 2
+    },
+    {
+      "id": "ai_productivity_plateau",
+      "annual_prob": 0.2,
+      "_source_note": "NBER survey (2026): 90% of firms report zero measurable AI productivity impact despite heavy capex; labor market shows no major shakeup yet (computer/math occupations +5.7% since 2023). Modeled as the modal, low-drama branch rather than the shock headlines cover.",
+      "effects": {
+        "CORP_TECH": {
+          "resources": -0.04
+        },
+        "AM_INDEX": {
+          "resources": -0.03
+        },
+        "HH_DM_LABOR": {
+          "legitimacy": 0.02
+        }
+      },
+      "duration_rounds": 1
+    },
+    {
+      "id": "manufacturing_automation_wave",
+      "annual_prob": 0.18,
+      "_source_note": "IFR (2026): China installs 54% of world industrial robots, operational stock ~2M units (4.5x Japan), robotics now central to China's 15th Five-Year Plan as an explicit growth driver. South Korea leads world robot density (1220/10k workers vs Western Europe's 267). Humanoid robotics raised $18.8bn in H1 2026 alone (vs $15bn all of 2025), Goldman reports 40% YoY manufacturing-cost decline for humanoids. WEF: automation displaces an estimated 85M jobs by 2030 gross (97M created net) -- near-term dislocation is real even though the net effect is projected positive.",
+      "effects": {
+        "ST_CN": {
+          "resources": 0.08,
+          "rank": 0.05
+        },
+        "ST_JP_KR": {
+          "resources": 0.04
+        },
+        "CORP_TECH": {
+          "resources": 0.05
+        },
+        "CORP_DEFENSE": {
+          "resources": 0.02
+        },
+        "HH_DM_LABOR": {
+          "legitimacy": -0.03
+        },
+        "HH_EM_URBAN": {
+          "legitimacy": -0.02
+        }
+      },
+      "duration_rounds": 2
+    },
+    {
+      "id": "robotics_capex_correction",
+      "annual_prob": 0.05,
+      "prob_modifier": {
+        "if": "CORP_TECH:rank>0.3",
+        "multiply": 3.0
+      },
+      "_source_note": "Humanoid robotics priced by Morgan Stanley at a $5tn eventual market on H1-2026 funding pace ($18.8bn) that already exceeds all of 2025 -- a venture-heavy, hype-sensitive pattern comparable to the AI capex debate. Probability rises after sustained AI/robotics-driven CORP_TECH gains rather than independently of them, same correlated-shock logic as ai_capex_correction.",
+      "effects": {
+        "CORP_TECH": {
+          "resources": -0.1,
+          "liquidity": -0.05
+        },
+        "AM_INDEX": {
+          "resources": -0.05
+        },
+        "ST_CN": {
+          "resources": -0.03
+        }
+      },
+      "duration_rounds": 1
     }
   ],
   "observer": {
@@ -1768,7 +2329,7 @@
       "T1_to_T0": 2
     },
     "lambda_stress_coupling": 0.5,
-    "ledger_tolerance": 1000000000.0,
+    "ledger_tolerance": 0.02,
     "conflict_model": "costly_lottery_v2"
   }
 }
