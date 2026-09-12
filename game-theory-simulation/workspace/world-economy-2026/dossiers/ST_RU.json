@@ -63,7 +63,7 @@
   "dependencies": [
     {"on": "ST_CN", "type": "sanctions_workaround_trade_and_technology_access", "strength": 0.6},
     {"on": "ST_GULF", "type": "OPEC+_coordination_on_oil_price_management", "strength": 0.4},
-    {"on": "ST_ENTREPOT", "type": "shadow_fleet_insurance_and_trade_finance_workarounds", "strength": 0.5},
+    {"on": "ST_ENTREPOT_ATLANTIC", "type": "shadow_fleet_insurance_and_trade_finance_workarounds", "strength": 0.5},
     {"on": "ST_IN", "type": "discounted_crude_demand_sink", "strength": 0.4}
   ],
   "tripwires": [

@@ -1,0 +1,47 @@
+{
+  "id": "ST_ENTREPOT_ATLANTIC",
+  "as_of": "2026-09-12",
+  "split_note": "Split from ST_ENTREPOT per the interest-researcher's own recommendation. Represents UK, Ireland, Luxembourg -- the weaponization-willing cluster, functionally coordinated with the US/EU sanctions architecture.",
+  "utility_weights": {
+    "survival": 0.15, "resources": 0.30, "autonomy": 0.20,
+    "legitimacy": 0.20, "relative_rank": 0.15
+  },
+  "discount_rate": 0.14,
+  "horizon_driver": "Alliance-alignment reputational capital matters more here than pure neutrality-franchise value; treat horizon as medium (4-5yr), tracking electoral and alliance cycles more than the entrepot-neutral cluster does.",
+  "survival_threshold": 0.25,
+  "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.08, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
+  ],
+  "constraints": [
+    {"action": "commit_national_balance_sheet_to_a_reparations_loan_backed_by_frozen_assets",
+     "type": "priced", "cost": 0.1,
+     "source": "The UK committed GBP2.26bn/$2.93bn to the G7 reparations-loan structure early and eagerly, ahead of most EU peers.",
+     "breaks_under": "already broken in the low-cost direction -- this is a real, revealed low-cost action for this cluster, not a binding constraint"}
+  ],
+  "credibility": {
+    "overall": 0.6,
+    "by_domain": {
+      "alliance_alignment_reliability": 0.8,
+      "custody_and_safekeeping_neutrality": 0.2
+    }
+  },
+  "deception_prior": 0.15,
+  "stated_vs_revealed": [
+    {"stated": "The UK, alongside other financial entrepots, administers global capital neutrally and apolitically.",
+     "revealed": "The UK moved fastest and most eagerly of any entrepot to commit real money (GBP2.26bn/$2.93bn) to the G7 reparations-loan structure backed by frozen Russian assets -- an active, belligerent-side financial posture, not neutral custody.",
+     "delta": "This cluster's actual franchise is alliance-aligned financial capacity, not neutrality -- the opposite of the entrepot group's stated self-image.",
+     "sources": ["https://www.expressandstar.com/uk-news/uk-to-explore-reparations-loan-for-ukraine-using-frozen-russian-assets-5667805"]}
+  ],
+  "dependencies": [
+    {"on": "EXCH_CLEAR", "type": "Euroclear_as_the_physical_custody_layer", "strength": 0.6},
+    {"on": "ST_EU", "type": "coordination_on_reparations_loan_structuring", "strength": 0.5},
+    {"on": "ST_US", "type": "alliance_alignment_on_sanctions_architecture", "strength": 0.5}
+  ],
+  "tripwires": [
+    {"if": "the EU fully mobilizes its reparations-loan structure beyond the EUR90bn Dec 2025 tranche", "then": "this cluster (UK, Ireland, Luxembourg) matches with parallel commitments rather than resisting"}
+  ],
+  "confidence": "medium-high",
+  "what_would_change_my_mind": "A UK/Ireland/Luxembourg divergence on a future sanctions-adjacent asset question would undercut treating this as one coherent cluster."
+}

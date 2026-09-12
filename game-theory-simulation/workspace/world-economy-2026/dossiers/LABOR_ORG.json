@@ -64,7 +64,7 @@
   ],
   "dependencies": [
     {"on": "ST_US", "type": "labor_law_and_strike_legality_framework", "strength": 0.5},
-    {"on": "BANK_GSIB", "type": "strike_fund_and_pension_liquidity", "strength": 0.2},
+    {"on": "BANK_GSIB_US", "type": "strike_fund_and_pension_liquidity", "strength": 0.2},
     {"on": "CORP_COMMOD", "type": "port_and_freight_chokepoint_leverage_target", "strength": 0.4}
   ],
   "tripwires": [

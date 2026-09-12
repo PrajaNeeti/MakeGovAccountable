@@ -426,9 +426,9 @@
       "assumption_ids": []
     },
     {
-      "id": "ST_ENTREPOT",
+      "id": "ST_ENTREPOT_ATLANTIC",
       "tier": "T1",
-      "lambda": 6.0,
+      "lambda": 6.4,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -439,14 +439,53 @@
       },
       "weights": {
         "survival": 0.15,
-        "resources": 0.35,
+        "resources": 0.3,
+        "autonomy": 0.2,
+        "legitimacy": 0.2,
+        "relative_rank": 0.15
+      },
+      "discount": 0.14,
+      "survival_threshold": 0.25,
+      "credibility": 0.6,
+      "deception_prior": 0.15,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [
+        {
+          "action": "commit_national_balance_sheet_to_a_reparations_loan_backed_by_frozen_assets",
+          "cost": 0.1,
+          "breaks_if": "already broken in the low-cost direction -- this is a real, revealed low-cost action for this cluster, not a binding constraint"
+        }
+      ],
+      "private_type": {},
+      "assumption_ids": []
+    },
+    {
+      "id": "ST_ENTREPOT_NEUTRAL",
+      "tier": "T1",
+      "lambda": 6.2,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.2,
+        "resources": 0.3,
         "autonomy": 0.25,
         "legitimacy": 0.15,
         "relative_rank": 0.1
       },
-      "discount": 0.16,
+      "discount": 0.14,
       "survival_threshold": 0.25,
-      "credibility": 0.5,
+      "credibility": 0.55,
       "deception_prior": 0.3,
       "monitoring": 0.5,
       "actions": [
@@ -458,17 +497,7 @@
         {
           "action": "confiscate_(not_merely_freeze)_sanctioned_sovereign_assets",
           "cost": 0.35,
-          "breaks_if": "already breaking: both houses of the Swiss parliament endorsed measures toward confiscation in 2026, seeking an international-law framework to proceed \u2014 the 'unconstitutional' constraint bent under sustained EU/G7 reputational and diplomatic pressure"
-        },
-        {
-          "action": "commit_national_balance_sheet_to_a_reparations_loan_backed_by_frozen_assets",
-          "cost": 0.2,
-          "breaks_if": "UK broke this early and eagerly (GBP2.26bn/$2.93bn committed to the G7 loan structure), while Belgium (EU, adjacent case) held out for over a year demanding liability guarantees \u2014 the entrepot bloc does not move as one actor on this question"
-        },
-        {
-          "action": "expose_reinsurance_and_custody_infrastructure_to_direct_belligerent-side_liability",
-          "cost": 0.3,
-          "breaks_if": "Euroclear's role in holding, and now the EU's structuring of returns from, ~EUR185bn of Russian reserves has already made it a direct party to the conflict's financial dimension, evidenced by Russia's $230bn Moscow-court damages claim against it"
+          "breaks_if": "already breaking: both houses of the Swiss parliament endorsed measures toward confiscation in 2026, seeking an international-law framework to proceed -- the 'unconstitutional' constraint bent under sustained EU/G7 reputational and diplomatic pressure"
         }
       ],
       "private_type": {},
@@ -1072,9 +1101,53 @@
       "assumption_ids": []
     },
     {
-      "id": "BANK_GSIB",
+      "id": "BANK_GSIB_US",
       "tier": "T3",
-      "lambda": 6.0,
+      "lambda": 6.2,
+      "state": {
+        "resources": 0.5,
+        "security": 0.5,
+        "legitimacy": 0.5,
+        "autonomy": 0.5,
+        "rank": 0.5,
+        "liquidity": 0.5
+      },
+      "weights": {
+        "survival": 0.3,
+        "resources": 0.25,
+        "autonomy": 0.2,
+        "legitimacy": 0.15,
+        "relative_rank": 0.1
+      },
+      "discount": 0.18,
+      "survival_threshold": 0.2,
+      "credibility": 0.55,
+      "deception_prior": 0.2,
+      "monitoring": 0.5,
+      "actions": [
+        "hold",
+        "settle",
+        "escalate"
+      ],
+      "constraints": [
+        {
+          "action": "extend_group-wide_backstop_or_liquidity_support_across_borders_in_a_crisis",
+          "cost": 999,
+          "breaks_if": "never observed to break -- this is the defining structural feature of the US resolution regime, not a negotiable constraint"
+        },
+        {
+          "action": "deviate_from_US_creditor_hierarchy_(equity_before_AT1-equivalent)",
+          "cost": 0.5,
+          "breaks_if": "acute national solvency crisis judged severe enough that FDIC/Treasury deviate from statutory priority -- no historical instance"
+        }
+      ],
+      "private_type": {},
+      "assumption_ids": []
+    },
+    {
+      "id": "BANK_GSIB_INTL",
+      "tier": "T3",
+      "lambda": 5.8,
       "state": {
         "resources": 0.5,
         "security": 0.5,
@@ -1090,10 +1163,10 @@
         "legitimacy": 0.15,
         "relative_rank": 0.15
       },
-      "discount": 0.18,
+      "discount": 0.16,
       "survival_threshold": 0.2,
-      "credibility": 0.5,
-      "deception_prior": 0.25,
+      "credibility": 0.45,
+      "deception_prior": 0.3,
       "monitoring": 0.5,
       "actions": [
         "hold",
@@ -1102,14 +1175,14 @@
       ],
       "constraints": [
         {
-          "action": "extend_group-wide_backstop_or_liquidity_support_across_borders_in_a_crisis",
-          "cost": 999,
-          "breaks_if": "never observed to break in 2023 \u2014 this is the actual physics of the merged actor, not a negotiable constraint, and is the central reason the Cartographer's 'merged for tractability' note is right about mechanics but wrong about behaviour under stress"
-        },
-        {
           "action": "deviate_from_own_jurisdiction's_stated_creditor_hierarchy_(equity_before_AT1)",
           "cost": 0.5,
-          "breaks_if": "acute national solvency crisis where the home regulator judges creditor-hierarchy deviation necessary to complete a rescue over a single weekend; a Swiss court subsequently ruled the AT1 write-off unlawful (Nov 2025, DLA Piper), and US bondholders are suing Switzerland (2025-26) \u2014 the constraint's price is still being litigated three years later"
+          "breaks_if": "acute national solvency crisis where the home regulator judges creditor-hierarchy deviation necessary over a single weekend -- a Swiss court subsequently ruled the AT1 write-off unlawful (Nov 2025), and US bondholders are still suing Switzerland in 2026, three years later"
+        },
+        {
+          "action": "coordinate_a_shared_cross-border_rescue_facility",
+          "cost": 0.4,
+          "breaks_if": "not observed to break; the EU's own Banking Union remains incomplete on cross-border resolution funding as of 2026"
         }
       ],
       "private_type": {},
@@ -1854,16 +1927,17 @@
         "ST_SWING",
         "ST_EU"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:trade_bloc_alignment"
     },
     {
       "id": "entrepot_and_frontier",
       "tier": "T1",
       "members": [
-        "ST_ENTREPOT",
+        "ST_ENTREPOT_ATLANTIC",
+        "ST_ENTREPOT_NEUTRAL",
         "ST_FRAGILE"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:entrepot_and_frontier"
     },
     {
       "id": "global_dollar_funding",
@@ -1871,7 +1945,8 @@
       "members": [
         "CB_US",
         "CB_EM",
-        "BANK_GSIB",
+        "BANK_GSIB_US",
+        "BANK_GSIB_INTL",
         "ST_FRAGILE"
       ],
       "interaction_matrix": "payoff_fn:global_dollar_funding"
@@ -1885,7 +1960,7 @@
         "ST_FRAGILE",
         "AM_ACTIVE"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:sovereign_debt_workout"
     },
     {
       "id": "monetary_policy_core",
@@ -1896,7 +1971,7 @@
         "CB_JP",
         "CB_IN"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:monetary_policy_core"
     },
     {
       "id": "capital_allocation",
@@ -1907,18 +1982,19 @@
         "HF_MACRO",
         "SWF"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:capital_allocation"
     },
     {
       "id": "credit_and_plumbing",
       "tier": "T3",
       "members": [
-        "BANK_GSIB",
+        "BANK_GSIB_US",
+        "BANK_GSIB_INTL",
         "NBFI_CREDIT",
         "EXCH_CLEAR",
         "HF_MACRO"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:credit_and_plumbing"
     },
     {
       "id": "compute_and_capex",
@@ -1929,7 +2005,7 @@
         "AM_INDEX",
         "CB_US"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:compute_and_capex"
     },
     {
       "id": "physical_flows",
@@ -1940,7 +2016,7 @@
         "INS_RE",
         "CORP_DEFENSE"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:physical_flows"
     },
     {
       "id": "consent_dm",
@@ -1950,7 +2026,7 @@
         "HH_DM_ASSET",
         "LABOR_ORG"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:consent_dm"
     },
     {
       "id": "consent_em",
@@ -1959,7 +2035,7 @@
         "HH_EM_SUBSIST",
         "HH_EM_URBAN"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:consent_em"
     },
     {
       "id": "household_savings",
@@ -1968,7 +2044,7 @@
         "HH_CN",
         "HH_IN"
       ],
-      "interaction_matrix": "payoff_fn:generic_competition"
+      "interaction_matrix": "payoff_fn:household_savings"
     }
   ],
   "shocks": [
@@ -1979,6 +2055,7 @@
         "if": "conflict_index>0.5",
         "multiply": 3.0
       },
+      "_conservation_note": "Zero-sum transfer: consumer losses (JP_KR+EU=0.18) exactly match producer gains (GULF+RU=0.18) -- an energy price shock reallocates value, it doesn't create or destroy it.",
       "effects": {
         "ST_JP_KR": {
           "resources": -0.1,
@@ -1989,11 +2066,11 @@
           "liquidity": -0.04
         },
         "ST_GULF": {
-          "resources": 0.15,
+          "resources": 0.11,
           "liquidity": 0.05
         },
         "ST_RU": {
-          "resources": 0.1,
+          "resources": 0.07,
           "liquidity": 0.03
         }
       },
@@ -2006,6 +2083,7 @@
         "if": "conflict_index>0.4",
         "multiply": 4.0
       },
+      "_conservation_note": "Net destruction (-0.20, tracked): a chip supply-chain disruption destroys real value (idled fabs, broken contracts) rather than transferring it to a named winner.",
       "effects": {
         "ST_TW": {
           "security": -0.3,
@@ -2033,13 +2111,17 @@
         "if": "conflict_index>0.45",
         "multiply": 2.5
       },
+      "_conservation_note": "Small net destruction (-0.02, tracked): deadweight loss typical of a bailout/fire-sale, not a clean transfer.",
       "effects": {
         "NBFI_CREDIT": {
           "liquidity": -0.2,
           "resources": -0.1
         },
-        "BANK_GSIB": {
+        "BANK_GSIB_US": {
           "liquidity": -0.1
+        },
+        "BANK_GSIB_INTL": {
+          "liquidity": -0.08
         },
         "HF_MACRO": {
           "resources": 0.08
@@ -2054,12 +2136,15 @@
         "if": "conflict_index>0.5",
         "multiply": 2.0
       },
+      "_conservation_note": "Zero-sum transfer: crop-loss regions (ST_FRAGILE+HH_EM_SUBSIST=-0.05) lose exactly what unaffected exporters (ST_SWING=+0.05) gain via higher prices.",
       "effects": {
         "ST_FRAGILE": {
+          "resources": -0.03,
           "liquidity": -0.12,
           "legitimacy": -0.08
         },
         "HH_EM_SUBSIST": {
+          "resources": -0.02,
           "security": -0.1,
           "liquidity": -0.1
         },
@@ -2076,8 +2161,10 @@
         "if": "conflict_index>0.55",
         "multiply": 3.0
       },
+      "_conservation_note": "Zero-sum transfer (debt haircut): creditor write-downs (IFI+AM_ACTIVE=-0.10) exactly fund the debtor's relief (ST_FRAGILE=+0.10) -- a real restructuring transfers the loss, it doesn't vaporize it.",
       "effects": {
         "ST_FRAGILE": {
+          "resources": 0.1,
           "liquidity": -0.2,
           "legitimacy": -0.1
         },
@@ -2097,12 +2184,16 @@
         "if": "conflict_index>0.5",
         "multiply": 2.0
       },
+      "_conservation_note": "No resources effect (liquidity/security only) -- trivially conserved.",
       "effects": {
         "EXCH_CLEAR": {
           "liquidity": -0.1,
           "security": -0.05
         },
-        "BANK_GSIB": {
+        "BANK_GSIB_US": {
+          "liquidity": -0.05
+        },
+        "BANK_GSIB_INTL": {
           "liquidity": -0.05
         }
       },
@@ -2111,6 +2202,7 @@
     {
       "id": "succession_or_leadership_shock",
       "annual_prob": 0.04,
+      "_conservation_note": "No resources effect (legitimacy/autonomy/security only) -- trivially conserved.",
       "effects": {
         "ST_GULF": {
           "legitimacy": -0.05,
@@ -2130,8 +2222,12 @@
         "if": "conflict_index>0.6",
         "multiply": 5.0
       },
+      "_conservation_note": "No resources effect (liquidity/security only) -- trivially conserved.",
       "effects": {
-        "BANK_GSIB": {
+        "BANK_GSIB_US": {
+          "liquidity": -0.15
+        },
+        "BANK_GSIB_INTL": {
           "liquidity": -0.15
         },
         "HF_MACRO": {
@@ -2151,6 +2247,7 @@
       "id": "ai_progress_acceleration",
       "annual_prob": 0.15,
       "_source_note": "Represents the faster branch of a genuinely disputed range: LEAP Wave 8 (2026) superforecaster median for 8hr-task-level AI is ~2028 vs public median ~2037 (forecastingresearch.org/leap). Not a consensus forecast, one branch of one.",
+      "_conservation_note": "Zero-sum transfer: capital-allocation gains to the AI complex (CORP_TECH+CORP_SEMI+CORP_ENERGY=+0.23) are funded by capital reallocated away from diversified/traditional portfolios (AM_ACTIVE=-0.13) and by labor's wage share not keeping pace with productivity (HH_DM_LABOR=-0.10) -- AI capex isn't free money, it's a real reallocation.",
       "effects": {
         "CORP_TECH": {
           "resources": 0.12,
@@ -2163,7 +2260,11 @@
           "resources": 0.03,
           "liquidity": -0.05
         },
+        "AM_ACTIVE": {
+          "resources": -0.13
+        },
         "HH_DM_LABOR": {
+          "resources": -0.1,
           "legitimacy": -0.04
         },
         "HH_EM_URBAN": {
@@ -2180,6 +2281,7 @@
         "multiply": 3.0
       },
       "_source_note": "2026 AI capex >$700B, ~23% of hyperscaler revenue, actively debated as bubble risk (Bridgewater, Forbes Aug 2026). Probability rises after sustained AI-driven gains (CORP_TECH rank) rather than being independent of them, per the skill's correlated-shock rule.",
+      "_conservation_note": "Net destruction (-0.22, tracked): a correction destroys paper wealth built on unrealized productivity gains -- HF_MACRO's small gain (variance-preferring short-side profit) doesn't fully offset the loss.",
       "effects": {
         "CORP_TECH": {
           "resources": -0.18,
@@ -2201,6 +2303,7 @@
       "id": "ai_productivity_plateau",
       "annual_prob": 0.2,
       "_source_note": "NBER survey (2026): 90% of firms report zero measurable AI productivity impact despite heavy capex; labor market shows no major shakeup yet (computer/math occupations +5.7% since 2023). Modeled as the modal, low-drama branch rather than the shock headlines cover.",
+      "_conservation_note": "Small net destruction (-0.07, tracked): capex spent without a productivity payoff is real waste, not a transfer to anyone.",
       "effects": {
         "CORP_TECH": {
           "resources": -0.04
@@ -2218,6 +2321,7 @@
       "id": "manufacturing_automation_wave",
       "annual_prob": 0.18,
       "_source_note": "IFR (2026): China installs 54% of world industrial robots, operational stock ~2M units (4.5x Japan), robotics now central to China's 15th Five-Year Plan as an explicit growth driver. South Korea leads world robot density (1220/10k workers vs Western Europe's 267). Humanoid robotics raised $18.8bn in H1 2026 alone (vs $15bn all of 2025), Goldman reports 40% YoY manufacturing-cost decline for humanoids. WEF: automation displaces an estimated 85M jobs by 2030 gross (97M created net) -- near-term dislocation is real even though the net effect is projected positive.",
+      "_conservation_note": "Zero-sum transfer: manufacturing productivity gains (ST_CN+ST_JP_KR+CORP_TECH+CORP_DEFENSE=+0.19) come from labor's compressed wage/informal-income share (HH_DM_LABOR+HH_EM_URBAN=-0.19), consistent with the WEF's own near-term-dislocation finding.",
       "effects": {
         "ST_CN": {
           "resources": 0.08,
@@ -2233,9 +2337,11 @@
           "resources": 0.02
         },
         "HH_DM_LABOR": {
+          "resources": -0.1,
           "legitimacy": -0.03
         },
         "HH_EM_URBAN": {
+          "resources": -0.09,
           "legitimacy": -0.02
         }
       },
@@ -2249,6 +2355,7 @@
         "multiply": 3.0
       },
       "_source_note": "Humanoid robotics priced by Morgan Stanley at a $5tn eventual market on H1-2026 funding pace ($18.8bn) that already exceeds all of 2025 -- a venture-heavy, hype-sensitive pattern comparable to the AI capex debate. Probability rises after sustained AI/robotics-driven CORP_TECH gains rather than independently of them, same correlated-shock logic as ai_capex_correction.",
+      "_conservation_note": "Net destruction (-0.18, tracked): same logic as ai_capex_correction -- a venture-funding correction destroys speculative paper value, it isn't captured by a named winner.",
       "effects": {
         "CORP_TECH": {
           "resources": -0.1,
@@ -2354,7 +2461,7 @@
       "T1_to_T0": 2
     },
     "lambda_stress_coupling": 0.5,
-    "ledger_tolerance": 0.02,
+    "ledger_tolerance": 1e-06,
     "conflict_model": "costly_lottery_v2"
   }
 }

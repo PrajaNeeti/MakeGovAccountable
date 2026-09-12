@@ -1,0 +1,53 @@
+{
+  "id": "BANK_GSIB_INTL",
+  "as_of": "2026-09-12",
+  "split_note": "Split from BANK_GSIB. Represents the non-US G-SIB complex (EU, UK, Switzerland, Japan, China majors) -- internally heterogeneous, but the clearest single documented behavior is jurisdiction-specific improvisation under stress (the Swiss AT1 precedent) rather than either US-style domestic ring-fencing or genuine cross-border coordination. Lower crisis-predictability credibility reflects that heterogeneity directly, not a single coherent strategy.",
+  "utility_weights": {
+    "survival": 0.30, "resources": 0.25, "autonomy": 0.15,
+    "legitimacy": 0.15, "relative_rank": 0.15
+  },
+  "discount_rate": 0.16,
+  "horizon_driver": "Quarterly earnings and Basel/EBA stress tests set the normal cadence; national resolution authorities (FINMA, EU SRB, BoE) can and do act unilaterally and divergently within days once stress is acute -- Credit Suisse's forced UBS sale was executed in roughly a week in March 2023.",
+  "survival_threshold": 0.20,
+  "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.10, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
+  ],
+  "constraints": [
+    {"action": "deviate_from_own_jurisdiction's_stated_creditor_hierarchy_(equity_before_AT1)",
+     "type": "priced", "cost": 0.5,
+     "source": "Switzerland wrote off CHF16bn (~$17.2bn) of Credit Suisse AT1 bonds ahead of equity in the Mar 2023 UBS merger, overriding the standard absolute-priority rule; the EU (ECB/EBA) and Bank of England issued explicit public statements within days rejecting the Swiss approach for their own jurisdictions (BoE statement, 20 Mar 2023).",
+     "breaks_under": "acute national solvency crisis where the home regulator judges creditor-hierarchy deviation necessary over a single weekend -- a Swiss court subsequently ruled the AT1 write-off unlawful (Nov 2025), and US bondholders are still suing Switzerland in 2026, three years later"},
+    {"action": "coordinate_a_shared_cross-border_rescue_facility",
+     "type": "priced", "cost": 0.4,
+     "source": "No EU-UK-Swiss-Japan joint rescue mechanism existed or was invoked in 2023; each jurisdiction acted through its own domestic authority.",
+     "breaks_under": "not observed to break; the EU's own Banking Union remains incomplete on cross-border resolution funding as of 2026"}
+  ],
+  "credibility": {
+    "overall": 0.45,
+    "by_domain": {
+      "day_to_day_market_making_and_correspondent_banking": 0.75,
+      "crisis_resolution_predictability_across_jurisdictions": 0.20,
+      "regulatory_capital_commitments": 0.60
+    }
+  },
+  "deception_prior": 0.3,
+  "stated_vs_revealed": [
+    {"stated": "Non-US G-SIBs operate under a harmonised Basel/FSB resolution framework alongside US peers, implying broadly consistent treatment.",
+     "revealed": "In March 2023 Switzerland unilaterally inverted its own creditor waterfall while the EU and UK immediately and publicly repudiated that approach for their own jurisdictions -- three different non-US authorities took three different positions within the same fortnight.",
+     "delta": "The 'coordinated non-US bloc' framing is false; behavior is jurisdiction-by-jurisdiction and reactive, not a bloc strategy.",
+     "sources": ["https://www.bankofengland.co.uk/news/2023/march/boe-statement-uk-creditor-hierarchy", "https://www.financeasia.com/article/ubs-credit-suisse-merger-leads-to-17-billion-at1-bond-wipeout/483723"]}
+  ],
+  "dependencies": [
+    {"on": "EXCH_CLEAR", "type": "settlement_and_clearing_access", "strength": 0.5},
+    {"on": "ST_EU", "type": "single_point_of_entry_regulation_EU_subsidiaries", "strength": 0.5},
+    {"on": "CB_EU", "type": "euro_liquidity_backstop", "strength": 0.4}
+  ],
+  "tripwires": [
+    {"if": "a non-US G-SIB faces an acute solvency or deposit-run event", "then": "expect the home regulator to improvise a jurisdiction-specific solution (up to and including creditor-hierarchy deviation, per the Swiss precedent) rather than invoke a coordinated multinational mechanism"},
+    {"if": "a national regulator forces a bail-in deviating from stated hierarchy", "then": "expect years of cross-border litigation and a lasting repricing of that instrument class globally -- the Credit Suisse AT1 market took until UBS's Jan 2026 return issuance to normalise"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "Direct evidence that post-2023 Basel Committee or EU Banking Union reforms have produced a binding, tested cross-border backstop would raise confidence that this bloc could act more coherently in a future crisis."
+}

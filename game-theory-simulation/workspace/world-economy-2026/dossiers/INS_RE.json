@@ -72,7 +72,7 @@
     }
   ],
   "dependencies": [
-    {"on": "ST_ENTREPOT", "type": "legal_and_arbitration_venue (Lloyd's/London market, Bermuda, Zurich)", "strength": 0.6},
+    {"on": "ST_ENTREPOT_ATLANTIC", "type": "legal_and_arbitration_venue (Lloyd's/London market, Bermuda, Zurich)", "strength": 0.6},
     {"on": "CORP_COMMOD", "type": "insured physical cargo and freight flows", "strength": 0.5},
     {"on": "ST_US", "type": "sanctions regime that creates/removes insurable counterparty risk", "strength": 0.4}
   ],

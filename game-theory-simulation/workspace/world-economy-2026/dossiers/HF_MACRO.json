@@ -49,7 +49,7 @@
     }
   ],
   "dependencies": [
-    {"on": "BANK_GSIB", "type": "prime_brokerage_and_repo_financing", "strength": 0.6},
+    {"on": "BANK_GSIB_US", "type": "prime_brokerage_and_repo_financing", "strength": 0.6},
     {"on": "EXCH_CLEAR", "type": "margin_and_clearing_access", "strength": 0.5},
     {"on": "CB_US", "type": "policy_rate_and_repo_facility_backstop", "strength": 0.4}
   ],

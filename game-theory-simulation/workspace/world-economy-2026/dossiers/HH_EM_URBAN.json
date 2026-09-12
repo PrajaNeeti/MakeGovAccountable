@@ -65,7 +65,7 @@
   "dependencies": [
     {"on": "ST_FRAGILE", "type": "currency_and_capital_control_regime", "strength": 0.6},
     {"on": "CB_EM", "type": "FX_intervention_and_reserve_adequacy", "strength": 0.5},
-    {"on": "BANK_GSIB", "type": "remittance_and_correspondent_banking_access", "strength": 0.2}
+    {"on": "BANK_GSIB_US", "type": "remittance_and_correspondent_banking_access", "strength": 0.2}
   ],
   "tripwires": [
     {"if": "official FX reserve cover falls below roughly 3 months of imports, or a parallel-market FX premium exceeds ~20-30%",

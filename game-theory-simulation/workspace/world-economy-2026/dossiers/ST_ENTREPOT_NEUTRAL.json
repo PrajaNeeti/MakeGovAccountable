@@ -1,0 +1,49 @@
+{
+  "id": "ST_ENTREPOT_NEUTRAL",
+  "as_of": "2026-09-12",
+  "split_note": "Split from ST_ENTREPOT per the interest-researcher's own recommendation. Represents Switzerland and Singapore (neutrality-preserving), with Hong Kong included but flagged low-confidence -- the original research pass did not directly source HK's 2025-2026 positioning, an honest gap carried forward rather than resolved by assumption.",
+  "utility_weights": {
+    "survival": 0.20, "resources": 0.30, "autonomy": 0.25,
+    "legitimacy": 0.15, "relative_rank": 0.10
+  },
+  "discount_rate": 0.14,
+  "horizon_driver": "Neutrality-franchise reputational capital decays slowly but, once broken by an actual confiscation, cannot be rebuilt within an electoral cycle -- horizon treated as long (5-7yr) but the underlying asset (neutrality) is capable of a step-change loss.",
+  "survival_threshold": 0.25,
+  "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.08, "reversible": true},
+    {"action": "escalate", "cost": 0.3, "reversible": false}
+  ],
+  "constraints": [
+    {"action": "confiscate_(not_merely_freeze)_sanctioned_sovereign_assets",
+     "type": "priced_not_hard", "cost": 0.35,
+     "source": "Switzerland's government stated in Feb 2023 that confiscation was unconstitutional and risked violating international obligations.",
+     "breaks_under": "already breaking: both houses of the Swiss parliament endorsed measures toward confiscation in 2026, seeking an international-law framework to proceed -- the 'unconstitutional' constraint bent under sustained EU/G7 reputational and diplomatic pressure"}
+  ],
+  "credibility": {
+    "overall": 0.55,
+    "by_domain": {
+      "custody_and_safekeeping_neutrality": 0.55,
+      "legal_and_arbitration_venue_reliability": 0.75,
+      "Hong_Kong_specific_positioning": 0.25
+    }
+  },
+  "deception_prior": 0.3,
+  "stated_vs_revealed": [
+    {"stated": "Switzerland will not confiscate frozen Russian assets because doing so is unconstitutional and would violate its international legal obligations.",
+     "revealed": "In 2026 both houses of the Swiss parliament endorsed measures to move toward confiscation for Ukraine reconstruction, directing the government to find an international-law-compatible legal basis. As of July 2026, CHF8.5bn in financial assets plus real estate, vehicles, aircraft and art belonging to sanctioned parties remain frozen (not yet confiscated).",
+     "delta": "The 'constitutional impossibility' framing was a priced political constraint, not a hard legal wall -- it is actively eroding, though slower and more reluctantly than the Atlantic cluster's posture.",
+     "sources": ["https://kyivindependent.com/swiss-parliament-backs-measures-to-confiscate-frozen-russian-assets-for-ukraine-reconstruction/", "https://www.swissinfo.ch/eng/foreign-affairs/switzerland-and-frozen-russian-assets-where-do-things-stand/76282852"]}
+  ],
+  "dependencies": [
+    {"on": "EXCH_CLEAR", "type": "Euroclear_as_the_physical_custody_layer", "strength": 0.5},
+    {"on": "ST_RU", "type": "counterparty_in_the_frozen-asset_legal_dispute_and_historical_client_of_offshore_neutrality", "strength": 0.4},
+    {"on": "ST_CN", "type": "Hong_Kong_linkage_unconfirmed_this_pass", "strength": 0.2}
+  ],
+  "tripwires": [
+    {"if": "Switzerland finalizes an actual legal confiscation mechanism within 12-18 months of the 2026 parliamentary endorsement", "then": "the neutral-custody franchise effectively ends for sanctioned-adjacent capital, and non-aligned reserve managers (Gulf SWFs, Chinese state entities) measurably shift new custody allocations toward Singapore, UAE, or onshore alternatives"},
+    {"if": "a major non-Western reserve holder visibly reduces Euroclear/London custody exposure in response to the confiscation precedent", "then": "this validates the 'custody is a weapon' thesis system-wide and confirms the entrepot split is real and widening"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "Direct 2025-2026 sourcing on Singapore and Hong Kong's specific positioning (not yet done) could either confirm this cluster or require splitting Hong Kong out separately given PRC National Security Law control."
+}

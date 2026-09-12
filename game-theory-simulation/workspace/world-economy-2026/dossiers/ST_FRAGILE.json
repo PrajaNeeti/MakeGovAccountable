@@ -99,7 +99,7 @@
      "note": "The $20bn ESF swap line (Oct 2025) plus a sought $20bn private-sector facility is a case-specific, politically discretionary form of support tied to an ideologically aligned government and an election calendar; this dependency does not generalize to Pakistan or Egypt in the current window and is a structural reason to question a fully uniform treatment of the merged actor (see confidence note)."},
     {"on": "ST_CN", "type": "bilateral_rollovers_and_infrastructure_finance", "strength": 0.3,
      "note": "Material for Pakistan (CPEC-linked rollovers) and, to a lesser extent, Argentina (PBOC swap line used intermittently pre-Milei); marginal for Egypt in this window."},
-    {"on": "BANK_GSIB", "type": "correspondent_banking_and_remittance_corridor_access", "strength": 0.4}
+    {"on": "BANK_GSIB_US", "type": "correspondent_banking_and_remittance_corridor_access", "strength": 0.4}
   ],
   "tripwires": [
     {"if": "FX reserves fall toward a level near 1-2 months of import cover (or the parallel/black-market exchange rate diverges sharply, roughly >15-20%, from the official rate)",

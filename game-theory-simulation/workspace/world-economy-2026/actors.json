@@ -75,13 +75,21 @@
      "shadgunya_default":"dvaidhibhava",
      "notes":"Merged on shared fiscal breakeven logic and dynastic succession structure. Long horizon from non-electoral selection. Uniquely positioned as both commodity chokepoint and capital allocator — appears in T1 and, via SWF, in T2."},
 
-    {"id":"ST_ENTREPOT","label":"Financial entrepôts (UK, CH, SG, HK, IE, LU)","tier":"T1","parent":null,
+    {"id":"ST_ENTREPOT_ATLANTIC","label":"Atlantic financial entrepôts (UK, IE, LU)","tier":"T1","parent":null,
+     "selectorate":"domestic electorates + financial sector capture + alliance alignment",
+     "controls":["offshore_booking_centres","legal_and_arbitration_venue","reinsurance_market","commodity_trade_finance","custody"],
+     "chokepoint_of":["cross_border_legal_enforceability","marine_and_war_risk_insurance","commodity_trade_credit"],
+     "exit_cost_of_using_leverage":0.5,"time_horizon_years":4,
+     "shadgunya_default":"samshraya",
+     "notes":"SPLIT from ST_ENTREPOT (2026-09) on sourced evidence: weaponization-willing, coordinated with US/EU sanctions architecture. UK committed GBP2.26bn to the G7 reparations-loan structure fastest and most eagerly of any entrepot."},
+
+    {"id":"ST_ENTREPOT_NEUTRAL","label":"Neutrality-preserving entrepôts (CH, SG, HK-uncertain)","tier":"T1","parent":null,
      "selectorate":"domestic electorates + financial sector capture + host-state tolerance",
      "controls":["offshore_booking_centres","legal_and_arbitration_venue","reinsurance_market","commodity_trade_finance","custody"],
      "chokepoint_of":["cross_border_legal_enforceability","marine_and_war_risk_insurance","commodity_trade_credit"],
      "exit_cost_of_using_leverage":0.75,"time_horizon_years":5,
      "shadgunya_default":"sandhi",
-     "notes":"The actor most analyses omit entirely. Sanctions and blockades are enforced here in practice — through insurance, credit and law, not through navies. High exit cost: their franchise IS neutrality, so firing the weapon destroys the business."},
+     "notes":"SPLIT from ST_ENTREPOT (2026-09) on sourced evidence: neutrality franchise is real but eroding (2026 Swiss parliamentary confiscation-measures endorsement). Singapore/HK positioning not directly sourced -- inherited low-confidence flag, not resolved."},
 
     {"id":"ST_SWING","label":"Swing middle powers (BR, ID, MX, TR, VN, ZA, SA-region)","tier":"T1","parent":null,
      "selectorate":"national electorates, militaries, commodity and manufacturing elites",
@@ -169,12 +177,19 @@
      "exit_cost_of_using_leverage":0.4,"time_horizon_years":3,
      "notes":"Heavily constrained by liability matching, solvency rules and benchmark risk. Pension demand for long duration is a forced flow — mechanically certain and frequently mispriced."},
 
-    {"id":"BANK_GSIB","label":"Globally systemic banks (US, EU, JP, CN majors)","tier":"T3","parent":null,
+    {"id":"BANK_GSIB_US","label":"US-chartered globally systemic banks","tier":"T3","parent":null,
      "selectorate":"shareholders + boards + prudential regulators + implicit sovereign backstop",
      "controls":["credit_creation","trade_finance","correspondent_banking_access","market_making_in_sovereigns"],
      "chokepoint_of":["trade_finance","correspondent_banking_for_frontier_states"],
      "exit_cost_of_using_leverage":0.6,"time_horizon_years":2,
-     "notes":"Merged for tractability but SPLIT under stress — national regulators ring-fence in a crisis, which is exactly when merged treatment fails. Correspondent-banking de-risking is how financial exclusion actually operates: quiet, commercial, deniable, and more effective than formal sanctions."},
+     "notes":"SPLIT from BANK_GSIB (2026-09) on sourced evidence: national regulators ring-fence in a crisis, confirmed by 2023 divergence. US FDIC's systemic-risk exception covered only US-chartered deposits, funded domestically -- self-protective, jurisdiction-first."},
+
+    {"id":"BANK_GSIB_INTL","label":"Non-US globally systemic banks (EU, UK, CH, JP, CN majors)","tier":"T3","parent":null,
+     "selectorate":"shareholders + boards + prudential regulators + implicit sovereign backstop",
+     "controls":["credit_creation","trade_finance","correspondent_banking_access","market_making_in_sovereigns"],
+     "chokepoint_of":["trade_finance","correspondent_banking_for_frontier_states"],
+     "exit_cost_of_using_leverage":0.6,"time_horizon_years":2,
+     "notes":"SPLIT from BANK_GSIB (2026-09). Internally heterogeneous, not a coordinated bloc: Switzerland unilaterally inverted its AT1/equity creditor waterfall in 2023 while the EU and BoE explicitly repudiated that approach for their own jurisdictions within days -- three different positions in one fortnight."},
 
     {"id":"NBFI_CREDIT","label":"Private credit, PE, and shadow banks (Blackstone, Apollo, KKR, Ares)","tier":"T3","parent":null,
      "selectorate":"LPs, fund economics",
@@ -300,13 +315,14 @@
     {"flow":"leading-edge compute","chokepoints":["EUV tools","sub-5nm fabs","HBM memory","advanced packaging"],"controllers":["ST_TW","ST_JP_KR","ST_EU","ST_US","CORP_SEMI"]},
     {"flow":"critical minerals","chokepoints":["refining and separation capacity, not ore"],"controllers":["ST_CN","ST_SWING","CORP_COMMOD"]},
     {"flow":"food and fertiliser","chokepoints":["grain export corridors","potash and phosphate","natural gas feedstock"],"controllers":["ST_RU","ST_SWING","CORP_COMMOD","ST_US"]},
-    {"flow":"dollar funding","chokepoints":["swap lines","repo","correspondent banking","CLS settlement"],"controllers":["CB_US","BANK_GSIB","EXCH_CLEAR"]},
+    {"flow":"dollar funding","chokepoints":["swap lines","repo","correspondent banking","CLS settlement"],"controllers":["CB_US","BANK_GSIB_US","BANK_GSIB_INTL","EXCH_CLEAR"]},
     {"flow":"settlement and custody","chokepoints":["SWIFT","Euroclear","DTCC","CLS","CIPS"],"controllers":["EXCH_CLEAR","ST_EU","ST_US","CB_CN"]},
-    {"flow":"insurance capacity","chokepoints":["reinsurance retrocession","war risk syndicates","P&I clubs"],"controllers":["INS_RE","ST_ENTREPOT"]},
+    {"flow":"insurance capacity","chokepoints":["reinsurance retrocession","war risk syndicates","P&I clubs"],"controllers":["INS_RE","ST_ENTREPOT_ATLANTIC","ST_ENTREPOT_NEUTRAL"]},
     {"flow":"munitions and platforms","chokepoints":["propellant and energetics","solid rocket motors","machine tools","skilled labour"],"controllers":["CORP_DEFENSE","ST_US","ST_CN","ST_EU"]},
-    {"flow":"remittances","chokepoints":["corridor banking","FX access"],"controllers":["BANK_GSIB","ST_GULF","ST_FRAGILE","HH_EM_SUBSIST"]}
+    {"flow":"remittances","chokepoints":["corridor banking","FX access"],"controllers":["BANK_GSIB_US","BANK_GSIB_INTL","ST_GULF","ST_FRAGILE","HH_EM_SUBSIST"]}
   ],
 
+  "proposed_theatres_NOTE": "Historical snapshot from the original Cartographer pass. The live theatre definitions (with kernel assignments) are in theatres.json, which has since diverged from this list -- notably ST_ENTREPOT and BANK_GSIB were split into ST_ENTREPOT_ATLANTIC/NEUTRAL and BANK_GSIB_US/INTL per interest-researcher findings (see open_questions below). Do not treat this array as current.",
   "proposed_theatres": [
     {"id":"reserve_currency_order","tier":"T0","members":["ST_US","ST_CN","CB_US","CB_CN","SWF"]},
     {"id":"taiwan_semiconductor","tier":"T0","members":["ST_US","ST_CN","ST_TW","ST_JP_KR","CORP_SEMI"]},
@@ -323,7 +339,7 @@
   ],
 
   "open_questions": [
-    "Is ST_ENTREPOT one actor or two? UK and Switzerland diverged materially on Russia asset treatment; a shared franchise-in-neutrality may no longer be shared.",
+    "RESOLVED 2026-09: ST_ENTREPOT split into ST_ENTREPOT_ATLANTIC (UK/IE/LU) and ST_ENTREPOT_NEUTRAL (CH/SG/HK-unconfirmed) -- interest-researcher confirmed the divergence with sourced evidence (UK's eager reparations-loan commitment vs Switzerland's 2026 parliamentary reversal on confiscation).",
     "Should CORP_TECH be promoted to T1? Its capex is macro-scale and its compute allocation is arguably a sovereign-grade chokepoint.",
     "Does ST_EU survive as a single actor through a fiscal stress episode, or split into northern-creditor and southern-debtor actors?",
     "Is stablecoin-held T-bill demand already material enough to promote crypto out of NBFI_CREDIT?",

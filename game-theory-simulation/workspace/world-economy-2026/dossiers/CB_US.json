@@ -66,7 +66,7 @@
   ],
   "dependencies": [
     {"on": "ST_US", "type": "appointment_and_removal_litigation_exposure", "strength": 0.60},
-    {"on": "BANK_GSIB", "type": "repo_and_reserve_transmission_channel", "strength": 0.40},
+    {"on": "BANK_GSIB_US", "type": "repo_and_reserve_transmission_channel", "strength": 0.40},
     {"on": "EXCH_CLEAR", "type": "settlement_and_collateral_plumbing", "strength": 0.30}
   ],
   "tripwires": [

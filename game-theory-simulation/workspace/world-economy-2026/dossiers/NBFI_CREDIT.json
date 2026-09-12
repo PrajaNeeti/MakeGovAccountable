@@ -57,7 +57,7 @@
   ],
   "dependencies": [
     {"on": "AM_ACTIVE", "type": "LP_capital_and_insurer_general_account_funding", "strength": 0.6},
-    {"on": "BANK_GSIB", "type": "warehouse_lines_and_NAV_lending", "strength": 0.3},
+    {"on": "BANK_GSIB_US", "type": "warehouse_lines_and_NAV_lending", "strength": 0.3},
     {"on": "CB_US", "type": "policy_rate_sets_relative_yield_advantage_over_syndicated_credit", "strength": 0.4}
   ],
   "tripwires": [

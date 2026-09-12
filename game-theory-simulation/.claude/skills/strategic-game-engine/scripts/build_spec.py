@@ -106,7 +106,7 @@ def main():
         "transition": {"feedback_lags": {"T4_to_T1": 3, "T3_to_T2": 1,
                                          "T1_to_T0": 2},
                        "lambda_stress_coupling": 0.5,
-                       "ledger_tolerance": 0.02,
+                       "ledger_tolerance": 1e-6,
                        "conflict_model": "costly_lottery_v2"},
     }
 

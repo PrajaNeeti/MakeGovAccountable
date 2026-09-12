@@ -1,0 +1,52 @@
+{
+  "id": "BANK_GSIB_US",
+  "as_of": "2026-09-12",
+  "split_note": "Split from BANK_GSIB per the interest-researcher's own confirmed finding: the merged treatment fails under stress. This actor represents the US-chartered G-SIB complex specifically, distinguished by a self-protective, jurisdiction-first resolution posture.",
+  "utility_weights": {
+    "survival": 0.30, "resources": 0.25, "autonomy": 0.20,
+    "legitimacy": 0.15, "relative_rank": 0.10
+  },
+  "discount_rate": 0.18,
+  "horizon_driver": "Quarterly earnings and annual CCAR stress tests set the normal cadence, but the home resolution authority (FDIC) can act within days once stress is acute -- SVB was seized and resolved inside days in March 2023.",
+  "survival_threshold": 0.20,
+  "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.10, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
+  ],
+  "constraints": [
+    {"action": "extend_group-wide_backstop_or_liquidity_support_across_borders_in_a_crisis",
+     "type": "hard", "cost": 999,
+     "source": "The US FDIC's Mar 2023 systemic-risk exception for SVB/Signature covered only US-chartered uninsured deposits, funded by a special assessment on US banks -- no cross-border, group-wide guarantee was extended (BIS FSI Executive Summary, 2023).",
+     "breaks_under": "never observed to break -- this is the defining structural feature of the US resolution regime, not a negotiable constraint"},
+    {"action": "deviate_from_US_creditor_hierarchy_(equity_before_AT1-equivalent)",
+     "type": "priced", "cost": 0.5,
+     "source": "The US maintained standard absolute-priority treatment in 2023 even as Switzerland inverted its own hierarchy; the Bank of England and ECB publicly aligned with the US/standard approach within days of the Swiss move (BoE statement, 20 Mar 2023).",
+     "breaks_under": "acute national solvency crisis judged severe enough that FDIC/Treasury deviate from statutory priority -- no historical instance"}
+  ],
+  "credibility": {
+    "overall": 0.55,
+    "by_domain": {
+      "day_to_day_market_making_and_correspondent_banking": 0.80,
+      "crisis_resolution_predictability_within_US_jurisdiction": 0.65,
+      "cross_border_solidarity": 0.10
+    }
+  },
+  "deception_prior": 0.2,
+  "stated_vs_revealed": [
+    {"stated": "US G-SIBs operate under a harmonised, FSB/Basel-coordinated global resolution framework implying consistent treatment regardless of jurisdiction.",
+     "revealed": "The US ring-fenced its Mar 2023 systemic-risk-exception deposit guarantee to US-chartered deposits only, funded entirely domestically -- no extension to foreign branches or a shared international facility.",
+     "delta": "Confirms self-protective, jurisdiction-first behavior under stress, not global solidarity.",
+     "sources": ["https://www.bis.org/fsi/fsisummaries/exsum_23912.htm"]}
+  ],
+  "dependencies": [
+    {"on": "CB_US", "type": "lender_of_last_resort/swap_lines", "strength": 0.7},
+    {"on": "ST_US", "type": "implicit_sovereign_backstop_and_regulation", "strength": 0.7},
+    {"on": "EXCH_CLEAR", "type": "settlement_and_clearing_access", "strength": 0.5}
+  ],
+  "tripwires": [
+    {"if": "a US G-SIB faces an acute solvency or deposit-run event", "then": "expect a fast, domestically-funded, jurisdiction-limited resolution (FDIC systemic-risk exception pattern) with no automatic extension to non-US operations or counterparties"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "Evidence of a binding, tested cross-border backstop commitment from a post-2023 Basel/FSB process would raise confidence in more internationally cooperative behavior."
+}

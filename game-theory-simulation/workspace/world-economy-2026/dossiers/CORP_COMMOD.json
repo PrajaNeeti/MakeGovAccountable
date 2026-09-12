@@ -70,7 +70,7 @@
   "dependencies": [
     {"on": "INS_RE", "type": "insurability of the vessels and cargoes being traded — a route insurers close is a route these actors cannot service at scale", "strength": 0.5},
     {"on": "ST_RU", "type": "primary discounted-crude source feeding the shadow-fleet arbitrage trade", "strength": 0.4},
-    {"on": "BANK_GSIB", "type": "trade finance and correspondent banking access, which can be withdrawn as quiet de-risking", "strength": 0.5}
+    {"on": "BANK_GSIB_US", "type": "trade finance and correspondent banking access, which can be withdrawn as quiet de-risking", "strength": 0.5}
   ],
   "tripwires": [
     {"if": "a new sanctions regime or a sudden supply shock hits a major commodity flow",

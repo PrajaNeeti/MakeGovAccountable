@@ -64,7 +64,7 @@
   ],
   "dependencies": [
     {"on": "ST_EU", "type": "sanctions_mandate_and_legal_liability_shield_for_Euroclear/Belgium", "strength": 0.6},
-    {"on": "BANK_GSIB", "type": "clearing_member_solvency", "strength": 0.5},
+    {"on": "BANK_GSIB_US", "type": "clearing_member_solvency", "strength": 0.5},
     {"on": "HF_MACRO", "type": "margin_and_liquidity_interaction", "strength": 0.4},
     {"on": "ST_RU", "type": "adversarial_counterparty_in_litigation", "strength": 0.3}
   ],
