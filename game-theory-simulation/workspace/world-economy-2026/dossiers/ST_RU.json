@@ -1,54 +1,76 @@
 {
   "id": "ST_RU",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.4,
+    "resources": 0.2,
+    "autonomy": 0.15,
+    "legitimacy": 0.1,
+    "relative_rank": 0.15
   },
-  "discount_rate": 0.125,
-  "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
+  "discount_rate": 0.12,
+  "horizon_driver": "no near-term binding electoral constraint on the presidential inner circle; horizon set instead by elite/siloviki cohesion risk and the war's own attritional timeline rather than a fixed cycle",
+  "survival_threshold": 0.35,
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.1, "reversible": true},
+    {"action": "escalate", "cost": 0.12, "reversible": false}
+  ],
+  "constraints": [
+    {"action": "first_use_of_nuclear_weapons", "type": "hard",
+     "cost": null,
+     "source": "mutual deterrence structure, alliance-escalation risk (NATO Article 5 ambiguity), historical restraint even under severe 2022-2023 battlefield setbacks",
+     "breaks_under": "not observed to break despite repeated rhetorical signaling; be suspicious of treating the rhetoric itself as a lowered threshold"},
+    {"action": "cede_core_territorial_claims_(Donbas/Crimea)_in_a_settlement", "type": "priced_not_hard",
+     "cost": 0.3,
+     "source": "framed publicly as existential/non-negotiable, but actively engaged in US-brokered talks (Witkoff/Kushner-Putin meetings, Sept 2026; the 28-point plan cycle) that explicitly trade territorial and security-guarantee terms",
+     "breaks_under": "the maximalist framing is a negotiating anchor, not a fixed constraint — Moscow has stayed at the table through multiple 2025-2026 rounds despite the 'non-negotiable' framing"},
+    {"action": "maintain_full_state_control_over_reserve_and_export_revenue_flows", "type": "priced",
+     "cost": 0.25,
+     "source": "~$300bn in CBR reserves frozen in Western jurisdictions since 2022, of which ~EUR210bn sits in EU custody (mostly Euroclear)",
+     "breaks_under": "already broken in the sense that Russia has lost effective control of these reserves for 4+ years; Moscow's response has shifted from protest to active legal counter-offensive (Moscow court awarded Russia's central bank a $230bn damages claim against Euroclear, 2026), showing the reserves remain strategically important enough to fight for rather than write off"}
+  ],
+  "credibility": {
+    "overall": 0.4,
+    "by_domain": {
+      "energy_supply_contract_delivery": 0.6,
+      "territorial_and_security_commitments": 0.15,
+      "sanctions_evasion_execution": 0.75,
+      "ceasefire_compliance": 0.25
+    }
+  },
+  "deception_prior": 0.5,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Western sanctions have failed and Russia's oil trade continues largely undisturbed via alternative markets.",
+      "revealed": "The shadow fleet now carries roughly 70% of Russia's seaborne crude exports (62% sanctioned tankers + ~7% unsanctioned-but-illicit vessels, May 2026 estimate), which is real adaptation but not costless: Feb 2026 seaborne oil exports fell 9.2% m/m and export revenue fell to ~$9.5bn that month amid tightening Danish/Turkish/British strait interceptions and Ukrainian SBU strikes on tankers. Annual 2026 revenue scenarios span a wide $46-146bn range depending on enforcement intensity.",
+      "delta": "Sanctions evasion is working at the logistics level (fleet exists, oil moves) but is showing rising, not flat, marginal cost — the Cartographer's 'low exit cost, already sanctioned' framing understates a trend of tightening enforcement squeeze in 2026 versus 2023-2024.",
+      "sources": ["https://discoveryalert.com.au/russia-oil-sanctions-price-cap-shadow-fleet-2026/", "https://www.gssc.lt/en/publication/what-is-next-for-russias-shadow-fleet-closing-the-gaps-in-maritime-sanctions-enforcement/", "https://thegaze.media/news/russias-shadow-fleet-under-fire-ukrainian-operations-reshape-russian-oil-export-logistics"]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Territorial claims over occupied Ukrainian regions are existential and non-negotiable.",
+      "revealed": "Russia has stayed engaged through repeated 2025-2026 US-mediated negotiation rounds (the 28-point plan, Sept 2026 Witkoff/Kushner-Moscow and Kyiv shuttle diplomacy) that explicitly discuss territorial and security-guarantee trade-offs, and agreed to at least one partial Easter truce (April 2026, though violated ~469 times by Ukraine's count).",
+      "delta": "The 'non-negotiable' framing functions as a maximalist opening anchor in a live negotiation, not a fixed red line — consistent with a state extracting the best available settlement rather than one that will walk away from any deal.",
+      "sources": ["https://www.washingtonpost.com/world/2026/09/05/witkoff-kushner-arrive-moscow-talks-with-putin/", "https://www.aljazeera.com/news/2026/9/5/russias-putin-meets-us-envoys-to-discuss-trump-proposal-to-end-ukraine-war", "https://en.wikipedia.org/wiki/2026_Russo-Ukrainian_truce"]
     },
     {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "The frozen ~$300bn in Western-held reserves is simple Western theft and not something Russia treats as a live financial asset.",
+      "revealed": "Russia's central bank filed suit in a Moscow court seeking $230bn in damages from Euroclear (2026), the first step in what the Kremlin calls a coming 'legal nightmare' for the EU — an active, resourced legal counter-offensive, not passive protest.",
+      "delta": "Moscow is fighting hard for the reserves through available legal channels, indicating the assets remain materially important to the regime's long-run financial position, not merely symbolic.",
+      "sources": ["https://uk.marketscreener.com/news/russia-s-central-bank-seeks-230-billion-in-damages-from-belgium-s-euroclear-moscow-court-says-ce7d50d8d089f027", "https://www.themoscowtimes.com/2026/09/10/belgiums-golden-goose-is-keeping-billions-from-ukraine-a93661"]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-ST_RU-bootstrap"
+  "dependencies": [
+    {"on": "ST_CN", "type": "sanctions_workaround_trade_and_technology_access", "strength": 0.6},
+    {"on": "ST_GULF", "type": "OPEC+_coordination_on_oil_price_management", "strength": 0.4},
+    {"on": "ST_ENTREPOT", "type": "shadow_fleet_insurance_and_trade_finance_workarounds", "strength": 0.5},
+    {"on": "ST_IN", "type": "discounted_crude_demand_sink", "strength": 0.4}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "shadow-fleet interception rates in the Danish Straits/Bosphorus/English Channel rise further and seaborne export revenue falls below roughly $8bn/month for 2+ consecutive months", "then": "Russia escalates hybrid/grey-zone pressure on European critical infrastructure or NATO's eastern flank as a substitute leverage channel, consistent with a cheap-escalator posture even as direct sanctions bite harder than the 'already sanctioned, nothing left to lose' framing assumes"},
+    {"if": "a negotiated ceasefire framework nears finalization with a territorial settlement", "then": "Russia demands simultaneous resolution of the frozen-reserves question (return, partial release, or reparations offset) as a linked condition, given the active Euroclear litigation"},
+    {"if": "Belgium's resistance to the EU reparations-loan structure collapses and a large tranche mobilizes without a reciprocal asset-return pathway", "then": "Russia escalates the legal campaign (further Moscow-court judgments, asset seizure threats against remaining Western firms/assets in Russia) rather than settle the underlying war more quickly"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "Evidence that shadow-fleet revenue has stabilized or grown despite tightening interdiction (rather than the observed Feb 2026 decline) would restore the 'low, flat exit cost' framing; conversely, a further sustained multi-quarter revenue decline would argue for raising the exit-cost-of-using-leverage parameter above the Cartographer's initial 0.3, since the war is now visibly more expensive to sustain than in 2022-2023."
 }

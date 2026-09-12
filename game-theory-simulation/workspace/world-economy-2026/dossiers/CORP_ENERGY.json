@@ -1,54 +1,88 @@
 {
   "id": "CORP_ENERGY",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.25,
+    "resources": 0.35,
+    "autonomy": 0.15,
+    "legitimacy": 0.10,
+    "relative_rank": 0.15
   },
-  "discount_rate": 0.067,
+  "discount_rate": 0.07,
+  "horizon_driver": "upstream project cycle (FID to first oil/gas is 3-7 years) and multi-decade reserve life; NOCs additionally run on dynastic/regime horizons (15-25 years), while listed majors face nearer-term shareholder pressure that periodically overrides the long asset horizon",
   "survival_threshold": 0.25,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "resources": 0.60,
+    "security": 0.55,
+    "legitimacy": 0.35,
+    "autonomy": 0.45,
+    "rank": 0.60,
+    "liquidity": 0.55
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true,
+     "note": "maintain current capex guidance and production plan"},
+    {"action": "settle", "cost": 0.10, "reversible": true,
+     "note": "restore/expand low-carbon capex line, accept host-state or regulatory transition demands"},
+    {"action": "escalate", "cost": 0.15, "reversible": false,
+     "note": "take a major upstream FID or lock in a long-term LNG offtake contract — multi-decade capital commitment, very costly to unwind once sanctioned"}
+  ],
+  "constraints": [
+    {"action": "abandon_net_zero_2050_pledge", "type": "performative",
+     "cost": 0.10,
+     "source": "BP scrapped its 2030 production-cut target entirely in 2025 (CEO: company had gone 'too far, too fast'), cutting renewables capex from ~$5bn/yr to $1-2bn/yr while raising oil & gas capex to $10bn/yr; Shell dropped its 2035 emissions-reduction pledge in March 2026 and is targeting +1m boe/d oil and gas growth by 2030 in tension with its own 2050 net-zero goal — https://www.tipranks.com/news/bp-vows-to-drill-baby-drill-as-oil-major-slashes-renewables-to-boost-fossil-fuel-output ; https://www.spglobal.com/energy/en/news-research/latest-news/crude-oil/021026-shell-casts-doubt-on-net-zero-2050-commitment",
+     "breaks_under": "shareholder pressure for near-term returns, activist investor campaigns, or a sustained high-price environment rewarding volume growth"},
+    {"action": "cut_shareholder_payout_to_fund_state_budget", "type": "priced",
+     "cost": 0.30,
+     "source": "Saudi Aramco's variable dividend collapsed from ~$43bn (2024) to ~$880m (2025) while the base dividend ($84.6bn) was held and partly debt-funded to support the Saudi state budget; government debt is projected to rise to 32.7% of GDP in 2026 — https://www.energyconnects.com/news/oil/2025/march/aramco-cuts-world-s-biggest-dividend-in-blow-to-saudi-budget/ ; https://agsi.org/analysis/putting-the-2026-saudi-budget-under-the-microscope/",
+     "breaks_under": "for NOCs, sponsoring-state fiscal need dominates minority-shareholder return expectations whenever oil price falls below the state's effective breakeven (~$72-85/bbl range cited for Saudi 2026 budget)"}
+  ],
+  "credibility": {
+    "overall": 0.45,
+    "by_domain": {
+      "capex_and_production_delivery": 0.80,
+      "shareholder_payout_commitments": 0.55,
+      "climate_and_transition_pledges": 0.15
+    }
+  },
+  "deception_prior": 0.45,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Shell and BP formally adopted net-zero-by-2050 targets (c. 2020-2021) with interim production-reduction and renewables-investment milestones, marketed as a managed energy transition.",
+      "revealed": "BP scrapped its 2030 oil-and-gas production-cut target in 2025 and is now growing production toward 2.3-2.5m bbl/d (implying ~9% growth vs a prior planned 25% cut), cutting renewables spend to $1-2bn/yr and raising oil & gas capex to $10bn/yr. Shell dropped its 2035 emissions pledge in March 2026 and is targeting oil & gas growth that its own reporting flags as in tension with its 2050 goal.",
+      "delta": "The transition pledges were priced options exercised only while capital markets rewarded ESG positioning; once shareholder pressure and a softer 2025-26 renewables return profile shifted, both majors reverted to hydrocarbon-volume growth as the revealed preference.",
+      "sources": [
+        "https://www.tipranks.com/news/bp-vows-to-drill-baby-drill-as-oil-major-slashes-renewables-to-boost-fossil-fuel-output",
+        "https://www.spglobal.com/energy/en/news-research/latest-news/crude-oil/021026-shell-casts-doubt-on-net-zero-2050-commitment"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Saudi Aramco presents itself as a shareholder-value-maximizing IOC-style company with a progressive dividend policy.",
+      "revealed": "The variable (performance-linked) dividend was gutted (-98%, $43bn to $880m) between 2024 and 2025 while the $84.6bn base dividend was preserved via increased leverage, precisely because that base dividend is the primary funding line for the Saudi state budget — upstream capex guidance ($52-58bn for 2025) was maintained even as payouts to minority shareholders were cut.",
+      "delta": "Aramco is a fiscal instrument of the Saudi state first and a shareholder-return vehicle second; capex commitments to sustain long-run production capacity are more durable than any specific payout promise.",
+      "sources": [
+        "https://www.energyconnects.com/news/oil/2025/march/aramco-cuts-world-s-biggest-dividend-in-blow-to-saudi-budget/",
+        "https://vision2030.ai/encyclopedia/oil-price-impact-saudi-economy/"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-CORP_ENERGY-bootstrap"
+  "dependencies": [
+    {"on": "ST_GULF", "type": "sponsoring state for Aramco/ADNOC — capex and dividend policy set to serve state fiscal needs", "strength": 0.8},
+    {"on": "CORP_COMMOD", "type": "physical routing, blending and sanctions-arbitrage of crude/product flows", "strength": 0.5},
+    {"on": "INS_RE", "type": "insurability of tanker routes and terminals in conflict zones", "strength": 0.4},
+    {"on": "ST_US", "type": "sanctions regimes and export-control policy affecting which crude grades and buyers are reachable", "strength": 0.4}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "Brent trades above ~$90/bbl for two or more consecutive quarters",
+     "then": "upstream capex guidance is raised across multiple majors within 1-2 quarters — the revealed preference is volume growth over price restraint, not the reverse",
+     "source": "pattern consistent with Aramco/ADNOC/Exxon capex guidance behaviour cited above"},
+    {"if": "Brent falls sustainably below ~$65/bbl",
+     "then": "NOCs preserve upstream capex and raise sovereign/corporate debt before cutting production or capex — payouts to minority shareholders (variable dividends) are cut first, as the Aramco 2024-25 sequence shows",
+     "source": "https://www.energyconnects.com/news/oil/2025/march/aramco-cuts-world-s-biggest-dividend-in-blow-to-saudi-budget/"},
+    {"if": "a major publicly reaffirms a net-zero or production-cut pledge under investor/activist pressure",
+     "then": "treat it as cheap talk with a 2-4 year reversal risk once oil prices firm or shareholder composition shifts — both BP and Shell reversed comparable pledges within roughly 3-5 years of adoption",
+     "source": "https://www.spglobal.com/energy/en/news-research/latest-news/crude-oil/021026-shell-casts-doubt-on-net-zero-2050-commitment"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "A major sustaining a renewables-capex increase and a production-cut trajectory through a period of both high oil prices AND shareholder pressure to grow hydrocarbon output would falsify the 'transition pledges are performative' finding. Also watch Aramco's 2026 full-year capex figure (not yet reported as of this writing) — a cut below the $52-58bn guided range would indicate the state-fiscal-support constraint has started to bind on upstream investment itself, not just on dividends."
 }

@@ -1,54 +1,67 @@
 {
   "id": "CB_EU",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
+    "survival": 0.30,
+    "resources": 0.15,
+    "autonomy": 0.25,
+    "legitimacy": 0.25,
     "relative_rank": 0.05
   },
-  "discount_rate": 0.125,
+  "discount_rate": 0.10,
+  "horizon_driver": "Treaty-based indefinite mandate, not an electoral clock; Lagarde's term runs to Oct 2027 with staggered Governing Council rotation. Urgency is imported from member states' own fiscal/political cycles (French and Italian budget calendars), not from the ECB's own horizon.",
   "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true, "meaning": "maintain current rate stance and no new tool activation"},
+    {"action": "settle", "cost": 0.10, "reversible": true, "meaning": "incremental rate move or coordinated liquidity/guidance action"},
+    {"action": "escalate", "cost": 0.15, "reversible": false, "meaning": "activate TPI, expand bond purchases, or hike aggressively against growth risk"}
+  ],
+  "constraints": [
+    {"action": "monetary_financing_of_governments", "type": "hard", "cost": null, "source": "Article 123 TFEU", "breaks_under": "never observed to break; treaty-hard"},
+    {"action": "activate_TPI_for_a_state_out_of_compliance_with_fiscal_rules", "type": "priced", "cost": 0.30, "source": "TPI activation criteria require 'sound and sustainable fiscal and macroeconomic policies' (ECB July 2022 decision; EU Parliament legal analysis)", "breaks_under": "systemic euro-area contagion risk judged to outweigh the moral-hazard cost — untested in practice as of Sept 2026"},
+    {"action": "sacrifice_price_stability_for_growth_support", "type": "priced", "cost": 0.35, "source": "primary mandate hierarchy under the Treaty; demonstrated in the Sept 2026 hike despite Lagarde stating downside growth risk", "breaks_under": "has not broken in the current inflation episode; would require inflation credibly anchored near target"}
+  ],
+  "credibility": {
+    "overall": 0.70,
+    "by_domain": {
+      "conventional_monetary_policy": 0.85,
+      "fragmentation_backstop_TPI": 0.35,
+      "forward_guidance": 0.60
+    }
+  },
+  "deception_prior": 0.15,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "The Transmission Protection Instrument (announced 21 July 2022) 'stands ready' to counter unwarranted, disorderly market fragmentation and protect monetary policy transmission across the euro area.",
+      "revealed": "As of September 2026 the TPI has never been activated, including through episodes of real member-state political stress (French government instability, recurring Italian budget friction). The BTP-Bund spread instead compressed to a 15-year low of ~59bp by January 2026 through the ordinary rate/fiscal channel, not through TPI deployment. Legal analyses (EU Parliament, Bundesbank, Intereconomics) note the activation criteria are not objectively verifiable and leave the ECB wide discretion, which is itself part of why it has never been fired.",
+      "delta": "The backstop's credibility currently rests entirely on presumption, not on a tested track record. It is a commitment device that has not yet been priced by a real activation event — treat its deterrent value as real but unverified, and its activation threshold as effectively higher than the public criteria suggest.",
+      "sources": [
+        "https://www.europarl.europa.eu/cmsdata/253891/QA-07-22-986-EN-N.pdf",
+        "https://www.bundesbank.de/en/tasks/monetary-policy/outright-transactions/transmission-protection-instrument-tpi--896158",
+        "https://www.intereconomics.eu/contents/year/2023/number/5/article/the-activation-conditions-of-the-transmission-protection-instrument-flawed-by-design.html",
+        "https://countryeconomy.com/risk-premium/italy"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "ECB reaction function is symmetric, 'meeting-by-meeting,' data-dependent, with no preset path in either direction (Lagarde, repeated 2025-26 press conferences).",
+      "revealed": "On 10 September 2026 the ECB raised rates for the second time since the Iran-driven energy/inflation shock began (deposit rate to 2.5%, refi to 2.65%), even as Lagarde herself stated growth risks were tilted to the downside and euro-area inflation had hit 3.3% in August — a three-year high, above the ECB's own 3.0% full-year forecast.",
+      "delta": "When growth and price-stability signals conflict, the ECB hikes. The 'symmetric, data-dependent' framing is true in form but the underlying reaction function has a clear, revealed hierarchy: inflation control dominates growth support under an exogenous supply shock, exactly as the Treaty mandate implies but rarely gets tested this cleanly.",
+      "sources": [
+        "https://www.bloomberg.com/news/articles/2026-09-10/ecb-lifts-rates-for-second-time-as-iran-war-drives-inflation",
+        "https://www.cnbc.com/2026/04/30/european-central-bank-april-2026-rate-decision-inflation-stagflation-risk-iran-war.html",
+        "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260611~4d41bd5e83.en.html"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-CB_EU-bootstrap"
+  "dependencies": [
+    {"on": "ST_EU", "type": "fiscal_dominance_risk", "strength": 0.4},
+    {"on": "national_central_banks_within_Eurosystem", "type": "governing_council_voting", "strength": 0.5}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "BTP-Bund or OAT-Bund spread exceeds ~250bp for 2+ consecutive weeks with no country-specific fundamental deterioration", "then": "TPI activation debate is triggered publicly, but historically activation itself has not followed even near this level"},
+    {"if": "euro-area HICP stays above 3% for 2+ consecutive quarters driven by an exogenous energy/supply shock", "then": "ECB continues hiking regardless of downside growth signals (already observed Sept 2026)"},
+    {"if": "a member state under TPI consideration is in an EU excessive deficit procedure", "then": "ECB withholds TPI eligibility for that state regardless of market stress, per stated activation criteria"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "An actual TPI activation event — its size, speed, and market reception — would replace inference from design documents with a real, priceable track record and should trigger an immediate dossier revision."
 }

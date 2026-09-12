@@ -1,54 +1,63 @@
 {
   "id": "HF_MACRO",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.15,
+    "resources": 0.35,
+    "autonomy": 0.25,
+    "legitimacy": 0.05,
+    "relative_rank": 0.20
   },
-  "discount_rate": 0.5,
-  "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
+  "discount_rate": 0.30,
+  "horizon_driver": "Monthly/quarterly investor redemption windows, internal VaR/risk-limit review cycles, and prime-broker margin calls operate on a days-to-weeks cadence — far shorter than the multi-year horizon of the positions they trade against (e.g. sovereign bond duration).",
+  "survival_threshold": 0.35,
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.10, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
+  ],
+  "constraints": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "action": "maintain_leveraged_relative-value_positions_through_a_sharp_repricing",
+      "type": "priced",
+      "cost": 0.30,
+      "source": "Large hedge funds' gross US Treasury exposure doubled to $4.0 trillion between 2023 and Sept 2025 ($2.4tn long / $1.6tn short) — Federal Reserve FEDS Notes, 22 Jun 2026 — meaning the basis trade is now large enough that its own unwind moves the market it is arbitraging",
+      "breaks_under": "a sharp, unexpected yield move forces margin calls the fund cannot meet without deleveraging; this broke concretely in April-May 2025 when roughly $60bn (20%) of swap-spread positions were unwound in April 2025 and a further $40bn in May 2025 following the 2 Apr 2025 tariff announcement (Federal Reserve Bank of New York speech, 9 May 2025; Fed FEDS Notes, Jun 2026)"
     }
   ],
-  "constraints": [],
   "credibility": {
-    "overall": 0.6
+    "overall": 0.55,
+    "by_domain": {
+      "self-description_as_'liquidity_provider'": 0.30,
+      "self-description_as_variance/volatility-seeking": 0.85,
+      "risk-limit_discipline_(internal)": 0.70
+    }
   },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-HF_MACRO-bootstrap"
+  "deception_prior": 0.30,
+  "stated_vs_revealed": [
+    {
+      "stated": "Relative-value and macro hedge funds (including basis-trade funds and multi-strategy pods) describe their arbitrage activity as stabilising — narrowing the cash-futures Treasury basis and improving price discovery and liquidity for the broader market.",
+      "revealed": "Following the 2 April 2025 tariff shock, the same funds' deleveraging amplified the stress they claim to dampen: the 10-year Treasury yield surged past 4.5% and 30-year yields rose above 5% between 2-10 April 2025 — the steepest increase since 1981 — as roughly $60bn of swap-spread positions were forcibly unwound in April alone, with a further $40bn in May (New York Fed speech, 9 May 2025; Fed FEDS Notes, Jun 2026; IMF F&D, Mar 2026).",
+      "delta": "Large and directly falsifying the 'liquidity provider' self-description under exactly the conditions when liquidity is scarcest — confirming the Cartographer's framing that withdrawal at the moment of maximum need is a feature of the business model, not a failure of it.",
+      "sources": ["https://www.federalreserve.gov/econres/notes/feds-notes/decomposing-hedge-funds-u-s-treasury-exposures-20260622.html", "https://www.newyorkfed.org/newsevents/speeches/2025/per250509", "https://www.imf.org/en/publications/fandd/issues/2026/03/safeguarding-the-treasury-market-jeremy-stein"]
+    },
+    {
+      "stated": "'Hedge funds' and 'market makers' are often treated as a single class with uniform behaviour under stress.",
+      "revealed": "The April 2025 episode split this class visibly in two: balance-sheet-funded market makers (Jane Street, which trades on its own balance sheet rather than external leverage) held positions through the volatility window that forced levered competitors out, while low-latency market maker Citadel Securities saw Treasury volumes and hit-ratios rise sharply (avg daily $70mm per-basis-point sensitivity, 45% hit ratio, gross volume up 75% to $1.4tn) — precisely because it was supplying liquidity levered relative-value funds were withdrawing.",
+      "delta": "Moderate structural finding: the internal split is between externally-levered relative-value funds (which withdraw) and balance-sheet-funded/HFT market makers (which often gain share) — worth flagging as a candidate internal-faction split for HF_MACRO even though it is not being split into a separate actor here.",
+      "sources": ["https://libertystreeteconomics.newyorkfed.org/?p=40965", "https://www.risk.net/awards/7962597/flow-market-maker-of-the-year-citadel-securities"]
+    }
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "dependencies": [
+    {"on": "BANK_GSIB", "type": "prime_brokerage_and_repo_financing", "strength": 0.6},
+    {"on": "EXCH_CLEAR", "type": "margin_and_clearing_access", "strength": 0.5},
+    {"on": "CB_US", "type": "policy_rate_and_repo_facility_backstop", "strength": 0.4}
+  ],
+  "tripwires": [
+    {"if": "10-year Treasury yield moves more than ~75-100bps within a 3-5 day window (comparable to the 2-10 Apr 2025 episode)", "then": "expect forced basis-trade/swap-spread deleveraging on the order of tens of billions per month, which itself further deteriorates liquidity and widens bid-ask spreads — a reflexive, self-reinforcing withdrawal"},
+    {"if": "hedge-fund gross Treasury exposure continues growing past the $4.0tn (Sept 2025) level", "then": "the system's structural dependence on this class continuing to provide the trade increases, and so does the scale of any future forced unwind"},
+    {"if": "a levered relative-value fund faces a multi-day margin call it cannot meet", "then": "distinguish it from balance-sheet-funded market makers (Jane Street-type) in the response — the former deleverages and withdraws, the latter often steps in and gains share"}
+  ],
+  "confidence": "medium-high",
+  "what_would_change_my_mind": "Fund-level (not aggregate) leverage and redemption-term data for the largest basis-trade managers would let me set a specific yield-move threshold at which forced deleveraging becomes mechanically certain rather than merely likely, as currently inferred from the single April 2025 data point."
 }

@@ -1,54 +1,95 @@
 {
   "id": "ST_TW",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
+  "confidence": "medium",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
+    "survival": 0.4,
+    "resources": 0.15,
+    "autonomy": 0.25,
     "legitimacy": 0.15,
     "relative_rank": 0.05
   },
-  "discount_rate": 0.25,
-  "survival_threshold": 0.25,
+  "discount_rate": 0.2,
+  "horizon_driver": "President Lai Ching-te's term runs to 2028 and the legislature (KMT/TPP-controlled, DPP a minority since 2024) can gridlock defense and budget bills; layered on top is the widely-cited PLA-readiness window (the 'Davidson window,' ~2027) that both Taiwanese and US planners treat as the operative external clock, materially shorter than the multi-decade capex horizon of TSMC itself, which pulls the state and its chokepoint asset in different directions.",
+  "survival_threshold": 0.2,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
+    "resources": 0.65,
+    "security": 0.45,
+    "legitimacy": 0.6,
+    "autonomy": 0.55,
     "rank": 0.5,
-    "liquidity": 0.5
+    "liquidity": 0.7
   },
   "capabilities": [
-    {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
-    }
+    {"action": "hold", "cost": 0.05, "reversible": true,
+     "note": "Maintain strategic ambiguity: continue incremental defense buildup and TSMC's existing overseas footprint without new concessions or new provocations. The dominant, near-permanent posture."},
+    {"action": "settle", "cost": 0.12, "reversible": true,
+     "note": "Concede on a specific, bounded demand from a great power without touching the core chokepoint — e.g. accepting tariff terms, expanding an already-announced overseas fab program, or agreeing to a trade-side deal while decoupling it from any explicit production-share commitment. This is the revealed pattern in the 2025 US trade talks: Taipei separated tariff negotiations from Lutnick's '50-50' chip-split demand rather than negotiate the two together."},
+    {"action": "escalate", "cost": 0.15, "reversible": false,
+     "note": "Publicly and formally reject a great-power demand (as trade negotiator Cheng Li-chiun did on the 50-50 proposal, Oct 2025), accelerate defense spending/conscription ahead of schedule, or take a visible step toward formal independence rhetoric. Escalation here is aimed at both preserving the chokepoint's concentration and deterring PRC action, and has so far been rhetorical/fiscal rather than military-kinetic."}
   ],
-  "constraints": [],
+  "constraints": [
+    {"action": "cede_majority_of_leading_edge_(sub-5nm)_capacity_offshore", "type": "priced", "cost": 0.6,
+     "source": "explicit government and cross-party position, restated most recently by trade negotiator Cheng Li-chiun ('we will not agree to such conditions,' Oct 2025) after US Commerce Secretary Howard Lutnick proposed a 50-50 US/Taiwan production split in Sept 2025",
+     "breaks_under": "a survival-threshold shock in which the US security guarantee is made explicitly and credibly conditional on the production split — President Lai has publicly quantified the cost of conceding (an estimated loss of ~200,000 high-tech jobs and over 1 million high-spending consumers), which is itself evidence the government has priced, not ruled out, some version of this trade",
+     "sources": ["https://www.cnbc.com/2025/10/02/taiwan-us-chip-production-tsmc-trade-tariffs.html", "https://focustaiwan.tw/politics/202509290015", "https://foreignpolicy.com/2025/11/03/taiwan-silicon-shield-tsmc-semiconductor-chips/"]},
+    {"action": "formal_declaration_of_independence", "type": "hard", "cost": 0.95,
+     "source": "cross-party consensus that unilateral formal independence invites near-certain PRC military response and loses ambiguous US backing",
+     "breaks_under": "essentially never under current conditions; genuinely closer to a hard constraint than most in this dossier"}
+  ],
   "credibility": {
-    "overall": 0.6
+    "overall": 0.7,
+    "by_domain": {
+      "defense_spending_commitments": 0.85,
+      "chip_production_sovereignty": 0.8,
+      "cross_strait_status_quo_rhetoric": 0.5
+    }
   },
   "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-ST_TW-bootstrap"
+  "monitoring": 0.55,
+  "stated_vs_revealed": [
+    {
+      "stated": "Government framing (Lai administration) presents TSMC's US expansion as voluntary partnership and a 'best model' for supply-chain resilience, consistent with a 'silicon shield' doctrine under which concentration deters conflict but is not itself a bargaining chip Taiwan needs to actively defend — implying, per the Cartographer's exit-cost-of-using-leverage near 1.0, that Taiwan is a largely passive hostage to its own chokepoint.",
+      "revealed": "When the US explicitly proposed diluting that concentration (Lutnick's 50-50 split, Sept 2025), Taiwan's government and both major opposition and governing figures treated it as an existential threat to be actively fought, not a technocratic negotiation: trade negotiator Cheng Li-chiun stated flatly Taiwan 'will not agree,' KMT chair Eric Chu called it 'an act of exploitation and plunder' threatening the 'silicon shield' by name, and domestic reporting (Foreign Policy, Nov 2025; MIT Technology Review, Aug 2025) describes the government as increasingly anxious that TSMC's own overseas capex pace is outrunning political control ('Taiwan's Government Is Scared of Its Own Semiconductor Giant'). Separately, Taiwan has delivered on defense-spending pledges largely on schedule: mandatory service was extended from 4 to 12 months (effective Jan 2024, delivered as announced Dec 2022) and the defense budget has risen from roughly 2.5% of GDP toward a confirmed 3.32% in 2026, with a stated glide path to 5% by 2030.",
+      "delta": "The Cartographer's framing of Taiwan as a pure hostage of its own leverage (exit cost ~1.0, cannot fire its own weapon) is only half right: Taiwan cannot *use* concentration offensively, but it actively and successfully resists having that concentration diluted by an outside power, treating preservation of the chokepoint as a defended strategic asset rather than a fact it merely suffers. The delta is between 'passive hostage' (stated framing, consistent with the silicon-shield-as-deterrent narrative) and 'active defender of a concentration it depends on for security relevance' (revealed in the 50-50 refusal and the domestic anxiety over TSMC's own diversification pace). This argues for treating ST_TW's leverage as high-exit-cost-to-fire-offensively but low-exit-cost-to-defend-defensively — a materially different strategic object than a pure hostage.",
+      "sources": [
+        "https://www.cnbc.com/2025/10/02/taiwan-us-chip-production-tsmc-trade-tariffs.html",
+        "https://focustaiwan.tw/politics/202509290015",
+        "https://foreignpolicy.com/2025/11/03/taiwan-silicon-shield-tsmc-semiconductor-chips/",
+        "https://www.technologyreview.com/2025/08/15/1121358/taiwan-silicon-shield-tsmc-china-chip-manufacturing/"
+      ]
+    },
+    {
+      "stated": "Successive governments (Tsai, then Lai) have framed defense reform as necessary and publicly committed to specific, checkable targets: extending conscription to one year and raising the defense budget toward 5% of GDP by 2030.",
+      "revealed": "Both commitments have been substantially delivered on the announced timeline: the one-year conscription term took effect for the January 2024 cohort exactly as announced in Dec 2022, with public support holding at roughly 70-80% in contemporaneous polling; the defense budget has climbed from single digits of growth to a 12.9% hike in the 2023 budget and a confirmed 3.32%-of-GDP figure for 2026, tracking toward the 5%-by-2030 goal restated by Premier Cho Jung-tai in Aug 2025.",
+      "delta": "Small delta — this is a domain where Taiwan's public commitments and delivered policy line up closely, which is itself informative: credibility on hard-security/defense-spending promises should be scored materially higher than credibility on cross-strait status-quo rhetoric, where 'strategic ambiguity' is a deliberate, openly acknowledged hedge rather than a broken promise.",
+      "sources": [
+        "https://www.npr.org/2022/12/28/1145763957/taiwan-extends-mandatory-military-service-requirement-from-4-months-to-1-year",
+        "https://focustaiwan.tw/politics/202508210007",
+        "https://www.ocac.gov.tw/OCAC/Eng/Pages/Detail.aspx?nodeid=329&pid=78672242"
+      ]
+    }
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "dependencies": [
+    {"on": "ST_US", "type": "security_guarantee_and_arms_sales", "strength": 0.85,
+     "note": "Not a formal treaty ally; depends on the Taiwan Relations Act framework and administration-level discretion, which is exactly what is now being explicitly linked to chip-production concessions by the Trump administration (Lutnick, 2025) — a new and destabilizing coupling of two previously separate dependencies."},
+    {"on": "CORP_SEMI", "type": "TSMC_capital_allocation_decisions", "strength": 0.6,
+     "note": "An unusual reversed dependency: the state's core strategic asset is a nominally private, profit-maximizing firm whose own capex decisions (now $265bn and ~10 planned fabs in Arizona alone as of July 2026) are increasingly driven by US policy and AI-demand economics that the Taiwanese government does not fully control, which is the substance of the 'government scared of its own champion' finding above."},
+    {"on": "ST_JP_KR", "type": "informal_alignment_on_China_derisking", "strength": 0.3}
+  ],
+  "tripwires": [
+    {"if": "a US administration explicitly and publicly conditions security support on a specific chip-production-share concession",
+     "then": "Taiwan's government issues an immediate, high-level public rejection while simultaneously trying to decouple the issue from parallel trade/tariff talks — observed directly in Sept-Oct 2025 with the Lutnick 50-50 proposal.",
+     "confidence": "high",
+     "sources": ["https://www.cnbc.com/2025/10/02/taiwan-us-chip-production-tsmc-trade-tariffs.html"]},
+    {"if": "PLA gray-zone activity (ADIZ incursions, large-scale drills) intensifies noticeably around a political flashpoint",
+     "then": "Taiwan accelerates already-planned defense-budget and reserve-reform announcements rather than initiating new categories of spending — the pattern to date is acceleration of a pre-existing glide path (2.5%->3.32%->5% by 2030), not step-changes triggered by a single incident.",
+     "confidence": "medium"},
+    {"if": "TSMC's overseas (non-Taiwan) share of leading-edge (sub-5nm equivalent) capacity is reported to cross a politically salient threshold",
+     "then": "domestic opposition and government statements intensify anxiety framing ('losing the shield') even while the investment itself proceeds — the government has shown willingness to complain loudly about a trend it has not actually blocked, since TSMC's Arizona capex commitments have only grown (from $65bn to $165bn to $265bn total between 2020 and mid-2026).",
+     "confidence": "medium",
+     "sources": ["https://www.manufacturingmag.com/article/tsmc-arizona-265-billion-four-more-2nm-fabs-record-q2-2026"]}
+  ],
+  "what_would_change_my_mind": "A concrete, signed Taiwan-US agreement committing a specific, large, fixed share (e.g., >25%) of *future* leading-edge (sub-5nm and below) capacity to US soil on a binding timeline would falsify the 'actively defends concentration' finding and validate the Cartographer's pure-hostage framing. Conversely, an explicit new government policy tool (export-control-style screening, golden-share, or legislative cap on TSMC's overseas capex growth rate) would further confirm that Taipei treats the chokepoint as an actively managed strategic asset rather than a fact it merely lives with. Low-confidence flag: I could not find a single well-sourced, recent (2025-2026) public-opinion figure on 'willingness to fight' that I could confidently cite to a specific URL; that figure is omitted here rather than asserted from a weak source.",
+  "assumption_ids": ["RESEARCHED-ST_TW-2026-09-12"]
 }
