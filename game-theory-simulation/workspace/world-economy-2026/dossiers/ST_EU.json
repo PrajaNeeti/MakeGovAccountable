@@ -1,54 +1,81 @@
 {
   "id": "ST_EU",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.25,
+    "resources": 0.25,
+    "autonomy": 0.20,
+    "legitimacy": 0.20,
+    "relative_rank": 0.10
   },
-  "discount_rate": 0.25,
-  "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
+  "discount_rate": 0.18,
+  "horizon_driver": "European Commission 5-year mandate (current college seated Dec 2024) overlaid on national electoral cycles (France legislative crisis-driven, Germany 4yr); effective horizon shortened by recurring national budget/no-confidence cycles, notably France's",
+  "survival_threshold": 0.3,
   "capabilities": [
-    {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
-    }
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.08, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
   ],
-  "constraints": [],
+  "constraints": [
+    {"action": "issue_permanent_joint_debt_(eurobonds)", "type": "priced",
+     "cost": 0.4,
+     "source": "German/Dutch/Nordic 'frugal' bloc opposition; NGEU (2020) was framed as one-off, capped at EUR750bn to end-2026",
+     "breaks_under": "systemic bond-market stress (e.g. simultaneous French/Italian spread blowout) forcing an NGEU-style emergency repeat"},
+    {"action": "override_unanimity_via_qualified_majority_on_sanctions_or_treaty_matters", "type": "priced",
+     "cost": 0.35,
+     "source": "Treaty on European Union unanimity requirement for CFSP and own-resources decisions; single member (Hungary, Belgium) can and does block",
+     "breaks_under": "coalition-of-the-willing workarounds already used for defense procurement (SAFE) and reparations-loan structuring outside full Council unanimity"},
+    {"action": "confiscate_frozen_Russian_sovereign_assets_outright", "type": "priced",
+     "cost": 0.3,
+     "source": "Belgian/Euroclear legal-risk objections (litigation exposure, precedent for EU companies' assets in Russia); European Central Bank warnings about euro reserve-currency credibility",
+     "breaks_under": "already partially breaking: Dec 2025 Council deal advanced a EUR90bn loan structure backed by the assets' income stream (not outright seizure) after overcoming Belgian and Hungarian objections"},
+    {"action": "run_deficits_beyond_Stability_and_Growth_Pact_thresholds", "type": "performative",
+     "cost": 0.15,
+     "source": "SGP 3%/60% rules",
+     "breaks_under": "already broken via the national defense-spending escape clause activated for 18 member states as of Feb 2026, and via France's persistent ~5% deficit"}
+  ],
   "credibility": {
-    "overall": 0.6
+    "overall": 0.55,
+    "by_domain": {
+      "trade_and_regulatory_enforcement": 0.75,
+      "fiscal_solidarity": 0.35,
+      "defense_and_strategic_autonomy": 0.4,
+      "sanctions_unity": 0.5
+    }
   },
   "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-ST_EU-bootstrap"
+  "stated_vs_revealed": [
+    {
+      "stated": "The EU is building 'strategic autonomy' and reducing security dependence on the United States.",
+      "revealed": "Actual capability delivery remains slow and US-dependent: the EUR800bn Readiness 2030/ReArm Europe plan and EUR150bn SAFE borrowing instrument are still in early disbursement, and national procurement (Germany's EUR35bn military-space plan to 2030, France's EUR4.2bn 2026-2030) is incremental relative to the scale of the stated ambition.",
+      "delta": "Rhetorical urgency (post-2022) far outpaces fielded capability; genuine autonomy is a decade-scale project being sold as an urgent one.",
+      "sources": ["https://commission.europa.eu/topics/defence/future-european-defence_en", "https://www.consilium.europa.eu/en/policies/european-defence-readiness/", "https://www.euronews.com/business/2026/05/29/five-industries-benefiting-from-europes-defence-spending-boom"]
+    },
+    {
+      "stated": "The EU is united and moving toward genuine fiscal solidarity ('more Europe') following the NGEU precedent.",
+      "revealed": "NGEU borrowing authority expires end-2026 with no agreed permanent successor; France's 2026 budget crisis (two governments fell over it, deficit still ~4.6-5.4% of GDP) was resolved through purely national political bargaining, not EU fiscal transfers. Meanwhile Italy's spread to Germany has compressed to ~100bps (better fiscal discipline than France), inverting the classic 'north-creditor/south-debtor' script the Cartographer anticipated.",
+      "delta": "The real fault line in 2026 is not a clean north-south split but France (a founding core state) becoming the fiscal outlier, while Italy converges toward German-level credibility.",
+      "sources": ["https://www.cnbc.com/2026/08/31/france-debt-bond-yields-budget.html", "https://iepbu.substack.com/p/why-the-italy-germany-bond-spread-is-shrinking", "https://www.scoperatings.com/ratings-and-research/research/EN/179634", "https://think.ing.com/snaps/the-likely-fall-of-the-french-government-will-weigh-on-the-economy/"]
+    },
+    {
+      "stated": "The EU stands unified in isolating Russia and mobilizing frozen assets for Ukraine.",
+      "revealed": "Belgium blocked outright confiscation for over a year on legal-risk grounds (Euroclear litigation exposure, Moscow court already awarding Russia's central bank a $230bn damages claim against Euroclear); the Dec 2025 compromise used an income-backed loan structure specifically to avoid the precedent of outright seizure, and Belgium continues to demand joint liability guarantees ('golden goose') as of Sept 2026.",
+      "delta": "Unity exists on sanctions maintenance but not on the harder question of asset seizure, where a single small member state has effective veto power for over a year.",
+      "sources": ["https://www.themoscowtimes.com/2026/09/10/belgiums-golden-goose-is-keeping-billions-from-ukraine-a93661", "https://www.npr.org/2025/12/03/g-s1-100225/belgium-rejects-plan-frozen-russian-assets", "https://uk.marketscreener.com/news/russia-s-central-bank-seeks-230-billion-in-damages-from-belgium-s-euroclear-moscow-court-says-ce7d50d8d089f027"]
+    }
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "dependencies": [
+    {"on": "ST_US", "type": "security_guarantee_NATO", "strength": 0.7},
+    {"on": "ST_RU", "type": "residual_gas_and_reparations_loan_counterparty", "strength": 0.3},
+    {"on": "ST_GULF", "type": "LNG_substitution_for_lost_Russian_gas", "strength": 0.4},
+    {"on": "CB_EU", "type": "monetary_policy_and_fragmentation_backstop", "strength": 0.6},
+    {"on": "EXCH_CLEAR", "type": "Euroclear_as_physical_custodian_of_frozen_Russian_reserves", "strength": 0.5}
+  ],
+  "tripwires": [
+    {"if": "France's 10-year OAT spread to Bund sustains above ~90-100bps for 2+ consecutive quarters with a further government collapse", "then": "EU moves toward an ad hoc emergency support mechanism outside standard SGP process, replaying the NGEU pattern rather than genuine permanent fiscal union"},
+    {"if": "Belgium's guarantee demands remain unresolved beyond mid-2027 and the EUR90bn loan tranche stalls", "then": "a coalition of the willing (likely UK+EU core minus Belgium/Hungary) structures a bilateral or G7-adjacent workaround that bypasses full EU unanimity, weakening the Commission's claim to sole custodianship of the Russia-asset question"},
+    {"if": "a Baltic/Black Sea sabotage or grey-zone incident directly implicates Russian state action against EU infrastructure", "then": "escalate capability triggers rapidly (sanctions tightening, accelerated joint procurement) even without full unanimity, using existing escape-clause and SAFE-style precedents"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "A sustained, multi-quarter widening of French spreads alongside a fifth failed government would be evidence for genuine fragmentation risk requiring a split into a French-led debtor cluster vs a German/Dutch/Nordic creditor cluster. Current evidence (Italy's spread convergence, defense-spending convergence across 18 states under the escape clause) argues against splitting the actor for now — recommend keeping ST_EU merged but tracking the France-specific fiscal fault line explicitly as a distinct sub-state risk rather than a north-south bloc division."
 }

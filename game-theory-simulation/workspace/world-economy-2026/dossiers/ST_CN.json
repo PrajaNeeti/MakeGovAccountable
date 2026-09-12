@@ -1,54 +1,90 @@
 {
   "id": "ST_CN",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
+    "survival": 0.35,
+    "resources": 0.20,
+    "autonomy": 0.15,
     "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "relative_rank": 0.15
   },
-  "discount_rate": 0.1,
-  "survival_threshold": 0.25,
+  "discount_rate": 0.06,
+  "horizon_driver": "no term-limited electoral cycle (2018 constitutional amendment removed presidential term limits); planning runs on 5-year Party Congress / Five-Year-Plan cadence; longest stated horizon of any T1 actor per the Cartographer",
+  "survival_threshold": 0.22,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "resources": 0.55,
+    "security": 0.65,
+    "legitimacy": 0.55,
+    "autonomy": 0.60,
+    "rank": 0.65,
+    "liquidity": 0.50
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.06, "reversible": true,
+     "description": "e.g. suspending export controls as part of a trade truce (demonstrated Nov 2025)"},
+    {"action": "escalate", "cost": 0.08, "reversible": true,
+     "description": "e.g. rare-earth/critical-mineral export controls, PLA pressure cadence around Taiwan; cheap to fire and cheap to reverse because the licensing infrastructure already exists — demonstrated deployed Oct 9 2025 and suspended within a month"}
+  ],
+  "constraints": [
+    {"action": "full_capital_account_liberalization", "type": "hard", "cost": 0.7,
+     "source": "impossible-trinity trade-off: opening the capital account would surrender the credit-quota and CNY-fixing control that makes the domestic financial system governable (see CB_CN dossier)",
+     "breaks_under": "no observed instance; this is closer to structural physics than policy choice at present"},
+    {"action": "debt-funded property-sector bailout at scale", "type": "priced", "cost": 0.35,
+     "source": "2026 policy explicitly frames 'risk containment' (inventory absorption via affordable-housing conversion, no return to debt-fueled stimulus) over a decisive rescue; the 2024-2028 hidden-debt program (6tn yuan, ~2tn/yr) is a debt swap/re-term, not a write-down or transfer to households",
+     "breaks_under": "a systemic bank-run or regional-bank failure cascade — expect a rapid pivot to full monetization within a single Politburo meeting cycle if that threshold is crossed"},
+    {"action": "publicly abandon 'peaceful reunification' framing on Taiwan", "type": "performative", "cost": 0.15,
+     "source": "official rhetoric remains 'peaceful reunification is our consistent policy' even as PLA activity has shifted from episodic political signaling to sustained, continuous military presence",
+     "breaks_under": "already effectively broken in substance (see stated_vs_revealed below); the performative framing persists because it costs nothing to maintain rhetorically while military facts on the ground change"}
+  ],
+  "credibility": {
+    "overall": 0.50,
+    "by_domain": {
+      "territorial_and_sovereignty_commitments": 0.25,
+      "trade_and_export-control_administrative_commitments": 0.55,
+      "reserve_currency_and_capital_account_gradualism": 0.60,
+      "fiscal/monetary_stimulus_restraint": 0.55
+    }
+  },
+  "deception_prior": 0.40,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "'Peaceful reunification is our consistent policy' — Taiwan policy is framed as patient and non-coercive.",
+      "revealed": "PLA aircraft conducted 3,764 ADIZ incursions in 2025, up 22.4% from 2024's already-record year (monthly average up 129% from the Jan 2022-Apr 2024 baseline); two large-scale exercises in 2025 (Strait Thunder-2025A, Justice Mission 2025) plus December 2025 drills simulating island encirclement mark a shift from politically-triggered episodes to sustained continuous military pressure. A Nov 2025 US congressional commission (USCC) assessed PLA could blockade Taiwan 'in a matter of hours' with little advance warning.",
+      "delta": "The rhetorical frame has not moved in a decade; the military posture underneath it has moved from occasional signaling to a standing capability for rapid coercive action. This is the largest and most consequential stated-vs-revealed gap in the dataset for the taiwan_semiconductor theatre.",
+      "sources": ["https://chinapower.csis.org/china-increased-military-activities-indo-pacific-2025/",
+                  "https://thediplomat.com/2026/01/chinas-taiwan-drills-are-crossing-a-new-line/",
+                  "https://www.taipeitimes.com/News/taiwan/archives/2025/11/19/2003847476"]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Oct 9 2025 rare-earth and critical-mineral export controls (6 MOFCOM proclamations, extraterritorial reach to any product globally containing Chinese-origin rare earth content) were framed as routine national-security/non-proliferation administration.",
+      "revealed": "The controls were suspended for one year within roughly a month, in November 2025, immediately following a US-China trade agreement — timed to the negotiating calendar, not to any change in the underlying proliferation rationale.",
+      "delta": "Export controls on the system's tightest physical chokepoint (rare-earth refining) function as a deployable-and-retractable bargaining lever on a diplomatic clock, not a fixed regulatory posture. This sets a clean tripwire: watch the Nov 2026 truce-expiry date.",
+      "sources": ["https://cset.georgetown.edu/publication/mofcom-notice-2025-61/",
+                  "https://www.fdd.org/analysis/2025/11/12/china-pauses-some-rare-earth-export-curbs-while-retaining-levers-of-control/",
+                  "https://malaymail.com/news/money/2025/11/07/china-lifts-rare-earth-exports-following-trade-thaw-with-us/197482"]
     },
     {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "'Common prosperity' and comprehensive stabilization of the property market and local-government debt.",
+      "revealed": "The 2024-2028 program swaps/re-terms hidden local debt (14.3tn yuan to 2.3tn yuan by 2028 via bond issuance) rather than writing it down or transferring resources to households; 2026 policy explicitly favors inventory-absorption and risk containment over renewed debt-fueled stimulus; growth estimates have been marked down to ~4.1% for 2026.",
+      "delta": "Priority ordering reveals systemic-solvency management (protecting local-government and bank balance sheets) over household consumption relief, despite the 'common prosperity' framing implying the reverse.",
+      "sources": ["https://www.icis.com/chemicals-and-the-economy/2025/12/stabilizing-chinas-property-crisis-tops-beijings-priority-list-for-2026-but-will-not-be-easy/",
+                  "https://www.nbcnews.com/news/world/china-announces-14-trillion-five-years-tackle-local-governments-hidden-rcna179269"]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-ST_CN-bootstrap"
+  "dependencies": [
+    {"on": "ST_US", "type": "export_market_and_advanced_tech_access", "strength": 0.5},
+    {"on": "ST_GULF", "type": "energy_import_security", "strength": 0.55},
+    {"on": "HH_CN", "type": "household_savings_funding_investment_and_local_debt", "strength": 0.6}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "the Nov 2025 one-year rare-earth export-control truce lapses (~Oct-Nov 2026) without a renewed US-China deal",
+     "then": "expect reinstatement of the Oct 9 2025 extraterritorial rules as the default leverage move, given the demonstrated deploy-and-retract pattern"},
+    {"if": "US tightens semiconductor export controls further (e.g., closes the H20/H200 revenue-share channel)",
+     "then": "China re-escalates critical-mineral controls ahead of any scheduled truce expiry, since the two tracks have moved in lockstep in 2025"},
+    {"if": "a regional bank failure or visible property-sector bank run occurs",
+     "then": "Beijing abandons the stated 'risk containment, no debt-fueled stimulus' posture and monetizes/bails out within a single Politburo meeting cycle (weeks, not quarters)"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "Politburo Standing Committee and PLA leadership decision-making is opaque by design; nothing here is sourced to internal deliberation, only to observable outputs (military activity counts, MOFCOM proclamations, budget documents). Confidence on trade/military behavior is medium-high because flow and document data are rich; confidence on succession politics and factional dynamics inside the CCP is low — I found no reliable open-source basis for modeling internal splits and did not attempt to invent one. A leadership transition signal (unusual absence, purge announcement beyond the already-reported 2026 general purge, or a Central Committee plenum with unscheduled personnel changes) would be the thing to watch."
 }

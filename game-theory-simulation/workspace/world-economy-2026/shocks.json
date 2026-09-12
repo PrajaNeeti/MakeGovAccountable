@@ -53,5 +53,30 @@
               "HF_MACRO":{"liquidity":-0.10},
               "ST_FRAGILE":{"liquidity":-0.15,"legitimacy":-0.10},
               "HH_EM_SUBSIST":{"security":-0.10}},
-   "duration_rounds":2}
+   "duration_rounds":2},
+
+  {"id":"ai_progress_acceleration","annual_prob":0.15,
+   "_source_note":"Represents the faster branch of a genuinely disputed range: LEAP Wave 8 (2026) superforecaster median for 8hr-task-level AI is ~2028 vs public median ~2037 (forecastingresearch.org/leap). Not a consensus forecast, one branch of one.",
+   "effects":{"CORP_TECH":{"resources":0.12,"rank":0.08},
+              "CORP_SEMI":{"resources":0.08},
+              "CORP_ENERGY":{"resources":0.03,"liquidity":-0.05},
+              "HH_DM_LABOR":{"legitimacy":-0.04},
+              "HH_EM_URBAN":{"legitimacy":-0.02}},
+   "duration_rounds":2},
+
+  {"id":"ai_capex_correction","annual_prob":0.06,
+   "prob_modifier":{"if":"CORP_TECH:rank>0.25","multiply":3.0},
+   "_source_note":"2026 AI capex >$700B, ~23% of hyperscaler revenue, actively debated as bubble risk (Bridgewater, Forbes Aug 2026). Probability rises after sustained AI-driven gains (CORP_TECH rank) rather than being independent of them, per the skill's correlated-shock rule.",
+   "effects":{"CORP_TECH":{"resources":-0.18,"liquidity":-0.10},
+              "AM_INDEX":{"resources":-0.10},
+              "HF_MACRO":{"resources":0.06},
+              "CB_US":{"liquidity":-0.05}},
+   "duration_rounds":2},
+
+  {"id":"ai_productivity_plateau","annual_prob":0.20,
+   "_source_note":"NBER survey (2026): 90% of firms report zero measurable AI productivity impact despite heavy capex; labor market shows no major shakeup yet (computer/math occupations +5.7% since 2023). Modeled as the modal, low-drama branch rather than the shock headlines cover.",
+   "effects":{"CORP_TECH":{"resources":-0.04},
+              "AM_INDEX":{"resources":-0.03},
+              "HH_DM_LABOR":{"legitimacy":0.02}},
+   "duration_rounds":1}
 ]

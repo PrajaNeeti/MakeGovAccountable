@@ -1,54 +1,101 @@
 {
   "id": "ST_US",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.25,
+    "resources": 0.25,
+    "autonomy": 0.15,
+    "legitimacy": 0.20,
+    "relative_rank": 0.15
   },
-  "discount_rate": 0.5,
-  "survival_threshold": 0.25,
+  "discount_rate": 0.35,
+  "horizon_driver": "biennial House majority at stake in the Nov 3 2026 midterms; presidential term to Jan 2029; donor-cycle and security-establishment horizons run much longer than the electoral one, which is the source of the faction split the Cartographer flags",
+  "survival_threshold": 0.30,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "resources": 0.65,
+    "security": 0.75,
+    "legitimacy": 0.45,
+    "autonomy": 0.60,
+    "rank": 0.75,
+    "liquidity": 0.80
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.08, "reversible": true,
+     "description": "e.g. license carve-outs / revenue-share export deals, trade-surcharge negotiations, swap-line-adjacent accommodations"},
+    {"action": "escalate", "cost": 0.12, "reversible": true,
+     "description": "e.g. tariff/export-control tightening, sanctions expansion, security-guarantee signaling; demonstrated reversible in practice (IEEPA tariffs unwound within days of the Feb 2026 SCOTUS ruling)"}
+  ],
+  "constraints": [
+    {"action": "unilateral_executive_tariff_imposition_without_congress", "type": "priced",
+     "cost": 0.30,
+     "source": "Supreme Court, Learning Resources Inc. v. Trump / V.O.S. Selections v. United States, 6-3, Feb 20 2026: IEEPA does not authorize tariffs; >$160bn collected ruled unlawful",
+     "breaks_under": "administration pivots same-day to alternate statutory authority (Section 122 of the Trade Act of 1974, 10% global surcharge proclaimed Feb 20 2026) — the constraint bites on IEEPA specifically, not on the policy goal, so treat as a legal-venue constraint, not a substantive one"},
+    {"action": "remove_a_sitting_Fed_governor_without_due_process", "type": "priced",
+     "cost": 0.35,
+     "source": "Trump v. Cook, SCOTUS 5-4, June 29 2026: blocked the Aug 2025 attempted for-cause removal of Governor Lisa Cook for lack of statutory procedural protections",
+     "breaks_under": "a properly noticed, documented for-cause process — the Court explicitly left this open ('punted on several key questions'), so the constraint is real but narrow"},
+    {"action": "sovereign_default_or_missed_debt_service", "type": "hard", "cost": 0.9,
+     "source": "unbroken full-faith-and-credit norm; every debt-ceiling standoff (including 2023, 2025) has resolved before default; Treasury market centrality to global collateral system",
+     "breaks_under": "no historical instance; treat as near-physics constraint, revisit only if a debt-ceiling standoff runs past X-date with no legislative vehicle available"},
+    {"action": "withdraw_NATO_Indo-Pacific_security_guarantees", "type": "performative", "cost": 0.20,
+     "source": "burden-shifting rhetoric (2025-2026) toward European and allied capitals coexists with continued troop presence, continued arms transfers, and continued extended-deterrence statements",
+     "breaks_under": "sustained European defense spending below political patience threshold, or a crisis where non-intervention becomes politically cheaper than intervention"}
+  ],
+  "credibility": {
+    "overall": 0.50,
+    "by_domain": {
+      "security_guarantees": 0.55,
+      "fiscal_policy": 0.30,
+      "trade_policy": 0.35,
+      "monetary_independence_respect": 0.50
+    }
+  },
+  "deception_prior": 0.35,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Export-control doctrine toward China semiconductors is 'small yard, high fence' — a fixed national-security containment line, not a bargaining chip.",
+      "revealed": "In Aug 2025 the administration approved Nvidia H20 export licenses to China conditioned on a 15% revenue cut to the US Treasury; by Dec 2025-Jan 2026 this was expanded to a 25% levy on Nvidia H200 and equivalent AMD/Intel parts, formalized by proclamation Jan 14 2026, with chips routed through the US for third-party testing before re-export.",
+      "delta": "The 'containment' line is priced, not fixed — a revenue-extraction mechanism, not a security barrier. Legal scholars note ECRA bars license 'fees,' meaning the arrangement's durability is itself contested.",
+      "sources": ["https://www.npr.org/2025/08/11/nx-s1-5498689/trump-nvidia-h20-chip-sales-china",
+                  "https://dc.fortune.com/2025/08/10/nvidia-amd-chips-h20-mi308-china-sales-revenue-trump-export-license",
+                  "https://www.lawfaremedia.org/article/trump-s-illegal-ai-chip-export-controls--and-who-can-challenge-them"]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Fed independence is respected as an institutional norm ('let the Fed do its job').",
+      "revealed": "In Aug 2025 the President attempted the first-ever removal of a sitting Fed Governor (Lisa Cook), the first attempted Governor firing in the Fed's 111-year history; blocked 5-4 by the Supreme Court in June 2026, but only on narrow due-process grounds, with the Court explicitly leaving open whether a compliant for-cause process would succeed.",
+      "delta": "Independence held this round on a procedural technicality, not a substantive bright line — the norm is now known to be contestable at the personnel layer.",
+      "sources": ["https://www.scotusblog.com/2026/01/supreme-court-appears-inclined-to-prevent-trump-from-firing-fed-governor/",
+                  "https://www.aljazeera.com/economy/2026/6/29/supreme-court-blocks-trumps-bid-to-fire-us-federal-reserves-lisa-cook"]
     },
     {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "'Liberation Day'/IEEPA tariffs represent a durable strategic realignment of trade policy, justified by a declared national emergency.",
+      "revealed": "Struck down 6-3 by the Supreme Court Feb 20 2026 as exceeding IEEPA authority; the administration terminated IEEPA tariffs within days and pivoted the same day to a 10% global surcharge under Section 122 of the Trade Act of 1974 — a different, time-limited legal basis.",
+      "delta": "The policy goal (broad tariff leverage) is durable; the legal vehicle is opportunistic and was swapped out overnight with no change in substantive posture, showing doctrine follows the goal rather than constrains it.",
+      "sources": ["https://www.whitecase.com/insight-alert/united-states-terminates-ieepa-based-tariffs-following-supreme-court-decision",
+                  "https://www.hklaw.com/en/insights/publications/2026/02/supreme-court-strikes-down-ieepa-tariffs"]
+    },
+    {
+      "stated": "Restore fiscal responsibility / reduce the federal deficit.",
+      "revealed": "The One Big Beautiful Bill Act (signed July 2025) is projected by CBO to add ~$3.0-3.4tn to the deficit over 2025-2034 including debt-service costs; CBO's Feb 2026 outlook raised the FY2026 deficit projection to ~$2.1tn (~5.8% of GDP), driven by the bill, higher tariffs, and lower immigration.",
+      "delta": "Consistent, large gap between stated restraint and enacted fiscal expansion — this is the least credible domain for ST_US.",
+      "sources": ["https://www.crfb.org/blogs/cbo-estimates-3-trillion-debt-house-passed-obbba",
+                  "https://www.aljazeera.com/economy/2026/2/11/cbo-us-federal-deficits-and-debt-to-worsen-over-next-decade"]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-ST_US-bootstrap"
+  "dependencies": [
+    {"on": "CB_US", "type": "appointment_and_political_pressure_channel", "strength": 0.6},
+    {"on": "CORP_SEMI", "type": "export_license_leverage_requires_private_compliance", "strength": 0.5},
+    {"on": "ST_GULF", "type": "capital_recycling_and_LNG/AI-chip diplomacy", "strength": 0.35}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "core PCE re-accelerates above ~3% while unemployment also rises within ~6 months of the Nov 2026 midterms",
+     "then": "White House intensifies public and legal pressure on the Fed for cuts (as with the Aug 2025 Cook removal attempt and the Miran appointment), regardless of the narrow SCOTUS ruling"},
+    {"if": "a Taiwan blockade/quarantine event occurs",
+     "then": "ST_US moves to maximum-severity semiconductor export controls on China, overriding any standing revenue-share licensing arrangements (H20/H200-style deals) — the 'chip diplomacy' regime is a peacetime-only equilibrium"},
+    {"if": "a future for-cause Fed Board removal attempt follows the due-process procedure the Court specified in Trump v. Cook",
+     "then": "expect it to succeed where the 2025 Cook attempt failed — the independence norm is now a checklist, not a wall"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "Direct polling/roll-call evidence that the four cartographer-flagged factions (restrainers, primacists, industrial-policy left, fiscal hawks) vote as distinct blocs on a specific bill or nomination — I found no such factional voting data and modeled ST_US as unitary; if legitimacy falls further and a real faction split shows up in roll calls, this dossier should be split into 2+ actors per the Cartographer's own note. Also watch for the outcome of any second Fed-governor removal attempt under the Trump v. Cook standard, which would sharply change the independence-credibility score."
 }

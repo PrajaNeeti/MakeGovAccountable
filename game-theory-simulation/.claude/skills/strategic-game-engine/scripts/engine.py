@@ -231,6 +231,21 @@ def _system_metric(actors, cond):
     if "conflict_index" in cond:
         ci = 1.0 - np.mean([a.state["security"] for a in actors])
         return _cmp(cond, ci)
+    if ":" in cond:
+        # generic per-actor gate: "<actor_id>:<dim><op><value>", e.g.
+        # "CORP_TECH:rank>0.25" — lets a shock's probability correlate with
+        # a specific actor's state instead of only the system-wide conflict
+        # index. Needed for shocks like a capex correction whose odds should
+        # rise once the thing it's correcting (sustained AI-driven gains)
+        # has actually happened.
+        aid, rest = cond.split(":", 1)
+        idx = {a.id: a for a in actors}
+        target = idx.get(aid)
+        if target is None:
+            return False
+        for dim in DIMS:
+            if rest.startswith(dim):
+                return _cmp(rest[len(dim):], target.state[dim])
     return False
 
 
