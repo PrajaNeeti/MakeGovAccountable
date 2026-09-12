@@ -65,7 +65,7 @@
    "duration_rounds":2},
 
   {"id":"ai_capex_correction","annual_prob":0.06,
-   "prob_modifier":{"if":"CORP_TECH:rank>0.25","multiply":3.0},
+   "prob_modifier":{"if":"CORP_TECH:rank>0.85","multiply":3.0},
    "_source_note":"2026 AI capex >$700B, ~23% of hyperscaler revenue, actively debated as bubble risk (Bridgewater, Forbes Aug 2026). Probability rises after sustained AI-driven gains (CORP_TECH rank) rather than being independent of them, per the skill's correlated-shock rule.",
    "effects":{"CORP_TECH":{"resources":-0.18,"liquidity":-0.10},
               "AM_INDEX":{"resources":-0.10},
@@ -91,7 +91,7 @@
    "duration_rounds":2},
 
   {"id":"robotics_capex_correction","annual_prob":0.05,
-   "prob_modifier":{"if":"CORP_TECH:rank>0.3","multiply":3.0},
+   "prob_modifier":{"if":"CORP_TECH:rank>0.85","multiply":3.0},
    "_source_note":"Humanoid robotics priced by Morgan Stanley at a $5tn eventual market on H1-2026 funding pace ($18.8bn) that already exceeds all of 2025 -- a venture-heavy, hype-sensitive pattern comparable to the AI capex debate. Probability rises after sustained AI/robotics-driven CORP_TECH gains rather than independently of them, same correlated-shock logic as ai_capex_correction.",
    "effects":{"CORP_TECH":{"resources":-0.10,"liquidity":-0.05},
               "AM_INDEX":{"resources":-0.05},
