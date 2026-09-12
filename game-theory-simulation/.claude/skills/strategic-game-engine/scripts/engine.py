@@ -900,6 +900,179 @@ def update_credibility(a: Actor, detected: bool, decay=0.25, recovery=0.05):
         a.credibility = min(1.0, a.credibility + recovery)
 
 
+# --------------------------------------------------------- OBS / instruments
+#
+# OBS is a price-taker (payoff-spec.md, AGENTS.md): it reads this round's
+# already-resolved state deltas and shock realizations and marks its
+# instruments to them. It is never added to a theatre, never influences the
+# QRE solve, and its portfolio value is NOT part of the actor resource
+# ledger -- it is a pure observation layer computed after the round settles,
+# exactly the same data an outside analyst reading this run's output could
+# use. This is what makes it wiring, not narration: every number below comes
+# from a basket of real, already-simulated actors, not an invented series.
+#
+# Each instrument's beta (the multiplier on a basket's raw state delta) is a
+# stated modeling choice, not a fitted parameter -- documented inline. A
+# real implementation would calibrate these against historical asset-return
+# sensitivities; this is a first, honest pass: same order of magnitude as
+# the kernels' own deltas, scaled up for instruments that are meant to be
+# higher-beta (equities) or explicitly safe-haven (gold, cash).
+
+JURISDICTION_BASKET = {
+    "IN": ["ST_IN", "CB_IN", "HH_IN"],
+}
+GLOBAL_EQUITY_BASKET = ["CORP_TECH", "CORP_SEMI", "AM_INDEX", "CORP_COMMOD", "CORP_ENERGY"]
+COMMODITY_BASKET = ["CORP_ENERGY", "CORP_COMMOD", "ST_GULF"]
+CREDIT_BASKET = ["NBFI_CREDIT", "BANK_GSIB_US", "BANK_GSIB_INTL"]
+RATE_BASKET = ["CB_US", "CB_EU", "CB_JP", "CB_IN"]
+PROPERTY_BASKET = ["HH_DM_ASSET", "HH_CN"]
+EM_SOVEREIGN_BASKET = ["CB_EM", "ST_FRAGILE"]
+
+LIQUIDITY_CRISIS_SHOCKS = {"cascading_systemic_crisis", "financial_accident", "sovereign_debt_crisis"}
+
+
+def _basket_delta(ids, before, after, dim="resources"):
+    vals = [after[i][dim] - before[i][dim] for i in ids if i in before and i in after]
+    return sum(vals) / len(vals) if vals else 0.0
+
+
+def _conflict_index(state_by_actor):
+    vals = [s["security"] for s in state_by_actor.values()]
+    return 1.0 - (sum(vals) / len(vals) if vals else 0.5)
+
+
+INSTRUMENTS = {}
+
+
+def instrument_fn(name):
+    def deco(f):
+        INSTRUMENTS[name] = f
+        return f
+    return deco
+
+
+@instrument_fn("equity_local")
+def _i_equity_local(seat, before, after, ctx):
+    basket = JURISDICTION_BASKET.get(seat.get("jurisdiction"), GLOBAL_EQUITY_BASKET)
+    return 3.0 * _basket_delta(basket, before, after, "resources")
+
+
+@instrument_fn("equity_global")
+def _i_equity_global(seat, before, after, ctx):
+    return 2.5 * _basket_delta(GLOBAL_EQUITY_BASKET, before, after, "resources")
+
+
+@instrument_fn("gold")
+def _i_gold(seat, before, after, ctx):
+    # safe-haven: gains when system-wide instability rises this round, but
+    # also SELLS OFF when instability recedes (an unwind of safe-haven
+    # positioning) -- a signed, two-sided response, not a one-way payoff.
+    # An earlier version floored this at max(0, d_conflict), which made
+    # gold structurally unable to lose money and inflated OBS_mobile_global
+    # into a free-lunch portfolio (near-zero drawdown despite the highest
+    # mean return) -- caught by checking the pilot's drawdown numbers
+    # rather than trusting the formula.
+    d_conflict = ctx["conflict_after"] - ctx["conflict_before"]
+    return 4.0 * d_conflict + 0.004
+
+
+@instrument_fn("offshore_fund")
+def _i_offshore_fund(seat, before, after, ctx):
+    # a diversified fund: half global equity, half gold -- lower net beta
+    return 0.5 * _i_equity_global(seat, before, after, ctx) + 0.5 * _i_gold(seat, before, after, ctx)
+
+
+@instrument_fn("real_estate")
+def _i_real_estate(seat, before, after, ctx):
+    return 1.0 * _basket_delta(PROPERTY_BASKET, before, after, "resources")
+
+
+@instrument_fn("fd")
+def _i_fd(seat, before, after, ctx):
+    # bank deposit: small fixed real return, nudged by the local central
+    # bank's own resources delta as a crude policy-rate-environment proxy
+    basket = ["CB_IN"] if seat.get("jurisdiction") == "IN" else ["CB_US"]
+    return 0.02 + 0.5 * _basket_delta(basket, before, after, "resources")
+
+
+@instrument_fn("usd_cash")
+def _i_usd_cash(seat, before, after, ctx):
+    # signed flight-to-quality term (see gold's comment on the same bug)
+    d_conflict = ctx["conflict_after"] - ctx["conflict_before"]
+    return 2.0 * _basket_delta(["CB_US"], before, after, "resources") + 1.5 * d_conflict
+
+
+@instrument_fn("commodities")
+def _i_commodities(seat, before, after, ctx):
+    return 2.0 * _basket_delta(COMMODITY_BASKET, before, after, "resources")
+
+
+@instrument_fn("local_bonds")
+def _i_local_bonds(seat, before, after, ctx):
+    basket = ["CB_IN"] if seat.get("jurisdiction") == "IN" else EM_SOVEREIGN_BASKET
+    return 2.0 * _basket_delta(basket, before, after, "liquidity")
+
+
+@instrument_fn("vol")
+def _i_vol(seat, before, after, ctx):
+    # variance-owning: pays off from realized DESTRUCTIVE magnitude this
+    # round, not from how many shocks fired -- a first version used
+    # 0.15*len(fired), which is unconditionally positive whenever any shock
+    # fires (count can't go negative), and since roughly a third of the 13
+    # shocks fire in a typical round that made "vol" almost always
+    # profitable regardless of what actually happened -- not how variance
+    # ownership behaves (frequent small losses, occasional large gains).
+    # abs(shock_resources_net) is already zero for the 5 shocks that are
+    # pure zero-sum transfers (see shocks.json's _conservation_notes) and
+    # only non-zero for genuinely destructive events, so this pays off on
+    # realized magnitude, not event count -- with a real carry cost that
+    # bites whenever nothing destructive happened.
+    return 4.0 * abs(ctx["shock_resources_net"]) - 0.06
+
+
+@instrument_fn("credit")
+def _i_credit(seat, before, after, ctx):
+    return 2.0 * _basket_delta(CREDIT_BASKET, before, after, "liquidity")
+
+
+@instrument_fn("rates")
+def _i_rates(seat, before, after, ctx):
+    # duration: gains when central banks ease (falling autonomy = less
+    # hawkish resistance in these kernels), loses when they tighten
+    return -2.0 * _basket_delta(RATE_BASKET, before, after, "autonomy")
+
+
+@instrument_fn("fx")
+def _i_fx(seat, before, after, ctx):
+    basket = JURISDICTION_BASKET.get(seat.get("jurisdiction"))
+    if basket:
+        return -2.0 * _basket_delta(basket, before, after, "legitimacy")
+    return -2.0 * _basket_delta(EM_SOVEREIGN_BASKET, before, after, "legitimacy")
+
+
+@instrument_fn("private_credit")
+def _i_private_credit(seat, before, after, ctx):
+    return 2.0 * _basket_delta(["NBFI_CREDIT"], before, after, "resources")
+
+
+def seat_return(seat, before, after, ctx):
+    """Equal-weighted (annual-rebalance) blend of a seat's instruments.
+    Equal-weight is a stated simplification -- a real allocation would come
+    from an optimization step this pass doesn't attempt."""
+    instruments = seat.get("instruments", [])
+    if not instruments:
+        return 0.0
+    total = 0.0
+    n = 0
+    for name in instruments:
+        fn = INSTRUMENTS.get(name)
+        if fn is None:
+            continue
+        total += fn(seat, before, after, ctx)
+        n += 1
+    return total / n if n else 0.0
+
+
 # ------------------------------------------------------------------ run
 
 def simulate(spec, rounds, rng):
@@ -911,6 +1084,8 @@ def simulate(spec, rounds, rng):
     params = spec.get("transition", {})
     coupling = params.get("lambda_stress_coupling", 0.5)
     history, active, pending = [], [], []
+    seats = spec.get("observer", {}).get("seats", [])
+    obs_state = {s["id"]: {"value": 1.0, "peak": 1.0} for s in seats}
 
     for r in range(rounds):
         before = {a.id: dict(a.state) for a in actors}
@@ -998,9 +1173,33 @@ def simulate(spec, rounds, rng):
 
         floor_protected = clamp(actors)
         expected_delta = shock_resources_net + floor_protected
-        drift, ok = ledger_check(before, {a.id: a.state for a in actors},
+        after_raw = {a.id: dict(a.state) for a in actors}
+        drift, ok = ledger_check(before, after_raw,
                                  expected_delta=expected_delta,
                                  tol=params.get("ledger_tolerance", 1e-6))
+
+        # OBS: price-taker portfolio marks, computed from this round's
+        # already-resolved deltas. Never influences actors' state above.
+        obs_ctx = {
+            "fired": fired,
+            "shock_resources_net": shock_resources_net,
+            "conflict_before": _conflict_index(before),
+            "conflict_after": _conflict_index(after_raw),
+        }
+        observer_round = {}
+        for seat in seats:
+            sid = seat["id"]
+            ret = seat_return(seat, before, after_raw, obs_ctx)
+            st = obs_state[sid]
+            st["value"] *= (1.0 + ret)
+            st["peak"] = max(st["peak"], st["value"])
+            drawdown = (st["peak"] - st["value"]) / st["peak"] if st["peak"] > 0 else 0.0
+            observer_round[sid] = {
+                "return": round(ret, 5),
+                "value": round(st["value"], 5),
+                "drawdown": round(drawdown, 5),
+            }
+
         history.append({
             "round": r, "year": spec["meta"]["t0"] + r,
             "shocks": fired,
@@ -1011,6 +1210,7 @@ def simulate(spec, rounds, rng):
             "state": {a.id: {k: round(v, 4) for k, v in a.state.items()}
                       for a in actors},
             "credibility": {a.id: round(a.credibility, 3) for a in actors},
+            "observer": observer_round,
         })
     return history
 
@@ -1054,6 +1254,41 @@ def analyse(path, k):
         print(f"    branch point: round {br}\n")
 
 
+def analyse_obs(path):
+    """Summarize each OBS seat's computed portfolio series across all runs --
+    real numbers from seat_return()/simulate(), not narrated positioning.
+    liquidity_at_exit is a proxy: whether a liquidity-crisis-class shock
+    fired within 2 rounds of this run's peak-value round for that seat --
+    i.e. whether the position's best moment coincided with a stressed exit
+    channel, per payoff-spec.md's "check the exit, not just the entry.\""""
+    runs = [json.loads(l) for l in open(path)]
+    if not runs[0]["history"][0].get("observer"):
+        print("no observer data in this runs.jsonl -- spec has no seats, "
+              "or it predates the OBS wiring", file=sys.stderr)
+        return
+    seat_ids = sorted(runs[0]["history"][0]["observer"].keys())
+    print(f"\n{len(runs)} runs, {len(seat_ids)} OBS seats\n")
+
+    for sid in seat_ids:
+        finals = np.array([r["history"][-1]["observer"][sid]["value"] for r in runs])
+        max_dd = np.array([max(h["observer"][sid]["drawdown"] for h in r["history"]) for r in runs])
+        peak_liquidity_stressed = 0
+        for r in runs:
+            vals = [h["observer"][sid]["value"] for h in r["history"]]
+            peak_round = int(np.argmax(vals))
+            window = r["history"][max(0, peak_round - 2):peak_round + 1]
+            if any(s in LIQUIDITY_CRISIS_SHOCKS for h in window for s in h["shocks"]):
+                peak_liquidity_stressed += 1
+
+        print(f"--- {sid}")
+        print(f"    terminal value: mean={finals.mean():.3f} median={np.median(finals):.3f} "
+              f"p10={np.percentile(finals,10):.3f} p90={np.percentile(finals,90):.3f}")
+        print(f"    positive terminal value: {100*np.mean(finals>1.0):.1f}% of runs")
+        print(f"    max drawdown: mean={max_dd.mean():.3f} p90={np.percentile(max_dd,90):.3f}")
+        print(f"    peak coincided with a liquidity-crisis shock (2-round window): "
+              f"{100*peak_liquidity_stressed/len(runs):.1f}% of runs\n")
+
+
 def _branch_round(runs, mask, ids):
     """Earliest round where this cluster's mean path separates from the rest."""
     R = len(runs[0]["history"])
@@ -1094,9 +1329,12 @@ def main():
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--out", default="runs.jsonl")
     p.add_argument("--analyse")
+    p.add_argument("--analyse-obs")
     p.add_argument("--clusters", type=int, default=7)
     a = p.parse_args()
-    if a.analyse:
+    if a.analyse_obs:
+        analyse_obs(a.analyse_obs)
+    elif a.analyse:
         analyse(a.analyse, a.clusters)
     else:
         sweep(json.load(open(a.spec)), a.runs, a.rounds, a.seed, a.out)
