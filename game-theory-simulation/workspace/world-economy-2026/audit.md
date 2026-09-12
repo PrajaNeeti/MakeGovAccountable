@@ -1,5 +1,18 @@
 # Audit — world-economy-2026, sourced run (2026-2036)
 
+> **SUPERSEDED, 2026-09.** This file documents an earlier build (38 actors,
+> before the ledger-conservation fix, before all 15 theatres had researched
+> kernels, before the BANK_GSIB/ST_ENTREPOT splits). Its Fatal #1 and #2
+> (ledger not conserved, 0/95 constraints bind) describe problems that have
+> since been fixed and independently re-verified — see
+> [`audit-final.md`](./audit-final.md) for the current, independent
+> adversarial-auditor pass against the actual current run, including a
+> fresh set of Fatal findings of its own (the OBS section isn't computed by
+> the model at all, and two of `positioning-report.md`'s headline claims
+> are directly falsified by the data). **Read `audit-final.md` first.** This
+> file is kept only as a record of what the build looked like at this
+> earlier stage.
+
 Self-audit following the `adversarial-auditor` attack order, on the sourced
 300-run x 10-round sweep (all 38 actors real dossiers, 13 shocks including
 AI-trajectory and robotics branches). Not a separate subagent pass — done
