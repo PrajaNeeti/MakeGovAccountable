@@ -23,7 +23,8 @@ matches an engine action id (`hold`/`settle`/`escalate` — confirmed in `spec.j
 sourced-but-decorative constraints `audit.md` already flagged. Its action
 distribution across all 3000 round-observations is statistically indistinguishable
 from a random draw: **hold 33.4% / settle 34.2% / escalate 32.4%**. Re-run under a
-±30% shock-magnitude perturbation (below): 33.9% / 31.8% / 34.3% — same story. The
+±30% shock-magnitude perturbation (100/100 runs completed): 32.9% / 33.1% / 34.0% —
+same story. The
 only real "forced flow" in the system is one unconditional `d["resources"] += 0.02`
 line hardcoded into the `compute_and_capex` kernel for `AM_INDEX` regardless of
 action — real, but a flat drift term, not evidence of a binding mandate constraint.
@@ -53,8 +54,10 @@ Direct test of the claim's mechanism (energy-producer-favorable and tech/AI-favo
 as opposite poles of one axis): correlation between `ST_GULF` and `CORP_SEMI`/
 `CORP_TECH` final-round resources across the 300 runs is **r = +0.10 / +0.07** —
 near zero, and the wrong sign for "opposite poles." Re-run under a ±30% perturbation
-of the shocks that drive each side (below, n=51 of a 100-run sweep): **r = +0.01 /
-+0.31** — still not negative. What *is* real and strongly polarized: `ST_GULF` vs
+of the shocks that drive each side (100/100 runs completed): **r = −0.06 /
++0.26** — essentially still zero / wrong-signed, not the large negative "opposite
+poles" would require. What *is* real and strongly polarized (and equally robust
+under the perturbation, r=+0.97/−0.81): `ST_GULF` vs
 `ST_RU` (r=+0.94, same side) and `ST_GULF` vs `ST_JP_KR` (r=−0.86) — a genuine
 energy-producer-vs-energy-importer axis. PCA on the full 240-feature (40 actors ×
 6 state dims) final-state matrix — the same representation `engine.py --analyse`
@@ -190,13 +193,13 @@ consequential shock in the dataset.
   mechanically "2026 incentives, replayed with more compounding," which neither
   `audit.md` nor `positioning-report.md` flags as a limitation with the weight it
   deserves.
-- Perturbation check was run to n=51 of a planned 100-run sweep (±30% on
-  `energy_supply_disruption`, `ai_progress_acceleration`,
-  `manufacturing_automation_wave` up, `ai_capex_correction`/`robotics_capex_
-  correction` down) — the direction of F3/F1's failure held at n=51, and both are
-  structural (a correlation near zero, a string-mismatch in code) rather than
-  magnitude-sensitive, so the partial sample is decisive; the sweep can be finished
-  and re-checked but is very unlikely to reverse the finding.
+- Perturbation check (±30% on `energy_supply_disruption`, `ai_progress_
+  acceleration`, `manufacturing_automation_wave` up, `ai_capex_correction`/
+  `robotics_capex_correction` down) was completed as a full 100-run sweep
+  (`/tmp/audit_perturb/`, seed 42) — see F1 and F3, both of which cite the
+  completed numbers directly. Both findings are structural (a near-zero
+  correlation, a string-mismatch in code) rather than magnitude-sensitive, and
+  the full sweep confirms neither reverses under a real parameter perturbation.
 
 ## Survived
 
