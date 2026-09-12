@@ -1,54 +1,82 @@
 {
   "id": "HH_EM_SUBSIST",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
+  "confidence": "medium",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.55,
+    "resources": 0.25,
+    "autonomy": 0.05,
+    "legitimacy": 0.05,
+    "relative_rank": 0.1
   },
-  "discount_rate": 0.5,
-  "survival_threshold": 0.25,
+  "discount_rate": 0.55,
+  "horizon_driver": "day-to-day / harvest-to-harvest survival horizon; migration and riot decisions are triggered by acute price shocks, not multi-year planning",
+  "survival_threshold": 0.4,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "resources": 0.15,
+    "security": 0.2,
+    "legitimacy": 0.25,
+    "autonomy": 0.1,
+    "rank": 0.15,
+    "liquidity": 0.1
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.08, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
+  ],
+  "constraints": [
+    {"action": "sustained international migration (formal or irregular)", "type": "priced", "cost": 0.6,
+     "source": "transit cost, smuggler fees, family separation, destination-country border enforcement",
+     "breaks_under": "local conditions (violence, famine, hyperinflation) make staying costlier than a very high-cost migration, observed repeatedly in fragile-state collapses"},
+    {"action": "organised violent uprising aimed at regime change (as opposed to issue-specific protest)", "type": "hard", "cost": 0.85,
+     "source": "collective-action and coordination costs facing an atomized, resource-poor population without organisational infrastructure",
+     "breaks_under": "protest is captured or organised by an external actor (opposition party, military faction, diaspora-linked social-media network) supplying coordination capacity — Kenya 2024 shows this can shift fast once youth/social-media coordination substitutes for formal organisation"}
+  ],
+  "credibility": {
+    "overall": 0.75,
+    "by_domain": {
+      "riot_threshold_predictability_from_price_data": 0.7,
+      "migration_intention_surveys_vs_actual_flows": 0.4
+    }
+  },
+  "deception_prior": 0.05,
+  "monitoring": 0.3,
+  "private_type": {},
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Governments removing fuel/energy subsidies (Nigeria May 2023, Angola July 2025, Ecuador 2025) framed the moves as fiscally necessary, IMF/creditor-endorsed reforms with promised compensating transfers.",
+      "revealed": "Nigeria's petrol price rose ~300% (185 to 650 naira/litre) overnight in 2023, triggering nationwide protests and a further Feb 2024 wave over living costs; Angola's July 2025 fuel-subsidy cut, starting from a taxi-driver strike in Luanda, produced the deadliest civil unrest since its civil war; Ecuador's 2025 fuel-subsidy cancellation triggered Indigenous-led national strikes and a state of emergency in several provinces.",
+      "delta": "The compensating-transfer promise is consistently outrun by the speed and visibility of the price shock — unrest arrives before, or instead of, promised mitigation reaching this actor.",
+      "sources": [
+        "https://www.vanguardngr.com/2024/01/months-after-fuel-subsidy-removal-in-nigeria-so-far-how-good/",
+        "https://theconversation.com/nigerias-fuel-subsidy-removal-was-too-sudden-why-a-gradual-approach-would-have-been-better-222224",
+        "https://credendo.com/en/knowledge-hub/angola-fuel-subsidy-reforms-spark-civil-unrest",
+        "https://en.wikipedia.org/wiki/July_2025_Angolan_protests",
+        "https://en.wikipedia.org/wiki/2025_Ecuador_protests"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Kenya's 2024 Finance Bill was presented by the government as a necessary, technocratic revenue-and-IMF-compliance measure, without emphasis on its direct impact on subsistence-level households.",
+      "revealed": "Youth-led #RejectFinanceBill2024 protests (18 Jun-8 Aug 2024) escalated to demonstrators storming and partially burning Parliament on 25 June, causing 80+ deaths and 230+ injuries; President Ruto declined to sign the bill on 26 June and it was formally withdrawn on 28 June — a full policy reversal within roughly 10 days of the peak protest.",
+      "delta": "A measure framed as technocratic was understood immediately by the affected population as a direct threat to subsistence, producing the fastest state capitulation among the cases sampled.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Kenya_Finance_Bill_protests",
+        "https://www.knchr.org/Articles/ArtMID/2432/ArticleID/1197/",
+        "https://acleddata.com/brief/opposition-party-led-kenyas-2023-tax-protests-thats-not-case-2024-acled-insight"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-HH_EM_SUBSIST-bootstrap"
+  "dependencies": [
+    {"on": "ST_FRAGILE", "type": "subsidy_and_fiscal_policy_exposure", "strength": 0.7},
+    {"on": "IFI", "type": "conditional_lending_driven_subsidy_removal", "strength": 0.5},
+    {"on": "CORP_COMMOD", "type": "food_and_fuel_price_transmission", "strength": 0.6}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "a fuel or staple-food subsidy is removed or a price cap lifted without a pre-funded, already-distributed compensating transfer",
+     "then": "protest/riot probability spikes within roughly 2-8 weeks (Nigeria 2023, Angola 2025, Ecuador 2025, Kenya 2024 pattern), materially faster than typical policy-review or IMF-review timelines"},
+    {"if": "protest coordination is captured by an organised network (union, opposition party, diaspora-linked social-media campaign)",
+     "then": "the 'hard' constraint against organised uprising effectively breaks and unrest scales past issue-specific protest toward broader regime-legitimacy contestation (Kenya 2024 precedent)"}
+  ],
+  "what_would_change_my_mind": "A major, poorly-compensated subsidy removal in a fragile state (2026-27) that produces no protest/riot response within the historical 2-8 week window would suggest the mechanism is weakening (fatigue, repression capacity, or effective pre-distribution). Migration-flow magnitudes specifically are low-confidence: intention surveys are a poor proxy and this pass did not obtain hard cross-border flow data matched to a specific subsidy-shock episode."
 }

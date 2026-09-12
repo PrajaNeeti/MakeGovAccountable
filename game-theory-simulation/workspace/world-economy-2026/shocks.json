@@ -78,5 +78,23 @@
    "effects":{"CORP_TECH":{"resources":-0.04},
               "AM_INDEX":{"resources":-0.03},
               "HH_DM_LABOR":{"legitimacy":0.02}},
+   "duration_rounds":1},
+
+  {"id":"manufacturing_automation_wave","annual_prob":0.18,
+   "_source_note":"IFR (2026): China installs 54% of world industrial robots, operational stock ~2M units (4.5x Japan), robotics now central to China's 15th Five-Year Plan as an explicit growth driver. South Korea leads world robot density (1220/10k workers vs Western Europe's 267). Humanoid robotics raised $18.8bn in H1 2026 alone (vs $15bn all of 2025), Goldman reports 40% YoY manufacturing-cost decline for humanoids. WEF: automation displaces an estimated 85M jobs by 2030 gross (97M created net) -- near-term dislocation is real even though the net effect is projected positive.",
+   "effects":{"ST_CN":{"resources":0.08,"rank":0.05},
+              "ST_JP_KR":{"resources":0.04},
+              "CORP_TECH":{"resources":0.05},
+              "CORP_DEFENSE":{"resources":0.02},
+              "HH_DM_LABOR":{"legitimacy":-0.03},
+              "HH_EM_URBAN":{"legitimacy":-0.02}},
+   "duration_rounds":2},
+
+  {"id":"robotics_capex_correction","annual_prob":0.05,
+   "prob_modifier":{"if":"CORP_TECH:rank>0.3","multiply":3.0},
+   "_source_note":"Humanoid robotics priced by Morgan Stanley at a $5tn eventual market on H1-2026 funding pace ($18.8bn) that already exceeds all of 2025 -- a venture-heavy, hype-sensitive pattern comparable to the AI capex debate. Probability rises after sustained AI/robotics-driven CORP_TECH gains rather than independently of them, same correlated-shock logic as ai_capex_correction.",
+   "effects":{"CORP_TECH":{"resources":-0.10,"liquidity":-0.05},
+              "AM_INDEX":{"resources":-0.05},
+              "ST_CN":{"resources":-0.03}},
    "duration_rounds":1}
 ]

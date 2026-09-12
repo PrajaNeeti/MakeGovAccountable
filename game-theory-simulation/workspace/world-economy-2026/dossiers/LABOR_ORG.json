@@ -1,54 +1,77 @@
 {
   "id": "LABOR_ORG",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
+  "confidence": "medium",
   "utility_weights": {
-    "survival": 0.3,
+    "survival": 0.25,
     "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "autonomy": 0.15,
+    "legitimacy": 0.2,
+    "relative_rank": 0.1
   },
-  "discount_rate": 0.333,
-  "survival_threshold": 0.25,
+  "discount_rate": 0.22,
+  "horizon_driver": "multi-year collective-bargaining contract cycle (e.g., ILA's six-year master contract) punctuated by acute leverage windows at contract expiry",
+  "survival_threshold": 0.2,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
+    "resources": 0.4,
+    "security": 0.45,
     "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "autonomy": 0.4,
+    "rank": 0.35,
+    "liquidity": 0.35
   },
   "capabilities": [
-    {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
-    }
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.1, "reversible": true},
+    {"action": "escalate", "cost": 0.12, "reversible": true}
   ],
-  "constraints": [],
+  "constraints": [
+    {"action": "wildcat strike without union executive authorization", "type": "performative", "cost": 0.3,
+     "source": "US labor law (no-strike clauses in active contracts) and union governance norms",
+     "breaks_under": "membership anger outruns leadership caution — has occurred in isolated European rail actions where strikes were called with reduced notice"}
+  ],
   "credibility": {
-    "overall": 0.6
+    "overall": 0.7,
+    "by_domain": {
+      "strike_threat_execution": 0.8,
+      "contract_ratification_follow_through": 0.75
+    }
   },
   "deception_prior": 0.2,
-  "monitoring": 0.5,
+  "monitoring": 0.7,
   "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-LABOR_ORG-bootstrap"
+  "stated_vs_revealed": [
+    {
+      "stated": "The ILA's public position in 2024 emphasized wages as the headline contract issue.",
+      "revealed": "The October 2024 strike (45,000 dockworkers, 36 East/Gulf Coast ports, ~$5bn/day in stranded trade) was resolved on wages within 3 days (61.5% increase over 6 years, $39 to ~$63/hr), but the harder-fought issue — a full ban on port automation — remained unresolved and pushed final contract ratification out to January 2025.",
+      "delta": "The headline (wage) issue resolved fast; the real binding constraint (automation/job security) is what actually determined the negotiation timeline, confirming the Cartographer's framing that a few thousand port workers can halt more trade than most sanctions regimes.",
+      "sources": [
+        "https://www.cnbc.com/2024/10/01/east-coast-ports-strike-ila-union-work-stop-billions-in-trade.html",
+        "https://en.wikipedia.org/wiki/2024_United_States_port_strike",
+        "https://advocacy.calchamber.com/2025/01/09/union-dockworkers-port-employers-reach-tentative-deal-at-east-coast-gulf-ports/"
+      ]
+    },
+    {
+      "stated": "European rail unions (e.g., Germany's GDL) frame recurring strikes as discrete, pay-dispute-driven events.",
+      "revealed": "GDL executed its announced 35-hour strike in March 2024 and signaled willingness to strike again without the usual 48-hour notice; combined German/Dutch/Belgian labor disputes and rail-corridor closures produced the most sustained European port/freight congestion crisis since the pandemic through 2025.",
+      "delta": "Individually-framed 'discrete' pay disputes are revealed, in aggregate, as a structural and repeated freight-chokepoint tool rather than isolated events.",
+      "sources": [
+        "https://railmarket.com/news/business/17249-railway-strike-to-disrupt-german-freight-and-passenger-transport-again",
+        "https://theloadstar.com/another-rail-strike-in-germany-to-add-to-european-freight-troubles/",
+        "https://blogs.tradlinx.com/european-port-crisis-2025-a-comprehensive-operational-breakdown/"
+      ]
+    }
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "dependencies": [
+    {"on": "ST_US", "type": "labor_law_and_strike_legality_framework", "strength": 0.5},
+    {"on": "BANK_GSIB", "type": "strike_fund_and_pension_liquidity", "strength": 0.2},
+    {"on": "CORP_COMMOD", "type": "port_and_freight_chokepoint_leverage_target", "strength": 0.4}
+  ],
+  "tripwires": [
+    {"if": "a major port/rail contract nears expiry without a pre-agreed automation or job-security protection clause",
+     "then": "strike probability spikes sharply in the final weeks before expiry, with costs on the order of ~$5bn/day for a major US port action (2024 ILA precedent)"},
+    {"if": "strike-notice requirements are shortened or bypassed (as GDL signaled)",
+     "then": "logistics planners lose lead time to reroute, and disruption severity per strike-day rises even if strike frequency stays flat"}
+  ],
+  "what_would_change_my_mind": "A major contract expiry (e.g., a successor to ILA's Jan 2025 deal, or a comparable European rail agreement) resolving without any strike action or credible strike threat despite unresolved automation/staffing issues would suggest strike leverage in logistics has weakened structurally. This dossier covers only US and European (DM) logistics labor; Asian and Global South port/rail action, which faces thinner union density and more state suppression, was not researched here and should not be generalized from this pass."
 }

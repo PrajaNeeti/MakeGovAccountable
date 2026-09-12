@@ -1,54 +1,88 @@
 {
   "id": "CORP_DEFENSE",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.20,
+    "resources": 0.25,
+    "autonomy": 0.15,
+    "legitimacy": 0.10,
+    "relative_rank": 0.30
   },
-  "discount_rate": 0.1,
+  "discount_rate": 0.10,
+  "horizon_driver": "multi-year procurement programmes and production-line capacity investment (Lockheed: $9bn planned through 2030 for capacity; Rheinmetall backlog conversion timeline ~2.5 years) set a genuinely long horizon, but near-term cash conversion is now binding (Rheinmetall's deeply negative operating free cash flow in H1 2026) — the state-as-monopsony-buyer relationship is the actual long-horizon anchor",
   "survival_threshold": 0.25,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "resources": 0.60,
+    "security": 0.75,
+    "legitimacy": 0.45,
+    "autonomy": 0.30,
+    "rank": 0.65,
+    "liquidity": 0.45
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true,
+     "note": "maintain current production rate and backlog delivery schedule"},
+    {"action": "settle", "cost": 0.10, "reversible": true,
+     "note": "accept an export-licensing restriction or arms-control constraint from a sponsoring state"},
+    {"action": "escalate", "cost": 0.15, "reversible": false,
+     "note": "commit new production-line capacity (e.g. quadrupling a missile line) — expensive, multi-year, and effectively irreversible once tooling and labour are committed"}
+  ],
+  "constraints": [
+    {"action": "export_licensing_restriction", "type": "performative",
+     "cost": 0.15,
+     "source": "Germany imposed a near-total halt on arms exports to Saudi Arabia after the Khashoggi killing; Rheinmetall was reported to have continued supplying Saudi Arabia through subsidiaries in Italy and South Africa despite the Berlin-ordered halt, and separately sued the German government over the restriction. Germany subsequently eased export rules for Gulf states in 2025 to expand air-defense sales — https://dawnmena.org/with-germanys-renewed-arms-exports-to-saudi-arabia-interests-trumped-values/",
+     "breaks_under": "a subsidiary structure in a jurisdiction with a more permissive export regime, or a later formal policy reversal once the strategic/commercial case (e.g. air-defense sales) outweighs the original restriction's rationale"},
+    {"action": "convert_backlog_to_delivered_revenue_on_schedule", "type": "priced",
+     "cost": 0.20,
+     "source": "Rheinmetall's order backlog hit a record €80.5bn (+44% YoY, with the 'fixed' component now 70% of the total, up from 58%), but the company simultaneously trimmed full-year 2026 revenue guidance from €14.0-14.5bn to €13.7-14.2bn and reported deeply negative operating free cash flow (-€1.6bn in H1 2026) driven by deliberate inventory buildup ahead of deliveries — https://www.ad-hoc-news.de/boerse/news/corporate-news/rheinmetall-stock-softens-as-record-80-5-billion-backlog-meets-trimmed/69994706",
+     "breaks_under": "physical production-capacity limits (skilled labour, machine tools, energetics/propellant supply) bind even when order books and state demand are effectively unlimited"}
+  ],
+  "credibility": {
+    "overall": 0.55,
+    "by_domain": {
+      "order_backlog_and_capacity_investment_delivery": 0.80,
+      "production_ramp_timeline_delivery": 0.60,
+      "export_restraint_policy": 0.25
+    }
+  },
+  "deception_prior": 0.30,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Lockheed Martin and RTX earnings communications and public messaging frame growth as demand-responsive support for allied deterrence and stability, without committing to specific irreversible capacity expansion in advance of firm multi-year contracts.",
+      "revealed": "Lockheed Martin's backlog reached an all-time high of $230bn in Q2 2026 (book-to-bill 3.2:1, roughly three years of revenue already locked in, up $64bn year-on-year including a $35bn multi-year THAAD deal); RTX's backlog reached $289bn (+22% YoY). Lockheed has separately committed to quadrupling Precision Strike Missile production (to 550/yr under a 7-year framework agreement signed March 2026), quadrupling THAAD interceptor capacity, and tripling PAC-3 MSE capacity, backed by $7bn already invested since 2018 and a further $9bn planned through 2030 with ~4,000 new jobs.",
+      "delta": "This is the cartographer's thesis directly confirmed: multi-year procurement backlogs and hard capacity investment (tooling, facilities, headcount) are the real, costly-to-reverse statement of state intent — vastly more informative than any public messaging about 'deterrence and stability,' and it is happening at a scale (3x-4x production-rate increases) that white-paper rhetoric never signalled in advance.",
+      "sources": [
+        "https://www.govconwire.com/articles/lockheed-martin-q2-2026-earnings-guidance",
+        "https://news.lockheedmartin.com/2026-03-25-Lockheed-Martin-Answers-the-Nations-Call-and-Quadruples-Precision-Strike-Missile-Production",
+        "https://www.lockheedmartin.com/en-us/news/features/2026/Lockheed-Martin-and-the-U-S-Department-of-War-Expand-THAAD-Interceptor-Production.html"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Germany's post-Khashoggi arms-export policy stated a firm restriction on weapons sales to Saudi Arabia on human-rights grounds.",
+      "revealed": "Rheinmetall was reported to have continued supplying Saudi Arabia via Italian and South African subsidiaries during the formal export halt, and sued Berlin over the restriction's commercial cost; Germany itself eased Gulf-state export rules in 2025 to expand air-defense sales.",
+      "delta": "A stated values-based export restriction proved non-binding in practice via corporate structuring, and was ultimately reversed by the state itself once the strategic/commercial case shifted — export licensing is best modeled as a priced, breakable constraint, not a hard one.",
+      "sources": [
+        "https://dawnmena.org/with-germanys-renewed-arms-exports-to-saudi-arabia-interests-trumped-values/",
+        "https://www.ukrinform.net/amp/rubric-economy/4103755-germany-eases-arms-export-rules-for-ukraine-gulf-states-to-boost-air-defense.html"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-CORP_DEFENSE-bootstrap"
+  "dependencies": [
+    {"on": "ST_US", "type": "primary monopsony buyer and export-license authority for US-headquartered primes", "strength": 0.7},
+    {"on": "ST_EU", "type": "monopsony buyer and export-license authority for Rheinmetall/BAE; also the demand source for the current European rearmament backlog surge", "strength": 0.6},
+    {"on": "ST_RU", "type": "the Ukraine war is the direct demand driver behind the 2025-26 European order-book surge", "strength": 0.5}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "a prime's book-to-bill ratio exceeds ~2:1 for two or more consecutive quarters (Lockheed was at 3.2:1 in Q2 2026)",
+     "then": "treat it as a firm, multi-year signal of the sponsoring state's real procurement intent regardless of that state's public messaging — this is the operationalization of the cartographer's 'track order books, not white papers' instruction",
+     "source": "https://www.govconwire.com/articles/lockheed-martin-q2-2026-earnings-guidance"},
+    {"if": "a prime's backlog grows sharply while operating free cash flow turns deeply negative (Rheinmetall: backlog +44% YoY, H1 2026 FCF -€1.6bn)",
+     "then": "expect a near-term revenue-guidance trim even amid record orders — physical production capacity (skilled labour, energetics, machine tools), not order intake, is the binding constraint on how fast the stated backlog becomes delivered capability",
+     "source": "https://www.ad-hoc-news.de/boerse/news/corporate-news/rheinmetall-stock-softens-as-record-80-5-billion-backlog-meets-trimmed/69994706"},
+    {"if": "a sponsoring state announces a values-based export restriction on a prime's products",
+     "then": "check for subsidiary-routed continuity of supply before treating the restriction as binding — the Rheinmetall/Saudi Arabia 2018-2024 precedent shows restrictions are frequently circumvented and later formally reversed once the commercial/strategic case reasserts itself",
+     "source": "https://dawnmena.org/with-germanys-renewed-arms-exports-to-saudi-arabia-interests-trumped-values/"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "Backlog and capacity-investment figures here are well-sourced from company disclosures and press coverage of Q2 2026 earnings, so confidence on the 'track order books' finding is fairly high. Lower confidence surrounds how much of the backlog is genuinely 'fixed' versus optioned/indicative across all five named firms (only Rheinmetall discloses the fixed-vs-total split); a firm reporting a large gap between disclosed backlog and actually funded/appropriated contract value would weaken the backlog-as-revealed-preference reading. HAL and Norinco specifically were not found in current, well-sourced 2026 order-book reporting in this pass — treat their individual contribution to this dossier as an assumption inherited from the group-level Western-prime data, not independently verified."
 }

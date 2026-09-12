@@ -1,54 +1,119 @@
 {
   "id": "ST_FRAGILE",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
+  "confidence": "medium",
   "utility_weights": {
-    "survival": 0.3,
+    "survival": 0.35,
     "resources": 0.3,
-    "autonomy": 0.2,
+    "autonomy": 0.15,
     "legitimacy": 0.15,
     "relative_rank": 0.05
   },
-  "discount_rate": 0.5,
-  "survival_threshold": 0.25,
+  "discount_rate": 0.38,
+  "horizon_driver": "FX-reserve runway (weeks to a few months of import cover) and the IMF quarterly review/disbursement calendar set the real clock, overridden episodically by acute balance-of-payments crises and by election calendars (Argentina's Oct 2025 midterms visibly shaped the timing of US Treasury support; Pakistan and Egypt both show fiscal-consolidation targets softening near elections or mass-unrest risk points).",
+  "survival_threshold": 0.15,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "resources": 0.3,
+    "security": 0.35,
+    "legitimacy": 0.4,
+    "autonomy": 0.25,
+    "rank": 0.15,
+    "liquidity": 0.3
   },
+  "grounding_cases": [
+    {"case": "Pakistan", "why": "clearest long-run pattern of serial IMF dependency with a stable, unmet structural target (tax base)"},
+    {"case": "Egypt", "why": "clearest pattern of a repeatedly-stated currency-defense commitment broken under reserve stress, three times in two years"},
+    {"case": "Argentina", "why": "clearest divergence case: an ideologically distinct government, a non-IMF great-power patron (US Treasury), and a stated policy (dollarization) that was not the policy actually delivered"}
+  ],
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true,
+     "note": "Defend the current currency/subsidy regime and delay adjustment, burning reserves. Cheap in the short run, which is exactly why it is the modal choice until reserves near exhaustion — Egypt held its peg through two prior partial devaluations (2022, 2023) before the full March 2024 flotation."},
+    {"action": "settle", "cost": 0.1, "reversible": true,
+     "note": "Accept IMF (or bilateral patron) conditionality: devalue/float the currency, cut subsidies, raise the policy rate, accept quantitative fiscal targets. The eventual outcome in all three grounding cases — Egypt's March 2024 flotation plus $8bn EFF augmentation; Pakistan's Sept 2024 24th IMF program (37-month, ~$7bn EFF) plus a May 2025 Resilience and Sustainability Facility; Argentina's April 2025 $20bn EFF committing to a market-determined exchange rate."},
+    {"action": "escalate", "cost": 0.15, "reversible": false,
+     "note": "Unilateral default/restructuring, or active use of migration pressure, transit rights, or strategic-geography rental to extract external support outside the IMF channel. Less common than 'settle' in the three grounding cases in this window (none defaulted outright 2024-2026), but this is the modeled channel for the shock-transmission role the Cartographer assigns this actor, and it is the action Sri Lanka took in 2022 (formal default) as the tier's most recent realized instance."}
+  ],
+  "constraints": [
+    {"action": "float_or_devalue_the_currency", "type": "performative", "cost": 0.3,
+     "source": "repeated official statements defending a managed peg as a matter of monetary credibility (Central Bank of Egypt statements 2022-2023 preceding each partial devaluation)",
+     "breaks_under": "reserves fall to crisis levels relative to import cover / a binding IMF program condition is reached — Egypt devalued three times between 2022 and March 2024 despite each prior devaluation being presented as a durable fix, and Argentina's Milei administration itself, having campaigned on dollarization rather than devaluation, delivered a 54% one-time peso devaluation within weeks of taking office (Dec 2023) once reserves proved inadequate for the stated dollarization path.",
+     "sources": ["https://www.wsls.com/business/2024/03/06/egypt-floats-its-currency-and-agrees-with-the-imf-to-increase-a-bailout-loan-to-8-billion/", "https://gfmag.com/economics-policy-regulation/egypt-devalues-currency-raises-interest-rates-imf-deal-8-billion/", "https://sites.lsa.umich.edu/mje/2026/01/09/an-analysis-of-issues-with-the-argentine-economy-following-mileis-inflation-reform/"]},
+    {"action": "broaden_the_domestic_tax_base", "type": "priced", "cost": 0.4,
+     "source": "a standing condition in essentially every Pakistani IMF program since the 1980s, restated as a 2024-2027 commitment to raise tax-to-GDP from ~8-10% toward 13-15%",
+     "breaks_under": "domestic elite/political resistance to taxing agriculture, real estate, and traders — the constraint has not meaningfully broken in either direction in over four decades: tax-to-GDP has stayed flat near 8-10% through more than 20 prior IMF programs, making this the most reliably *unmet* commitment in the dossier rather than one that swings.",
+     "sources": ["https://www.dawn.com/news/1803805", "https://pide.org.pk/research/pakistans-tax-system-advancements-challenges-and-trillion-dollar-future/"]},
+    {"action": "meet_quantitative_IMF_performance_criteria", "type": "priced", "cost": 0.2,
+     "source": "binding numeric program conditions (reserves, primary balance, fiscal deficit)",
+     "breaks_under": "rarely, once a program is actually in force — Pakistan met all seven quantitative performance criteria and six of eight indicative targets at its Dec-2025 test date under the third EFF review (completed March-May 2026), and posted a primary surplus of 1.6% of GDP in FY26, suggesting that once inside a program, the *numeric* targets are the commitments most reliably kept, in contrast to the *structural* ones (tax base, subsidy removal) which are not.",
+     "sources": ["https://www.imf.org/en/news/articles/2026/05/08/pr-26147-pakistan-imf-completes-3rd-rev-of-extended-arrangement-under-eff-and-2nd-rev-arrang-rsf"]}
+  ],
+  "credibility": {
+    "overall": 0.4,
+    "by_domain": {
+      "IMF_quantitative_program_targets_once_signed": 0.7,
+      "structural_reform_commitments_tax_subsidy_SOE": 0.25,
+      "currency_peg_defense_statements": 0.15,
+      "campaign_or_ideological_policy_pledges": 0.2
+    }
+  },
+  "deception_prior": 0.45,
+  "monitoring": 0.4,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Pakistan's government has, across more than two decades and roughly 20+ IMF programs, repeatedly committed to broadening the domestic tax base as a condition of each new arrangement, most recently restating a 13-15% tax-to-GDP target for 2024-2027 under the Sept 2024 24th IMF bailout.",
+      "revealed": "Despite over 20 prior IMF programs since 1958 (the Sept 2024 arrangement was widely reported as the 24th), Pakistan's tax-to-GDP ratio has remained essentially flat at 8-10% for decades. This is arguably the single most robust, quantifiable stated-vs-revealed delta available for any T1 actor in this system: the same structural commitment has been made and not delivered across at least four decades and roughly two dozen program cycles.",
+      "delta": "A multi-decade, repeatedly-priced, essentially-never-delivered structural commitment. This should be modeled as a near-hard constraint against ever meeting this specific target (very low credibility, 0.25), sharply distinguished from the much higher credibility Pakistan has on the mechanical, numeric IMF performance criteria within a live program (0.7) — the government is capable of hitting a quarterly fiscal or reserve number but structurally unable (politically, not technically) to tax its own elite constituencies.",
+      "sources": [
+        "https://www.dawn.com/news/1803805",
+        "https://pide.org.pk/research/pakistans-tax-system-advancements-challenges-and-trillion-dollar-future/",
+        "https://www.imf.org/en/news/articles/2026/05/08/pr-26147-pakistan-imf-completes-3rd-rev-of-extended-arrangement-under-eff-and-2nd-rev-arrang-rsf"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "The Central Bank of Egypt defended a managed exchange-rate peg as a matter of monetary stability and credibility through 2022 and 2023, resisting a full float even as the black-market/parallel rate diverged sharply from the official rate.",
+      "revealed": "Egypt devalued its currency three times in the two years leading up to March 2024, when it finally fully floated the pound, which immediately fell to a record low (~52 EGP/USD), simultaneous with an IMF loan augmentation from $3bn to $8bn. Each of the prior partial devaluations had itself been presented as sufficient; none was.",
+      "delta": "The pattern is not a single broken promise but a repeated cycle — defend, partially devalue, redeclare stability, repeat — that only resolved once reserve pressure and a $35bn UAE-led investment deal (Ras El-Hekma, Feb 2024) gave the government enough of a buffer to absorb a full float. The operative predictive rule is reserve-adequacy-triggered, not credibility-of-statement-triggered: watch reserves and parallel-market spread, not central bank language.",
+      "sources": [
+        "https://www.wsls.com/business/2024/03/06/egypt-floats-its-currency-and-agrees-with-the-imf-to-increase-a-bailout-loan-to-8-billion/",
+        "https://gfmag.com/economics-policy-regulation/egypt-devalues-currency-raises-interest-rates-imf-deal-8-billion/"
+      ]
     },
     {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Javier Milei campaigned explicitly and prominently on dollarizing the Argentine economy as his signature monetary reform.",
+      "revealed": "On taking office, the Milei administration did not dollarize. It instead executed a 54% one-time devaluation of the peso (Dec 2023) followed by a crawling peg regime, then negotiated a fourth-year, $20bn IMF Extended Fund Facility (finalized April 2025, Argentina's 23rd IMF program since 1958) committing to a transition toward a fully market-determined float rather than to dollarization, and separately obtained an unprecedented $20bn US Treasury Exchange Stabilization Fund currency swap (announced Oct 9, 2025) to directly support the peso ahead of the Oct 26, 2025 midterm elections.",
+      "delta": "The single clearest ideology-vs-delivery gap in the tier: a headline campaign policy (dollarization) was abandoned in practice within weeks of taking power in favor of a more conventional IMF-and-patron-backed devaluation/float path, while a *different* and larger form of external dependency (a bilateral US Treasury swap, explicitly timed around an election) emerged that has no real analogue in the Pakistan or Egypt cases, which rely on multilateral (IMF) and Gulf/Chinese bilateral support rather than a US Treasury currency swap.",
+      "sources": [
+        "https://sites.lsa.umich.edu/mje/2026/01/09/an-analysis-of-issues-with-the-argentine-economy-following-mileis-inflation-reform/",
+        "https://peoplesdispatch.org/2025/04/16/milei-takes-on-usd-20-billion-in-imf-debt-and-lifts-the-exchange-rate-cap/",
+        "https://www.congress.gov/crs-product/R48780",
+        "https://aljazeera.com/news/2025/10/9/us-buys-argentinian-pesos-finalises-20bn-currency-swap-says-us-treasury"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-ST_FRAGILE-bootstrap"
+  "dependencies": [
+    {"on": "IFI", "type": "program_lending_and_conditionality", "strength": 0.8,
+     "note": "The dominant, structural dependency across all three grounding cases: Pakistan (24th program, 2024), Egypt (2022 program augmented 2024), Argentina (23rd program, 2025)."},
+    {"on": "ST_GULF", "type": "bilateral_deposits_and_investment_deals", "strength": 0.5,
+     "note": "Egypt's Ras El-Hekma deal with the UAE (~$35bn, Feb 2024) and Pakistan's recurring Saudi/UAE deposit rollovers are the load-bearing bilateral backstop that makes IMF programs viable; not present in the Argentina case, which instead relies on the US Treasury."},
+    {"on": "ST_US", "type": "discretionary_Treasury_patronage_Argentina-specific", "strength": 0.3,
+     "note": "The $20bn ESF swap line (Oct 2025) plus a sought $20bn private-sector facility is a case-specific, politically discretionary form of support tied to an ideologically aligned government and an election calendar; this dependency does not generalize to Pakistan or Egypt in the current window and is a structural reason to question a fully uniform treatment of the merged actor (see confidence note)."},
+    {"on": "ST_CN", "type": "bilateral_rollovers_and_infrastructure_finance", "strength": 0.3,
+     "note": "Material for Pakistan (CPEC-linked rollovers) and, to a lesser extent, Argentina (PBOC swap line used intermittently pre-Milei); marginal for Egypt in this window."},
+    {"on": "BANK_GSIB", "type": "correspondent_banking_and_remittance_corridor_access", "strength": 0.4}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "FX reserves fall toward a level near 1-2 months of import cover (or the parallel/black-market exchange rate diverges sharply, roughly >15-20%, from the official rate)",
+     "then": "a currency devaluation or float follows within weeks, regardless of any standing public commitment to defend the peg — observed in Egypt three times (2022, 2023, March 2024) and in Argentina immediately at the Dec 2023 transition. Confidence on the precise numeric reserve threshold is medium-low; the qualitative pattern (reserve stress precedes devaluation by weeks, not quarters) is well evidenced.",
+     "confidence": "medium",
+     "sources": ["https://gfmag.com/economics-policy-regulation/egypt-devalues-currency-raises-interest-rates-imf-deal-8-billion/", "https://sites.lsa.umich.edu/mje/2026/01/09/an-analysis-of-issues-with-the-argentine-economy-following-mileis-inflation-reform/"]},
+    {"if": "an IMF program lapses or a review is at risk of failing",
+     "then": "the government re-enters or extends a program rather than allow an outright default, provided any bilateral patron (Gulf, China, or in Argentina's specific case the US Treasury) remains willing to bridge financing — the reform-dependency cycle is delayed, not broken, by patron support, and Pakistan's pattern of 24+ programs since 1958 is the clearest evidence this is a structural equilibrium, not a one-off.",
+     "confidence": "high",
+     "sources": ["https://www.imf.org/en/news/articles/2026/05/08/pr-26147-pakistan-imf-completes-3rd-rev-of-extended-arrangement-under-eff-and-2nd-rev-arrang-rsf", "https://www.dawn.com/news/1803805"]},
+    {"if": "a domestic election or major unrest-risk moment approaches while a fiscal-consolidation or subsidy-removal target is pending",
+     "then": "the specific structural/politically-costly target (tax base broadening, subsidy removal timing) is the one most likely to slip, while numeric fiscal/reserve targets closer to the program's core continue to be met — matches the Pakistan tax-to-GDP pattern and Argentina's election-timed US Treasury support (Oct 2025).",
+     "confidence": "medium"}
+  ],
+  "what_would_change_my_mind": "Any one of the three grounding cases sustaining a genuinely new equilibrium — Pakistan's tax-to-GDP ratio actually rising into the low-to-mid teens and holding for multiple fiscal years, Egypt maintaining a fully free float through a full external shock without renewed capital controls or a fourth devaluation, or Argentina completing its full 48-month IMF program on schedule without a further currency adjustment or restructuring — would be a genuine structural break from a multi-decade pattern and should raise the relevant by-domain credibility score materially. On the 'merged actor' question specifically: the shared macro-liquidity mechanism (short horizon, tight FX constraint, cyclical IMF dependency, low structural-reform credibility) held up well across all three cases and supports keeping them merged for that dynamic. But the *character* of external patronage and the presence or absence of a strategic-geography-rental lever diverge sharply: Pakistan and Egypt both have a real, non-macro chokepoint asset to rent (Pakistan's Afghan-transit/CPEC corridor position and counterterrorism-cooperation rent; Egypt's Suez Canal and regional-security-partner status), which the merged actor's control list ('strategic_geography_rental', 'transit_rights') accurately describes for them; Argentina has no comparable chokepoint and instead attracts a bespoke, ideologically-and-electorally-motivated bilateral patron (the US Treasury) that Pakistan and Egypt do not have access to in this form. If a future run turns specifically on either the geography-rent mechanism or on great-power patronage politics rather than on the shared liquidity-crisis mechanism, I would split this into a 'geography-rent frontier debtor' actor (Pakistan/Egypt/Sri-Lanka-type) and a 'macro-experiment frontier debtor' actor (Argentina-type, and potentially others receiving similar bespoke bilateral backstops) rather than keep a single merged actor.",
+  "assumption_ids": ["RESEARCHED-ST_FRAGILE-2026-09-12"]
 }

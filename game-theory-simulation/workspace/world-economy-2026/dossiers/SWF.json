@@ -1,54 +1,68 @@
 {
   "id": "SWF",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
+    "survival": 0.20,
+    "resources": 0.30,
+    "autonomy": 0.20,
     "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "relative_rank": 0.15
   },
   "discount_rate": 0.05,
-  "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
+  "horizon_driver": "Genuinely bimodal within this merged actor: NBIM/GIC operate on a generational, sponsor-state-wealth-preservation mandate (the longest horizon in the system, per the Cartographer); PIF now operates on a much shorter, Vision-2030-linked political-delivery clock (effectively 4-6 years) because of active fiscal pressure on its sponsor state — this internal split is itself a key 2026 finding.",
+  "survival_threshold": 0.20,
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true, "meaning": "maintain current allocation with no new large stake"},
+    {"action": "settle", "cost": 0.10, "reversible": true, "meaning": "incremental rebalancing or a new negotiated strategic stake"},
+    {"action": "escalate", "cost": 0.15, "reversible": false, "meaning": "a large concentrated bet, a crisis-recapitalization intervention, or an abrupt thematic unwind"}
+  ],
+  "constraints": [
+    {"action": "invest_in_severe_ESG-excluded_sectors_(NBIM)", "type": "priced", "cost": 0.25, "source": "Norges Bank / Council on Ethics exclusion mechanism, applied via AI-assisted screening since 2025", "breaks_under": "parliamentary override in extreme geopolitical circumstances — rare, not observed in this window"},
+    {"action": "fund_sponsor-state_domestic_priorities_below_market_return_(PIF/Gulf_funds)", "type": "priced", "cost": 0.35, "source": "PIF's 2026-2030 strategy explicitly reorients toward 80% domestic allocation", "breaks_under": "not observed to break in the other direction in 2026 — this constraint became MORE binding, not less, as oil-revenue pressure increased"},
+    {"action": "maintain_full_investment_disclosure_(CIC)", "type": "performative", "cost": 0.15, "source": "CIC is reported to be disclosing less about holdings even as it ramps up leverage and international exposure", "breaks_under": "flagged as a structural opacity trend rather than a classic moral constraint — reduces external verifiability of all CIC-specific claims"}
+  ],
+  "credibility": {
+    "overall": 0.60,
+    "by_domain": {
+      "patient_capital_long_horizon": 0.55,
+      "strategic_stake_execution": 0.80,
+      "transparency": 0.45
+    }
+  },
+  "deception_prior": 0.30,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "PIF has historically framed itself as Saudi Arabia's 'global investment powerhouse,' targeting a rising share of assets deployed abroad as part of Vision 2030 diversification.",
+      "revealed": "PIF's new 2026-2030 strategy explicitly cuts international allocation from a peak of roughly 30% down to 20%, targets 80% domestic investment of its ~$925bn portfolio, and has already implemented a minimum 20% (up to 60% on individual projects) spending cut across more than 100 portfolio companies and giga-projects, with PIF's own equity contribution to new projects falling from 70-100% toward a 30-40% target as the balance shifts to GCC private capital, FDI partners, and subsidiary IPOs.",
+      "delta": "PIF's self-image as a 'global sovereign investor with a multi-decade horizon' is currently false in practice. Lower oil revenue and giga-project cost overruns have forced a hard reversal toward a shorter-horizon, domestic fiscal-support role for its sponsor state — the opposite of the Cartographer's generic 'longest-horizon capital actor' framing for this whole tier.",
+      "sources": [
+        "https://www.thenationalnews.com/business/economy/2026/04/15/saudi-arabias-pif-targets-80-domestic-allocation-cuts-overseas-share-to-20/",
+        "https://agsi.org/analysis/the-pifs-2026-30-strategy-emerges-amid-heightened-regional-tensions-uncertainty/",
+        "https://themiddleeastinsider.com/2026/05/19/saudi-pif-2026-2030-strategy-three-portfolios-april/"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Sovereign funds broadly claim diversified, risk-managed portfolios appropriate to their stated long investment horizon (standard SWF governance language).",
+      "revealed": "NBIM ($2.2T, world's largest) holds roughly 40% in US equities with concentrated single-name mega-cap stakes (1.3% of Nvidia, 1.2% of Apple, 1.3% of Microsoft), while Temasek is raising its AI portfolio weight from 6% (Q1 2026) toward a 15%-by-2031 target, and Temasek plus GIC together closed 13 AI-related deals in the first half of 2026 alone (including Anthropic, OpenAI, and Supabase). NBIM's own internal 'AI correction' stress-test scenario shows a hypothetical 53% equity drawdown cutting total fund value by 35% — i.e., the fund quantifies this concentration risk internally while remaining fully exposed to it.",
+      "delta": "The largest, most credible members of this 'diversified, patient' tier are converging on a shared, correlated thematic bet (US mega-cap AI) at the same time. This is a systemic exposure across the SWF tier as a whole, not diversification away from tail risk, and it is the clearest concrete evidence for the Cartographer's 'horizon arbitrage' framing turning into a correlated crowding trade.",
+      "sources": [
+        "https://www.cnbc.com/2026/02/26/norway-sovereign-wealth-fund-nbim-investment-ai-esg-claude.html",
+        "https://www.cnbc.com/2026/02/27/norway-sovereign-wealth-fund.html",
+        "https://www.cnbc.com/2026/07/08/singapores-temasek-eyes-ai-private-credit-with-portfolio-at-record.html",
+        "https://finance.yahoo.com/news/norways-2-2t-sovereign-fund-043105129.html"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-SWF-bootstrap"
+  "dependencies": [
+    {"on": "ST_GULF", "type": "PIF_is_a_state_fiscal_instrument", "strength": 0.9},
+    {"on": "ST_CN", "type": "CIC_sponsorship_and_disclosure_control", "strength": 0.7},
+    {"on": "CORP_TECH", "type": "AI_equity_concentration_ties_returns_to_a_handful_of_T3_firms", "strength": 0.5}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "a broad AI-equity correction exceeds roughly 20%", "then": "NBIM-style funds absorb large marked losses but do not divest at the bottom, per stated rebalancing-not-panic governance — directly testable against NBIM's own published 'AI correction' scenario model"},
+    {"if": "Saudi oil revenue falls further or the fiscal breakeven price rises", "then": "PIF's domestic allocation share rises further still — treat the 80/20 target as a floor under further fiscal stress, not a ceiling"},
+    {"if": "a G7/US jurisdiction restricts SWF ownership of AI or critical-tech firms on national-security grounds", "then": "Gulf and Chinese SWFs redirect strategic stakes toward non-US venues (Europe, Asia) as the primary substitution channel"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "PIF returning to a rising international-allocation share would falsify the 'short-horizon fiscal-support vehicle' reading of it specifically. Sustained improvement in CIC disclosure would allow a real credibility read for that member rather than an inferred one — currently flagged low-confidence for CIC specifically."
 }

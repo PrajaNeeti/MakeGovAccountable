@@ -1,54 +1,65 @@
 {
   "id": "IFI",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.20,
+    "resources": 0.20,
+    "autonomy": 0.15,
+    "legitimacy": 0.25,
+    "relative_rank": 0.20
   },
-  "discount_rate": 0.1,
-  "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
+  "discount_rate": 0.09,
+  "horizon_driver": "Roughly five-year quota-review cycles (the 17th General Review's deadline has already slipped once, from June 2025 to April 2026) nested inside the Managing Director's five-year renewable term, plus an accumulating legitimacy-erosion clock from unresolved governance reform.",
+  "survival_threshold": 0.20,
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true, "meaning": "maintain current program conditionality and quota status quo"},
+    {"action": "settle", "cost": 0.10, "reversible": true, "meaning": "approve a program review, disburse a tranche, or negotiate revised conditionality"},
+    {"action": "escalate", "cost": 0.15, "reversible": false, "meaning": "suspend or withhold disbursement, impose harsher conditionality, or force a debt-restructuring coordination stance"}
+  ],
+  "constraints": [
+    {"action": "override_the_US_veto_on_an_85%-supermajority_decision", "type": "hard", "cost": null, "source": "US holds ~17.40% of Actual Quota Shares against an 85% supermajority threshold for major decisions", "breaks_under": "never — structural, treaty-level, not a negotiable constraint absent a US-approved quota realignment"},
+    {"action": "apply_conditionality_evenhandedly_regardless_of_a_borrower's_geopolitical_alignment", "type": "performative", "cost": 0.30, "source": "IMF's own institutional position of politically neutral, criteria-based surveillance", "breaks_under": "documented instance: Argentina's program continued disbursing in 2026 even as the Fund's own inflation forecast for the program nearly doubled"},
+    {"action": "guarantee_comparable_treatment_across_official_bilateral_creditors_in_restructuring", "type": "priced", "cost": 0.25, "source": "comparability-of-treatment principle in debt restructuring coordination", "breaks_under": "structurally strained whenever China is a major non-Paris-Club bilateral creditor to the same frontier debtor — a persistent, if not deeply sourced in this pass, source of delay"}
+  ],
+  "credibility": {
+    "overall": 0.60,
+    "by_domain": {
+      "program_disbursement_predictability": 0.75,
+      "conditionality_enforcement_evenhandedness": 0.40,
+      "governance_reform_delivery": 0.25
+    }
+  },
+  "deception_prior": 0.30,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "The IMF's 17th General Review of Quotas is presented as an active, good-faith process toward 'adequate, quota-based resources and reformed governance' that reflects current global economic weight (official IMF/G20 communiqué framing).",
+      "revealed": "The review's own deadline has already been pushed back once, from June 2025 to April 2026. The underlying math is explicit and public: a formula-based increase bringing China's ~13.72% calculated quota share closer to its actual ~6-8% share would require the US to cede enough of its 17.40% actual share to fall below the roughly 15% blocking-minority threshold — which the US has not agreed to and can unilaterally prevent via its veto.",
+      "delta": "The 'adequate and reformed governance' framing has no credible near-term delivery path. The US veto is the real determinant of what 'reform' can mean here, which is direct structural confirmation of the Cartographer's 'near-proxy for the US at decision points' read — evidenced at the level of institutional design itself, not just individual program decisions.",
+      "sources": [
+        "https://www.bu.edu/gdp/2025/04/14/a-challenging-imperative-imf-reform-the-17th-quota-review-and-increasing-voice-and-representation-for-developing-countries/",
+        "https://www.atlanticcouncil.org/blogs/econographics/understanding-the-debate-over-imf-quota-reform/"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "IMF program conditionality is presented as applied evenhandedly on macroeconomic criteria, independent of a borrower's politics or alignment.",
+      "revealed": "Argentina's Extended Fund Facility (a $20bn, 48-month program from April 2025) continued disbursing on schedule in 2026 — a $1bn second-review tranche released 21 May 2026 — even as the Fund's own 2026 inflation forecast for the program nearly doubled, from 16.4% to 30.4%, a major missed target, while IMF public statements continued to praise Milei's 'impressive initial gains.' By contrast, no clean, dated 2025-26 case of the IMF diverging from an evident US preference in a program decision surfaced in this research pass — this is a genuine evidence gap, not an absence of the phenomenon.",
+      "delta": "The one clear 2025-26 case found is consistent with (not divergent from) the near-proxy read: enforcement was relaxed for a government whose alignment with US foreign-policy preferences is well documented elsewhere. The Cartographer's caution that divergence 'would be informative' should be treated as an open, currently unconfirmed hypothesis rather than an established finding — flagged loudly per the quality bar rather than assumed.",
+      "sources": [
+        "https://www.riotimesonline.com/imf-argentina-review-1-billion-disbursement-may-2026/",
+        "https://statisticsoftheworld.com/blog/argentina-economy-2026-milei-shock-therapy"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-IFI-bootstrap"
+  "dependencies": [
+    {"on": "ST_US", "type": "quota_and_veto_control", "strength": 0.7},
+    {"on": "ST_CN", "type": "rising_but_capped_formal_share_plus_competing_bilateral_lending_channel", "strength": 0.3},
+    {"on": "ST_FRAGILE", "type": "primary_lending_counterparties_whose_distress_is_the_core_business", "strength": 0.5}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "a borrower government is geopolitically aligned with the US/G7", "then": "conditionality enforcement is relaxed relative to program targets (observed: Argentina 2026)"},
+    {"if": "the 17th quota review's April 2026 deadline is missed again", "then": "expect a further multi-year delay and accelerating rhetoric from China/EM members about building parallel institutions (BRICS NDB, regional MDBs) as an exit option"},
+    {"if": "a frontier debtor's restructuring requires China as a major bilateral creditor to accept comparable treatment", "then": "expect prolonged delay or deadlock relative to Paris-Club-only historical precedents"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "A documented 2025-26 IMF Executive Board decision (program approval, conditionality waiver, or restructuring stance) that went visibly against an explicit US position would be strong evidence of genuine institutional autonomy and should be actively searched for again before the next dossier revision — this pass found alignment evidence but no divergence evidence, and that asymmetry itself should be treated as low-confidence rather than as proof divergence never happens."
 }
