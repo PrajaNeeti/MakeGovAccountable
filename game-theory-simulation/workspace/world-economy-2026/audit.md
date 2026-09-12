@@ -159,6 +159,43 @@ threshold vs 25.8% above, threshold true in 56% of round-states rather than
   only the intended mechanism, not unrelated outputs) — no evidence of
   non-determinism bugs.
 
+## Update — researched kernels + operationalized constraints (post-fix)
+
+Fatal finding #1 has been partially addressed, not fully closed. Wrote 4
+actor-differentiated payoff kernels (`reserve_currency_order`,
+`taiwan_semiconductor`, `energy_routes`, `global_dollar_funding`, covering
+15 actors) replacing `generic_competition`, and operationalized 5 of the 95
+sourced constraints onto the `escalate` action for actors in those kernels
+(`ST_US`, `ST_CN`, `ST_JP_KR`, `ST_TW`, `CB_US`) — see
+`kernel-constraints.json` for exactly which 5 and the documented reasoning
+for each, including the numeric `breaks_if` proxies used since the engine
+can't parse natural-language tripwires.
+
+**Verified this actually changed behavior, not just cosmetically:**
+escalate rates for the 5 constrained actors are sharply suppressed relative
+to unconstrained actors in the same kernels — `ST_TW` 5.1%, `ST_US` 8.7%,
+`CB_US` 9.5%, `ST_JP_KR` 9.8%, `ST_CN` 16.5%, versus `CORP_SEMI` 34.0%,
+`CB_CN` 34.5%, `ST_GULF` 32.0% (no constraint, same kernels). The ordering
+is explainable, not arbitrary: Taiwan escalates least given its extreme
+exit cost stacked with the new constraint; China's relatively higher rate
+among the five tracks its much lower constraint cost (0.15 vs 0.3-0.5 for
+the others). This is real signal from a QRE solver genuinely weighing a
+sourced cost against a sourced payoff, not decoration.
+
+**Still open — this was a targeted fix, not a general one:** 33 of 38
+actors and 11 of 15 theatres still run on `generic_competition` with no
+actor-specific constraints binding. The remaining constraints (90 of 95)
+are still descriptive-only. Extending researched kernels to more theatres
+would be the natural next increment, in the same priority order the
+Orchestrator's own guidance implies (T0 theatres first, since upper-tier
+outcomes constrain lower tiers, not the reverse).
+
+**Ledger conservation is unchanged and still fails at the 0.02 tolerance**
+(99.6% of rounds) — the new kernels are still independent per-actor deltas,
+not paired transfers, so this fix didn't touch that issue. It remains the
+single largest unresolved mechanical gap: `resources` figures in this run
+should still be read as ordinal, not accounted.
+
 ## Calibration
 
 How much of this would I bet on: **the qualitative structure (which actors

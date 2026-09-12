@@ -1,38 +1,38 @@
 
 300 runs, 38 actors, 7 regime clusters
 
---- cluster 0: 49 runs (16.3%)
-    winners: CORP_COMMOD +0.12, ST_RU +0.04, NBFI_CREDIT +0.04
-    losers:  ST_FRAGILE -0.07, INS_RE -0.06, HH_DM_ASSET -0.06
+--- cluster 0: 41 runs (13.7%)
+    winners: CB_IN +0.06, ST_JP_KR +0.05, HH_EM_URBAN +0.05
+    losers:  AM_INDEX -0.18, CORP_TECH -0.16, CORP_SEMI -0.13
     branch point: round 9
 
---- cluster 1: 48 runs (16.0%)
-    winners: ST_GULF +0.10, ST_SWING +0.08, ST_RU +0.08
-    losers:  CORP_TECH -0.13, ST_CN -0.13, CORP_SEMI -0.11
+--- cluster 1: 51 runs (17.0%)
+    winners: CORP_SEMI +0.22, CORP_TECH +0.11, AM_ACTIVE +0.10
+    losers:  ST_GULF -0.06, CB_US -0.06, CB_IN -0.04
     branch point: round 9
 
---- cluster 2: 27 runs (9.0%)
-    winners: CORP_SEMI +0.23, ST_JP_KR +0.17, SWF +0.17
-    losers:  ST_GULF -0.10, ST_SWING -0.09, LABOR_ORG -0.07
+--- cluster 2: 45 runs (15.0%)
+    winners: AM_INDEX +0.14, LABOR_ORG +0.06, CORP_SEMI +0.04
+    losers:  HF_MACRO -0.14, SWF -0.05, HH_IN -0.05
     branch point: round 9
 
 --- cluster 3: 31 runs (10.3%)
-    winners: AM_INDEX +0.13, ST_CN +0.07, CORP_ENERGY +0.06
-    losers:  CORP_SEMI -0.20, INS_RE -0.15, ST_RU -0.12
+    winners: ST_GULF +0.10, ST_RU +0.07, CORP_DEFENSE +0.07
+    losers:  CORP_SEMI -0.20, CORP_TECH -0.13, LABOR_ORG -0.09
+    branch point: round 8
+
+--- cluster 4: 31 runs (10.3%)
+    winners: CORP_SEMI +0.14, ST_GULF +0.09, EXCH_CLEAR +0.08
+    losers:  AM_ACTIVE -0.09, ST_EU -0.07, ST_JP_KR -0.05
     branch point: round 9
 
---- cluster 4: 12 runs (4.0%)
-    winners: CORP_TECH +0.23, CB_US +0.15, SWF +0.13
-    losers:  BANK_GSIB -0.27, ST_GULF -0.09, CORP_SEMI -0.08
-    branch point: round 5
-
---- cluster 5: 68 runs (22.7%)
-    winners: CB_IN +0.07, CB_JP +0.07, CORP_SEMI +0.07
-    losers:  CORP_TECH -0.09, CORP_COMMOD -0.07, CB_US -0.07
+--- cluster 5: 65 runs (21.7%)
+    winners: NBFI_CREDIT +0.05, ST_CN +0.04, CORP_TECH +0.03
+    losers:  HH_EM_URBAN -0.04, HH_IN -0.04, ST_IN -0.04
     branch point: round 9
 
---- cluster 6: 65 runs (21.7%)
-    winners: CORP_TECH +0.10, ST_CN +0.09, HH_IN +0.05
-    losers:  SWF -0.06, LABOR_ORG -0.05, CB_JP -0.04
+--- cluster 6: 36 runs (12.0%)
+    winners: HH_IN +0.07, CB_JP +0.04, HF_MACRO +0.03
+    losers:  CORP_SEMI -0.14, EXCH_CLEAR -0.09, AM_ACTIVE -0.08
     branch point: round 9
 
