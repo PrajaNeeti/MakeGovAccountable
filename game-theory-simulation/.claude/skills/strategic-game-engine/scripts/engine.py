@@ -40,12 +40,14 @@ class Actor:
     type_draw: dict = field(default_factory=dict)
     declared: str = "hold"
     last_action: str = "hold"
+    security_baseline: float = 0.5
 
     @classmethod
     def from_spec(cls, d):
         return cls(
             id=d["id"], tier=d.get("tier", "T1"),
             state={k: float(d.get("state", {}).get(k, 0.5)) for k in DIMS},
+            security_baseline=float(d.get("state", {}).get("security", 0.5)),
             weights=d.get("weights", {"survival": .3, "resources": .3,
                                       "autonomy": .2, "legitimacy": .15,
                                       "relative_rank": .05}),
@@ -653,10 +655,18 @@ def _consent_dm(actor, own, others, states, params, rng):
     n_esc = sum(1 for a in others.values() if a == "escalate") + (1 if own == "escalate" else 0)
 
     if actor.id == "HH_DM_LABOR":
+        # audit finding M3: this branch previously had no positive resources
+        # lever under either action, so external shocks debiting it
+        # (ai_progress_acceleration, manufacturing_automation_wave) floored
+        # it for most of a run with no way to recover -- a real transfer
+        # can't keep being paid by an actor with nothing left to give.
+        # Real lever: populist pressure extracts wage/policy concessions
+        # (the dossier's own sourced 15pt swing toward redistribution-
+        # adjacent politics among sub-$50k earners is exactly this).
         if own == "escalate":       # populist political realignment / withdraw consent
-            d["legitimacy"] -= 0.02; d["autonomy"] += 0.01
-        elif own == "settle":
-            d["legitimacy"] += 0.01
+            d["resources"] += 0.03; d["legitimacy"] -= 0.02; d["autonomy"] += 0.01
+        elif own == "settle":       # ordinary wage bargaining, smaller and steadier
+            d["resources"] += 0.01; d["legitimacy"] += 0.01
     elif actor.id == "HH_DM_ASSET":
         if own == "escalate":       # push for a policy 'put' defending asset prices
             d["resources"] += 0.02; d["legitimacy"] -= 0.01
@@ -951,6 +961,17 @@ def simulate(spec, rounds, rng):
                     for k, v in d.items():
                         a.state[k] += v
                     a.last_action = picks[a.id]
+
+        # security mean-reverts toward each actor's own structural baseline
+        # absent continued escalation -- without this, kernels debiting
+        # security on every escalation with no offsetting term produce a
+        # near-universal, un-mean-reverting decay (audit finding M2: mean
+        # security fell 0.50->0.30 over 10 rounds in effectively every run,
+        # mechanically inflating every conflict-linked shock's fire rate as
+        # a run progresses regardless of what actually happened in it).
+        recovery_rate = params.get("security_recovery_rate", 0.12)
+        for a in actors:
+            a.state["security"] += recovery_rate * (a.security_baseline - a.state["security"])
 
         # deception detection via the flow channel
         for a in actors:

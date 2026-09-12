@@ -59,7 +59,7 @@
         {
           "action": "escalate",
           "cost": 0.3,
-          "breaks_if": "autonomy>0.85"
+          "breaks_if": "autonomy>0.72"
         }
       ],
       "private_type": {},
@@ -2083,7 +2083,7 @@
         "if": "conflict_index>0.4",
         "multiply": 4.0
       },
-      "_conservation_note": "Net destruction (-0.20, tracked): a chip supply-chain disruption destroys real value (idled fabs, broken contracts) rather than transferring it to a named winner.",
+      "_conservation_note": "Net destruction (-0.27, tracked): a chip supply-chain disruption destroys real value (idled fabs, broken contracts, uncovered claims) rather than transferring it to a named winner, except CORP_DEFENSE's order-surge gain which is a real, smaller offsetting transfer. Widened 2026-09 per adversarial audit finding M4: the shock behind the 3 largest single-round swings in the dataset omitted ST_JP_KR (chip-and-materials exposed per its own dossier), CORP_DEFENSE (whose entire modeled purpose is tracking order-book response to exactly this), and INS_RE (whose dossier explicitly finds Taiwan war-risk is not yet priced -- meaning this is precisely the event that reveals it was underpriced).",
       "effects": {
         "ST_TW": {
           "security": -0.3,
@@ -2092,6 +2092,16 @@
         "CORP_SEMI": {
           "resources": -0.2,
           "liquidity": -0.1
+        },
+        "ST_JP_KR": {
+          "resources": -0.08,
+          "liquidity": -0.05
+        },
+        "INS_RE": {
+          "resources": -0.04
+        },
+        "CORP_DEFENSE": {
+          "resources": 0.05
         },
         "ST_CN": {
           "legitimacy": -0.05,

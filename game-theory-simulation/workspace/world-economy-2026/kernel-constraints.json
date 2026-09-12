@@ -3,8 +3,8 @@
 
   "ST_US": [
     {"action": "escalate", "type": "priced", "cost": 0.3,
-     "breaks_under": "autonomy>0.85",
-     "source": "Operationalizes 'unilateral_executive_tariff_imposition_without_congress' (dossier cost 0.3, sourced: administration pivots to Section 122 of the Trade Act same-day). Proxy: once ST_US autonomy is already near-maximal, an alternate legal authority is assumed available and the constraint stops binding."}
+     "breaks_under": "autonomy>0.72",
+     "source": "Operationalizes 'unilateral_executive_tariff_imposition_without_congress' (dossier cost 0.3, sourced: administration pivots to Section 122 of the Trade Act same-day). Proxy: once ST_US autonomy is already near-maximal, an alternate legal authority is assumed available and the constraint stops binding. Recalibrated 2026-09 per adversarial audit finding M1: original threshold (0.85) was never reached in 3000 round-observations (observed ceiling 0.82) and functioned as a permanent flat cost rather than a real tripwire -- same failure mode as the earlier CORP_TECH:rank threshold bug, caught the same way, by checking the achieved range before trusting the number."}
   ],
 
   "ST_CN": [
