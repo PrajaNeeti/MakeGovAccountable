@@ -1,54 +1,91 @@
 {
   "id": "ST_GULF",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.30,
+    "resources": 0.30,
+    "autonomy": 0.15,
+    "legitimacy": 0.10,
+    "relative_rank": 0.15
   },
-  "discount_rate": 0.067,
-  "survival_threshold": 0.25,
+  "discount_rate": 0.08,
+  "horizon_driver": "dynastic succession, not electoral turnover — ruling-family continuity plus multi-decade Vision 2030/2031/2040-type diversification plans set a long nominal horizon (15y per Cartographer), though fiscal-breakeven pressure and personal succession/health risk (MBS, MBZ) shorten the effective horizon on specific decisions",
+  "survival_threshold": 0.30,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "resources": 0.60,
+    "security": 0.50,
+    "legitimacy": 0.55,
+    "autonomy": 0.55,
+    "rank": 0.55,
+    "liquidity": 0.70
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.05, "reversible": true,
+     "description": "e.g. OPEC+ quota agreement, headline investment-pledge diplomacy toward the US or China"},
+    {"action": "escalate", "cost": 0.10, "reversible": true,
+     "description": "e.g. unilateral supply increase to punish over-producers / regain market share, as executed through 2025-2026"}
+  ],
+  "constraints": [
+    {"action": "abandon_USD_invoicing_of_oil_exports", "type": "hard", "cost": 0.8,
+     "source": "~80% of global oil trade still settled in USD by default; Saudi oil exports remain USD-invoiced; the petrodollar-recycling relationship is bundled with the implicit US security guarantee",
+     "breaks_under": "a credible, direct US move to weaponize dollar infrastructure against Gulf sovereign assets specifically (an Euroclear-style immobilization precedent) — no such event has occurred as of this writing"},
+    {"action": "formal Israel normalization without a Palestinian-statehood pathway", "type": "priced", "cost": 0.40,
+     "source": "Saudi Arabia has consistently deferred formal normalization pending a credible Palestinian track despite substantial US incentive packages (2023-2026)",
+     "breaks_under": "domestic legitimacy calculus changes, e.g. a ceasefire/statehood framework Riyadh can point to as a face-saving condition"},
+    {"action": "fiscal profligacy beyond the oil-price breakeven", "type": "priced", "cost": 0.30,
+     "source": "Vision 2030 megaproject scope has been cut in direct response to budget strain: NEOM's 'The Line' cut from a planned 170km/1.5M-resident city to a first phase under 5km/~300k residents; PIF has 'reshuffled priorities' toward AI infrastructure; Saudi 2026 budget deficit projected at roughly $44bn following a 2025 shortfall",
+     "breaks_under": "sustained observed pattern already — this constraint is actively binding now, not hypothetical"}
+  ],
+  "credibility": {
+    "overall": 0.50,
+    "by_domain": {
+      "OPEC+_production_discipline": 0.55,
+      "investment_pledge_headline_figures": 0.30,
+      "succession_and_internal_political_stability": 0.65
+    }
+  },
+  "deception_prior": 0.35,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Strategic neutrality/hedging between the US and China — public rhetoric emphasizes diversified partnerships and non-alignment.",
+      "revealed": "During Trump's May 2025 Gulf trip, Saudi Arabia pledged $600bn (investment + trade) over four years, the UAE pledged $1.4tn over a decade, and Qatar $200bn, alongside a US decision to allow ~500,000 advanced AI chips/year into the Gulf — a package the White House itself sized near $2.2tn in tech/chip/defense deals. Concurrently, the China relationship remains limited to a $7bn CNY-SAR currency swap (2023) and participation in the mBridge cross-border settlement pilot alongside China, Hong Kong, Thailand.",
+      "delta": "The scale asymmetry (trillions in US-directed commitments vs. single-digit billions and a pilot project with China) shows the security-anchored US relationship remains structurally primary; the China channel is optionality being kept warm, not a genuine hedge at comparable scale.",
+      "sources": ["https://www.whitehouse.gov/fact-sheets/2025/05/fact-sheet-president-donald-j-trump-secures-historic-600-billion-investment-commitment-in-saudi-arabia/",
+                  "https://www.whitehouse.gov/fact-sheets/2025/05/fact-sheet-president-donald-j-trump-secures-200-billion-in-new-u-s-uae-deals-and-accelerates-previously-committed-1-4-trillion-uae-investment/",
+                  "https://restofworld.org/2025/trump-middle-east-trip-ai-chip-tech-deals/",
+                  "https://www.spglobal.com/en/research-insights/special-reports/saudi-china-ties-and-renminbi-based-oil-trade"]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Vision 2030 megaprojects (NEOM/'The Line' at 170km with 1.5 million residents by 2030, up to trillions in planned spend) were framed 2016-2021 as fixed strategic commitments.",
+      "revealed": "By 2024-2026 The Line's first phase was cut to under 5km with a target of ~300,000 residents delivered in a 'phased approach'; the PIF governor announced funding priorities reshuffled away from tourism megaprojects toward AI infrastructure and AI companies; Neom had spent about $50bn by late 2025 against an original ambition of up to $4.5tn; Saudi Arabia's 2026 budget deficit is projected around $44bn after a 2025 shortfall.",
+      "delta": "The diversification program is fiscally contingent on the oil-price/deficit picture, not a fixed multi-decade commitment — a clean, already-observed instance of the fiscal-breakeven constraint binding in practice.",
+      "sources": ["https://www.al-monitor.com/originals/2024/04/after-neom-cut-saudi-arabia-expected-scale-back-more-vision-2030-plans",
+                  "https://skift.com/2026/04/16/saudi-arabia-scraps-tourism-funding-in-vision-2030-shake-up/",
+                  "https://www.scmp.com/week-asia/economics/article/3341914/saudi-arabia-set-redraw-economic-road-map-megaprojects-scale-down"]
     },
     {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "OPEC+ supply decisions are framed as pursuing 'market stability.'",
+      "revealed": "2025-2026 output increases were explicitly reported (Reuters/market commentary) as a Saudi-led strategy to regain market share lost to US shale and to discipline over-producing members (e.g., Kazakhstan, Iraq), even though OPEC+'s aggregate share of global output continued to slide to about 46% (from 53% in 2016); OPEC+ then held output flat for Q1 2026, choosing stability once share objectives were partly met.",
+      "delta": "Production decisions track positional/market-share goals (relative_rank) as much as or more than price-stability goals, contradicting the pure-stability framing.",
+      "sources": ["https://www.eia.gov/todayinenergy/detail.php?id=64565",
+                  "https://in.marketscreener.com/news/opec-pursues-strategy-of-regaining-market-share-ce7d59dede8bf020"]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-ST_GULF-bootstrap"
+  "dependencies": [
+    {"on": "ST_US", "type": "security_guarantee_and_export_market_access_for_capital", "strength": 0.65},
+    {"on": "CORP_ENERGY", "type": "technical_partnership_and_downstream_investment", "strength": 0.40},
+    {"on": "SWF", "type": "overlapping_sovereign_capital_vehicle", "strength": 0.55,
+     "note": "PIF, ADIA, QIA are the T2 SWF-tier expression of this same fiscal capacity — do not double-count sovereign capital deployment between ST_GULF and SWF dossiers"}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "Brent trades below the Saudi fiscal breakeven (independent estimates cluster in the $90-96/bbl range) for more than 2-3 quarters",
+     "then": "expect further Vision 2030 megaproject deferrals and/or accelerated PIF asset sales or sovereign borrowing — not reduced production discipline; this pattern is already confirmed by the 2025-2026 NEOM cuts amid a ~$44bn projected deficit"},
+    {"if": "a formal Saudi-Israel normalization offer arrives without a credible Palestinian-statehood pathway",
+     "then": "Riyadh continues to defer regardless of the size of the US incentive package, per the observed 2023-2026 pattern"},
+    {"if": "US dollar-clearing infrastructure is ever pointed directly at Gulf sovereign assets (an Euroclear-style immobilization precedent)",
+     "then": "expect rapid, visible acceleration of mBridge/yuan-settlement infrastructure adoption beyond the current pilot scale within a single budget cycle"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "Succession politics inside the three ruling families (MBS's position and any rival claimants, UAE succession from MBZ, the Al Thani line in Qatar) are genuinely opaque and not something open reporting can source reliably — I modeled succession as a moderate-credibility, high-stability assumption rather than sourcing internal dynamics, and treat succession shocks as exogenous rather than as a preference to be inferred. A confirmed succession crisis or health event affecting MBS or MBZ would be the clearest signal to revisit this dossier."
 }

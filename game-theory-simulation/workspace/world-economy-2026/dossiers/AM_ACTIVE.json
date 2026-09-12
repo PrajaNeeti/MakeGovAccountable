@@ -1,54 +1,78 @@
 {
   "id": "AM_ACTIVE",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
+    "survival": 0.30,
+    "resources": 0.30,
+    "autonomy": 0.15,
+    "legitimacy": 0.20,
     "relative_rank": 0.05
   },
-  "discount_rate": 0.333,
-  "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
+  "discount_rate": 0.15,
+  "horizon_driver": "Actuarial valuation cycle (triennial UK, annual US) plus funded-status reporting to trustees/boards dominates decision cadence, even though underlying liabilities run 12-25+ years in duration (average pension liability duration ~12.8yr per BAML Mature/Average US Pension Plan indices, cited in Wilshire's June 2026 funding status release). Insurers additionally run quarterly rating-agency and Solvency II/RBC capital reviews.",
+  "survival_threshold": 0.30,
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.10, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
+  ],
+  "constraints": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "action": "lever_LDI_beyond_regulatory_resilience_buffer",
+      "type": "penalised",
+      "cost": 0.35,
+      "source": "Bank of England FPC statement 29 Mar 2023 + TPR guidance 24 Apr 2023 requiring UK DB schemes to hold a minimum 250bps market-stress buffer in leveraged LDI, replenishable within 5 days (https://www.thepensionsregulator.gov.uk, via Travers Smith/WTW summaries 2023)",
+      "breaks_under": "sponsor covenant deterioration forces trustees to chase return over safety, or funding ratio falls fast enough that the buffer itself cannot be replenished in the 5-day window (as happened Sep-Oct 2022 before the rule existed)"
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
+      "action": "abandon_public_ESG/net-zero_stewardship_commitments",
+      "type": "performative",
+      "cost": 0.10,
+      "source": "BlackRock exited the Net Zero Asset Managers initiative 9 Jan 2025 citing 'confusion regarding practices' and 'legal inquiries from public officials'; NZAM suspended all activities and removed its signatory list from 13 Jan 2025 pending review (ESGdive, AI-CIO, benefitspro, Jan 2025)",
+      "breaks_under": "US political/legal pressure exceeds the reputational cost of exit; observed to break already at scale in Jan 2025 across BlackRock, State Street, and most large US managers within the Net Zero Banking Alliance/NZAM ecosystem"
     },
     {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "action": "increase_illiquid/private-credit_allocation_beyond_stated_liquidity_policy",
+      "type": "priced",
+      "cost": 0.20,
+      "source": "CalPERS raised its private-markets target from 33% to 40% of the total fund (Mar 2024 policy) and doubled its private-credit target from 5% to 8% (Sep 2024 asset allocation review), reaching ~$24bn/4.2% private debt by May 2026 even as the broader private-credit market entered its 'most challenging environment since 2008' (Pensions & Investments, Connect Money, withintelligence.com, 2026)",
+      "breaks_under": "manager return-chasing under benchmark/peer pressure overrides stated prudence and liquidity-policy limits; already visible industry-wide — institutional LP allocations to private credit averaged 6.8% of portfolios in 2025 vs 3.1% in 2019"
     }
   ],
-  "constraints": [],
   "credibility": {
-    "overall": 0.6
+    "overall": 0.55,
+    "by_domain": {
+      "liability_matching_prudence": 0.45,
+      "credit_quality_discipline": 0.40,
+      "stewardship/ESG_commitments": 0.35,
+      "day_to_day_operational_reliability": 0.85
+    }
   },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-AM_ACTIVE-bootstrap"
+  "deception_prior": 0.30,
+  "stated_vs_revealed": [
+    {
+      "stated": "Pension schemes and insurers frame long-duration bond/LDI holdings as prudent, low-risk liability matching undertaken purely for beneficiary safety, overseen by fiduciary trustees.",
+      "revealed": "UK DB schemes ran leveraged LDI overlays (pre-2022, unregulated leverage ratios) that turned a hedging tool into a systemic amplifier: the Sep 2022 gilt sell-off forced LDI funds into fire-sales of gilts to meet margin/collateral calls, contributing roughly half of the total decline in long gilt prices and forcing a Bank of England emergency purchase programme of up to £65bn (28 Sep 2022, confirmed in IMF Working Paper 2023/210 and Bank Underground, 2024). 'Liability matching' was materially leveraged speculation on rate stability.",
+      "delta": "Large. The stated purpose (hedging) and the revealed mechanism (leveraged, procyclical, systemically destabilising under a 100bp/4-day yield move) diverge sharply — and only broke into regulatory correction (TPR/FCA resilience buffers) after the event, not before.",
+      "sources": ["https://www.elibrary.imf.org/view/journals/001/2023/210/article-A001-en.xml", "https://bankunderground.co.uk/2024/07/26/what-caused-the-ldi-crisis/", "https://committees.parliament.uk/committee/517/industry-and-regulators-committee/news/185963/"]
+    },
+    {
+      "stated": "Pension funds describe themselves as patient, fiduciary-bound long-term capital seeking safety and diversification for beneficiaries, subject to strict liquidity and credit-quality policies.",
+      "revealed": "With funded ratios strongly in surplus in 2026 (Milliman 100 PFI 112.1% at end-July 2026; Wilshire ~108.7-110% through mid-2026), sponsors are using the freed-up risk budget not to further de-risk into duration but to chase yield into private credit and other illiquid alternatives — CalPERS, CalSTRS, Arkansas Teachers, New Mexico SWF and Virginia's pension all added to private-credit stakes through the March 2026 'private credit meltdown' rather than retreating (Pensions & Investments, Connect Money, Fortune, 2026).",
+      "delta": "The Cartographer's premise that AM_ACTIVE duration demand is a 'forced flow, mechanically certain' understates how funded-status surplus actually reduces forced buying and instead funds discretionary risk-taking in a much less transparent asset class — the forced-flow logic applies asymmetrically (mainly when underfunded), and 2026 conditions are the opposite case.",
+      "sources": ["https://www.milliman.com/en/insight/pension-funding-index-july-2026", "https://www.wilshire.com/press-releases/u-s-corporate-pension-plans-funding-status-june-2026", "https://www.pionline.com/institutional-investors/calpers/pi-calpers-marcie-frost-private-credit/"]
+    }
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "dependencies": [
+    {"on": "NBFI_CREDIT", "type": "counterparty/asset_manager", "strength": 0.5},
+    {"on": "EXCH_CLEAR", "type": "margin/collateral_infrastructure", "strength": 0.4},
+    {"on": "CB_EU", "type": "policy_rate_and_backstop_exposure_UK/EU_schemes", "strength": 0.3}
+  ],
+  "tripwires": [
+    {"if": "aggregate funded ratio for major DB systems falls below ~90% within a single quarter (reversing the 2026 surplus)", "then": "forced, price-insensitive duration buying resumes at scale and dominates behaviour over yield-chasing, reproducing the pre-2022 'mechanically certain flow' the Cartographer describes"},
+    {"if": "long-gilt or long-Treasury yields move >100bps within a 3-5 day window", "then": "leveraged LDI/duration overlays face margin calls that can force fire-sales large enough to require central-bank intervention, as in Sep-Oct 2022, despite post-2023 resilience buffers (250bps minimum, 5-day replenishment) narrowing but not eliminating this risk"},
+    {"if": "a major private-credit manager (top-5 AUM) is forced to mark down a concentrated sector exposure (e.g., AI/software-heavy books flagged by BIS Mar 2026 Quarterly Review)", "then": "insurer and pension LPs holding private-credit and BDC exposure face correlated NAV markdowns and possible NAIC/regulatory capital scrutiny, given ~35% of North American insurer portfolios are in private credit (IMF, 2025-26)"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "Sub-fund-level leverage and liquidity data for major pension systems (not just aggregate funded ratios) would let me size the forced-flow effect precisely rather than infer it from funded-status headlines; also a direct NAIC or EIOPA breakdown of insurer private-credit losses realized (not just exposure) through the 2026 private-credit stress would sharpen the credibility score on loss-recognition."
 }

@@ -1,54 +1,76 @@
 {
   "id": "ST_IN",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
+    "survival": 0.2,
     "resources": 0.3,
-    "autonomy": 0.2,
+    "autonomy": 0.3,
     "legitimacy": 0.15,
     "relative_rank": 0.05
   },
-  "discount_rate": 0.2,
-  "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
+  "discount_rate": 0.16,
+  "horizon_driver": "national electoral cycle (next general election 2029) plus state-election calendar that periodically forces short-term populist spending/energy-price decisions",
+  "survival_threshold": 0.3,
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.08, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
+  ],
+  "constraints": [
+    {"action": "formal_mutual_defense_alliance_commitment_(Quad_or_otherwise)", "type": "hard",
+     "cost": null,
+     "source": "post-independence non-alignment doctrine, now rebranded 'strategic autonomy'; never entered a binding mutual-defense treaty",
+     "breaks_under": "not observed to break even under sustained China border pressure (2020 Galwan) or intense US courtship"},
+    {"action": "cut_Russian_crude_imports_to_zero", "type": "priced",
+     "cost": 0.35,
+     "source": "energy security and refining-margin arbitrage (discounted Urals crude), domestic fuel-price political sensitivity",
+     "breaks_under": "already partially broken downward under US tariff pressure: imports fell from ~1.71mbd average in 2025 to ~1.16mbd in Feb 2026 after the 25% additional US tariff, then stabilized around 0.8-1.0mbd after a Feb 2026 US-India trade deal and a Supreme Court ruling constraining US tariff authority"},
+    {"action": "abandon_Russian_defense_relationship", "type": "priced",
+     "cost": 0.3,
+     "source": "decades of platform interoperability, spare-parts dependency, and pricing advantage",
+     "breaks_under": "diversifying, not abandoning: France now ~28-29% of 2021-25 arms imports vs Russia's ~40% (down from historic highs), yet India approved ~$25bn in new purchases including 5 additional S-400 systems as recently as March 2026"}
+  ],
+  "credibility": {
+    "overall": 0.55,
+    "by_domain": {
+      "energy_sourcing_independence": 0.85,
+      "formal_alliance_commitments": 0.3,
+      "trade_negotiation_follow_through": 0.6,
+      "defense_diversification": 0.55
+    }
+  },
+  "deception_prior": 0.35,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "India buys Russian oil purely on economic/energy-security grounds, apolitically, and rejects any external 'permission' requirement (March 2026 government statement).",
+      "revealed": "Import volumes tracked US political pressure almost exactly: cut roughly in half (1.71mbd to 1.16mbd) after the Aug 2025 25% additional tariff, then partially recovered once the tariff was rolled back in the Feb 2026 interim trade deal and a Supreme Court IEEPA ruling constrained Trump's tariff authority. The 'apolitical energy security' framing is itself a negotiating posture.",
+      "delta": "Confirms the classic madhyama pattern: India extracts maximum flexibility by publicly denying that its energy policy is a bargaining chip while privately calibrating it precisely to external leverage.",
+      "sources": ["https://www.cnbc.com/2026/02/25/us-tariff-ruling-india-russian-oil-purchases.html", "https://www.themoscowtimes.com/2026/03/07/india-says-it-will-continue-buying-russian-oil-rejects-need-for-us-permission-a92148", "https://www.atlanticcouncil.org/dispatches/what-the-latest-us-sanctions-bill-means-for-russia-and-for-china-india-and-iran/"]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "India is diversifying away from Russian defense dependence toward Western suppliers (France, Israel, US) as strategic policy.",
+      "revealed": "Diversification is real (France ~28-29% share 2021-25 vs Russia ~40%, down from Cold-War-era near-monopoly) but not a substitution: India approved a fresh ~$25bn package in March 2026 including five additional S-400 batteries, alongside continuing T-90S and Su-30 upgrades from Russia.",
+      "delta": "'Diversification' in Indian usage means adding suppliers, not replacing Russia — the two tracks run in parallel rather than one displacing the other.",
+      "sources": ["https://www.dawn.com/news/1986211", "https://indiasworld.in/indias-arms-imports-shift-in-structure-scale-remains/", "https://www.themoscowtimes.com/2026/05/26/russia-and-india-in-talks-for-additional-s-400-missile-system-deliveries-a92845"]
     },
     {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "The Feb 2026 US-India trade deal and Quad participation signal India consolidating as 'a primary US ally and critical counterweight to China'.",
+      "revealed": "Simultaneously, India is hosting/co-launching BRICS Pay (a SWIFT/dollar-alternative settlement rail integrating UPI, CIPS, SPFS and Pix) at the Sept 12-13 2026 New Delhi BRICS summit, and continues large-scale Russian energy and defense purchases — hedging both the US-aligned and BRICS/multipolar tracks at once.",
+      "delta": "India accepts a preferential US tariff (18%, lower than Vietnam/Bangladesh) while simultaneously deepening the institutional plumbing of a dollar-alternative bloc; both postures are being monetized concurrently, not sequentially.",
+      "sources": ["https://www.bloomberg.com/news/articles/2026-09-04/india-says-us-trade-deal-hinges-on-preferential-tariff-rate", "https://www.whitehouse.gov/briefings-statements/2026/02/united-states-india-joint-statement/", "https://informedclearly.com/en/economy/62229/brics-de-dollarization-trade-settlements-2026"]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-ST_IN-bootstrap"
+  "dependencies": [
+    {"on": "ST_GULF", "type": "energy_supply_alternative_to_Russian_crude", "strength": 0.4},
+    {"on": "ST_RU", "type": "discounted_crude_and_legacy_defense_platforms", "strength": 0.5},
+    {"on": "ST_US", "type": "market_access_and_IT_services_demand", "strength": 0.5},
+    {"on": "CB_IN", "type": "FX_reserve_management_and_rupee_stability", "strength": 0.4}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "the US Congress passes and enforces the proposed up-to-100% secondary tariff bill targeting top-5 Russian oil/gas importers", "then": "India cuts Russian crude imports further toward the 500-800kbd range rather than accept a blanket 100% tariff, prioritizing the larger US export market over the Russian discount"},
+    {"if": "a major India-China LAC border incident occurs", "then": "India accelerates Quad defense cooperation and Western procurement visibly within one quarter, despite continuing to deny any formal alliance shift"},
+    {"if": "Hormuz or Gulf shipping is disrupted and Brent spikes above ~$100", "then": "India increases discounted Russian barrel purchases regardless of Western political pressure, since energy-security/current-account math dominates alignment signaling at that point"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "A sustained (2+ quarter) cut of Russian oil imports below 500kbd absent a further tariff shock, or India signing a binding mutual-defense-style clause with the US/Quad, would indicate the hedging strategy is being abandoned rather than optimized — that would be the signal a side-choice is being forced rather than resisted."
 }
