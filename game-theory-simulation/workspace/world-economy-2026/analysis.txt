@@ -1,0 +1,38 @@
+
+300 runs, 38 actors, 7 regime clusters
+
+--- cluster 0: 5 runs (1.7%)
+    winners: ST_FRAGILE +0.30, CORP_SEMI +0.26, CB_JP +0.14
+    losers:  CORP_COMMOD -0.30, ST_CN -0.28, ST_GULF -0.23
+    branch point: round 0
+
+--- cluster 1: 43 runs (14.3%)
+    winners: AM_INDEX +0.17, HF_MACRO +0.12, INS_RE +0.10
+    losers:  SWF -0.15, ST_FRAGILE -0.14, EXCH_CLEAR -0.11
+    branch point: round 19
+
+--- cluster 2: 33 runs (11.0%)
+    winners: INS_RE +0.20, ST_CN +0.19, CORP_DEFENSE +0.16
+    losers:  ST_SWING -0.17, AM_INDEX -0.16, CB_US -0.09
+    branch point: round 19
+
+--- cluster 3: 52 runs (17.3%)
+    winners: ST_GULF +0.12, CORP_COMMOD +0.12, HH_DM_ASSET +0.09
+    losers:  INS_RE -0.21, ST_CN -0.17, CB_US -0.11
+    branch point: round 19
+
+--- cluster 4: 15 runs (5.0%)
+    winners: CB_IN +0.30, ST_CN +0.15, CB_JP +0.14
+    losers:  HH_IN -0.13, CORP_DEFENSE -0.13, ST_GULF -0.09
+    branch point: round 7
+
+--- cluster 5: 74 runs (24.7%)
+    winners: CB_US +0.11, AM_INDEX +0.07, HH_IN +0.07
+    losers:  LABOR_ORG -0.11, CORP_COMMOD -0.08, AM_ACTIVE -0.08
+    branch point: round 19
+
+--- cluster 6: 78 runs (26.0%)
+    winners: AM_ACTIVE +0.09, ST_FRAGILE +0.07, ST_SWING +0.07
+    losers:  ST_GULF -0.17, ST_RU -0.07, CB_IN -0.07
+    branch point: round 19
+
