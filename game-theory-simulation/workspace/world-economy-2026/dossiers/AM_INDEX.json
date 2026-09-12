@@ -1,54 +1,100 @@
 {
   "id": "AM_INDEX",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
+  "confidence": "medium",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
+    "survival": 0.2,
+    "resources": 0.35,
     "autonomy": 0.2,
-    "legitimacy": 0.15,
+    "legitimacy": 0.2,
     "relative_rank": 0.05
   },
-  "discount_rate": 0.5,
-  "survival_threshold": 0.25,
+  "discount_rate": 0.4,
+  "horizon_driver": "Quarterly AUM/flow reporting and fee-compression competition set the commercial clock; the political clock (state-AG lawsuits, SEC/DOJ leadership, election-driven anti-ESG or pro-ESG swings) resets on a 2-4 year cycle and has recently dominated the commercial one. Treat as short-horizon (~1yr effective) because legal/political exposure is what has actually moved behavior since 2023, not multi-year investment theses.",
+  "survival_threshold": 0.3,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
+    "resources": 0.85,
+    "security": 0.7,
     "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "autonomy": 0.55,
+    "rank": 0.8,
+    "liquidity": 0.9
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true,
+     "note": "Maintain current index-tracking weights and default (delegated or house) proxy-voting policy. The modal action on ~99% of AUM at any time; deviation from benchmark is itself a fireable offense for a fund manager here."},
+    {"action": "settle", "cost": 0.08, "reversible": true,
+     "note": "Comply with an external rule change without resistance: rebalance to a new index composition, vote with management, exit or re-enter a coalition/label (NZAM, Climate Action 100+) when legal/political exposure changes, launch a pass-through/proxy-choice voting option to defuse pressure. This is the dominant response to state-AG or federal pressure observed 2024-2025."},
+    {"action": "escalate", "cost": 0.15, "reversible": false,
+     "note": "Contested proxy vote against management/board, public break with a client-state's mandate (e.g., refusing a state treasurer's divestment order and litigating it), or an index-provider decision to exclude/include a security for political rather than liquidity/free-float reasons (e.g., the 2022 Russia deletion). Rare, high-salience, and irreversible in effect even though the underlying holding can technically be rebought."}
+  ],
+  "constraints": [
+    {"action": "deviate_materially_from_benchmark", "type": "hard", "cost": 0.9,
+     "source": "fiduciary duty / ERISA and prospectus tracking-error mandates for index products",
+     "breaks_under": "effectively never for true index funds; this is the one constraint in the dossier that is closer to physics than to policy"},
+    {"action": "maintain_public_climate/ESG_coalition_membership", "type": "performative",
+     "cost": 0.1,
+     "source": "2018-2023 stakeholder-capitalism branding (Larry Fink's annual CEO letters; founding membership in Net Zero Asset Managers initiative, Dec 2020)",
+     "breaks_under": "state-level legal exposure crosses a low threshold — BlackRock quit NZAM within ~2 months of the Texas-led multistate antitrust suit (filed Nov 2024) naming that exact membership as evidence; Vanguard had already quit NZAM in Dec 2022 under similar pressure. Treat as a constraint that is dropped, not honored, once it becomes legally costly.",
+     "sources": ["https://www.bloomberg.com/news/articles/2025-01-09/blackrock-leaves-major-climate-group-amid-wall-street-exodus", "https://ballotpedia.org/BlackRock_leaves_net-zero_alliance_(2025)"]},
+    {"action": "support_ESG/social_shareholder_proposals", "type": "priced", "cost": 0.15,
+     "source": "stewardship guidelines framed as principled ('long-term value creation')",
+     "breaks_under": "any period of elevated political scrutiny from either flank — support for E&S proposals collapsed from >40% (2021 proxy season) to ~21% (2022), ~7% (2023), ~4% (2024), and under 2% (2025) at BlackRock; Vanguard supported 0% of E&S proposals in the 2024 season. The break is monotonic and pre-dates any single lawsuit, meaning it tracks the broader political mood, not one legal event.",
+     "sources": ["https://www.esgdive.com/news/blackrock-support-environmental-social-shareholder-proposals-less-than-2-percent-2025-proxy-season/759918/", "https://www.esgdive.com/news/blackrock-2024-investment-stewardship-report-declining-environmental-social-support/725010/"]}
+  ],
+  "credibility": {
+    "overall": 0.55,
+    "by_domain": {
+      "index_tracking_fidelity": 0.95,
+      "fee_disclosure": 0.85,
+      "proxy_voting_stewardship_commitments": 0.15,
+      "esg_and_climate_commitments": 0.1,
+      "political_neutrality_claims": 0.2
+    }
+  },
+  "deception_prior": 0.35,
+  "monitoring": 0.6,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "2018-2022: Larry Fink's annual CEO letters framed BlackRock's scale as a vehicle for 'stakeholder capitalism' and long-horizon climate stewardship; BlackRock was a founding signatory of the Net Zero Asset Managers initiative (Dec 2020) and voted for over 40% of environmental/social shareholder proposals in the 2021 proxy season.",
+      "revealed": "By the 2024-2025 proxy seasons, support for environmental/social shareholder proposals had fallen to ~4% and then under 2%; BlackRock formally exited NZAM on Jan 9, 2025, stating membership 'caused confusion... and subjected us to legal inquiries from various public officials' — an explicit admission the reversal was driven by state-AG legal exposure (Texas et al.'s Nov 2024 antitrust suit alleging coal-market collusion via climate coalitions), not by updated climate analysis. Vanguard quit the same initiative over two years earlier (Dec 2022) and supported 0% of E&S proposals in 2024.",
+      "delta": "A ~40-point swing in voting behavior and a full public exit from a marquee climate commitment within about four years, admitted by the actor itself to be a response to legal/political liability rather than a change in view. This is the single largest and best-documented stated-vs-revealed gap for this actor: 'stewardship principles' function as a liability-management dial, not a fixed value.",
+      "sources": [
+        "https://www.esgdive.com/news/blackrock-support-environmental-social-shareholder-proposals-less-than-2-percent-2025-proxy-season/759918/",
+        "https://www.esgdive.com/news/blackrock-2024-investment-stewardship-report-declining-environmental-social-support/725010/",
+        "https://www.bloomberg.com/news/articles/2025-01-09/blackrock-leaves-major-climate-group-amid-wall-street-exodus",
+        "https://www.esgtoday.com/blackrock-exits-net-zero-coalition-says-move-wont-change-how-it-manages-investments/"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Index providers (MSCI, FTSE Russell) present index construction and inclusion/exclusion as a rules-based, apolitical, liquidity- and free-float-driven methodology, and asset managers present their consequent buying/selling as mechanical rebalancing.",
+      "revealed": "In March 2022, MSCI and FTSE Russell deleted all Russian equities from their emerging-market indices at a price of zero, a decision driven by sanctions and capital controls rather than any liquidity formula in the published methodology, forcing every benchmarked fund (passive and closet-index active alike) to write the position to zero simultaneously, with no ability to sell first. This is the clearest empirical proof that 'index inclusion' is a geopolitically triggerable chokepoint, not a neutral clerical process, and that AM_INDEX's mandate rigidity (it must follow the rule regardless of price or timing) is exactly what the Cartographer flagged.",
+      "delta": "Methodology is described as apolitical and mechanical; in the one clean natural experiment available (Russia 2022), a geopolitical/sanctions event, not a liquidity metric, drove the deletion, and every rule-following fund was forced to transact (or rather, forced to accept a zero mark with no transaction possible) in lockstep.",
+      "sources": [
+        "https://www.bloomberg.com/news/articles/2022-03-02/msci-pulls-russian-equities-out-of-its-key-emerging-market-index"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-AM_INDEX-bootstrap"
+  "dependencies": [
+    {"on": "EXCH_CLEAR", "type": "index_providers_MSCI_FTSE_SP_methodology_committees", "strength": 0.7,
+     "note": "AM_INDEX does not itself decide index composition for most benchmarks (MSCI/FTSE/S&P are legally distinct index providers), but is contractually bound to follow their calls near-instantly. This is the actor's single largest external dependency and the main channel through which a geopolitical event becomes a forced flow."},
+    {"on": "ST_US", "type": "regulatory_and_state_AG_legal_environment", "strength": 0.6,
+     "note": "State attorneys general (Texas-led coalition) and federal regulators (SEC rulemaking on proxy voting, ERISA fiduciary guidance) set the boundaries of what stewardship activity is legally safe; this has been the dominant driver of behavior change since 2023."},
+    {"on": "AM_ACTIVE", "type": "shared_benchmark_and_flow_competition", "strength": 0.3}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "a state attorney general or multistate coalition files or threatens litigation naming a specific climate/ESG coalition membership as evidence of anti-competitive conduct",
+     "then": "AM_INDEX exits that coalition within one quarter regardless of prior public commitment, and issues a statement that the exit 'won't change how we manage investments' — observed pattern: BlackRock exited NZAM ~2 months after the Nov 2024 Texas suit; the entire NZAM initiative suspended operations days later (Jan 13, 2025) once the largest members had left.",
+     "confidence": "high",
+     "sources": ["https://www.bloomberg.com/news/articles/2025-01-09/blackrock-leaves-major-climate-group-amid-wall-street-exodus", "https://ballotpedia.org/BlackRock_leaves_net-zero_alliance_(2025)"]},
+    {"if": "MSCI/FTSE/S&P announce a reclassification or deletion of a market or security (sanctions, capital-control, or liquidity-driven)",
+     "then": "AM_INDEX's passive vehicles execute the resulting reallocation within the index provider's effective date (typically days to a few weeks), regardless of price, realized-loss recognition, or client preference — this is close to a hard rule, not a judgment call.",
+     "confidence": "high",
+     "sources": ["https://www.bloomberg.com/news/articles/2022-03-02/msci-pulls-russian-equities-out-of-its-key-emerging-market-index"]},
+    {"if": "a red state (e.g., Texas, Florida, Oklahoma) or blue state pulls or threatens to pull public pension mandates over the manager's ESG posture in either direction",
+     "then": "the manager adjusts public messaging and, where possible, offers segregated/choice voting products (BlackRock's, Vanguard's, and State Street's 2023-2025 rollout of pass-through and voting-choice programs for index funds) rather than take a public political side — the actor optimizes for AUM retention across the political spectrum, not for a consistent ideological position.",
+     "confidence": "medium"}
+  ],
+  "what_would_change_my_mind": "Evidence that BlackRock, Vanguard, or State Street sustained a costly stewardship position (support for shareholder proposals, coalition membership, or a specific vote against management) *after* it became legally or politically costly to a specific state government, rather than folding within one to two quarters, would meaningfully raise the credibility score on stewardship commitments. Conversely, an actual antitrust breakup or forced-divestiture ruling (rather than settled/dismissed litigation) would lower the survival_threshold materially, since it would be the first real test of the 'too big to break up' assumption embedded in the low survival weight.",
+  "assumption_ids": ["RESEARCHED-AM_INDEX-2026-09-12"]
 }

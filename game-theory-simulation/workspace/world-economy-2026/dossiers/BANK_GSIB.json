@@ -1,54 +1,65 @@
 {
   "id": "BANK_GSIB",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
+    "survival": 0.30,
+    "resources": 0.25,
+    "autonomy": 0.15,
     "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "relative_rank": 0.15
   },
-  "discount_rate": 0.5,
-  "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
+  "discount_rate": 0.18,
+  "horizon_driver": "Quarterly earnings and annual regulatory stress tests (CCAR/Basel) set the normal cadence, but national resolution authorities can force ring-fencing decisions within days once stress is acute — SVB was seized and Credit Suisse's forced sale to UBS were both executed inside a single weekend to ten days in March 2023 (BIS, FSB reports, 2023-24).",
+  "survival_threshold": 0.20,
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.10, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
+  ],
+  "constraints": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "action": "extend_group-wide_backstop_or_liquidity_support_across_borders_in_a_crisis",
+      "type": "hard",
+      "cost": 999,
+      "source": "No G-SIB resolution regime in 2023 provided a cross-border, group-wide guarantee: the US FDIC's systemic risk exception for SVB/Signature (Mar 2023) covered only US-chartered uninsured deposits, funded by a special assessment on US banks; Switzerland's FINMA/SNB rescue of Credit Suisse was a purely domestic forced-merger with the Swiss National Bank providing CHF backstops, not a shared international facility (BIS FSI Executive Summary, 2023; FSB 'Preliminary lessons learnt for resolution', Oct 2023)",
+      "breaks_under": "never observed to break in 2023 — this is the actual physics of the merged actor, not a negotiable constraint, and is the central reason the Cartographer's 'merged for tractability' note is right about mechanics but wrong about behaviour under stress"
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "action": "deviate_from_own_jurisdiction's_stated_creditor_hierarchy_(equity_before_AT1)",
+      "type": "priced",
+      "cost": 0.5,
+      "source": "Switzerland wrote off CHF16bn (~$17.2bn) of Credit Suisse AT1 bonds ahead of equity in the Mar 2023 UBS merger, overriding the standard 'absolute priority rule'; the EU (ECB/EBA) and the Bank of England issued explicit public statements within days rejecting the Swiss approach and confirming CET1 must absorb losses before AT1 in their own jurisdictions (Bank of England statement, 20 Mar 2023; FinanceAsia, CNN, Arthur Cox, 2023)",
+      "breaks_under": "acute national solvency crisis where the home regulator judges creditor-hierarchy deviation necessary to complete a rescue over a single weekend; a Swiss court subsequently ruled the AT1 write-off unlawful (Nov 2025, DLA Piper), and US bondholders are suing Switzerland (2025-26) — the constraint's price is still being litigated three years later"
     }
   ],
-  "constraints": [],
   "credibility": {
-    "overall": 0.6
+    "overall": 0.50,
+    "by_domain": {
+      "day_to_day_market_making_and_correspondent_banking": 0.80,
+      "crisis_resolution_predictability_across_jurisdictions": 0.25,
+      "regulatory_capital_commitments": 0.65
+    }
   },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-BANK_GSIB-bootstrap"
+  "deception_prior": 0.25,
+  "stated_vs_revealed": [
+    {
+      "stated": "G-SIBs are governed by a harmonised, FSB/Basel-coordinated global resolution framework (TLAC, single-point-of-entry) implying broadly consistent treatment of a failing systemic bank regardless of jurisdiction.",
+      "revealed": "In the March 2023 turmoil, the US, Switzerland, EU and UK each acted unilaterally and diverged sharply: the US ring-fenced its systemic-risk-exception deposit guarantee to US-chartered deposits only (funded domestically); Switzerland unilaterally inverted the creditor waterfall to wipe AT1 before equity; the EU and UK immediately and publicly repudiated the Swiss approach for their own jurisdictions. Total assets involved exceeded $1 trillion across the episode (BIS FSI, 2023).",
+      "delta": "Very large. 'Merged, harmonised, single global banking system' is the stated frame; 'four separate national actors making incompatible legal decisions within the same fortnight' is the revealed one. This directly confirms the Cartographer's hypothesis that the merged-actor treatment fails exactly when it matters most.",
+      "sources": ["https://www.bis.org/fsi/fsisummaries/exsum_23912.htm", "https://www.bankofengland.co.uk/news/2023/march/boe-statement-uk-creditor-hierarchy", "https://www.financeasia.com/article/ubs-credit-suisse-merger-leads-to-17-billion-at1-bond-wipeout/483723"]
+    }
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "dependencies": [
+    {"on": "CB_US", "type": "lender_of_last_resort/swap_lines", "strength": 0.6},
+    {"on": "ST_US", "type": "implicit_sovereign_backstop_and_regulation", "strength": 0.6},
+    {"on": "EXCH_CLEAR", "type": "settlement_and_clearing_access", "strength": 0.5},
+    {"on": "ST_EU", "type": "single_point_of_entry_regulation_EU_subsidiaries", "strength": 0.4}
+  ],
+  "tripwires": [
+    {"if": "a G-SIB faces an acute solvency or deposit-run event", "then": "within days, model this as N separate national actors (US/EU/UK/JP/CN legal entities), not one merged bank — assume no automatic cross-border backstop and a real possibility that home-jurisdiction creditor hierarchy is overridden unilaterally (per the Swiss AT1 precedent), as it was in Mar 2023"},
+    {"if": "a national regulator forces a bail-in that deviates from the jurisdiction's own stated resolution hierarchy", "then": "expect years of cross-border litigation (US investors suing a foreign sovereign/regulator) and a lasting repricing of that instrument class globally — the Credit Suisse AT1 market took until UBS's Jan 2026 return issuance to normalise, nearly 3 years later"},
+    {"if": "correspondent-banking de-risking accelerates in any single G-SIB's network (client offboarding in frontier/sanctioned corridors)", "then": "treat this as a quiet, deniable, commercially-justified financial-exclusion channel rather than formal sanctions enforcement — it moves faster and is harder to observe than legislated sanctions"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "Direct evidence that the FSB's post-2023 work (Basel Committee's 2024 G-SIB assessment methodology update, ongoing 2026 follow-up) has actually produced a binding, tested cross-border backstop commitment — as opposed to only supervisory-cooperation language — would meaningfully raise confidence that a merged treatment could hold in a future crisis. Absent that, the split-under-stress finding should be treated as durable."
 }

@@ -1,54 +1,92 @@
 {
   "id": "INS_RE",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.30,
+    "resources": 0.30,
+    "autonomy": 0.20,
+    "legitimacy": 0.10,
+    "relative_rank": 0.10
   },
-  "discount_rate": 0.333,
+  "discount_rate": 0.28,
+  "horizon_driver": "annual treaty renewal cycle (1 April / 1 June / 1 July) plus quarterly solvency reporting under Solvency II / Swiss Solvency Test; multi-year catastrophe-bond and retro programmes exist but pricing power resets yearly",
   "survival_threshold": 0.25,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "resources": 0.65,
+    "security": 0.70,
+    "legitimacy": 0.40,
+    "autonomy": 0.55,
+    "rank": 0.60,
+    "liquidity": 0.70
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true,
+     "note": "maintain current war-risk zone list and premium schedule"},
+    {"action": "settle", "cost": 0.10, "reversible": true,
+     "note": "re-enter/extend cover for a contested corridor, e.g. facility-backed cover like the Ukraine 'Unity' scheme"},
+    {"action": "escalate", "cost": 0.15, "reversible": false,
+     "note": "declare a zone uninsurable / withdraw war-risk cover — slow and costly to reverse once a market exits, since underwriting capacity and broker relationships take renewal cycles to rebuild"}
+  ],
+  "constraints": [
+    {"action": "coordinated_coal_or_fossil_exit", "type": "hard",
+     "cost": 999,
+     "source": "Net-Zero Insurance Alliance collapsed Mar-Apr 2023 after Munich Re, Zurich, Hannover Re and Swiss Re exited citing 'material antitrust risks' (Norton Rose Fulbright advice) — https://www.cadwalader.com/cwt-climate/index.php?eid=216&nid=50",
+     "breaks_under": "explicit antitrust safe-harbour from regulators for coordinated underwriting exclusions — has not occurred"},
+    {"action": "individual_fossil_fuel_underwriting_pullback", "type": "performative",
+     "cost": 0.15,
+     "source": "insurers collectively still earn ~$21.25bn/yr underwriting coal, oil and gas; only Aviva, Generali, Allianz, Hannover Re, Munich Re and Talanx have stopped new oil & gas extraction cover 'without major exceptions' — https://www.energymonitor.ai/finance/risk-management/insurers-double-down-on-fossil-fuel-projects-despite-record-climate-disaster-payouts/",
+     "breaks_under": "profit opportunity in a hardening fossil-asset market, or reputational cost of continuing exceeds the premium earned"},
+    {"action": "underwrite_a_route_below_actuarial_price", "type": "priced",
+     "cost": 0.20,
+     "source": "2026 treaty renewals saw ~5% average price declines across Munich Re/Swiss Re/Hannover Re despite the Iran war, because nat-cat losses were low — https://www.insurancejournal.com/news/international/2026/04/02/864470.htm",
+     "breaks_under": "abundant reinsurance capacity and low recent claims experience push underwriting discipline aside in favour of volume growth"}
+  ],
+  "credibility": {
+    "overall": 0.55,
+    "by_domain": {
+      "pricing_risk_accurately": 0.85,
+      "claims_payment": 0.70,
+      "climate_and_ESG_commitments": 0.20
+    }
+  },
+  "deception_prior": 0.35,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Founding members of the Net-Zero Insurance Alliance (2021) pledged to transition underwriting portfolios to net zero by 2050 and to restrict new fossil-fuel underwriting.",
+      "revealed": "NZIA lost most members within two years (Munich Re, Zurich, Hannover Re, Swiss Re all exited by April 2023 citing antitrust exposure); insurers still collect roughly $21.25bn/year underwriting coal, oil and gas, and only a handful have stopped new oil & gas extraction cover outright.",
+      "delta": "Climate commitments were performative once they threatened to constrain revenue or invite antitrust liability; genuine constraint is legal, not moral.",
+      "sources": [
+        "https://www.cadwalader.com/cwt-climate/index.php?eid=216&nid=50",
+        "https://www.energymonitor.ai/finance/risk-management/insurers-double-down-on-fossil-fuel-projects-despite-record-climate-disaster-payouts/"
+      ]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "War-risk pricing is presented as neutral, data-driven actuarial assessment of conflict probability (Joint War Committee zone designations).",
+      "revealed": "Pricing is asymmetric and selectively responsive: Hormuz/Bab-el-Mandeb premiums spiked from ~0.3% to as high as 3% of vessel value in 2026 as the Iran war escalated, and Black Sea premiums surged 250% after ship attacks in late 2025 — but a comparable escalation in Taiwan Strait naval activity (joint China-Russia exercise, SLBM test, law-enforcement operations) 'produced almost no change in insurance pricing at all,' per market analysis calling this 'pricing war at Hormuz and peace at Taiwan.'",
+      "delta": "The market is a genuine live conflict-probability signal for theatres with recent kinetic events, but is not yet forward-pricing Taiwan risk — meaning INS_RE's own pricing understates that specific tail risk, likely because the JWC/Lloyd's syndicate base has thinner information edge on PLA intent than on observed Houthi/Russian strikes.",
+      "sources": [
+        "https://www.spglobal.com/energy/en/news-research/latest-news/shipping/072226-middle-east-shipping-insurance-costs-rise-on-hormuz-risks-marsh",
+        "https://www.insurancejournal.com/news/international/2025/12/03/849771.htm",
+        "https://midasanalytics.ai/market-pulse/asia-hormuz-taiwan-war-risk-repricing-gap-t3k8"
+      ]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-INS_RE-bootstrap"
+  "dependencies": [
+    {"on": "ST_ENTREPOT", "type": "legal_and_arbitration_venue (Lloyd's/London market, Bermuda, Zurich)", "strength": 0.6},
+    {"on": "CORP_COMMOD", "type": "insured physical cargo and freight flows", "strength": 0.5},
+    {"on": "ST_US", "type": "sanctions regime that creates/removes insurable counterparty risk", "strength": 0.4}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "indicative war-risk premium on a strait exceeds ~3x its pre-crisis baseline (e.g. >1% of hull value on a route quoted <0.3% a quarter earlier)",
+     "then": "shipowners reroute or cancel voyages and transit volume falls 10-20%+ within weeks — the route is functionally closed without a single additional warship",
+     "source": "https://midasanalytics.ai/market-pulse/asia-hormuz-taiwan-war-risk-repricing-gap-t3k8; Taiwan Strait Pelosi-visit 2022 precedent"},
+    {"if": "quarterly major-loss ratio falls well below the reinsurer's own planning assumption for two consecutive quarters (as in Q1 2026: Munich Re losses at 3.5% of net revenue vs 18% planned)",
+     "then": "the following treaty renewal prices soften materially (~5%) regardless of standing geopolitical risk (Iran war ongoing) — capacity and recent-loss experience dominate pricing over forward-looking conflict risk",
+     "source": "https://www.insurancejournal.com/news/international/2026/04/02/864470.htm"},
+    {"if": "a facility-backed war-risk scheme (e.g. Ukraine 'Unity') is withdrawn or expires without renewal",
+     "then": "premiums on that corridor jump toward unsubsidized market levels within one renewal cycle and effective insured capacity drops sharply, since private capacity alone has shown reluctance to re-enter without a backstop",
+     "source": "https://sb-malakut.com.ua/en/what-international-war-risk-insurance-and-reinsurance-programs-are-operating-in-ukraine/"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "A sustained (multi-quarter) repricing of Taiwan Strait war-risk premia toward Hormuz-like multiples would mean the market has started forward-pricing that theatre, materially changing the value of INS_RE pricing as an early-warning instrument for that specific conflict. Also watch for any regulator granting an antitrust exemption for coordinated fossil-fuel underwriting exclusion — would falsify the 'climate pledges are performative under legal constraint' finding."
 }

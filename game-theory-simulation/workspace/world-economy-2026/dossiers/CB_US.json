@@ -1,54 +1,82 @@
 {
   "id": "CB_US",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.15,
+    "resources": 0.25,
+    "autonomy": 0.30,
+    "legitimacy": 0.20,
+    "relative_rank": 0.10
   },
-  "discount_rate": 0.25,
-  "survival_threshold": 0.25,
+  "discount_rate": 0.15,
+  "horizon_driver": "Chair Powell's term as Chair runs to May 2026 (his Board seat to Jan 2028); Governor terms are formally 14 years but the Aug 2025 Cook removal attempt and the narrow June 2026 SCOTUS ruling (Trump v. Cook) show the effective horizon on any given seat is now shorter and contingent on litigation, not statute alone; FOMC operates on an 8-meeting annual cycle",
+  "survival_threshold": 0.20,
   "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
+    "resources": 0.70,
+    "security": 0.70,
+    "legitimacy": 0.55,
+    "autonomy": 0.55,
+    "rank": 0.85,
+    "liquidity": 0.80
   },
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.05, "reversible": true,
+     "description": "e.g. swap-line reaffirmation, standing repo facility usage, ending/pausing QT — demonstrated Oct-Dec 2025"},
+    {"action": "escalate", "cost": 0.10, "reversible": true,
+     "description": "e.g. rate hikes, resumed balance-sheet runoff, tighter collateral haircuts"}
+  ],
+  "constraints": [
+    {"action": "hold rates for growth despite above-target inflation", "type": "priced", "cost": 0.25,
+     "source": "the Sept/Oct/Dec 2025 cuts proceeded amid tariff-driven price pressure with core inflation still above the 2% target, over hawkish dissents (Schmid voted for no cut in Oct and Dec 2025) and dovish dissents pushing further (Miran wanted 50bp in Sept, Oct, Nov and Dec 2025)",
+     "breaks_under": "core PCE re-accelerating clearly above ~3% for two consecutive quarters while unemployment is flat or falling — at that point the hawks retake the majority"},
+    {"action": "engage in outright fiscal financing / debt monetization", "type": "priced", "cost": 0.30,
+     "source": "the Oct 2025 decision to end QT (effective Dec 1, 2025) was framed and executed as a financial-stability/reserve-adequacy response to repo-market stress, not as fiscal accommodation, and reserves ($2.89tn as of Nov 19, 2025) remained above the ~$2.5-2.7tn stress threshold at the time of the decision",
+     "breaks_under": "reserves falling into the $2.5-2.7tn band despite the QT halt — expect outright balance-sheet expansion, not just runoff cessation, if that threshold is crossed"},
+    {"action": "accept an executive-installed FOMC voting majority", "type": "performative", "cost": 0.15,
+     "source": "Stephen Miran was appointed to the Board/FOMC in 2025 while reportedly retaining a leave-of-absence relationship to the White House Council of Economic Advisers, and cast the most dovish dissent at every 2025 meeting he sat, aligned with the White House's stated rate-cut preference",
+     "breaks_under": "already broken in substance at the level of a single seat; the institutional norm ('governors act independently once seated') persists rhetorically but the personnel channel is demonstrably porous"}
+  ],
+  "credibility": {
+    "overall": 0.65,
+    "by_domain": {
+      "monetary_mechanics_and_communication": 0.75,
+      "independence_from_executive_pressure": 0.45,
+      "lender_of_last_resort_and_financial_stability_response": 0.80
+    }
+  },
+  "deception_prior": 0.20,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "The Fed operates independently of the White House; appointments and votes are insulated from political pressure ('we don't discuss politics').",
+      "revealed": "A sitting President attempted the first-ever for-cause removal of a Fed Governor (Lisa Cook) in Aug 2025; the Supreme Court blocked it 5-4 in June 2026 (Trump v. Cook) but solely on due-process/procedural grounds — Chief Justice Roberts's majority opinion held the President 'failed to afford Cook the procedural protections to which she was entitled by statute,' explicitly leaving the door open to a compliant for-cause process. Separately, Governor Stephen Miran, appointed in 2025 while tied to the White House CEA, has cast the most dovish dissent (pushing 50bp cuts) at every 2025 meeting, aligned with White House preferences.",
+      "delta": "Independence held this specific test, but on a technicality rather than a substantive bar, and the appointment channel already shows a working example of alignment between a sitting governor's votes and White House preference. Personnel is policy here, exactly as the general research heuristic predicts.",
+      "sources": ["https://www.scotusblog.com/2026/01/supreme-court-appears-inclined-to-prevent-trump-from-firing-fed-governor/",
+                  "https://www.aljazeera.com/economy/2026/6/29/supreme-court-blocks-trumps-bid-to-fire-us-federal-reserves-lisa-cook",
+                  "https://www.cnbc.com/2025/10/29/there-were-two-fed-dissenters-miran-wanted-a-bigger-cut-and-schmid-voted-for-no-easing-at-all.html",
+                  "https://www.cnbc.com/2025/12/10/fed-interest-rate-decision-december-2025-.html"]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Balance-sheet normalization (QT) follows a steady, pre-announced, rules-based glide path set independent of short-term market conditions.",
+      "revealed": "QT was terminated abruptly at the Oct 2025 FOMC meeting, effective Dec 1 2025 — earlier than markets expected — explicitly to relieve repo-market and bank-reserve strain as money-market funds drained the ON RRP facility and repo rates stayed elevated even after the announcement.",
+      "delta": "The 'mechanical, rules-based' framing gives way to discretionary financial-stability intervention exactly when funding markets get tight — a reaction function that is fast and effective (credibility 0.80 in that domain) but not the pre-committed schedule the stated framing implies.",
+      "sources": ["https://www.bankingexchange.com/news-feed/item/10480-treasury-market-resilience-and-the-early-end-to-balance-sheet-runoff",
+                  "https://realeconomy.rsmus.com/fed-cuts-its-policy-rate-and-sets-end-to-quantitative-tightening/"]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-CB_US-bootstrap"
+  "dependencies": [
+    {"on": "ST_US", "type": "appointment_and_removal_litigation_exposure", "strength": 0.60},
+    {"on": "BANK_GSIB", "type": "repo_and_reserve_transmission_channel", "strength": 0.40},
+    {"on": "EXCH_CLEAR", "type": "settlement_and_collateral_plumbing", "strength": 0.30}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "a Fed Board vacancy opens (resignation, expiration, or a future for-cause removal that follows the due-process procedure the Court specified in Trump v. Cook) before the 2026 midterms",
+     "then": "expect a nominee chosen explicitly to shift the FOMC voting majority toward the White House's preferred rate path, mirroring the Miran pattern"},
+    {"if": "reserves fall back toward the $2.5-2.7tn critical band (from $2.89tn as of Nov 19 2025) even after the Dec 2025 QT halt",
+     "then": "the Fed resumes outright balance-sheet expansion / leans harder on the standing repo facility within weeks, regardless of any 'ample reserves' communication in place at the time"},
+    {"if": "core PCE re-accelerates above ~3% for two consecutive quarters while unemployment is also rising (a tariff-driven stagflation combination)",
+     "then": "expect open, public three-way conflict on the FOMC between the dovish appointee bloc, hawkish regional-president dissenters, and the core Board — sharply raising the uncertainty on any single forecast of 'what the Fed will do'"}
+  ],
+  "confidence": "medium-high",
+  "what_would_change_my_mind": "Policy mechanics are well sourced from public FOMC statements, vote records, and dissents, and the financial-stability reaction function has now been tested live (Oct-Dec 2025 QT reversal), which raises confidence there. The genuine unresolved unknown is legal, not empirical: the Supreme Court's June 2026 opinion in Trump v. Cook explicitly left open what a statute-compliant for-cause removal would require, so the independence-from-executive-pressure score (0.45) should be revisited the moment any future removal attempt is filed with proper procedural notice — that single case would resolve the biggest open question in this dossier."
 }

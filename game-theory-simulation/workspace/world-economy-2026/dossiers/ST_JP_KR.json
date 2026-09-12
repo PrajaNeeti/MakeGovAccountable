@@ -1,54 +1,76 @@
 {
   "id": "ST_JP_KR",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
+    "survival": 0.25,
     "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "autonomy": 0.15,
+    "legitimacy": 0.2,
+    "relative_rank": 0.1
   },
-  "discount_rate": 0.25,
-  "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
+  "discount_rate": 0.18,
+  "horizon_driver": "Japan: frequent PM turnover within a 4yr Diet term; Korea: single non-renewable 5-year presidential term (Lee admin since June 2025) — both shorter than the multi-decade demographic and alliance structures that actually bind them",
+  "survival_threshold": 0.3,
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.08, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
+  ],
+  "constraints": [
+    {"action": "abrogate_US_alliance_or_host_US_forces_agreements", "type": "hard",
+     "cost": null,
+     "source": "US-Japan Security Treaty / US-ROK Mutual Defense Treaty, decades of interoperability and nuclear-umbrella dependence",
+     "breaks_under": "not observed to break; both states have instead increased defense spending and alliance coordination since 2022"},
+    {"action": "fully_comply_with_US_China_chip_export_controls_at_cost_of_China_revenue", "type": "priced",
+     "cost": 0.3,
+     "source": "Samsung/SK Hynix China-based fab revenue dependence",
+     "breaks_under": "already bending: Korea's chip exports to China surged 243% YoY in May 2026 on AI-driven memory demand even as the two firms operate China fabs under US-granted (and in Sept 2025, briefly revoked) annual license exemptions"},
+    {"action": "reverse_demographic_decline", "type": "hard",
+     "cost": null,
+     "source": "decades of sub-replacement fertility in both countries; policy responses (childcare subsidies, immigration liberalization) have not reversed the trend",
+     "breaks_under": "does not break; treat as structural physics, not a strategic choice"}
+  ],
+  "credibility": {
+    "overall": 0.6,
+    "by_domain": {
+      "alliance_commitment_reliability": 0.8,
+      "export_control_compliance": 0.55,
+      "demographic_policy_delivery": 0.2,
+      "supply_chain_derisking_from_China": 0.45
+    }
+  },
+  "deception_prior": 0.25,
+  "stated_vs_revealed": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "South Korea is aligned with the US-led effort to contain Chinese access to advanced chip technology.",
+      "revealed": "Korea's chip exports to China surged 243% YoY in May 2026, driven by Beijing's AI push and DRAM shortages, and Samsung/SK Hynix continue operating China-based memory fabs under annual US license exemptions (revoked briefly Sept 2025, restored in 2026) — commercial memory-chip demand from China is currently overriding the containment posture wherever license terms allow it.",
+      "delta": "Alignment is compliance-bounded, not preference-based: Korea follows the letter of US export licensing while maximizing whatever commercial space remains within it.",
+      "sources": ["https://www.trendforce.com/news/2026/06/03/news-south-koreas-chip-exports-to-china-surge-243-yoy-in-may-as-beijings-ai-push-fuels-memory-demand/", "https://www.koreatimes.co.kr/amp/economy/20260604/chinas-ai-chip-demand-pushes-korea-into-rare-surplus-with-top-trade-partner", "https://eastasiaforum.org/2026/03/11/us-chip-export-controls-have-cooled-down/"]
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "Japan is pursuing 'China+1' supply-chain derisking as a strategic choice to reduce vulnerability.",
+      "revealed": "Japan's export share and competitiveness versus China have simply eroded on commercial grounds: South Korea and Taiwan each surpassed Japan in total exports for the first time in H1 2026, and Japan's exports to China declined post-RCEP while Korea's grew — this looks more like competitive displacement than deliberate strategic derisking.",
+      "delta": "The 'derisking' narrative partly launders a loss of competitiveness that has separate commercial causes (memory/AI-chip specialization gap versus Korea and Taiwan).",
+      "sources": ["https://asia.nikkei.com/business/tech/semiconductors/south-korea-taiwan-top-japan-in-exports-for-first-time-on-ai-boom", "https://eastasiaforum.org/2026/07/25/south-koreas-semiconductor-boom-risks-flatlining-under-us-china-pressure/"]
     },
     {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "stated": "South Korea's Lee administration (since June 2025) is normalizing relations with China without weakening the US alliance.",
+      "revealed": "Seoul is pursuing exactly that dual-track: improved China relations (post-THAAD thaw) run concurrently with an unchanged US alliance structure and unchanged THAAD deployment — a genuine both-sides hedge rather than a realignment in either direction.",
+      "delta": "Small but real: this is the beginning of a divergence from Japan, which has been more assertively aligned with US tool-export controls (ASML/Tokyo Electron-adjacent policy) — the Cartographer's flagged split condition on China exposure is starting to show even absent a Taiwan-conflict spike.",
+      "sources": ["https://time.com/7345772/china-japan-south-korea-relations-export-controls-taiwan/"]
     }
   ],
-  "constraints": [],
-  "credibility": {
-    "overall": 0.6
-  },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-ST_JP_KR-bootstrap"
+  "dependencies": [
+    {"on": "ST_US", "type": "security_guarantee_and_export_license_authority", "strength": 0.75},
+    {"on": "ST_CN", "type": "chip_and_memory_export_market_and_fab_operations", "strength": 0.5},
+    {"on": "CORP_SEMI", "type": "national_champions_(Samsung,_SK_Hynix,_Tokyo_Electron)_as_chokepoint_holders", "strength": 0.6},
+    {"on": "ST_GULF", "type": "LNG_supply", "strength": 0.4}
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "tripwires": [
+    {"if": "US-China Taiwan-conflict risk indicators rise materially (e.g. a sustained PLA quarantine/blockade exercise)", "then": "Japan tightens tool and materials export controls faster and more visibly than Korea within roughly one quarter, producing an observable policy divergence — this is the trigger condition for splitting the merged actor"},
+    {"if": "the US revokes Samsung/SK Hynix China-fab license exemptions again without renewal (as briefly occurred Sept 2025)", "then": "Korea faces an acute forced choice between US alliance compliance and China revenue, testing the hedge in a way Japan (with less China-fab exposure) does not face equally"},
+    {"if": "the Bank of Japan continues rate normalization and triggers a yen-carry-trade unwind", "then": "both Japan and Korea face capital-repatriation shocks given their creditor-nation asset bases (Japan recently slipped to the world's #3 net creditor behind Germany and China as of 2025 data)"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "A clean, sustained divergence in formal export-control policy between Tokyo and Seoul (not just commercial outcomes) over 2+ quarters would justify actually splitting this into ST_JP and ST_KR. Current evidence shows commercial/trade divergence (Korea's China chip surplus vs Japan's export erosion) but not yet a clear policy-level split — recommend keeping merged but flagging the China-exposure gap as an explicit watch item rather than the Taiwan-conflict-only trigger the Cartographer specified."
 }

@@ -1,54 +1,70 @@
 {
   "id": "NBFI_CREDIT",
   "as_of": "2026-09-12",
-  "confidence": "low",
-  "quality_note": "STUB \u2014 no interest-researcher pass. Uniform canonical weights and flat placeholders throughout except discount_rate, which is derived from the Cartographer's time_horizon_years. Illustrative of the machinery only.",
   "utility_weights": {
-    "survival": 0.3,
-    "resources": 0.3,
-    "autonomy": 0.2,
-    "legitimacy": 0.15,
-    "relative_rank": 0.05
+    "survival": 0.20,
+    "resources": 0.35,
+    "autonomy": 0.25,
+    "legitimacy": 0.10,
+    "relative_rank": 0.10
   },
-  "discount_rate": 0.2,
-  "survival_threshold": 0.25,
-  "state": {
-    "resources": 0.5,
-    "security": 0.5,
-    "legitimacy": 0.5,
-    "autonomy": 0.5,
-    "rank": 0.5,
-    "liquidity": 0.5
-  },
+  "discount_rate": 0.12,
+  "horizon_driver": "Fund vintage/investment-period structure (typically 5-10yr closed-end) plus LP fundraising cycles (~3-5yr) and GP carry-realisation timelines set the true horizon; but growing use of evergreen/interval retail vehicles with periodic redemption windows is compressing the effective horizon toward the liquidity terms offered to end-investors, which the underlying assets cannot actually support.",
+  "survival_threshold": 0.20,
   "capabilities": [
+    {"action": "hold", "cost": 0.05, "reversible": true},
+    {"action": "settle", "cost": 0.10, "reversible": true},
+    {"action": "escalate", "cost": 0.15, "reversible": false}
+  ],
+  "constraints": [
     {
-      "action": "hold",
-      "cost": 0.1,
-      "reversible": true
+      "action": "delay_recognition_of_portfolio-company_losses_via_mark_discretion",
+      "type": "priced",
+      "cost": 0.15,
+      "source": "IMF Global Financial Stability Report (Oct 2025) explicitly warned that valuation uncertainty 'could incentivize fund managers to delay the realization of losses,' and that insurers holding complex, leveraged private-credit instruments could face larger-than-expected losses in a stress scenario",
+      "breaks_under": "forced external re-marking via a redemption gate, a bankruptcy/restructuring event, or third-party rating-agency scrutiny — Fitch reported the US private-credit default rate hit a record 6.0% in April 2026, which mechanically forces marks that internal discretion had been delaying"
     },
     {
-      "action": "settle",
-      "cost": 0.1,
-      "reversible": true
-    },
-    {
-      "action": "escalate",
-      "cost": 0.1,
-      "reversible": true
+      "action": "rely_on_inflated_private_credit_ratings_for_capital_relief",
+      "type": "priced",
+      "cost": 0.20,
+      "source": "NAIC's Capital Markets Bureau found systemic inflation in private letter ratings on a 2023 sample of 109 privately-rated credit instruments held by insurers, allowing favourable regulatory capital treatment despite underlying risk (NAIC Insurance Topics: Private Credit; BigGo Finance, 2025-26 coverage)",
+      "breaks_under": "NAIC's Statutory Accounting Principles Working Group has already adopted revised annual-filing requirements effective year-end 2026 to force better disclosure — the constraint is actively being priced out by regulators in real time"
     }
   ],
-  "constraints": [],
   "credibility": {
-    "overall": 0.6
+    "overall": 0.38,
+    "by_domain": {
+      "AUM/fundraising_growth_reporting": 0.65,
+      "loss_recognition/mark_honesty": 0.25,
+      "return_claims_through_a_full_cycle": 0.35
+    }
   },
-  "deception_prior": 0.2,
-  "monitoring": 0.5,
-  "private_type": {},
-  "stated_vs_revealed": [],
-  "dependencies": [],
-  "tripwires": [],
-  "assumption_ids": [
-    "STUB-NBFI_CREDIT-bootstrap"
+  "deception_prior": 0.40,
+  "stated_vs_revealed": [
+    {
+      "stated": "Private credit is marketed as a lower-volatility, 'patient capital' alternative to public leveraged loans/high-yield — its infrequent marking is presented as a reflection of genuinely illiquid, hold-to-maturity assets rather than a source of hidden risk, and default/loss rates are framed as structurally lower than syndicated markets due to tighter covenants and direct lender-borrower relationships.",
+      "revealed": "The US private-credit default rate hit a record 6.0% in April 2026 (Fitch Ratings, May 2026); a ~$265bn market dislocation was underway by March 2026 described in the financial press as a 'meltdown' hitting Blackstone, KKR, Apollo, Ares and Blue Owl; the BIS's March 2026 Quarterly Review flagged AI-driven disruption concentrating losses in software-heavy portfolios alongside intensifying investor redemptions at retail-facing funds; the IMF separately confirmed the mark-discretion problem is a live, named policy concern, not a hypothetical one.",
+      "delta": "Large and now realised, not merely theoretical. The Cartographer's framing of NBFI_CREDIT as 'fastest-growing, least-observed' credit was correct in 2024-25 and by 2026 the invisibility itself became the story once losses had to surface.",
+      "sources": ["https://www.fsb.org/uploads/P060526.pdf", "https://www.bis.org/publ/qtrpdf/r_qt2603.pdf", "https://www.investmentexecutive.com/news/fsb-warns-on-private-credit/"]
+    },
+    {
+      "stated": "Bank interconnection with private credit is limited and well-monitored, per FSB's own May 2026 report finding banks' direct lending to private-credit funds under 0.5% of total bank assets in the five jurisdictions sampled.",
+      "revealed": "The same FSB report simultaneously flags major data gaps, inconsistent cross-jurisdiction definitions, and limited fund/loan-level information — meaning the reassuring 0.5% figure covers only the specific, directly-measurable bank-lending channel and does not capture NAV-lending, GP-backed leverage, insurer ownership (~35% of North American insurer portfolios per IMF), or fund-level leverage structures the report itself says it cannot yet see.",
+      "delta": "Moderate — the reassurance is real but narrower than its headline framing suggests; this is itself evidence for the Cartographer's 'least-observed' framing, sourced directly from the regulator that is trying and largely failing to observe it.",
+      "sources": ["https://www.fsb.org/2026/05/report-on-vulnerabilities-in-private-credit/", "https://www.institutionalinvestor.com/article/imf-raising-alarm-insurance-investments-private-credit"]
+    }
   ],
-  "what_would_change_my_mind": "a real interest-researcher pass with sourced flows"
+  "dependencies": [
+    {"on": "AM_ACTIVE", "type": "LP_capital_and_insurer_general_account_funding", "strength": 0.6},
+    {"on": "BANK_GSIB", "type": "warehouse_lines_and_NAV_lending", "strength": 0.3},
+    {"on": "CB_US", "type": "policy_rate_sets_relative_yield_advantage_over_syndicated_credit", "strength": 0.4}
+  ],
+  "tripwires": [
+    {"if": "a top-5 private-credit manager faces a wave of LP redemption requests it cannot meet within stated windows", "then": "expect gates/suspensions, forced asset sales at a discount to book marks, and a rapid, public repricing event that had been invisible until the gate — the March 2026 episode is the template"},
+    {"if": "US private-credit default rates continue rising past the April 2026 record of 6.0%", "then": "insurer capital positions tied to private-credit and BDC holdings come under NAIC/EIOPA scrutiny given the ~35% NA insurer portfolio share, transmitting stress into AM_ACTIVE"},
+    {"if": "a systemically large NAV-lending or GP-leverage exposure surfaces that the FSB's bank-exposure data (<0.5% of bank assets) did not capture", "then": "treat this as confirmation that the FSB's own headline reassurance figure materially understates true bank interconnection"}
+  ],
+  "confidence": "medium",
+  "what_would_change_my_mind": "Loan-level or fund-level regulatory data (rather than manager-reported AUM and aggregate default rates) on actual realized losses through the 2026 stress episode would let me replace the current qualitative 'meltdown' framing with a quantified loss distribution; the FSB and NAIC both say this data does not yet exist in usable form."
 }
